@@ -1,0 +1,7 @@
+﻿Azure Active Directory-
+https://stackoverflow.com/questions/40301349/azure-ad-identity-doesnt-seem-to-provide-email-for-auto-linking-umbraco-user
+https://our.umbraco.org/forum/developers/api-questions/73317-auto-create-and-link-backoffice-account
+http://issues.umbraco.org/issue/U4-7121
+
+Umbraco 7.5
+https://live4coding.wordpress.com/2014/08/01/using-role-based-authentication-in-umbraco/

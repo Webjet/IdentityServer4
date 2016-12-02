@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Register>
+@using Umbraco.Web.Security
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+@CurrentPage.messageBox
+
+@{
+    var loginstatus = @Members.GetCurrentLoginStatus();
+    var member = @Members.GetCurrentMember();
+
+}
+
+@loginstatus;
+@member;
+
+
+<p>
+    @{
+        if (umbraco.library.IsLoggedOn())
+        {
+            var m = Membership.GetUser();
+            // var m = ContentModels.Member.GetCurrentMember();
+
+            //  var group = System.Web.Security.Roles.GetRolesForUser(m.UserName);
+            @m;
+        }
+    }
+    
+
+</p>
