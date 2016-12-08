@@ -67,15 +67,16 @@ namespace AdminPortal
                 RedirectUri = postLoginRedirectUri,
                
             };
-            
+
+            adOptions.ForUmbracoBackOffice(style, icon);
+            adOptions.Caption =caption;
+
             //Need to set the auth tyep as the issuer path
             adOptions.AuthenticationType = string.Format(
                 CultureInfo.InvariantCulture,
                 "https://sts.windows.net/{0}/",
                 issuerId);
 
-            adOptions.ForUmbracoBackOffice(style, icon);
-            adOptions.Caption = caption;
             app.UseOpenIdConnectAuthentication(adOptions);            
         }    
         

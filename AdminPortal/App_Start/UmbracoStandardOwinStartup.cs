@@ -26,6 +26,7 @@ namespace AdminPortal
     {
         private readonly static string clientId = ConfigurationManager.AppSettings["ida:ClientId"]; // registered application id
         private readonly static string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance"]; // https://login.microsoftonline.com/{0}
+        private readonly static string tenantURI = ConfigurationManager.AppSettings["ida:TenantURI"]; 
         private readonly static string tenantId = ConfigurationManager.AppSettings["ida:TenantId"]; //Webjet AD endpoint
         private readonly static string authority = aadInstance + tenantId;
         private readonly static string loginUrl = ConfigurationManager.AppSettings["ida:PostLoginUrl"];
@@ -33,7 +34,7 @@ namespace AdminPortal
         public override void Configuration(IAppBuilder app)
         {
          base.Configuration(app);
-            app.ConfigureBackOfficeAzureActiveDirectoryAuth(aadInstance,tenantId, clientId, loginUrl, new Guid(tenantId));
+            app.ConfigureBackOfficeAzureActiveDirectoryAuth(aadInstance, tenantURI, clientId, loginUrl, new Guid(tenantId));
 
 
 
