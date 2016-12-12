@@ -71,3 +71,6 @@ C:\SourceTree\AdminPortal\AdminPortal.Tests\bin\Debug\Microsoft.Owin.Security.Op
 C:\SourceTree\AdminPortal\AdminPortal.Tests\bin\Debug\Umbraco.IdentityExtensions.pdb
 C:\SourceTree\AdminPortal\AdminPortal.Tests\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
 C:\SourceTree\AdminPortal\AdminPortal.Tests\bin\Debug\Microsoft.IdentityModel.Protocol.Extensions.xml
+C:\SourceTree\AdminPortal_GIT\AdminPortal.Tests\obj\Debug\AdminPortal.Tests.csprojResolveAssemblyReference.cache
+C:\SourceTree\AdminPortal_GIT\AdminPortal.Tests\obj\Debug\AdminPortal.Tests.dll
+C:\SourceTree\AdminPortal_GIT\AdminPortal.Tests\obj\Debug\AdminPortal.Tests.pdb
