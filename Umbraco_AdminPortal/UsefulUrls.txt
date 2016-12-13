@@ -1,0 +1,56 @@
+﻿Hosted URL -
+http://localhost:88/umbraco
+
+*****************************************************************************************************************
+*****************************************************************************************************************
+
+Azure Active Directory-
+https://stackoverflow.com/questions/40301349/azure-ad-identity-doesnt-seem-to-provide-email-for-auto-linking-umbraco-user
+https://our.umbraco.org/forum/developers/api-questions/73317-auto-create-and-link-backoffice-account
+http://issues.umbraco.org/issue/U4-7121
+
+Active Directory Members Authentication via Umbraco
+https://our.umbraco.org/projects/developer-tools/active-directory-providers
+
+Umbraco 7.5
+https://live4coding.wordpress.com/2014/08/01/using-role-based-authentication-in-umbraco/
+
+
+//App settings for Webjet Azure Active Directory - 
+//Registered application: ADMIN PORTAL
+
+    <add key="ida:ClientId" value="3db9a8a5-3610-48b9-876e-242254fbcf57" />
+    <add key="ida:AppKey" value="rZ/8ukUfjZ5DVrJrG9A9klq9h82QJrYng0wGCnymj+4=" /> <!-- Key added from Azure active directory-->
+    <add key="ida:TenantId" value="5de0e68c-0afd-4a67-b089-31f168aa4ca0" /> 
+    <!--<add key="ida:AADInstance" value="https://login.microsoftonline.com/{0}" />-->
+    <add key="ida:AADInstance" value="https://login.windows.net/{0}" />
+    <add key="ida:PostLoginUrl" value="http://localhost:88/umbraco" />
+
+**********************************************************************************************************
+**********************************************************************************************************
+
+// Users and Group in mfreidgeimwebjet.com Azure Active Directory
+Premium: key
+In 2 years: Expires
+Xcqgb1d08hsgSNg3BT2kHkbncoxDLMDFuAwO2AOf81c=  :Value
+
+
+User - Kajal Bhatia
+Email - Kajal.Bhatia@mfreidgeimwebjetcom.onmicrosoft.com
+Directory Role - Global Administrator
+
+User - Test_SC1
+Email - test_sc1@mfreidgeimwebjetcom.onmicrosoft.com
+Password - Buxo9112
+Directory Role - User
+
+User - Test_PT1
+Email - test_pt1@mfreidgeimwebjetcom.onmicrosoft.com
+Password - Buxo5316
+Directory Role - Limited Administrator (Priviliged Role Administrator, User Administrator i.e. user management)
+
+*****************************************************************************************************************
+*****************************************************************************************************************
+
+Install-Package RB.ActiveDirectoryProviders:
+The Active Directory Providers package allows Umbraco developers to authenticate and authorise Umbraco Users and Members against an Active Directory instance.

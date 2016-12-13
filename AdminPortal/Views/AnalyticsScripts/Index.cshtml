@@ -1,0 +1,13 @@
+﻿@model WebApp_RoleClaims_DotNet.Models.PythonWebAPI
+
+@if (User.IsInRole("Admin") || User.IsInRole("Writer") || User.IsInRole("Approver"))
+{
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Views/AnalyticsScripts/GoogleBigQueryItinerary.html")))
+}
+@if (User.IsInRole("Observer"))
+{
+    <div style="float:left;padding-right:10px">Sorry!! you do not have access permission. Please contact Administrator for grant.</div>
+}
+
+    @*<% Response.WriteFile("~/Views/GoogleBigQueryItinerary.html"); %>*@
+
