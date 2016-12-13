@@ -1,19 +1,14 @@
-﻿using System.Web;
-using System.Web.Mvc;
-
-//The following libraries were added to this sample.
-using System;
+﻿//The following libraries were added to this sample.
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
-using System.Security.Claims;
-using System.Globalization;
+using System.Web;
+using System.Web.Mvc;
 
 //The following libraries were defined and added to this sample.
-using WebApp_RoleClaims_DotNet.Utils;
 
 
-namespace WebApp_RoleClaims_DotNet.Controllers
+namespace AdminPortal.Controllers
 {
     public class AccountController : Controller
     {

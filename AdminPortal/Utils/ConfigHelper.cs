@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 
-namespace WebApp_RoleClaims_DotNet.Utils
+namespace AdminPortal.Utils
 {
     public class ConfigHelper
     {

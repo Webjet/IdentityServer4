@@ -1,26 +1,16 @@
-﻿using Owin;
-using System;
-using System.Collections.Generic;
-
-//The following libraries were added to this sample.
-using System.Threading.Tasks;
-using System.Web;
+﻿//The following libraries were defined and added to this sample.
+using AdminPortal.Utils;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
-using Microsoft.Owin.Security;
-//The following libraries were defined and added to this sample.
-using WebApp_RoleClaims_DotNet.Utils;
-using System.Security.Claims;
-using Newtonsoft.Json;
+using Owin;
+using Microsoft.Owin.Host.SystemWeb;
 using System.Globalization;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net;
-using Microsoft.Azure.ActiveDirectory.GraphClient;
-using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
+//The following libraries were added to this sample.
+using System.Threading.Tasks;
 
 
-namespace WebApp_RoleClaims_DotNet
+namespace AdminPortal
 {
     public partial class Startup
     {

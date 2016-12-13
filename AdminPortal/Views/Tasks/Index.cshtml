@@ -27,7 +27,7 @@
             </div>
 
 
-            @foreach (WebApp_RoleClaims_DotNet.Models.Task task in (List<WebApp_RoleClaims_DotNet.Models.Task>)ViewData["tasks"])
+            @foreach (AdminPortal.Models.Task task in (List<AdminPortal.Models.Task>)ViewData["tasks"])
             {
                 <div class="row">
                     <div class="col-md-2">@task.TaskText</div>
@@ -35,7 +35,7 @@
                     {
                         <div class="col-md-2">
                             <select name="@task.TaskID">
-                                @foreach (string status in WebApp_RoleClaims_DotNet.Utils.Globals.Statuses)
+                                @foreach (string status in AdminPortal.Utils.Globals.Statuses)
                                 {
                                     if (status == task.Status)
                                     {

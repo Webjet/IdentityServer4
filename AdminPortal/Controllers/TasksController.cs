@@ -1,10 +1,9 @@
-﻿using System;
+﻿using AdminPortal.DAL;
+using System;
 using System.Web.Mvc;
-using WebApp_RoleClaims_DotNet.DAL;
-using WebApp_RoleClaims_DotNet.Utils;
 //The following libraries were defined and added to this sample.
 
-namespace WebApp_RoleClaims_DotNet.Controllers
+namespace AdminPortal.Controllers
 {
     public class TasksController : Controller
     {

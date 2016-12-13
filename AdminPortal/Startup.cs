@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
-using WebApp_RoleClaims_DotNet.Utils;
+using AdminPortal.Utils;
+using Microsoft.Owin.Host.SystemWeb;
 
-[assembly: OwinStartup(typeof(WebApp_RoleClaims_DotNet.Startup))]
+[assembly: OwinStartup(typeof(AdminPortal.Startup))]
 
-namespace WebApp_RoleClaims_DotNet
+namespace AdminPortal
 {
     public partial class Startup
     {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using WebApp_RoleClaims_DotNet.Models;
+using AdminPortal.Models;
 //using WebApp_RoleClaims_DotNet.Models;
 
-namespace WebApp_RoleClaims_DotNet.DAL
+namespace AdminPortal.DAL
 {
     public class TasksDbHelper
     {

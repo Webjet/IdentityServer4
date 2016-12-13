@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web;
 
-namespace WebApp_RoleClaims_DotNet.Controllers
+namespace AdminPortal.Controllers
 {
     public class ErrorController : Controller
     {

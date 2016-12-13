@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 //The following libraries were added to this sample.
-using System.Configuration;
-using System.Globalization;
 
-namespace WebApp_RoleClaims_DotNet.Utils
+namespace AdminPortal.Utils
 {
     public static class Globals
     {

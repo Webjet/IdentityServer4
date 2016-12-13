@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WebApp_RoleClaims_DotNet
+namespace AdminPortal
 {
     public class BundleConfig
     {

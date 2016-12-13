@@ -54,6 +54,8 @@ C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Antlr3.Runtime.pdb
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.IdentityModel.Tokens.xml
+C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Owin.xml
+C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Owin.Security.OpenIdConnect.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Newtonsoft.Json.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\System.IdentityModel.Tokens.Jwt.xml
@@ -69,8 +71,6 @@ C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\EntityFramework.SqlServer.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.AspNet.Identity.Core.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Owin.xml
-C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Owin.Security.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Owin.Security.Facebook.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Owin.Security.Cookies.xml

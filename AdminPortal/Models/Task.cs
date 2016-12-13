@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-//The following libraries were added to this sample.
+﻿//The following libraries were added to this sample.
 //using System.IO;
 //using System.Web.Hosting;
 
-namespace WebApp_RoleClaims_DotNet.Models
+namespace AdminPortal.Models
 {
     public class Task
     {

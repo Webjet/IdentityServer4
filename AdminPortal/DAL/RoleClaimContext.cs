@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using WebApp_RoleClaims_DotNet.Models;
+using AdminPortal.Models;
 
-namespace WebApp_RoleClaims_DotNet.DAL
+namespace AdminPortal.DAL
 {
     public class RoleClaimContext : DbContext
     {
