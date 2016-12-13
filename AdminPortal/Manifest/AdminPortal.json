@@ -1,0 +1,113 @@
+{
+  "appId": "a80ada45-2292-4a29-b0ca-b67524748285",
+  "appRoles": [
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "displayName": "Writer",
+      "id": "d48816af-72c6-49d9-89da-9afdf6870b71",
+      "isEnabled": true,
+      "description": "Writer has the ability to create tasks",
+      "value": "Writer"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "displayName": "Observer",
+      "id": "b3034b71-d0f2-426b-8bc4-89f3155d83fb",
+      "isEnabled": true,
+      "description": "Observer only has the ability to view tasks and their statuses.",
+      "value": "Observer"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "displayName": "Approver",
+      "id": "b3c967a8-98df-4307-9b4b-7880151e1e2f",
+      "isEnabled": true,
+      "description": "Approver has the ability to change the status of tasks.",
+      "value": "Approver"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "displayName": "Admin",
+      "id": "7706768a-032b-4206-a6bd-c059b8848001",
+      "isEnabled": true,
+      "description": "Admins can manage roles and perform all task actions.",
+      "value": "Admin"
+    }
+  ],
+  "availableToOtherTenants": false,
+  "displayName": "AdminPortal",
+  "errorUrl": null,
+  "groupMembershipClaims": null,
+  "homepage": "https://localhost:44322/",
+  "identifierUris": [
+    "https://mfreidgeimwebjetcom.onmicrosoft.com/61bae4c9-32fa-4549-b4e5-12ce0a4b0aca"
+  ],
+  "keyCredentials": [],
+  "knownClientApplications": [],
+  "logoutUrl": "https://localhost:44322/Account/EndSession",
+  "oauth2AllowImplicitFlow": false,
+  "oauth2AllowUrlPathMatching": false,
+  "oauth2Permissions": [
+    {
+      "adminConsentDescription": "Allow the application to access TaskTrackerWebApp on behalf of the signed-in user.",
+      "adminConsentDisplayName": "Access TaskTrackerWebApp",
+      "id": "08bc0475-e2e0-4ef5-b109-82b9465f2f45",
+      "isEnabled": true,
+      "type": "User",
+      "userConsentDescription": "Allow the application to access TaskTrackerWebApp on your behalf.",
+      "userConsentDisplayName": "Access TaskTrackerWebApp",
+      "value": "user_impersonation"
+    }
+  ],
+  "oauth2RequiredPostResponse": false,
+  "objectId": "1482459d-debc-463c-9d49-1ace2347c1d7",
+  "passwordCredentials": [
+    {
+      "customKeyIdentifier": "VABhAHMAawBUAHIAYQBjAGsAZQByAEsAZQB5AA==",
+      "endDate": "2018-12-09T00:47:22.742Z",
+      "keyId": "a413c2ed-ad46-4a15-bbb0-3ee4b14fcd65",
+      "startDate": "2016-12-09T00:48:35.8405608Z",
+      "value": null
+    }
+  ],
+  "publicClient": false,
+  "supportsConvergence": false,
+  "replyUrls": [
+    "https://localhost:44322/"
+  ],
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "00000003-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "06da0dbc-49e2-44d2-8312-53f166ab848a",
+          "type": "Scope"
+        },
+        {
+          "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+          "type": "Scope"
+        }
+      ]
+    },
+    {
+      "resourceAppId": "00000002-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "311a71cc-e848-46a1-bdf8-97ff7156d8e6",
+          "type": "Scope"
+        }
+      ]
+    }
+  ],
+  "samlMetadataUrl": null,
+  "appCategory": null,
+  "appMetadata": null
+}
