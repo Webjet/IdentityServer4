@@ -200,9 +200,6 @@
     <Compile Include="Controllers\AnalyticsScriptsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TasksController.cs" />
-    <Compile Include="DAL\RoleClaimContext.cs" />
-    <Compile Include="DAL\TasksDbHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -250,7 +247,6 @@
     <Content Include="Views\AnalyticsScripts\Index.cshtml" />
     <Content Include="Views\Error\Reauth.cshtml" />
     <Content Include="Views\Error\ShowError.cshtml" />
-    <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -258,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DAL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
