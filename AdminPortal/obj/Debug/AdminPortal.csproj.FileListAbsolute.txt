@@ -82,5 +82,6 @@ C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Data.Services.Client.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Data.Edm.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\Microsoft.Data.OData.xml
 C:\SourceTree\AdminPortal_GIT\AdminPortal\bin\System.Spatial.xml
+C:\SourceTree\AdminPortal_GIT\AdminPortal\obj\Debug\AdminPortal.csprojResolveAssemblyReference.cache
 C:\SourceTree\AdminPortal_GIT\AdminPortal\obj\Debug\AdminPortal.dll
 C:\SourceTree\AdminPortal_GIT\AdminPortal\obj\Debug\AdminPortal.pdb

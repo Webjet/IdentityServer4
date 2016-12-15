@@ -33,7 +33,7 @@ namespace AdminPortal
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
 
             //Configure OpenIDConnect, register callbacks for OpenIDConnect Notifications
-            app.UseOpenIdConnectAuthentication(
+             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {
                     ClientId = ConfigHelper.ClientId,
