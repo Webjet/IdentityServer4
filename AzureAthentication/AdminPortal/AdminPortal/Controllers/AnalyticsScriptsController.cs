@@ -6,9 +6,12 @@ using System.Web.Mvc;
 
 namespace AdminPortal.Controllers
 {
+    [Authorize]
     public class AnalyticsScriptsController : Controller
     {
         // GET: AnalyticsScripts
+        [HttpGet]
+        [Authorize(Roles = "Admin, ServiceCenter,ServiceCenterManager,Analytics,ProductTeam")]
         public ActionResult Index()
         {
             return View();

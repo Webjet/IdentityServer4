@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,23 +10,16 @@ namespace AdminPortal.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+       
         public ActionResult Index()
         {
-            return View();
+           // var identity = (ClaimsIdentity)User.Identity;
+           // IEnumerable<System.Security.Claims.Claim> claims = identity.Claims.Where(n => n.Value == "ServiceCenter");
+          
+           //Claim cl =   claims.ToList().Find(x => x.Value == "ServiceCenter");
+           
+           return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

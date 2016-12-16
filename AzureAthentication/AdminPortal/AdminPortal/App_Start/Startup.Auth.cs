@@ -43,6 +43,13 @@ namespace AdminPortal
                     Authority = Authority,
                     PostLogoutRedirectUri = postLogoutRedirectUri,
 
+                    //Required for AAD Role Based Authentication
+                    TokenValidationParameters = new System.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        //ValidateIssuer = false, // For Multi-Tenant Only
+                        RoleClaimType = "roles",
+                    },
+
                     Notifications = new OpenIdConnectAuthenticationNotifications()
                     {
                         // If there is a code in the OpenID Connect response, redeem it for an access token and refresh token, and store those away.
