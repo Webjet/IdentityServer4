@@ -36,7 +36,7 @@
 
     @if (User.IsInRole("Admin") || User.IsInRole("Analytics") || User.IsInRole("ServiceCenterManager") || User.IsInRole("ServiceCenter"))
         {
-        <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "AnalyticsScripts")</p>
+        <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
     }
     <p><a href="http://local.webjet.com.au/WebjetTsa/secure.aspx" class="btn btn-primary btn-large">Visit existing DEV TSA Admin &raquo;</a></p>
 </div>
