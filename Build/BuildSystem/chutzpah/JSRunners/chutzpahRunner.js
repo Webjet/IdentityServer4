@@ -35,7 +35,6 @@ chutzpah.runner = function (onInitialized, onPageLoaded, isFrameworkLoaded, onFr
 
         function intervalHandler() {
             var now = new Date().getTime();
-
             if (!isDone && (now - startTime < maxtimeOutMillis)) {
                 isDone = testIfDone();
             } else {
@@ -43,7 +42,6 @@ chutzpah.runner = function (onInitialized, onPageLoaded, isFrameworkLoaded, onFr
                     phantom.exit(3); // Timeout
                 } else {
                     clearInterval(interval);
-                    phantom.exit(0);
                 }
             }
         }
