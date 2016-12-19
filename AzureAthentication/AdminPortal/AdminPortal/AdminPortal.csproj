@@ -174,7 +174,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="AuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AnalyticsScriptsController.cs" />
+    <Compile Include="Controllers\GoogleBigQueryItineraryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -208,7 +208,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\AnalyticsScripts\GoogleBigQueryItinerary.html" />
+    <Content Include="Views\GoogleBigQueryItinerary\Content\GoogleBigQueryItinerary.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -225,7 +225,7 @@
     <Content Include="Views\Account\SignOutCallback.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\UserProfile\Relogin.cshtml" />
-    <Content Include="Views\AnalyticsScripts\Index.cshtml" />
+    <Content Include="Views\GoogleBigQueryItinerary\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

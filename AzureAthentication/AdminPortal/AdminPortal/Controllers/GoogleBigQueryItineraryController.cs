@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace AdminPortal.Controllers
 {
     [Authorize]
-    public class AnalyticsScriptsController : Controller
+    public class GoogleBigQueryItineraryController : Controller
     {
         // GET: AnalyticsScripts
         [HttpGet]
