@@ -84,10 +84,7 @@
         };
 
         callback.log = function (info) {
-            if (isGlobalError) {
-                log({ type: 'Error', error: { message: (info.message || "") + "" } });
-            }
-            else if (info.result !== undefined) {
+            if (!isGlobalError && info.result !== undefined) {
                 var testResult = {};
 
                 testResult.passed = info.result;
@@ -181,13 +178,6 @@
 
     function onPageLoaded() {
         console.log("!!_!! onPageLoaded");
-        
-        if (window.chutzpah.usingModuleLoader) {
-            console.log("!!_!! Test file is using module loader.");
-            // Since we are using a module loader let the harness determine when its ready to run tests
-            return;
-        }
-        
         function startQUnit() {
         	console.log("!!_!! Starting QUnit...");
                 window.QUnit.start();

@@ -19,7 +19,7 @@ task default -depends Test
 task Test -description "Runs all unit tests in solution" -depends CsTest, JsTest
 
 task CsTest -description "Runs all CSharp unit tests in solution" -depends Compile {
-  Run-CS-Tests $unit_test_projects $testProjectsBaseDir $configuration $test_categories $test_settings_file $test_run_config $enable_code_metrics $testCoverage_exclusions
+  Run-CS-Tests $unit_test_projects $testProjectsBaseDir $test_categories $test_settings_file $test_run_config $enable_code_metrics $testCoverage_exclusions
 }
 
 task JsTest -description "Runs all jasmine unit tests in solution" {
