@@ -1,0 +1,23 @@
+#If applicable, consider to copy different files from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+*.user
+*.suo
+[Bb]in/
+[Oo]bj/
+setup
+**/bin
+[Pp]ackages
+**/*.psproj
+# do not ignore gitignore http://stackoverflow.com/questions/767147/ignore-the-gitignore-file-itself/767213#767213
+#.gitignore
+#**/.gitignore
+Output
+Binaries
+/.vs/config
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+
+/.vs/Master/v14/vbcs.cache
+
+# Microsoft Fakes
+FakesAssemblies/
