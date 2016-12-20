@@ -1,42 +1,62 @@
-﻿@{
+﻿@using AdminPortal.Models
+@model AdminPortal.Models.RoleBasedResourceItemMapper
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
     <h2>ADMIN PORTAL</h2>
     <p class="lead">Admin Portal is a new site, that will replace(or wrap) TSA Admin, Flight Search and other similar functionality, and is used by internal users-service centre, product team etc.</p>
-    
-   @*@User.Identity.AuthenticationType.ToString() <br />
-   @User.Identity.Name <br/>*@
 
-  
-  <br/>
-
-@if (Request.IsAuthenticated)
-{
-    @*string[] r = Roles.GetRolesForUser();
-    string s = string.Join(",", r.ToList());
-    <h1>@s</h1>*@
+    @*@User.Identity.AuthenticationType.ToString() <br />
+        @User.Identity.Name <br/>*@
 
 
-    @*var ServiceCenter = User.IsInRole("ServiceCenter");
-    @ServiceCenter;
+    <br />
+
+    @if (Request.IsAuthenticated)
+    {
+        @*string[] r = Roles.GetRolesForUser();
+            string s = string.Join(",", r.ToList());
+            <h1>@s</h1>*@
 
 
-    var Analytics =User.IsInRole("Analytics");
-    @Analytics;
+        @*var ServiceCenter = User.IsInRole("ServiceCenter");
+            @ServiceCenter;
 
-    var ServiceCenterManager = User.IsInRole("ServiceCenterManager");
-    @ServiceCenterManager;
 
-    var ProductTeam = User.IsInRole("ProductTeam");
-    @ProductTeam;*@
-   
-}
+            var Analytics =User.IsInRole("Analytics");
+            @Analytics;
 
-    @if (User.IsInRole("Admin") || User.IsInRole("Analytics") || User.IsInRole("ServiceCenterManager") || User.IsInRole("ServiceCenter"))
-        {
-        <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
+            var ServiceCenterManager = User.IsInRole("ServiceCenterManager");
+            @ServiceCenterManager;
+
+            var ProductTeam = User.IsInRole("ProductTeam");
+            @ProductTeam;*@
+
     }
+
+    @foreach (string role in Model.AllowedRolesForResource("GoogleBigQuery"))
+    {
+        if (User.IsInRole(role))
+        {
+            <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
+        }
+    }
+    
+    @foreach (string role in Model.AllowedRolesForResource("CreditCardTransactionsToCheck"))
+    {
+        if (User.IsInRole(role))
+        {
+            <p>@Html.ActionLink("Credit Card Transactions To Check", "Index", "UserProfile")</p>
+        }
+    }
+
+
+    @*@if (User.IsInRole("Admin") || User.IsInRole("Analytics") || User.IsInRole("ServiceCenterManager") || User.IsInRole("ServiceCenter"))
+    {
+        <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
+    }*@
     <p><a href="http://local.webjet.com.au/WebjetTsa/secure.aspx" class="btn btn-primary btn-large">Visit existing DEV TSA Admin &raquo;</a></p>
 </div>
