@@ -1,0 +1,246 @@
+{
+    "Variables": {
+        "Subscription": "Dev Ops",
+        "SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+        "TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+        "ResourceGroupName": "test-resources",
+        "ResourceGroupLocation": "Southeast Asia",
+        "VNET1": "vnet1",
+        "VNET2": "vnet2",
+        "Gateway1": "sampledevops-gw1",
+        "Gateway2": "sampledevops-gw2",
+        "PublicIp1" : "sampledevopsgwip1",
+        "PublicIp2" : "sampledevopsgwip2",
+        "VPNConnectionName" : "vnet1tovnet2",
+        "ResourceGroupLocationAU" : "Australia East",
+        "ResourceGroupAU" : "test-resources-au"
+    },
+    "Containers": [
+        {
+            "Name": "Sample VNET 1",
+            "Type": "AzureVirtualNetwork",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('VNET1')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "AddressPrefix": "192.168.10.0/21"
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupName')]",
+                    "Location": "[variables('ResourceGroupLocation')]"
+                },
+                "Subnets": [
+                    {
+                        "Name": "GatewaySubnet",
+                        "AddressPrefix": "192.168.10.0/24",
+                        "NetworkSecurityGroup": "GatewaySubnet-NSG"
+                    }
+                ],
+                "NetworkSecurityGroups": [
+                    {
+                        "Name": "GatewaySubnet-NSG",
+                        "Rules": [
+                            {
+                                "Name": "HTTP-Rule",
+                                "Description": "Allow HTTP Traffic",
+                                "Access": "Allow",
+                                "Protocol": "Tcp",
+                                "Direction": "Inbound",
+                                "Priority": "100",
+                                "SourceAddressPrefix": "125.7.50.82",
+                                "SourcePortRange": "*",
+                                "DestinationAddressPrefix": "*",
+                                "DestinationPortRange": "80"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "Name": "Sample VNET 2",
+            "Type": "AzureVirtualNetwork",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('VNET2')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "AddressPrefix": "192.168.20.0/21"
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupAU')]",
+                    "Location": "[variables('ResourceGroupLocationAU')]"
+                },
+                "Subnets": [
+                    {
+                        "Name": "GatewaySubnet",
+                        "AddressPrefix": "192.168.20.0/24",
+                        "NetworkSecurityGroup": "GatewaySubnet-NSG"
+                    }
+                ],
+                "NetworkSecurityGroups": [
+                    {
+                        "Name": "GatewaySubnet-NSG",
+                        "Rules": [
+                            {
+                                "Name": "HTTP-Rule",
+                                "Description": "Allow HTTP Traffic",
+                                "Access": "Allow",
+                                "Protocol": "Tcp",
+                                "Direction": "Inbound",
+                                "Priority": "100",
+                                "SourceAddressPrefix": "125.7.50.82",
+                                "SourcePortRange": "*",
+                                "DestinationAddressPrefix": "*",
+                                "DestinationPortRange": "80"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "Name": "Gateway Public IP 1",
+            "Type": "AzurePublicIp",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('PublicIp1')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]"
+                },
+                "ResourceManagerProperties": {
+                    "publicIPAllocationMethod": "Dynamic"
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupName')]",
+                    "Location": "[variables('ResourceGroupLocation')]"
+                }
+            }
+        },
+        {
+            "Name": "Gateway Public IP 2",
+            "Type": "AzurePublicIp",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('PublicIp2')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]"
+                },
+                "ResourceManagerProperties": {
+                    "publicIPAllocationMethod": "Dynamic"
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupAU')]",
+                    "Location": "[variables('ResourceGroupLocationAU')]"
+                }
+            }
+        },
+        {
+            "Name": "Sample Gateway VNET1",
+            "Type": "AzureVirtualNetworkGateway",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('Gateway1')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "IpConfigName": "[variables('Gateway1')]ipconfig",
+                    "Subnet": "GatewaySubnet",
+                    "GatewayType" : "Vpn",
+                    "VpnType" : "RouteBased",
+                    "GatewaySku" : "Standard"
+                },
+                "PublicIPAddress": {
+                    "Name" : "[variables('PublicIp1')]",
+                    "ResourceGroupName": "[variables('ResourceGroupName')]"
+                },
+                "VirtualNetwork": {
+                    "Name": "[variables('VNET1')]",
+                    "ResourceGroupName": "[variables('ResourceGroupName')]"
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupName')]",
+                    "Location": "[variables('ResourceGroupLocation')]"
+                }
+            }
+        },
+        {
+            "Name": "Sample Gateway VNET2",
+            "Type": "AzureVirtualNetworkGateway",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('Gateway2')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "IpConfigName": "[variables('Gateway2')]ipconfig",
+                    "Subnet": "GatewaySubnet",
+                    "GatewayType" : "Vpn",
+                    "VpnType" : "RouteBased",
+                    "GatewaySku" : "Standard"
+                },
+                "PublicIPAddress": {
+                    "Name" : "[variables('PublicIp2')]",
+                    "ResourceGroupName": "[variables('ResourceGroupAU')]"
+                },
+                "VirtualNetwork": {
+                    "Name": "[variables('VNET2')]",
+                    "ResourceGroupName": "[variables('ResourceGroupAU')]"
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupAU')]",
+                    "Location": "[variables('ResourceGroupLocationAU')]"
+                }
+            }
+        },
+        {
+            "Name": "VPN Connection AUE to SEA",
+            "Type": "AzureVirtualNetworkGatewayConnection",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('VPNConnectionName')]-1",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "ConnectionType" : "Vnet2Vnet",
+                    "SharedKey" : "AzureA23v12",
+                    "VirtualNetworkGateway1" : {
+                        "Name" : "[variables('Gateway1')]",
+                        "ResourceGroupName": "[variables('ResourceGroupName')]"
+                    },
+                    "VirtualNetworkGateway2" : {
+                        "Name" : "[variables('Gateway2')]",
+                        "ResourceGroupName": "[variables('ResourceGroupAU')]"
+                    }
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupAU')]",
+                    "Location": "[variables('ResourceGroupLocationAU')]"
+                }
+            }
+        },
+        {
+            "Name": "VPN Connection SEA to AUE",
+            "Type": "AzureVirtualNetworkGatewayConnection",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('VPNConnectionName')]-2",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "ConnectionType" : "Vnet2Vnet",
+                    "SharedKey" : "AzureA23v12",
+                    "VirtualNetworkGateway2" : {
+                        "Name" : "[variables('Gateway1')]",
+                        "ResourceGroupName": "[variables('ResourceGroupName')]"
+                    },
+                    "VirtualNetworkGateway1" : {
+                        "Name" : "[variables('Gateway2')]",
+                        "ResourceGroupName": "[variables('ResourceGroupAU')]"
+                    }
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupAU')]",
+                    "Location": "[variables('ResourceGroupLocationAU')]"
+                }
+            }
+        }
+    ]
+}

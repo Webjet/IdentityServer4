@@ -1,0 +1,352 @@
+{
+	"Variables": {
+		"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+		"Subscription": "Dev Ops",
+		"ResourceGroupName": "test-resources",
+		"ResourceGroupLocation": "Southeast Asia",
+		"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+		"VM1Name": "devopstestvm1",
+		"VM2Name": "devopstestvm2",
+		"LoadBalancerName": "devopstestloadbalancer",
+		"VirtualNetworkName": "devopstestvnet",
+		"SubnetName": "frontend",
+		"StorageAccountName": "devopsteststore01",
+		"AvailabilitySetName": "devopsavail"
+	},
+	"Containers": [
+		{
+			"Name": "Virtual Machine Storage",
+			"Type": "AzureStorageAccount",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('StorageAccountName')]",
+					"IsClassic": "false",
+					"Subscription": "Dev Ops",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"Type": "Standard_GRS",
+					"__comment": [
+						"Supported Types",
+						"? Standard_LRS (Locally-redundant storage)",
+						"? Standard_ZRS (Zone-redundant storage)",
+						"? Standard_GRS (Geo-redundant storage)",
+						"? Standard_RAGRS (Read access geo-redundant storage)"
+					]
+				},
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				}
+			}
+		},
+		{
+			"Name": "Virtual Network 1",
+			"Type": "AzureVirtualNetwork",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('VirtualNetworkName')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"AddressPrefix": "192.168.0.0/16"
+				},
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				},
+				"NetworkSecurityGroups": [],
+				"Subnets": [
+					{
+						"Name": "[variables('SubnetName')]",
+						"AddressPrefix": "192.168.1.0/24"
+					}
+				]
+			}
+		},
+		{
+			"Name": "An AvailabilitySet",
+			"Type": "AzureAvailabilitySet",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('AvailabilitySetName')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"ResourceManagerProperties": {
+						"platformUpdateDomainCount": 5,
+						"platformFaultDomainCount": 3
+					}
+				},
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				}
+			}
+		},
+		{
+			"Name": "Test1",
+			"Type": "AzureVM",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('VM1Name')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"Size": "Standard_A1",
+					"__comment": [
+						"Supported Sizes",
+						"? Standard_A0",
+						"? Basic_A0",
+						"? Standard_D1"
+					],
+					"Publisher": "MicrosoftWindowsServer",
+					"Offer": "WindowsServer",
+					"SKU": "2012-R2-Datacenter",
+					"OSDiskName": "[variables('VM1Name')]OSDisk",
+					"StorageAccountName": "[variables('StorageAccountName')]",
+					"Credential": {
+						"Type": "Standard",
+						"__comment": [
+							"Supported Types",
+							"? Standard - Just a username and password",
+							"? PSCredentialPath - Fully qualified and escaped path to a PSCredential secure string file. IE C:\\AzurePassword.txt"
+						],
+						"Username": "webjet",
+						"Password": "Webjet2016!"
+					},
+					"AvailabilitySetName": "[variables('AvailabilitySetName')]"
+				},
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				},
+				"VirtualNetwork": {
+					"Name": "[variables('VirtualNetworkName')]",
+					"ResourceGroupName": "[variables('ResourceGroupName')]",
+					"SubnetName": "[variables('SubnetName')]"
+				},
+				"NetworkInterfaces": [
+					{
+						"Name": "[variables('VM1Name')]-NIC-01",
+						"PrivateIPAddress": "192.168.1.4",
+						"PublicIPAddress": {
+							"Name": "[variables('VM1Name')]-PUB-01",
+							"AllocationMethod": "Static"
+						},
+						"Primary": "true"
+					}
+				]
+			}
+		},
+		{
+			"Name": "Test2",
+			"Type": "AzureVM",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('VM2Name')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"Size": "Standard_A1",
+					"__comment": [
+						"Supported Sizes",
+						"? Standard_A0",
+						"? Basic_A0",
+						"? Standard_D1"
+					],
+					"Publisher": "MicrosoftWindowsServer",
+					"Offer": "WindowsServer",
+					"SKU": "2012-R2-Datacenter",
+					"OSDiskName": "[variables('VM2Name')]OSDisk",
+					"StorageAccountName": "[variables('StorageAccountName')]",
+					"Credential": {
+						"Type": "Standard",
+						"__comment": [
+							"Supported Types",
+							"? Standard - Just a username and password",
+							"? PSCredentialPath - Fully qualified and escaped path to a PSCredential secure string file. IE C:\\AzurePassword.txt"
+						],
+						"Username": "webjet",
+						"Password": "Webjet2016!"
+					},
+					"AvailabilitySetName": "[variables('AvailabilitySetName')]"
+				},
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				},
+				"VirtualNetwork": {
+					"Name": "[variables('VirtualNetworkName')]",
+					"ResourceGroupName": "[variables('ResourceGroupName')]",
+					"SubnetName": "[variables('SubnetName')]"
+				},
+				"NetworkInterfaces": [
+					{
+						"Name": "[variables('VM2Name')]-NIC-01",
+						"PrivateIPAddress": "192.168.1.5",
+						"PublicIPAddress": {
+							"Name": "[variables('VM2Name')]-PUB-01",
+							"AllocationMethod": "Static"
+						},
+						"Primary": "true"
+					}
+				]
+			}
+		},
+		{
+			"Name": "External Loadbalancer",
+			"Type": "AzureLoadBalancer",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('LoadBalancerName')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"ResourceManagerProperties": {
+						"frontendIPConfigurations": [
+							{
+								"name": "LoadBalancerFrontEnd",
+								"properties": {
+									"privateIPAllocationMethod": "Dynamic",
+									"publicIPAddress": {
+										"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/publicIPAddresses/[variables('LoadBalancerName')]-Pub-01",
+										"publicIPAllocationMethod": "Static"
+									},
+									"loadBalancingRules": [
+										{
+											"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/loadBalancingRules/HTTP-Inbound"
+										},
+										{
+											"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/loadBalancingRules/HTTPS-Inbound"
+										}
+									]
+								}
+							}
+						 ],
+						"backendAddressPools": [
+							{
+								"name": "[variables('LoadBalancerName')]-Backend",
+								"properties": {
+									"backendIPConfigurations": [
+										{
+											"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/networkInterfaces/[variables('VM1Name')]-NIC-01/ipConfigurations/ipconfig1"
+										},
+										{
+											"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/networkInterfaces/[variables('VM2Name')]-NIC-01/ipConfigurations/ipconfig1"
+										}
+									],
+									"loadBalancingRules": [
+										{
+											"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/loadBalancingRules/HTTP-Inbound"
+										},
+										{
+											"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/loadBalancingRules/HTTPS-Inbound"
+										}
+									]
+								}
+							}
+						 ],
+						"loadBalancingRules": [
+							{
+								"name": "HTTP-Inbound",
+								"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/loadBalancingRules/HTTP-Inbound",
+								"properties": {
+									"frontendIPConfiguration": {
+										"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/frontendIPConfigurations/LoadBalancerFrontEnd"
+									},
+									"frontendPort": 80,
+									"backendPort": 80,
+									"enableFloatingIP": false,
+									"idleTimeoutInMinutes": 4,
+									"protocol": "Tcp",
+									"loadDistribution": "Default",
+									"backendAddressPool": {
+										"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/backendAddressPools/[variables('LoadBalancerName')]-Backend"
+									},
+									"probe": {
+										"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/probes/HTTP-Probe"
+									}
+								}
+							},
+							{
+								"name": "HTTPS-Inbound",
+								"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/loadBalancingRules/HTTPS-Inbound",
+								"properties": {
+									"frontendIPConfiguration": {
+										"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/frontendIPConfigurations/LoadBalancerFrontEnd"
+									},
+									"frontendPort": 443,
+									"backendPort": 443,
+									"enableFloatingIP": false,
+									"idleTimeoutInMinutes": 4,
+									"protocol": "Tcp",
+									"loadDistribution": "Default",
+									"backendAddressPool": {
+										"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/backendAddressPools/[variables('LoadBalancerName')]-Backend"
+									},
+									"probe": {
+										"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/probes/HTTP-Probe"
+									}
+								}
+							}
+						],
+						"probes": [
+							{
+								"name": "HTTP-Probe",
+								"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/probes/HTTP-Probe",
+								"properties": {
+									"protocol": "Http",
+									"port": 80,
+									"requestPath": "/",
+									"intervalInSeconds": 5,
+									"numberOfProbes": 2,
+									"loadBalancingRules": [
+										{
+											"id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('LoadBalancerName')]/loadBalancingRules/HTTP-Inbound"
+										}
+									]
+								}
+							}
+						],
+						"outboundNatRules": [],
+						"inboundNatPools": []
+					},
+					"PublicIPAddress": {
+						"Name": "[variables('LoadBalancerName')]-Pub-01",
+						"ResourceManagerProperties": {
+							"publicIPAllocationMethod": "Static"
+						}
+					}
+				},
+				"BackendPoolNetworkInterfaces": [
+					{
+						"NetworkInterfaceName": "[variables('VM1Name')]-NIC-01"
+					},
+					{
+						"NetworkInterfaceName": "[variables('VM2Name')]-NIC-01"
+					}
+				],
+				"InboundNATRules" : 
+				[
+					{
+						"Name" : "RDP-VM1",
+						"Protocol" : "Tcp",
+						"FrontEndPort" : "3390",
+						"BackEndPort" : "3389",
+						"TargetVirtualMachine" : {
+							"NetworkInterface" : "[variables('VM1Name')]-NIC-01"
+						}
+					},
+					{
+						"Name" : "RDP-VM2",
+						"Protocol" : "Tcp",
+						"FrontEndPort" : "3391",
+						"BackEndPort" : "3389",
+						"TargetVirtualMachine" : {
+							"NetworkInterface" : "[variables('VM2Name')]-NIC-01"
+						}
+					}
+				],
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				}
+			}
+		}
+	]
+}

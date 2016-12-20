@@ -1,0 +1,160 @@
+{
+    "Variables": {
+        "Name": "devopstestvm1",
+        "Subscription": "Dev Ops",
+        "SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+        "TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+        "ResourceGroupName": "test-resources",
+        "ResourceGroupLocation": "Southeast Asia",
+        "StorageAccount" : "devopsteststore",
+        "VirtualNetwork" : "sample-arm-vnet01",
+        "Subnet" : "SampleSubnet",
+		"DiagnosticsStorageAccountName" : "devopsteststore"
+    },
+   "Containers" :
+	[ 
+		{
+			"Name" : "Sample Storage Account",
+			"Type" : "AzureStorageAccount",
+			"Attributes" : {
+				"Properties": 
+				{
+					"Name" : "[variables('StorageAccount')]",
+					"IsClassic" : "false",
+					"Subscription": "[variables('Subscription')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"Type" : "Standard_GRS",
+					"__comment" : [
+									"Supported Types",
+									"Standard_LRS (Locally-redundant storage)",
+									"Standard_ZRS (Zone-redundant storage)",
+									"Standard_GRS (Geo-redundant storage)",
+									"Standard_RAGRS (Read access geo-redundant storage)"
+								]
+				},
+				"ResourceGroup":{
+					"Name" : "[variables('ResourceGroupName')]",
+					"Location" : "[variables('ResourceGroupLocation')]"
+				}
+			}
+			
+		},
+		{
+            "Name": "Sample VNET",
+            "Type": "AzureVirtualNetwork",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('VirtualNetwork')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "AddressPrefix": "192.168.0.0/16"
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupName')]",
+                    "Location": "[variables('ResourceGroupLocation')]"
+                },
+                "Subnets": [
+                    {
+                        "Name": "SampleSubnet",
+                        "AddressPrefix": "192.168.1.0/24",
+                        "NetworkSecurityGroup": "SampleSubnet-NSG"
+                    }
+                ],
+                "NetworkSecurityGroups": [
+                    {
+                        "Name": "SampleSubnet-NSG",
+                        "Rules": [
+                            {
+                                "Name": "HTTP-Rule",
+                                "Description": "Allow HTTP Traffic",
+                                "Access": "Allow",
+                                "Protocol": "Tcp",
+                                "Direction": "Inbound",
+                                "Priority": "100",
+                                "SourceAddressPrefix": "125.7.50.82",
+                                "SourcePortRange": "*",
+                                "DestinationAddressPrefix": "*",
+                                "DestinationPortRange": "80"
+                            },
+							{
+                                "Name": "RDP-Rule-WebjetDMZ",
+                                "Description": "Allow RDP Traffic",
+                                "Access": "Allow",
+                                "Protocol": "Tcp",
+                                "Direction": "Inbound",
+                                "Priority": "200",
+                                "SourceAddressPrefix": "125.7.50.82",
+                                "SourcePortRange": "*",
+                                "DestinationAddressPrefix": "*",
+                                "DestinationPortRange": "3389"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+			"Name" : "Sample Virtual Machine",
+			"Type" : "AzureVM",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "[variables('Name')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"Size" : "Standard_A1",
+					"__comment" : ["Supported Sizes",
+						"Standard_A0",
+						"Basic_A0",
+						"Standard_D1"],
+					"Publisher" : "MicrosoftWindowsServer",
+					"Offer" : "WindowsServer",
+					"SKU" : "2012-R2-Datacenter",
+					"OSDiskName" : "[variables('Name')]OSDisk",
+					"AttachedDisks" : 
+					[
+						{
+						"Name" : "[variables('Name')]-data",
+						"Label" : "data",
+						"Size" : "150"
+						}
+					],
+					"StorageAccountName" : "[variables('StorageAccount')]",
+					"Credential" : {
+						"Type" : "Standard",
+						"__comment" : [
+							"Supported Types",
+							"Standard - Just a username and password",
+							"PSCredentialPath - Fully qualified and escaped path to a PSCredential secure string file. IE C:\\AzurePassword.txt"
+						],
+						"Username" : "webjet",
+						"Password" : "Webjet2016!"
+					}
+				
+				},
+				"ResourceGroup" : {
+					"Name" : "[variables('ResourceGroupName')]",
+					"Location" : "[variables('ResourceGroupLocation')]"
+				},
+				"VirtualNetwork" : {
+					"Name" : "[variables('VirtualNetwork')]",
+					"ResourceGroupName" : "[variables('ResourceGroupName')]",
+					"SubnetName" : "[variables('Subnet')]"
+				},
+				"NetworkInterfaces" : [
+					{
+						"Name" : "[variables('Name')]-NIC-01",
+						"PrivateIPAddress" : "192.168.1.4",
+						"PublicIPAddress" : 
+						{
+							"Name" : "[variables('Name')]-NIC-01",
+							"AllocationMethod" : "Static"
+						},
+						"Primary" : "true"
+						
+					}
+				]
+			}
+		}
+    ]
+}

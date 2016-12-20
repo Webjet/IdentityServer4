@@ -1,0 +1,20 @@
+{
+    "Containers": [
+        {
+            "Name": "Sample Slack Message",
+            "Type": "SlackMessage",
+            "Attributes": {
+                "Properties": {
+                   "Channel" : "#devops",
+                   "Username" : "DODO",
+                   "IconUrl" : "http://www.dodoscarves.co.uk/communities/6/004/011/585/266/images/4590206937_128x118.jpg",
+                   "Title" : "DODO 2.2.0 can now post to slack!",
+                   "Message" : "DODO 2.2.0 can now post to slack by passing it json file with message details and API key",
+                   "Color" : "good",
+                   "Fallback" : "DODO 2.2.0 can now post to slack by passing it json"
+                },
+                "SlackApi" : "{{your web hook URL must go here.. something like https://hooks.slack.com/services/XXXXXXXXXXXX}}"
+            }
+        }
+    ]
+}

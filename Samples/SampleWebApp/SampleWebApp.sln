@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApp", "SampleWebApp\SampleWebApp.csproj", "{2D4E821E-E6FF-4EF7-AE5E-B8B305924514}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleConfigurations", "SampleConfigurations", "{8C380B25-8BE8-462F-ABEE-4DFF84DBC4F0}"
+	ProjectSection(SolutionItems) = preProject
+		SampleConfigurations\dev.json = SampleConfigurations\dev.json
+		SampleConfigurations\DevOpsDeploymentFramework-SetParameters.xml = SampleConfigurations\DevOpsDeploymentFramework-SetParameters.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleBuild", "SampleBuild", "{A6155030-70C1-4966-8A2E-C1320F02387F}"
+	ProjectSection(SolutionItems) = preProject
+		SampleBuild\build-steps.ps1 = SampleBuild\build-steps.ps1
+		SampleBuild\build.ps1 = SampleBuild\build.ps1
+		SampleBuild\Sample-SetParameters.xml = SampleBuild\Sample-SetParameters.xml
+		SampleBuild\SampleWebApp.nuspec = SampleBuild\SampleWebApp.nuspec
+		SampleBuild\SampleWebAppSwap.nuspec = SampleBuild\SampleWebAppSwap.nuspec
+		SampleBuild\SampleWebjob.nuspec = SampleBuild\SampleWebjob.nuspec
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebjob", "SampleWebjob\SampleWebjob.csproj", "{BC3F0EF1-03E7-4E0C-AA88-BF966AB453DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleDeploy", "SampleDeploy", "{24F28433-D550-4AA6-A55A-B29B050285BF}"
+	ProjectSection(SolutionItems) = preProject
+		SampleDeploy\SampleDeploy.ps1 = SampleDeploy\SampleDeploy.ps1
+		SampleDeploy\SampleSwap.ps1 = SampleDeploy\SampleSwap.ps1
+		SampleDeploy\SampleWebjobDeploy.ps1 = SampleDeploy\SampleWebjobDeploy.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D4E821E-E6FF-4EF7-AE5E-B8B305924514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4E821E-E6FF-4EF7-AE5E-B8B305924514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4E821E-E6FF-4EF7-AE5E-B8B305924514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4E821E-E6FF-4EF7-AE5E-B8B305924514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC3F0EF1-03E7-4E0C-AA88-BF966AB453DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC3F0EF1-03E7-4E0C-AA88-BF966AB453DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC3F0EF1-03E7-4E0C-AA88-BF966AB453DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC3F0EF1-03E7-4E0C-AA88-BF966AB453DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

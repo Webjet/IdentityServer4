@@ -1,0 +1,75 @@
+{
+	"Variables": {
+		"Name": "sampletrafficmanager",
+		"Subscription": "Dev Ops",
+		"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+		"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+		"ResourceGroupName": "test-resources",
+		"ResourceGroupLocation": "Southeast Asia",
+		"PublicIpName": "devopssamplepublicip"
+	},
+	"Containers": [
+		{
+			"Name": "Sample Public IP",
+			"Type": "AzurePublicIp",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('PublicIpName')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]"
+				},
+				"ResourceManagerProperties": {
+					"publicIPAllocationMethod": "Static",
+					"dnsSettings": {
+						"domainNameLabel": "[variables('PublicIpName')]"
+					}
+				},
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				}
+			}
+		},
+		{
+			"Name": "Sample Traffic Manager",
+			"Type": "AzureTrafficManager",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('Name')]",
+					"Subscription": "[variables('Subscription')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"MonitorPath": "/",
+					"MonitorPort": "80",
+					"MonitorProtocol": "HTTP",
+					"RelativeDnsName": "devopssampledodo",
+					"TrafficRoutingMethod": "Priority",
+					"__TrafficRoutingMethods": [
+						"Performance",
+						"Weighted",
+						"Priority"
+					],
+					"ProfileStatus": "Enabled",
+					"Ttl": "30"
+				},
+				"EndPoints": [
+					{
+						"Name": "[variables('PublicIpName')]",
+						"Type" : "AzureEndpoints",
+						"ResourceType": "AzureRmPublicIpAddress",
+						"ResourceGroupName": "[variables('ResourceGroupName')]",
+						"Status" : "Enabled",
+						"Priority" : 1
+					}
+				],
+				"__EndpointTypes": [
+					"AzureRmPublicIpAddress"
+				],
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				}
+			}
+		}
+	]
+}

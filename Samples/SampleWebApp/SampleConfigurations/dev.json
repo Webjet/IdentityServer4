@@ -1,0 +1,109 @@
+    {
+    "Variables": {
+        "Name": "DevOpsDeploymentFramework",
+        "Subscription": "Dev Ops",
+        "SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+        "TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+        "ResourceGroupName": "test-resources",
+        "ResourceGroupLocation": "Southeast Asia",
+		"AzureUserName" : "",
+		"AzurePassword" : ""
+    },
+   "Containers" :
+	[
+		{
+            "Name" : "Deployment Credentials",
+            "Type" : "AzureCredentials",
+            "Attributes" : 
+            {
+                "AuthType" : "OrgUserCredentials",
+                "Username" : "[variables('AzureUserName')]",
+                "Password" : "[variables('AzurePassword')]",
+                "SubscriptionID": "[variables('SubscriptionID')]",
+			    "TenantID": "[variables('TenantID')]"
+            }
+        },  
+        {
+			"Name" : "Sample Azure Web App",
+			"Type": "AzureWebApp",
+			"Attributes": 
+			{
+				"Properties": 
+				{
+				  "Name": "[variables('Name')]",
+				  "Slot" : "staging",
+				  "Subscription": "[variables('Subscription')]",
+				  "SubscriptionID": "[variables('SubscriptionID')]",
+				  "TenantID": "[variables('TenantID')]",
+				  "Use32Bit" : "false"
+				},
+				"ResourceGroup":{
+					"Name" : "[variables('ResourceGroupName')]",
+					"Location" : "[variables('ResourceGroupLocation')]"
+				},
+				"AppServicePlan":{
+					"Name" : "SampleServicePlan",
+					"Tier" : "Standard"
+				},
+				"AppSettings": [
+					{
+						"Key": "KUDU_EXTENSION_VERSION",
+						"Value": "disabled"
+					},
+					{
+						"Key": "test",
+						"Value": "test"
+						 
+					}],
+				"AppSettingNames" :
+					[
+						"test"
+					],
+				"ConnectionStrings" :
+					{
+						"mykey": {
+						  "value": "myvalue",
+						  "type": 3
+						}
+					},
+					"__comment" : [
+								"Supported ConnectionStrings Types",
+								"0 - MySQL",
+								"1 - SQL Server",
+								"2 - SQL Database",
+								"3 - Custom"
+							],
+				"ConnectionStringNames" : 
+					[
+						"mykey"
+					],
+				"Diagnostics" : {
+					"FailedRequestTracing" : "true",
+					"DetailedErrorMessages" : "true",
+					 "ApplicationLoggingBlob" : {
+						"Enabled" : "true",
+						"Level" : "Verbose",
+						"StorageAccount" : {
+							"Name": "devopsteststore",
+							"ContainerName" : "sample-applogs",
+							"ResourceGroupName" : "[variables('ResourceGroupName')]"
+						}
+					},
+					 "HTTPLoggingBlob" : {
+						"Mode" : "Storage",
+						"StorageAccount" : {
+							"Name": "devopsteststore",
+							"ContainerName" : "sample-httplogs",
+							"ResourceGroupName" : "[variables('ResourceGroupName')]"
+						}
+					},
+					"ApplicationLoggingTable" : {
+						"Enabled" : "false",
+						"TableSasUrl" : "",
+						"Level" : "Verbose"
+					}
+				}
+			}
+		}
+    ]
+}

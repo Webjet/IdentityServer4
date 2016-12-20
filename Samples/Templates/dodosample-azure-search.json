@@ -1,0 +1,40 @@
+{
+    "Variables": {
+		"Name" : "devopstestsearch",
+		"Subscription": "Dev Ops",
+        "SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+        "TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+        "ResourceGroupName": "DevOpsRG",
+        "ResourceGroupLocation": "Australia East",
+		"Sku" : "basic",
+		"partitionCount" : "1",
+		"replicaCount" : "1"
+    },
+   "Containers" :
+	[ 
+		{
+			"Name" : "Hotels Azure Search",
+			"Type" : "AzureSearch",
+			"Attributes" : {
+				"Properties": 
+				{
+					"Name" : "[variables('Name')]",
+					"type" : "false",
+					"Subscription": "[variables('Subscription')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"Sku" : "[variables('Sku')]",
+					"replicaCount" : "[variables('replicaCount')]",
+					"partitionCount" : "[variables('partitionCount')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+					
+				},
+				"ResourceGroup":{
+					"Name" : "[variables('ResourceGroupName')]",
+					"Location" : "[variables('ResourceGroupLocation')]"
+				}
+			}
+			
+		}
+	]
+}
