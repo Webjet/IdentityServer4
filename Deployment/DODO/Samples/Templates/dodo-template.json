@@ -1,0 +1,613 @@
+{
+	"Containers" :
+	[ 
+		{
+			"Name" : "MyCloudService1",
+			"Type" : "AzureCloudService",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopssamplecloudservice",
+					"Slot" : "staging",
+					"Location" : "",
+					"Description" : "",
+					"Label" : "",
+					"Subscription" : "Development",
+					"SubscriptionID" : "69a0c839-7052-425a-8213-0453c025c751",
+					"Package" : ""
+				}
+			}
+		},
+		{
+			"Name" : "MyWebJob1",
+			"Type": "AzureWebjob",
+			"Attributes": 
+			{
+				"Properties": 
+				{
+					"Subscription": "Development",
+					"SubscriptionID": "69a0c839-7052-425a-8213-0453c025c751",
+					"Name": "SampleWebjob",
+					"AzureWebAppName" : "DevOpsDeploymentFramework",
+					"Slot" : "staging",
+					"JobType" : "Continuous",
+					"Package" : "D:\\Git\\DODO\\Samples\\SampleWebApp\\SampleOutput\\NuGet-Output\\Webjobs\\SampleWebjob.zip"
+				}
+			}
+		},
+		{
+			"Name" : "Web App Log Storage",
+			"Type" : "AzureStorageAccount",
+			"Attributes" : {
+				"Properties": 
+				{
+					"Name" : "devopslogtest",
+					"IsClassic" : "false",
+					"Subscription": "Development",
+					"SubscriptionID": "69a0c839-7052-425a-8213-0453c025c751",
+					"TenantID": "22f4672c-846f-4064-b0ec-bcc136c1a605",
+					"Type" : "Standard_GRS",
+					"__comment" : [
+									"Supported Types",
+									"Standard_LRS (Locally-redundant storage)",
+									"Standard_ZRS (Zone-redundant storage)",
+									"Standard_GRS (Geo-redundant storage)",
+									"Standard_RAGRS (Read access geo-redundant storage)"
+								]
+				},
+				"ResourceGroup":{
+					"Name" : "SampleWebApp-RG",
+					"Location" : "Southeast Asia"
+				},
+				"Containers" : 
+				[
+				],
+				"Tables" : "",
+				"Queues" : ""				
+			}
+		},
+		{
+			"Name" : "MyWebApp1",
+			"Type": "AzureWebApp",
+			"Attributes": 
+			{
+				"Properties": 
+				{
+				  "Name": "DevOpsDeploymentFramework",
+				  "Slot" : "staging",
+				  "Subscription": "Development",
+				  "SubscriptionID": "69a0c839-7052-425a-8213-0453c025c751",
+				  "TenantID": "22f4672c-846f-4064-b0ec-bcc136c1a605",
+				  "Package": "c:\\temp\\SecurePay.Gateway.zip",
+				  "ParameterFile":"C:\\temp\\SecurePay.Gateway.SetParameters.xml",
+				  "Use32Bit" : "false"
+				},
+				"ResourceGroup":{
+					"Name" : "SampleWebApp-RG",
+					"Location" : "Southeast Asia"
+				},
+				"AppServicePlan":{
+					"Name" : "SampleServicePlan",
+					"Tier" : "Standard"
+				},
+				"AppSettings": [
+					{
+						"Key": "KUDU_EXTENSION_VERSION",
+						"Value": "disabled"
+					},
+					{
+						"Key": "test",
+						"Value": "test"
+						 
+					}],
+				"AppSettingNames" :
+					[
+						"test"
+					],
+				"ConnectionStrings" :
+					{
+						"mykey": {
+						  "value": "myvalue",
+						  "type": 3
+						}
+					},
+					"__comment" : [
+								"Supported ConnectionStrings Types",
+								"0 - MySQL",
+								"1 - SQL Server",
+								"2 - SQL Database",
+								"3 - Custom"
+							],
+				"ConnectionStringNames" : 
+					[
+						"mykey"
+					],
+				"Diagnostics" : {
+					"FailedRequestTracing" : "true",
+					"DetailedErrorMessages" : "true",
+					 "ApplicationLoggingBlob" : {
+						"Enabled" : "true",
+						"Level" : "Verbose",
+						"StorageAccount" : {
+							"Name": "devopslogtest",
+							"ContainerName" : "sample-applogs",
+							"ResourceGroupName" : "SampleWebApp-RG"
+						}
+					},
+					 "HTTPLoggingBlob" : {
+						"Mode" : "Storage",
+						"StorageAccount" : {
+							"Name": "devopslogtest",
+							"ContainerName" : "sample-httplogs",
+							"ResourceGroupName" : "SampleWebApp-RG"
+						}
+					},
+					"ApplicationLoggingTable" : {
+						"Enabled" : "false",
+						"TableSasUrl" : "",
+						"Level" : "Verbose"
+					}
+				}
+			}
+		},
+		{
+			"Name" : "MyRedisCache1",
+			"Type": "AzureRedisCache",
+			"Attributes": {
+				"Properties": {
+				  "Name": "wj-DevOps-SampleRedis2",
+				  "Size": "C1",
+				  "SKU":"Standard",
+				  "Subscription": "Development",
+				  "SubscriptionID": "69a0c839-7052-425a-8213-0453c025c751",
+				  "TenantID": "22f4672c-846f-4064-b0ec-bcc136c1a605"
+				},
+				"ResourceGroup":{
+					"Name" : "SampleRedis-RG",
+					"Location" : "Southeast Asia"
+				}			
+			
+			}
+		},
+		{
+			"Name" : "MyStorageAccount1",
+			"Type" : "AzureStorageAccount",
+			"Attributes" : {
+				"Properties": 
+				{
+					"Name" : "devopssamplestore",
+					"IsClassic" : "false",
+					"Subscription": "Development",
+					"SubscriptionID": "69a0c839-7052-425a-8213-0453c025c751",
+					"TenantID": "22f4672c-846f-4064-b0ec-bcc136c1a605",
+					"Type" : "Standard_GRS",
+					"__comment" : [
+									"Supported Types",
+									"Standard_LRS (Locally-redundant storage)",
+									"Standard_ZRS (Zone-redundant storage)",
+									"Standard_GRS (Geo-redundant storage)",
+									"Standard_RAGRS (Read access geo-redundant storage)"
+								]
+				},
+				"ResourceGroup":{
+					"Name" : "SampleWebApp-RG",
+					"Location" : "Southeast Asia"
+				},
+				"Containers" : 
+				[
+					{
+						"Name" : "test1",
+						"Blobs" : 
+						[
+							{
+								"Source" : "D:\\Git\\DODO\\Samples\\SampleWebApp\\SampleWebApp\\App_Data\\placeholder.txt",
+								"Target" : "Test1"
+							},
+							{
+								"Source" : "D:\\Git\\DODO\\Samples\\SampleWebApp\\SampleWebApp\\obj\\Debug",
+								"Target" : "Test1\\Debug"
+							}
+						]
+					},
+					{
+						"Name" : "test2",
+						"Blobs" : 
+						[
+							{
+								"Source" : "D:\\Git\\DODO\\Samples\\SampleWebApp\\SampleWebApp\\Properties",
+								"Target" : "Test1\\Debug"
+							}
+						]
+					}
+				],
+				"Tables" : "",
+				"Queues" : ""				
+			}
+			
+		},
+		{
+			"Name" : "devopsteststore",
+			"Type" : "AzureStorageAccount",
+			"Attributes" : {
+				"Properties": 
+				{
+					"Name" : "devopsteststore",
+					"IsClassic" : "false",
+					"Subscription": "Dev Ops",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"Type" : "Standard_GRS",
+					"__comment" : [
+									"Supported Types",
+									"Standard_LRS (Locally-redundant storage)",
+									"Standard_ZRS (Zone-redundant storage)",
+									"Standard_GRS (Geo-redundant storage)",
+									"Standard_RAGRS (Read access geo-redundant storage)"
+								]
+				},
+				"ResourceGroup":{
+					"Name" : "devopstest",
+					"Location" : "Southeast Asia"
+				}
+			}
+			
+		},
+		{
+			"Name" : "devopstestvm",
+			"Type" : "AzureVM",
+			"Attributes" : {
+				"Properties" : 
+				{
+					"Name" : "devopstestvm",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"DODOAzureStorageAccount" : "devopsteststore",
+					"Size" : "Standard_A1",
+					"__comment" : [
+									"Supported Sizes",
+									"Standard_A0",
+									"Basic_A0",
+									"Standard_D1"
+								],
+					"Publisher" : "MicrosoftWindowsServer",
+					"Offer" : "WindowsServer",
+					"SKU" : "2012-R2-Datacenter",
+					"OSDiskName" : "OSDisk",
+					"StorageAccountName" : "devopsteststore",
+					"AttachedDisks" : 
+					[
+						{
+							"Name" : "devopstestvm-data",
+							"Label" : "data",
+							"Size" : "120"
+						}
+					],
+					"Credential" : {
+						"Type" : "Standard",
+						"__comment" : [
+									"Supported Types",
+									"Standard - Just a username and password",
+									"PSCredentialPath - Fully qualified and escaped path to a PSCredential secure string file. IE C:\\AzurePassword.txt"
+								],
+						"Username" : "webjet",
+						"Password" : "Webjet123!"
+					}
+				},
+				"ResourceGroup" :
+				{
+					"Name" : "devopstest",
+					"Location" : "Southeast Asia"
+				},
+				"VirtualNetwork" : 
+				{
+					"Name" : "devopstestvnet",
+					"ResourceGroupName" : "devopstest",
+					"SubnetName" : "SampleSubnet"
+				},
+				"NetworkInterfaces" : 
+				[
+					{
+						"Name": "devopstestvm-NIC-01",
+						"PrivateIPAddress": "192.168.1.5",
+						"Primary" : "true",
+						"PublicIPAddress": 
+						{
+							"Name": "devopstestvm-Pub-01",
+							"AllocationMethod": "Static"
+						}
+					}
+				]
+			}
+		},
+		{
+			"Name" : "DevOpsAutomationAccount",
+			"Type" : "AzureAutomationAccount",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "DevOpsAutomationAccount",
+					"Plan" : "Basic",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2"
+				},
+				"ResourceGroup":{
+					"Name" : "DevOpsAutomation-rg",
+					"Location" : "Southeast Asia"
+				},	
+				"AutomationCredentials" : 
+				[
+					{
+						"Name" : "MarcelDempers"
+					}
+				]	
+			}
+		},
+		{
+			"Name" : "SQLServer1",
+			"Type" : "AzureSQLServer",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopssamplesqlserver",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"PSCredential" : {
+						"Username" : "C:\\Devops\\SQLSecuryCredentials\\AzureSecureCredentialUsername.txt",
+						"Password" : "C:\\Devops\\SQLSecuryCredentials\\AzureSecureCredential.txt"
+					}
+				},
+				"ResourceGroup":{
+					"Name" : "DevOpsSampleSQL-rg",
+					"Location" : "Southeast Asia"
+				},
+				"Databases" : 
+				[
+					{
+						"Name" : "SampleDb",
+						"Edition" : "Basic",
+						"__comment" : [
+									"Editions-",
+									"None",
+									"Premium",
+									"Basic",
+									"Standard",
+									"DataWarehouse",
+									"Free"
+								]
+					}
+				
+				]
+			}
+		},
+		{
+			"Name" : "VNET",
+			"Type" : "AzureVirtualNetwork",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopstestvnet",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"AddressPrefix" : "192.168.0.0/16"
+				},
+				"ResourceGroup":{
+					"Name" : "devopstest",
+					"Location" : "Southeast Asia"
+				},
+				"Subnets" : 
+				[
+					{
+						"Name" : "SampleSubnet",
+						"AddressPrefix" : "192.168.1.0/24"
+					}
+				]
+			}
+		},
+		{
+			"Name" : "Classic VNET",
+			"Type" : "AzureClassicVirtualNetwork",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopsclassictestvnet",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"ResourceManagerProperties" : {
+						"addressSpace": {
+						  "addressPrefixes": [
+							"192.168.0.0/11"
+							]
+						},
+						"subnets": [
+							{
+								"name": "AppServiceEnvironment",
+								"addressPrefix": "192.168.0.0/11"
+							}
+						]
+					}
+				},
+				"ResourceGroup":{
+					"Name" : "devopstest",
+					"Location" : "Southeast Asia"
+				}
+			}
+		},
+		{
+			"Name" : "A Reserved IP",
+			"Type" : "AzureClassicReservedIP",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopstestip",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"ResourceManagerProperties" : {
+					}
+				},
+				"ResourceGroup":{
+					"Name" : "devopstest",
+					"Location" : "Southeast Asia"
+				}
+			}
+		},
+		{
+			"Name" : "An AppServiceEnvironment",
+			"Type" : "AzureAppServiceEnvironment",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopstestase",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"ResourceManagerProperties" : {
+						"vnetName": "devopsclassictestvnet",
+						"vnetResourceGroupName": "devopstest",
+						"vnetSubnetName": "AppServiceEnvironment",
+						"virtualNetwork": {
+						  "id": "/subscriptions/e226e482-ce0f-47ea-8742-9bcce2fbfac9/resourceGroups/devopstest/providers/Microsoft.ClassicNetwork/virtualNetworks/devopsclassictestvnet",
+						  "name": "devopsclassictestvnet",
+						  "type": "Microsoft.ClassicNetwork/virtualNetworks",
+						  "subnet": "AppServiceEnvironment"
+						},
+						"internalLoadBalancingMode": 0,
+						"multiSize": "medium",
+						"multiRoleCount": 2,
+						"workerPools": [
+						  {
+							"workerSizeId": 0,
+							"workerSize": "small",
+							"workerCount": 2,
+							"instanceNames": null
+						  },
+						  {
+							"workerSizeId": 1,
+							"workerSize": "medium",
+							"workerCount": 0,
+							"instanceNames": null
+						  },
+						  {
+							"workerSizeId": 2,
+							"workerSize": "large",
+							"workerCount": 0,
+							"instanceNames": null
+						  }
+						],
+						"ipsslAddressCount": 1
+						
+					}
+				},
+				"ResourceGroup":{
+					"Name" : "devopstest",
+					"Location" : "Southeast Asia"
+				}
+			}
+		},
+		{
+			"Name" : "An AvailabilitySet",
+			"Type" : "AzureAvailabilitySet",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopsavailset",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"ResourceManagerProperties" : {
+						"platformUpdateDomainCount": 5,
+						"platformFaultDomainCount": 3
+					}
+				},
+				"ResourceGroup":{
+					"Name" : "devopstest01",
+					"Location" : "Southeast Asia"
+				}
+			}
+		},
+		{
+			"Name" : "Internal Loadbalancer",
+			"Type" : "AzureLoadBalancer",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopsloadbalancer",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"ResourceManagerProperties" : 
+					{
+						 "frontendIPConfigurations": 
+						 [
+						  {
+							"name": "LoadBalancerFrontEnd",
+							"properties": 
+							{
+							  "privateIPAddress": "192.168.1.10",
+							  "privateIPAllocationMethod": "Static",
+							  "subnet": 
+							  {
+								"id": "/subscriptions/e226e482-ce0f-47ea-8742-9bcce2fbfac9/resourceGroups/devopstest01/providers/Microsoft.Network/virtualNetworks/devopstestvnet/subnets/FrontEnd"
+							  }
+							}
+						  }
+						],
+						"backendAddressPools": [
+						{
+							"name": "devopstestbackendpool",
+							"properties": {
+							  "backendIPConfigurations": [
+								{
+								  "id": "/subscriptions/e226e482-ce0f-47ea-8742-9bcce2fbfac9/resourceGroups/devopstest01/providers/Microsoft.Network/networkInterfaces/devopstestvm1-NIC-01/ipConfigurations/ipconfig1"
+								},
+								{
+								  "id": "/subscriptions/e226e482-ce0f-47ea-8742-9bcce2fbfac9/resourceGroups/devopstest01/providers/Microsoft.Network/networkInterfaces/devopstestvm2-NIC-01/ipConfigurations/ipconfig1"
+								}
+							  ]
+							}
+						}
+						
+						],
+						"loadBalancingRules": [],
+						"probes": [],
+						"inboundNatRules": [],
+						"outboundNatRules": [],
+						"inboundNatPools": []
+					}
+				},
+				"ResourceGroup":{
+					"Name" : "devopstest01",
+					"Location" : "Southeast Asia"
+				}
+			}	
+		},
+		{
+			"Name" : "External Loadbalancer",
+			"Type" : "AzureLoadBalancer",
+			"Attributes" : {
+				"Properties" : {
+					"Name" : "devopsloadbalancer2",
+					"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+					"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+					"ResourceManagerProperties" : 
+					{
+						"frontendIPConfigurations": [
+						  {
+							"name": "LoadBalancerFrontEnd",
+							"properties": {
+							  "privateIPAllocationMethod": "Dynamic",
+							  "publicIPAddress": {
+								"id": "/subscriptions/e226e482-ce0f-47ea-8742-9bcce2fbfac9/resourceGroups/devopstest01/providers/Microsoft.Network/publicIPAddresses/devopsloadbalancer2-Pub-01"
+							  }
+							}
+						  }
+						],
+						"loadBalancingRules": [],
+						"probes": [],
+						"inboundNatRules": [],
+						"outboundNatRules": [],
+						"inboundNatPools": []
+					},
+					"PublicIPAddress" : {
+						"Name" : "devopsloadbalancer2-Pub-01",
+						"ResourceManagerProperties" : {
+							"publicIPAllocationMethod": "Dynamic"
+						}
+					}
+				},
+				"ResourceGroup":{
+					"Name" : "devopstest01",
+					"Location" : "Southeast Asia"
+				}
+			}
+
+		}
+	]	
+}

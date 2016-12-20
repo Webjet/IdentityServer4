@@ -1,0 +1,140 @@
+{
+    "Variables": {
+        "Name": "sampleloadbalancer01",
+        "Subscription": "Dev Ops",
+        "SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+        "TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+        "ResourceGroupName": "test-resources",
+        "ResourceGroupLocation": "Southeast Asia",
+        "VirtualMachineNIC": "devopstestvm1-NIC-01",
+        "VirtualMachineVNET": "sample-arm-vnet01",
+        "VirtualMachineSubnet": "SampleSubnet"
+    },
+    "Containers": [
+        {
+            "Name": "Sample External Loadbalancer",
+            "Type": "AzureLoadBalancer",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('Name')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "ResourceManagerProperties": {
+                        "frontendIPConfigurations": [
+                            {
+                                "name": "LoadBalancerFrontEnd",
+                                "properties": {
+                                    "privateIPAllocationMethod": "Dynamic",
+                                    "publicIPAddress": {
+                                        "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/publicIPAddresses/[variables('Name')]-pub-01"
+                                    },
+                                    "loadBalancingRules": [
+                                        {
+                                            "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/loadBalancingRules/HTTP-Inbound"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "backendAddressPools": [
+                            {
+                                "name": "[variables('Name')]-Backend",
+                                "properties": {
+                                    "backendIPConfigurations": [
+                                        {
+                                            "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/networkInterfaces/[variables('VirtualMachineNIC')]/ipConfigurations/ipconfig1"
+                                        }
+                                    ],
+                                    "loadBalancingRules": [
+                                        {
+                                            "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/loadBalancingRules/HTTP-Inbound"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "loadBalancingRules": [
+                            {
+                                "name": "HTTP-Inbound",
+                                "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/loadBalancingRules/HTTP-Inbound",
+                                "properties": {
+                                    "frontendIPConfiguration": {
+                                        "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/frontendIPConfigurations/LoadBalancerFrontEnd"
+                                    },
+                                    "frontendPort": 80,
+                                    "backendPort": 80,
+                                    "enableFloatingIP": false,
+                                    "idleTimeoutInMinutes": 4,
+                                    "protocol": "Tcp",
+                                    "loadDistribution": "Default",
+                                    "backendAddressPool": {
+                                        "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/backendAddressPools/[variables('Name')]-Backend"
+                                    },
+                                    "probe": {
+                                        "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/probes/HTTP-Probe"
+                                    }
+                                }
+                            }
+                        ],
+                        "probes": [
+                            {
+                                "name": "HTTP-Probe",
+                                "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/probes/HTTP-Probe",
+                                "properties": {
+                                    "protocol": "Http",
+                                    "port": 80,
+                                    "requestPath": "/",
+                                    "intervalInSeconds": 5,
+                                    "numberOfProbes": 2,
+                                    "loadBalancingRules": [
+                                        {
+                                            "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/loadBalancingRules/HTTP-Inbound"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "inboundNatRules": [],
+                        "outboundNatRules": [],
+                        "inboundNatPools": []
+                    },
+                    "PublicIPAddress": {
+                        "Name": "[variables('Name')]-pub-01",
+                        "ResourceManagerProperties": {
+                            "publicIPAllocationMethod": "Static"
+                        }
+                    }
+                },
+                "BackendPoolNetworkInterfaces": [
+                    {
+                        "NetworkInterfaceName": "[variables('VirtualMachineNIC')]",
+                        "ResourceManagerProperties": {
+                            "ipConfigurations": [
+                                {
+                                    "name": "ipconfig1",
+                                    "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/networkInterfaces/[variables('VirtualMachineNIC')]/ipConfigurations/ipconfig1",
+                                    "properties": {
+                                        "privateIPAddress": "192.168.1.4",
+                                        "privateIPAllocationMethod": "Static",
+                                        "subnet": {
+                                            "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/virtualNetworks/[variables('VirtualMachineVNET')]/subnets/[variables('VirtualMachineSubnet')]"
+                                        },
+                                        "loadBalancerBackendAddressPools": [
+                                            {
+                                                "id": "/subscriptions/[variables('SubscriptionID')]/resourceGroups/[variables('ResourceGroupName')]/providers/Microsoft.Network/loadBalancers/[variables('Name')]/backendAddressPools/[variables('Name')]-Backend"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupName')]",
+                    "Location": "[variables('ResourceGroupLocation')]"
+                }
+            }
+        }
+    ]
+}

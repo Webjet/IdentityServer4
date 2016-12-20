@@ -1,0 +1,42 @@
+{
+    "Containers": [
+        {
+            "Name": "Sample IIS WebApplication",
+            "Type": "IISWebApplication",
+            "Attributes": {
+                "Properties": {
+                    "Name": "Sample.application",
+                    "IISSite": "Default Web Site",
+                    "ApplicationPool": {
+                        "Name": "Sample.application",
+                        "DotNetVersion": "v4.0",
+                        "StartMode": "AlwaysRunning",
+                        "IdleTimeOutMinutes": "0"
+                    },
+                    "EnablePreLoad": "true",
+                    "PhysicalPath": "C:\\inetpub\\wwwroot\\sample.application",
+                    "WindowsFeatures": [
+                        {
+                            "Name": "Web-Server"
+                        },
+                        {
+                            "Name": "Application-Server"
+                        },
+                        {
+                            "Name": "Web-Scripting-Tools"
+                        }
+                    ]
+                },
+                "Bindings": [
+                    {
+                        "Protocol": "https",
+                        "IpAddressValue" : "IPV4Address",
+                        "Port" : 443,
+                        "HostHeader" : "test.webjet.com.au",
+                        "SSFlags" : 0
+                    }
+                ]
+            }
+        }
+    ]
+}

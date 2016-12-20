@@ -1,0 +1,47 @@
+{
+	"Variables": {
+		"Name": "sampledevopskeyvault",
+		"Subscription": "Dev Ops",
+		"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+		"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+		"ResourceGroupName": "test-resources",
+		"ResourceGroupLocation": "Southeast Asia"
+	},
+	"Containers": [
+		{
+			"Name": "Sample Key Vault",
+			"Type": "AzureKeyVault",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('Name')]",
+					"Subscription": "[variables('Subscription')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"Sku": "Standard"
+				},
+				"AccessPolicies": [
+					{
+						"PermissionToKeys": "decrypt,list,encrypt,update",
+						"PermissionToSecrets" : "all",
+						"ServicePrincipleName" : "fde2b411-33d5-4e11-af04-eb07b669ccf2"
+					},
+					{
+						"PermissionToKeys": "decrypt,list,encrypt,update",
+						"PermissionToSecrets" : "all",
+						"ObjectID" : "fde2b411-33d5-4e11-af04-eb07b669ccf2",
+						"ApplicationID" : "fde2b411-33d5-4e11-af04-eb07b669ccf2"
+					}
+				],
+				"__Comment": [
+					"AccessPolicy options",
+					"PermissionToKeys - all, decrypt, encrypt, unwrapkey, wrapkey, verify, sign, get, list, update, create, import, delete, backup, restore",
+					"PermissionToSecrets - all, get, list, set, delete"
+				],
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				}
+			}
+		}
+	]
+}

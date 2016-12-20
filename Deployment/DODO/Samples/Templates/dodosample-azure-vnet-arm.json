@@ -1,0 +1,62 @@
+{
+    "Variables": {
+        "Name": "sample-arm-vnet01",
+        "Subscription": "Dev Ops",
+        "SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+        "TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+        "ResourceGroupName": "test-resources",
+        "ResourceGroupLocation": "Southeast Asia",
+        "DiagnosticsStorageAccountName" : "devopsteststore"
+    },
+    "Containers": [
+        {
+            "Name": "Sample VNET",
+            "Type": "AzureVirtualNetwork",
+            "Attributes": {
+                "Properties": {
+                    "Name": "[variables('Name')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "TenantID": "[variables('TenantID')]",
+                    "AddressPrefix": "192.168.0.0/16"
+                },
+                "ResourceGroup": {
+                    "Name": "[variables('ResourceGroupName')]",
+                    "Location": "[variables('ResourceGroupLocation')]"
+                },
+                "Subnets": [
+                    {
+                        "Name": "SampleSubnet",
+                        "AddressPrefix": "192.168.1.0/24",
+                        "NetworkSecurityGroup": "SampleSubnet-NSG"
+                    }
+                ],
+                "NetworkSecurityGroups": [
+                    {
+                        "Name": "SampleSubnet-NSG",
+                        "Rules": [
+                            {
+                                "Name": "HTTP-Rule",
+                                "Description": "Allow HTTP Traffic",
+                                "Access": "Allow",
+                                "Protocol": "Tcp",
+                                "Direction": "Inbound",
+                                "Priority": "100",
+                                "SourceAddressPrefix": "125.7.50.82",
+                                "SourcePortRange": "*",
+                                "DestinationAddressPrefix": "*",
+                                "DestinationPortRange": "80"
+                            }
+                        ],
+                        "Diagnostics" :
+                        {
+                            "StorageAccountName" : "[variables('DiagnosticsStorageAccountName')]",
+                            "ResourceGroupName" : "[variables('ResourceGroupName')]",
+                            "RetentionEnabled" : "true",
+                            "RetentionInDays" : "30"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

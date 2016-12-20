@@ -1,0 +1,36 @@
+{
+    "Variables": {
+        "Name": "SampleDODOApiManagement",
+        "Subscription": "Dev Ops",
+        "SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+        "TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+        "ResourceGroupName": "test-resources",
+        "ResourceGroupLocation": "Southeast Asia",
+		"AdminEmail" : "marcel.dempers@webjet.com.au",
+		"Organization" : "Webjet"
+    },
+   "Containers" :
+	[ 
+        {
+			"Name" : "Sample Azure API Management",
+			"Type": "AzureApiManagement",
+			"Attributes": 
+			{
+				"Properties": 
+				{
+				  "Name": "[variables('Name')]",
+				  "Location" : "[variables('ResourceGroupLocation')]",
+				  "Subscription": "[variables('Subscription')]",
+				  "SubscriptionID": "[variables('SubscriptionID')]",
+				  "TenantID": "[variables('TenantID')]",
+				  "AdminEmail" : "[variables('AdminEmail')]",
+				  "Organization" : "[variables('Organization')]"
+				},
+				"ResourceGroup":{
+					"Name" : "[variables('ResourceGroupName')]",
+					"Location" : "[variables('ResourceGroupLocation')]"
+				}
+			}
+		}
+    ]
+}

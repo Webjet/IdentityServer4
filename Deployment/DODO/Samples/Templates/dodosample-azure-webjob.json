@@ -1,0 +1,28 @@
+{
+    "Variables": {
+        "Name": "test123",
+        "WebApp" : "samplewebapp123",
+        "Subscription": "Dev Ops",
+        "SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+        "TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+        "ResourceGroupName": "test-resources",
+        "ResourceGroupLocation": "Southeast Asia"
+    },
+    "Containers": [
+        {
+            "Name": "Sample Webjob",
+            "Type": "AzureWebjob",
+            "Attributes": {
+                "Properties": {
+                    "Subscription": "[variables('Subscription')]",
+                    "SubscriptionID": "[variables('SubscriptionID')]",
+                    "Name": "[variables('Name')]",
+                    "AzureWebAppName": "[variables('WebApp')]",
+                    "Slot": "staging",
+                    "JobType": "Continuous",
+                    "Package": "D:\\Git\\DODO\\Samples\\SampleWebApp\\SampleOutput\\NuGet-Output\\Webjobs\\SampleWebjob.zip"
+                }
+            }
+        }
+    ]
+}

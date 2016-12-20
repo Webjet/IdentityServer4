@@ -1,0 +1,49 @@
+{
+    "Variables": {
+        "Name" : "docker-acs-dev",
+        "Subscription": "Microsoft Azure Sponsorship",
+        "SubscriptionID": "b3c501bc-38f3-4f24-b165-9bbcecb5c54a",
+        "TenantID": "1bb84b4f-a4ef-4f3b-b356-3510eea91748",
+        "ResourceGroupName": "docker-acs-resources-02",
+        "ResourceGroupLocation": "West US",
+		"SSHPublicKey" : "",
+		"SSHUserName" : "",
+		"DNSPrefix" : "docker-dcosa-02",
+		"MasterDNSPrefix" : "docker-dcosm-02"
+    },
+   "Containers" :
+	[ 
+        {
+			"Name" : "Sample Azure Container Service",
+			"Type" : "AzureContainerService",
+			"Attributes" : {
+				"Properties" : {
+					"Name": "[variables('Name')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]",
+					"OrchestratorType" : "DCOS",
+					"__supportedOrchestrationTypes" : ["Supported OrchestratorTypes",
+						"DCOS",
+						"Swarm"],
+					"MasterCount" : 1,
+					"AgentCount" : 3,
+					"AgentVMSize" : "Standard_D2_v2",
+					"__comment" : ["Supported Sizes",
+						"Standard_DS1",
+						"Standard_DS2",
+						"Standard_DS3"],
+					"DNSPrefix" : "[variables('DNSPrefix')]",
+					"MasterDNSPrefix" : "[variables('MasterDNSPrefix')]",
+					"SSHPublicKey" : "[variables('SSHPublicKey')]",
+					"SSHUserName" : "[variables('SSHUserName')]",
+					"Location" : "[variables('ResourceGroupLocation')]",
+					"DiagnosticsEnabled" : "true"
+				},
+				"ResourceGroup" : {
+					"Name" : "[variables('ResourceGroupName')]",
+					"Location" : "[variables('ResourceGroupLocation')]"
+				}
+			}
+		}
+    ]
+}

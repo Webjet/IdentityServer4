@@ -1,0 +1,520 @@
+{
+	"Variables": {
+		"MarathonAPI": "http://localhost/marathon/v2",
+		"MarathonServer": "localhost",
+		"MarathonPort": "80",
+		"ServiceDeploymentIdentifier": ""
+	},
+	"Containers": [
+		{
+			"Name": "Sample Jenkins Service",
+			"Type": "DCOSMesosService",
+			"Attributes": {
+				"Properties": {
+					"MarathonAPI": "[variables('MarathonAPI')]",
+					"MarathonServer": "[variables('MarathonServer')]",
+					"MarathonPort": "[variables('MarathonPort')]",
+					"ApplicationName": "jenkins",
+					"ServiceDeploymentIdentifier": ""
+				},
+				"MarathonTemplate": {
+					"id": "/jenkins",
+					"volumes": null,
+					"cmd": null,
+					"args": null,
+					"user": null,
+					"env": {
+						"LD_LIBRARY_PATH": "/opt/mesosphere/lib",
+						"SSH_KNOWN_HOSTS": "github.com",
+						"JENKINS_CONTEXT": "/service/jenkins",
+						"JENKINS_AGENT_ROLE": "*",
+						"JVM_OPTS": "-Xms1024m -Xmx1024m",
+						"JENKINS_MESOS_MASTER": "zk://leader.mesos:2181/mesos",
+						"JENKINS_AGENT_USER": "root",
+						"JENKINS_OPTS": "",
+						"JENKINS_FRAMEWORK_NAME": "jenkins"
+					},
+					"instances": 1,
+					"cpus": 1,
+					"mem": 2048,
+					"disk": 0,
+					"gpus": 0,
+					"executor": null,
+					"constraints": null,
+					"fetch": null,
+					"storeUrls": null,
+					"backoffSeconds": 1,
+					"backoffFactor": 1.15,
+					"maxLaunchDelaySeconds": 3600,
+					"container": {
+						"docker": {
+							"image": "mesosphere/jenkins:2.0.1-2.7.4",
+							"forcePullImage": false,
+							"privileged": false,
+							"network": "HOST"
+						},
+						"type": "DOCKER",
+						"volumes": [
+							{
+								"containerPath": "/var/jenkins_home",
+								"hostPath": "/mnt/azure/jenkins",
+								"mode": "RW"
+							},
+							{
+								"containerPath": "/opt/mesosphere",
+								"hostPath": "/opt/mesosphere",
+								"mode": "RO"
+							}
+						],
+						"portMappings": [
+							{
+								"containerPort": 8080,
+								"hostPort": 8080,
+								"protocol": "tcp",
+								"name": "8080"
+							}
+						]
+					},
+					"healthChecks": [
+						{
+							"protocol": "HTTP",
+							"path": "/service/jenkins",
+							"gracePeriodSeconds": 30,
+							"intervalSeconds": 60,
+							"timeoutSeconds": 20,
+							"maxConsecutiveFailures": 3,
+							"ignoreHttp1xx": false
+						}
+					],
+					"readinessChecks": null,
+					"dependencies": null,
+					"upgradeStrategy": {
+						"minimumHealthCapacity": 0,
+						"maximumOverCapacity": 0
+					},
+					"labels": {
+						"DCOS_PACKAGE_RELEASE": "13",
+						"DCOS_SERVICE_SCHEME": "http",
+						"DCOS_PACKAGE_SOURCE": "https://universe.mesosphere.com/repo",
+						"DCOS_PACKAGE_METADATA": "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMi4wIiwibmFtZSI6ImplbmtpbnMiLCJ2ZXJzaW9uIjoiMi4wLjEtMi43LjQiLCJtYWludGFpbmVyIjoic3VwcG9ydEBtZXNvc3BoZXJlLmlvIiwiZGVzY3JpcHRpb24iOiJKZW5raW5zIGlzIGFuIGF3YXJkLXdpbm5pbmcsIGNyb3NzLXBsYXRmb3JtLCBjb250aW51b3VzIGludGVncmF0aW9uIGFuZCBjb250aW51b3VzIGRlbGl2ZXJ5IGFwcGxpY2F0aW9uIHRoYXQgaW5jcmVhc2VzIHlvdXIgcHJvZHVjdGl2aXR5LiBVc2UgSmVua2lucyB0byBidWlsZCBhbmQgdGVzdCB5b3VyIHNvZnR3YXJlIHByb2plY3RzIGNvbnRpbnVvdXNseSBtYWtpbmcgaXQgZWFzaWVyIGZvciBkZXZlbG9wZXJzIHRvIGludGVncmF0ZSBjaGFuZ2VzIHRvIHRoZSBwcm9qZWN0LCBhbmQgbWFraW5nIGl0IGVhc2llciBmb3IgdXNlcnMgdG8gb2J0YWluIGEgZnJlc2ggYnVpbGQuIEl0IGFsc28gYWxsb3dzIHlvdSB0byBjb250aW51b3VzbHkgZGVsaXZlciB5b3VyIHNvZnR3YXJlIGJ5IHByb3ZpZGluZyBwb3dlcmZ1bCB3YXlzIHRvIGRlZmluZSB5b3VyIGJ1aWxkIHBpcGVsaW5lcyBhbmQgaW50ZWdyYXRpbmcgd2l0aCBhIGxhcmdlIG51bWJlciBvZiB0ZXN0aW5nIGFuZCBkZXBsb3ltZW50IHRlY2hub2xvZ2llcy4iLCJ0YWdzIjpbImNvbnRpbnVvdXMtaW50ZWdyYXRpb24iLCJjaSIsImplbmtpbnMiXSwic2VsZWN0ZWQiOnRydWUsInNjbSI6Imh0dHBzOi8vZ2l0aHViLmNvbS9tZXNvc3BoZXJlL2plbmtpbnMtZGNvcy5naXQiLCJ3ZWJzaXRlIjoiaHR0cHM6Ly9qZW5raW5zLmlvIiwiZnJhbWV3b3JrIjp0cnVlLCJwcmVJbnN0YWxsTm90ZXMiOiJXQVJOSU5HOiBJZiB5b3UgZGlkbid0IHByb3ZpZGUgYSB2YWx1ZSBmb3IgYGhvc3Qtdm9sdW1lYCBpbiB0aGUgQ0xJLFxuWU9VUiBEQVRBIFdJTEwgTk9UIEJFIFNBVkVEIElOIEFOWSBXQVkuXG4iLCJwb3N0SW5zdGFsbE5vdGVzIjoiSmVua2lucyBoYXMgYmVlbiBpbnN0YWxsZWQuIiwicG9zdFVuaW5zdGFsbE5vdGVzIjoiSmVua2lucyBoYXMgYmVlbiB1bmluc3RhbGxlZC4gTm90ZSB0aGF0IGFueSBkYXRhIHBlcnNpc3RlZCB0byBhIE5GUyBzaGFyZSBzdGlsbCBleGlzdHMgYW5kIHdpbGwgbmVlZCB0byBiZSBtYW51YWxseSByZW1vdmVkLiIsImxpY2Vuc2VzIjpbeyJuYW1lIjoiQXBhY2hlIExpY2Vuc2UgVmVyc2lvbiAyLjAiLCJ1cmwiOiJodHRwczovL2dpdGh1Yi5jb20vbWVzb3NwaGVyZS9qZW5raW5zLWRjb3MvYmxvYi9tYXN0ZXIvTElDRU5TRSJ9XSwiaW1hZ2VzIjp7Imljb24tc21hbGwiOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWplbmtpbnMtc21hbGwucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWplbmtpbnMtbWVkaXVtLnBuZyIsImljb24tbGFyZ2UiOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWplbmtpbnMtbGFyZ2UucG5nIn19",
+						"DCOS_PACKAGE_REGISTRY_VERSION": "2.0",
+						"DCOS_SERVICE_NAME": "jenkins",
+						"DCOS_PACKAGE_FRAMEWORK_NAME": "jenkins",
+						"DCOS_SERVICE_PORT_INDEX": "0",
+						"DCOS_PACKAGE_VERSION": "2.0.1-2.7.4",
+						"DCOS_PACKAGE_NAME": "jenkins",
+						"MARATHON_SINGLE_INSTANCE_APP": "true",
+						"DCOS_PACKAGE_IS_FRAMEWORK": "true"
+					},
+					"acceptedResourceRoles": [
+						"*"
+					],
+					"residency": null,
+					"secrets": null,
+					"taskKillGracePeriodSeconds": null,
+					"portDefinitions": [
+						{
+							"protocol": "tcp",
+							"port": 10000
+						},
+						{
+							"protocol": "tcp",
+							"port": 10001
+						}
+					],
+					"requirePorts": false
+				}
+			}
+		},
+		{
+			"Name": "Sample Hello World Application",
+			"Type": "DCOSMesosService",
+			"Attributes": {
+				"Properties": {
+					"MarathonAPI": "[variables('MarathonAPI')]",
+					"MarathonServer": "[variables('MarathonServer')]",
+					"MarathonPort": "[variables('MarathonPort')]",
+					"ApplicationName": "hello-world",
+					"ServiceDeploymentIdentifier": ""
+				},
+				"MarathonTemplate": {
+					"id": "hello-world",
+					"container": {
+						"type": "DOCKER",
+						"docker": {
+							"image": "tutum/hello-world",
+							"forcePullImage": true,
+							"network": "BRIDGE",
+							"portMappings": [
+								{
+									"containerPort": 80,
+									"hostPort": 0,
+									"protocol": "tcp",
+									"servicePort": 10003
+								}
+							]
+						}
+					},
+					"cpus": 0.5,
+					"mem": 512,
+					"instances": 1,
+					"healthChecks": [
+						{
+							"protocol": "HTTP",
+							"path": "/",
+							"portIndex": 0,
+							"timeoutSeconds": 10,
+							"gracePeriodSeconds": 10,
+							"intervalSeconds": 2,
+							"maxConsecutiveFailures": 10
+						}
+					],
+					"labels": {
+						"HAPROXY_GROUP": "external",
+						"HAPROXY_0_VHOST": "helloworld.webjet.com.au"
+					}
+				}
+			}
+		},
+		{
+			"Name": "Simple Web",
+			"Type": "DCOSMesosService",
+			"Attributes": {
+				"Properties": {
+					"MarathonAPI": "[variables('MarathonAPI')]",
+					"MarathonServer": "[variables('MarathonServer')]",
+					"MarathonPort": "[variables('MarathonPort')]",
+					"ApplicationName": "simple-web",
+					"ServiceDeploymentIdentifier": ""
+				},
+				"MarathonTemplate": {
+					"id": "simple-web",
+					"container": {
+						"type": "DOCKER",
+						"docker": {
+							"image": "yeasy/simple-web",
+							"forcePullImage": true,
+							"network": "BRIDGE",
+							"portMappings": [
+								{
+									"servicePort": 10003,
+									"containerPort": 80,
+									"hostPort": 0,
+									"protocol": "tcp"
+								}
+							]
+						}
+					},
+					"healthChecks": [
+						{
+							"protocol": "HTTP",
+							"path": "/",
+							"portIndex": 0,
+							"timeoutSeconds": 10,
+							"gracePeriodSeconds": 10,
+							"intervalSeconds": 2,
+							"maxConsecutiveFailures": 10
+						}
+					],
+					"labels": {
+						"HAPROXY_GROUP": "external",
+						"HAPROXY_0_VHOST": "simpleweb.webjet.com.au",
+						"HAPROXY_0_MODE": "http"
+					},
+					"cpus": 0.5,
+					"mem": 512,
+					"instances": 2
+				}
+			}
+		},
+		{
+			"Name": "Lookup Application Master",
+			"Type": "DCOSMesosService",
+			"Attributes": {
+				"Properties": {
+					"MarathonAPI": "[variables('MarathonAPI')]",
+					"MarathonServer": "[variables('MarathonServer')]",
+					"MarathonPort": "[variables('MarathonPort')]",
+					"ApplicationName": "lookup-master",
+					"ServiceDeploymentIdentifier": "[variables('ServiceDeploymentIdentifier')]"
+				},
+				"MarathonTemplate": {
+					"volumes": null,
+					"id": "/lookup-master/$ID",
+					"cmd": null,
+					"args": null,
+					"user": null,
+					"env": {
+						"DEBUG": "*",
+						"PORT": "80"
+					},
+					"instances": 1,
+					"cpus": 1,
+					"mem": 512,
+					"disk": 0,
+					"gpus": 0,
+					"executor": null,
+					"constraints": null,
+					"fetch": [
+						{
+							"uri": "file:///mnt/azure/secrets/bookchain-registry/docker.tar.gz"
+						}
+					],
+					"storeUrls": null,
+					"backoffSeconds": 1,
+					"backoffFactor": 1.15,
+					"maxLaunchDelaySeconds": 3600,
+					"container": {
+						"docker": {
+							"image": "bookchain-on.azurecr.io/bookchain/lookup:master",
+							"forcePullImage": true,
+							"privileged": false,
+							"portMappings": [
+								{
+									"containerPort": 80,
+									"protocol": "tcp"
+								}
+							],
+							"network": "BRIDGE"
+						},
+						"type": "DOCKER",
+						"volumes": [
+							{
+								"containerPath": "/src/private",
+								"hostPath": "/mnt/azure/secrets/lookup",
+								"mode": "RO"
+							}
+						]
+					},
+					"healthChecks": [
+						{
+							"protocol": "HTTP",
+							"path": "/",
+							"gracePeriodSeconds": 300,
+							"intervalSeconds": 5,
+							"timeoutSeconds": 30,
+							"maxConsecutiveFailures": 5,
+							"ignoreHttp1xx": false
+						}
+					],
+					"readinessChecks": null,
+					"dependencies": null,
+					"upgradeStrategy": {
+						"minimumHealthCapacity": 1,
+						"maximumOverCapacity": 1
+					},
+					"labels": {
+						"HAPROXY_GROUP": "external",
+						"HAPROXY_0_VHOST": "lookup-bookchain.webjet.com.au"
+					},
+					"acceptedResourceRoles": null,
+					"residency": null,
+					"secrets": null,
+					"taskKillGracePeriodSeconds": 15,
+					"portDefinitions": [
+						{
+							"port": 10003,
+							"protocol": "tcp",
+							"labels": {}
+						}
+					],
+					"requirePorts": false
+				}
+			}
+		},
+		{
+			"Name": "Lookup Application Develop",
+			"Type": "DCOSMesosService",
+			"Attributes": {
+				"Properties": {
+					"MarathonAPI": "[variables('MarathonAPI')]",
+					"MarathonServer": "[variables('MarathonServer')]",
+					"MarathonPort": "[variables('MarathonPort')]",
+					"ApplicationName": "lookup-develop",
+					"ServiceDeploymentIdentifier": "[variables('ServiceDeploymentIdentifier')]"
+				},
+				"MarathonTemplate": {
+					"volumes": null,
+					"id": "/lookup-develop/$ID",
+					"cmd": null,
+					"args": null,
+					"user": null,
+					"env": {
+						"DEBUG": "*",
+						"PORT": "80"
+					},
+					"instances": 1,
+					"cpus": 1,
+					"mem": 512,
+					"disk": 0,
+					"gpus": 0,
+					"executor": null,
+					"constraints": null,
+					"fetch": [
+						{
+							"uri": "file:///mnt/azure/secrets/bookchain-registry/docker.tar.gz"
+						}
+					],
+					"storeUrls": null,
+					"backoffSeconds": 1,
+					"backoffFactor": 1.15,
+					"maxLaunchDelaySeconds": 3600,
+					"container": {
+						"docker": {
+							"image": "bookchain-on.azurecr.io/bookchain/lookup:develop",
+							"forcePullImage": true,
+							"privileged": false,
+							"portMappings": [
+								{
+									"containerPort": 80,
+									"protocol": "tcp"
+								}
+							],
+							"network": "BRIDGE"
+						},
+						"type": "DOCKER",
+						"volumes": [
+							{
+								"containerPath": "/src/private",
+								"hostPath": "/mnt/azure/secrets/lookup",
+								"mode": "RO"
+							}
+						]
+					},
+					"healthChecks": [
+						{
+							"protocol": "HTTP",
+							"path": "/",
+							"gracePeriodSeconds": 300,
+							"intervalSeconds": 5,
+							"timeoutSeconds": 30,
+							"maxConsecutiveFailures": 5,
+							"ignoreHttp1xx": false
+						}
+					],
+					"readinessChecks": null,
+					"dependencies": null,
+					"upgradeStrategy": {
+						"minimumHealthCapacity": 1,
+						"maximumOverCapacity": 1
+					},
+					"labels": {
+						"HAPROXY_GROUP": "external",
+						"HAPROXY_0_VHOST": "devlookup-bookchain.webjet.com.au"
+					},
+					"acceptedResourceRoles": null,
+					"residency": null,
+					"secrets": null,
+					"taskKillGracePeriodSeconds": 15,
+					"portDefinitions": [
+						{
+							"port": 10004,
+							"protocol": "tcp",
+							"labels": {}
+						}
+					],
+					"requirePorts": false
+				}
+			}
+		},
+		{
+			"Name": "Sample NGINX Service",
+			"Type": "DCOSMesosService",
+			"Attributes": {
+				"Properties": {
+					"MarathonAPI": "[variables('MarathonAPI')]",
+					"MarathonServer": "[variables('MarathonServer')]",
+					"MarathonPort": "[variables('MarathonPort')]",
+					"ApplicationName": "nginx",
+					"ServiceDeploymentIdentifier": ""
+				},
+				"MarathonTemplate": {
+					"id": "/nginx",
+					"instances": 1,
+					"cpus": 1,
+					"mem": 128,
+					"container": {
+						"docker": {
+							"image": "nginx",
+							"portMappings": [
+								{
+									"containerPort": 80,
+									"hostPort": 80,
+									"protocol": "tcp",
+									"name": "80"
+								}
+							],
+							"network": "BRIDGE"
+						}
+					},
+					"acceptedResourceRoles": [
+						"slave_public"
+					],
+					"requirePorts": false
+				}
+			}
+		},
+		{
+			"Name": "Sample Docker Private Registry",
+			"Type": "DCOSMesosService",
+			"Attributes": {
+				"Properties": {
+					"MarathonAPI": "[variables('MarathonAPI')]",
+					"MarathonServer": "[variables('MarathonServer')]",
+					"MarathonPort": "[variables('MarathonPort')]",
+					"ApplicationName": "registry",
+					"ServiceDeploymentIdentifier": ""
+				},
+				"MarathonTemplate": {
+					"id": "/registry",
+					"cpus": 0.5,
+					"mem": 128,
+					"instances": 1,
+					"container": {
+						"type": "DOCKER",
+						"volumes": [
+							{
+								"containerPath": "/certs/",
+								"hostPath": "/etc/privateregistry/certs/",
+								"mode": "RO"
+							}
+						],
+						"docker": {
+							"image": "registry:2",
+							"network": "BRIDGE",
+							"portMappings": [
+								{
+									"containerPort": 5000,
+									"hostPort": 5000,
+									"servicePort": 10000,
+									"protocol": "tcp",
+									"labels": {
+										"VIP_0": "192.168.0.1:443"
+									}
+								}
+							],
+							"privileged": false,
+							"parameters": [],
+							"forcePullImage": false
+						}
+					},
+					"acceptedResourceRoles": [
+						"slave_public"
+					],
+					"env": {
+						"REGISTRY_HTTP_TLS_CERTIFICATE": "/certs/domain.crt",
+						"REGISTRY_HTTP_TLS_KEY": "/certs/domain.key",
+						"REGISTRY_HTTP_SECRET": "248345asecret"
+					},
+					"portDefinitions": [
+						{
+							"port": 10000,
+							"protocol": "tcp",
+							"labels": {}
+						}
+					]
+				}
+			}
+		}
+	]
+}

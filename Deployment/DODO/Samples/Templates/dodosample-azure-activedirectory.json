@@ -1,0 +1,28 @@
+{
+	"Variables": {
+		"Name": "sampledevopsazureadapplication",
+		"Subscription": "Dev Ops",
+		"SubscriptionID": "e226e482-ce0f-47ea-8742-9bcce2fbfac9",
+		"TenantID": "85703717-94e2-432b-b5fc-ed07887863c2",
+		"ResourceGroupName": "test-resources",
+		"ResourceGroupLocation": "Southeast Asia"
+	},
+	"Containers": [
+		{
+			"Name": "Sample Azure AAD",
+			"Type": "AzureActiveDirectory",
+			"Attributes": {
+				"Properties": {
+					"Name": "[variables('Name')]",
+					"Subscription": "[variables('Subscription')]",
+					"SubscriptionID": "[variables('SubscriptionID')]",
+					"TenantID": "[variables('TenantID')]"
+				},
+				"ResourceGroup": {
+					"Name": "[variables('ResourceGroupName')]",
+					"Location": "[variables('ResourceGroupLocation')]"
+				}
+			}
+		}
+	]
+}
