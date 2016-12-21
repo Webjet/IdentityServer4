@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 
-namespace WebApp_RoleClaims_DotNet
+namespace AdminPortal
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class AuthorizeAttribute : System.Web.Mvc.AuthorizeAttribute
@@ -37,5 +42,22 @@ namespace WebApp_RoleClaims_DotNet
                 base.HandleUnauthorizedRequest(filterContext);
             }
         }
+
+        //protected override bool AuthorizeCore(HttpContextBase httpContext)
+        //{
+        //    if (httpContext.User.Identity.IsAuthenticated)
+        //    {
+        //        var authCookie = httpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+        //        if (authCookie != null)
+        //        {
+        //            var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+        //            var roles = ticket.UserData.Split('|');
+        //            var identity = new GenericIdentity(ticket.Name);
+        //            httpContext.User = new GenericPrincipal(identity, roles);
+        //        }
+        //    }
+        //    return base.AuthorizeCore(httpContext);
+        //}
+
     }
 }

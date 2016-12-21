@@ -1,66 +1,69 @@
-﻿//The following libraries were defined and added to this sample.
-using AdminPortal.Utils;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
+using System.IdentityModel.Claims;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Owin;
-using Microsoft.Owin.Host.SystemWeb;
-using System.Globalization;
-//The following libraries were added to this sample.
-using System.Threading.Tasks;
-
+using AdminPortal.Models;
 
 namespace AdminPortal
 {
     public partial class Startup
     {
-        /// <summary>
-        /// Configures OpenIDConnect Authentication & Adds Custom Application Authorization Logic on User Login.
-        /// </summary>
-        /// <param name="app">The application represented by a <see cref="IAppBuilder"/> object.</param>
+        private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
+        private static string appKey = ConfigurationManager.AppSettings["ida:ClientSecret"];
+        private static string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance"];
+        private static string tenantId = ConfigurationManager.AppSettings["ida:TenantId"];
+        private static string postLogoutRedirectUri = ConfigurationManager.AppSettings["ida:PostLogoutRedirectUri"];
+
+        public static readonly string Authority = aadInstance + tenantId;
+
+        // This is the resource ID of the AAD Graph API.  We'll need this to request a token to call the Graph API.
+        string graphResourceId = "https://graph.windows.net";
+
         public void ConfigureAuth(IAppBuilder app)
         {
-            // For single tenant
-            string aadInstance =ConfigHelper.AadInstance;
-            string tenant = ConfigHelper.Tenant;
-            var authority = string.Format(
-              CultureInfo.InvariantCulture,
-              aadInstance,
-              tenant);
+            ApplicationDbContext db = new ApplicationDbContext();
 
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
 
-            //Configure OpenIDConnect, register callbacks for OpenIDConnect Notifications
-             app.UseOpenIdConnectAuthentication(
+            app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {
-                    ClientId = ConfigHelper.ClientId,
-                    //Authority = String.Format(CultureInfo.InvariantCulture, ConfigHelper.AadInstance, ConfigHelper.Tenant), // For Single-Tenant
-                    // Authority = ConfigHelper.CommonAuthority, // For Multi-Tenant
-                    Authority = authority,  // For single tenant
-                    PostLogoutRedirectUri = ConfigHelper.PostLogoutRedirectUri,
+                    ClientId = clientId,
+                    Authority = Authority,
+                    PostLogoutRedirectUri = postLogoutRedirectUri,
 
-                    // Here, we've disabled issuer validation for the multi-tenant sample.  This enables users
-                    // from ANY tenant to sign into the application (solely for the purposes of allowing the sample
-                    // to be run out-of-the-box.  For a real multi-tenant app, reference the issuer validation in 
-                    // WebApp-MultiTenant-OpenIDConnect-DotNet.  If you're running this sample as a single-tenant
-                    // app, you can delete the ValidateIssuer property below.
+                    //Required for AAD Role Based Authentication
                     TokenValidationParameters = new System.IdentityModel.Tokens.TokenValidationParameters
                     {
                         //ValidateIssuer = false, // For Multi-Tenant Only
                         RoleClaimType = "roles",
                     },
 
-                    Notifications = new OpenIdConnectAuthenticationNotifications
+                    Notifications = new OpenIdConnectAuthenticationNotifications()
                     {
-                        AuthenticationFailed = context =>
-                        {
-                            context.HandleResponse();
-                            context.Response.Redirect("/Error/ShowError?signIn=true&errorMessage=" + context.Exception.Message);
-                            return Task.FromResult(0);
-                        }
+                        // If there is a code in the OpenID Connect response, redeem it for an access token and refresh token, and store those away.
+                       AuthorizationCodeReceived = (context) => 
+                       {
+                           var code = context.Code;
+                           ClientCredential credential = new ClientCredential(clientId, appKey);
+                           string signedInUserID = context.AuthenticationTicket.Identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                           AuthenticationContext authContext = new AuthenticationContext(Authority, new ADALTokenCache(signedInUserID));
+                           AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
+                           code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
+
+                           return Task.FromResult(0);
+                       }
                     }
                 });
         }
