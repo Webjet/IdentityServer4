@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.Tests", "AdminP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal", "AzureAthentication\AdminPortal\AdminPortal\AdminPortal.csproj", "{210835A1-A0A0-4CAA-83AD-4037F5713418}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.BusinessServices", "AzureAthentication\AdminPortal.BusinessServices\AdminPortal.BusinessServices.csproj", "{D2D0B690-EA51-47F8-9FF0-AA18494DB921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{210835A1-A0A0-4CAA-83AD-4037F5713418}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{210835A1-A0A0-4CAA-83AD-4037F5713418}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{210835A1-A0A0-4CAA-83AD-4037F5713418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

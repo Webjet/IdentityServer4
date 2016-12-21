@@ -20,7 +20,7 @@ namespace AdminPortal.Models
             //ReadJSONConfiguration();
         }
         
-        public List<string> AllowedRolesForResource(string resourceKey)
+        public List<string> AllowedRoleForResource(string resourceKey)
         {
             RoleBasedResourceItem roleBasedResourceItem = _roleBasedResourceKeys.FirstOrDefault(x => x.ResourceKey == resourceKey);
             if (roleBasedResourceItem != null)

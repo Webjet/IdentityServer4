@@ -5,24 +5,23 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using AdminPortal.BusinessServices;
 
 namespace AdminPortal.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-       
+        [HttpGet]
+        [Authorize(Roles = "ServiceCenter,ServiceCenterManager,ProductTeam,Finance,Analytics,DevSupport")]
         public ActionResult Index()
         {
-            // var identity = (ClaimsIdentity)User.Identity;
-            // IEnumerable<System.Security.Claims.Claim> claims = identity.Claims.Where(n => n.Value == "ServiceCenter");
+            //Previous Code with Model 'RoleBasedResourceItemMapper' 
+            //return View(new RoleBasedResourceItemMapper());
 
-            //Claim cl =   claims.ToList().Find(x => x.Value == "ServiceCenter");
-            //RoleBasedResourceItemMapper mapper = new RoleBasedResourceItemMapper();
-            //ViewData["RoleBasedResourceItemMapper"] = new RoleBasedResourceItemMapper();
-
-           return View(new RoleBasedResourceItemMapper());
+            //Working - RnD
+            return View(new ResourceItems(User));
         }
-
+       
     }
 }
