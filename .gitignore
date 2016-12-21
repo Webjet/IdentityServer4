@@ -17,7 +17,8 @@ Binaries
 # MSTest test Results
 [Tt]est[Rr]esult*/
 
-/.vs/Master/v14/vbcs.cache
+# Visual Studio 2015 cache/options directory
+.vs/
 
 # Microsoft Fakes
 FakesAssemblies/
