@@ -247,7 +247,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AdminPortal.BusinessServices\AdminPortal.BusinessServices.csproj">
+    <ProjectReference Include="..\AdminPortal.BusinessServices\AdminPortal.BusinessServices.csproj">
       <Project>{d2d0b690-ea51-47f8-9ff0-aa18494db921}</Project>
       <Name>AdminPortal.BusinessServices</Name>
     </ProjectReference>
