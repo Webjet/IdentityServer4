@@ -12,7 +12,7 @@ namespace AdminPortal.BusinessServices
 {
     public class ResourceToApplicationRoleMapper
     {
-        private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\RoleBasedMenuItemMap.xml";
+       private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\RoleBasedMenuItemMap.xml";
         //private string test = Assembly.GetExecutingAssembly().Location;
         //private string test1 = HostingEnvironment.ApplicationPhysicalPath + "config\\RoleBasedMenuItemMap.xml";
 

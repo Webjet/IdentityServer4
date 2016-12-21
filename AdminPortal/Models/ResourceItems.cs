@@ -21,5 +21,11 @@ namespace AdminPortal.Models
             List<string> roles = new ResourceToApplicationRoleMapper().GetAllowedRolesForResource(resourceKey);
             return roles.Any(role => _loggedUser.IsInRole(role));
         }
+
+        public List<Tab> GetUiLinkMenuItems()
+        {
+            UiLinkMapper uiLinkMapper  = new UiLinkMapper();
+            return uiLinkMapper.Tabs;
+        } 
     }
 }
