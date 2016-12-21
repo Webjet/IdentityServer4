@@ -1,0 +1,27 @@
+{ //TODO: Change to Admin-Portal 
+	"Parameters": {
+		"Subscription": "Webjet - Production",
+        "SubscriptionID": "01dd4c02-5670-4ed3-818e-39509fd82de3",
+        "TenantID": "5de0e68c-0afd-4a67-b089-31f168aa4ca0",
+        "ResourceGroupName": "WJ-Prod-PackagesRG",
+        "ResourceGroupLocation": "Australia East",
+		"AppServicePlan": "WJZU-Prod-PackagesASP-AU",
+		"AppServicePlanLocation": "Australia East",		
+		"NewRelicLicenseKey": "dac6eb61fde6242216562aa4fc2de1c1092c3519",
+		"NewRelicHome": "D:\\Home\\site\\wwwroot\\newrelic",
+		"COR_PROFILER_PATH": " D:\\Home\\site\\wwwroot\\newrelic\\NewRelic.Profiler.dll ",
+		"COR_PROFILER": "{71DA0A04-7777-4EC6-9643-7D28B46A8A41}",
+		"COR_ENABLE_PROFILING": "1",
+		"Region" : "au",
+		"InstanceNumber" : "001",
+		"StorageInstanceNumber" : "",
+		"Environment" : "prod",
+		"AuthType" : "OrgUserCredentials",
+		"AzureUsername" : "{Teamcity-Parameter-UserName}",
+		"AzurePassword" : "{Teamcity-Parameter-Password}",
+		"ReleaseVersion" : "1.0",
+		"LogStorageName": "wjprodstglogsau",
+		"LogStorageContainer": "wjprodstglogscnau",
+		"LogResourceGroupName": "WJ-Prod-LogsRG"
+	}
+}

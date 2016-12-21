@@ -1,0 +1,1 @@
+The folder contains settings to replace main configuration for different environments
