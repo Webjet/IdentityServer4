@@ -41,7 +41,7 @@ namespace AdminPortal
                 {
                     ClientId = clientId,
                     Authority = Authority,
-                    //PostLogoutRedirectUri = postLogoutRedirectUri,
+                    PostLogoutRedirectUri = postLogoutRedirectUri,
 
                     //Required for AAD Role Based Authentication
                     TokenValidationParameters = new System.IdentityModel.Tokens.TokenValidationParameters
