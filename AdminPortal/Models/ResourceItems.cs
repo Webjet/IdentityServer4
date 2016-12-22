@@ -15,17 +15,17 @@ namespace AdminPortal.Models
         public ResourceItems(IPrincipal user)
         {
             _loggedUser = user;
+            UiLinkMenuItems = new List<LandingPageTab>();
         }
         public bool IsResourceAllowedForUserRole(string resourceKey)
         {
-            List<string> roles = new ResourceToApplicationRoleMapper().GetAllowedRolesForResource(resourceKey);
+            List<string> roles = new ResourceToApplicationRolesMapper().GetAllowedRolesForResource(resourceKey);
             return roles.Any(role => _loggedUser.IsInRole(role));
         }
 
-        public List<Tab> GetUiLinkMenuItems()
-        {
-            UiLinkMapper uiLinkMapper  = new UiLinkMapper();
-            return uiLinkMapper.Tabs;
-        } 
+
+        public List<LandingPageTab> UiLinkMenuItems { get; set; }
+
+       
     }
 }

@@ -4,7 +4,7 @@
   <tab id ="WebjetAU" text ="Webjet AU">
     <Section id ="ServiceCenterSectionAU"
              text="ServiceCenter Activities " >
-      <MenuItem id ="PendingBookingsAU"
+      <MenuItem id ="ReviewPendingBookingsAU"
                 text="Pending Bookings"
                 link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem >
@@ -17,17 +17,17 @@
 
     <Section id ="ProductTeamSectionAU"
            text="Product Team Activities " >
-      <MenuItem id ="PendingBookingsAU"
-                text="Pending Bookings"
-                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      <MenuItem id ="CreditCardTransactionsToCheckAU"
+            text="Credit Card Transaction Check"
+            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem>
     </Section>
 
     <Section id ="FinanceTeamSectionAU"
           text="Finance Team Activities " >
-      <MenuItem id ="CreditCardTransactionCheckAU"
-             text="Credit Card Transaction Check"
-             link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      <MenuItem id ="FareEscalationJournalAU"
+            text="Fare Escalation Journal"
+            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem>
     </Section>
 
@@ -36,7 +36,7 @@
   <tab id ="WebjetNZ" text ="Webjet NZ">
     <Section id ="ServiceCenterSectionNZ"
              text="ServiceCenter Activities " >
-      <MenuItem id ="PendingBookingsNZ"
+      <MenuItem id ="ReviewPendingBookingsNZ"
                 text="Pending Bookings"
                 link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem >
@@ -49,16 +49,20 @@
 
     <Section id ="ProductTeamSectionNZ"
            text="Product Team Activities " >
-      <MenuItem id ="PendingBookingsNZ"
+      <MenuItem id ="ReviewPendingBookingsNZ"
                 text="Pending Bookings"
                 link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem>
+      <MenuItem id ="CreditCardTransactionsToCheckNZ"
+            text="Credit Card Transaction Check"
+            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem>
     </Section>
 
     <Section id ="FinanceTeamSectionNZ"
           text="Finance Team Activities " >
-      <MenuItem id ="CreditCardTransactionCheckNZ"
-             text="Credit Card Transaction Check"
+      <MenuItem id ="FareEscalationJournalNZ"
+             text="Fare Escalation Journal"
              link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem>
     </Section>

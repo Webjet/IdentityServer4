@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.Tests", "AdminPortal.Tests\AdminPortal.Tests.csproj", "{B9AED0EA-3A7D-469F-8D34-42E684826521}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.IntegrationTest", "Source\AdminPortal.IntegrationTest\AdminPortal.IntegrationTest.csproj", "{3A3708E8-0E4A-4097-95FC-91A05A5D6C08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.BusinessServices", "AdminPortal.BusinessServices\AdminPortal.BusinessServices.csproj", "{D2D0B690-EA51-47F8-9FF0-AA18494DB921}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal", "Source\AdminPortal\AdminPortal.csproj", "{210835A1-A0A0-4CAA-83AD-4037F5713418}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal", "AdminPortal\AdminPortal.csproj", "{210835A1-A0A0-4CAA-83AD-4037F5713418}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.BusinessServices", "Source\AdminPortal.BusinessServices\AdminPortal.BusinessServices.csproj", "{D2D0B690-EA51-47F8-9FF0-AA18494DB921}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.UnitTest", "Source\AdminPortal.Tests\AdminPortal.UnitTest.csproj", "{B9AED0EA-3A7D-469F-8D34-42E684826521}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B9AED0EA-3A7D-469F-8D34-42E684826521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9AED0EA-3A7D-469F-8D34-42E684826521}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9AED0EA-3A7D-469F-8D34-42E684826521}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9AED0EA-3A7D-469F-8D34-42E684826521}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A3708E8-0E4A-4097-95FC-91A05A5D6C08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A3708E8-0E4A-4097-95FC-91A05A5D6C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A3708E8-0E4A-4097-95FC-91A05A5D6C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A3708E8-0E4A-4097-95FC-91A05A5D6C08}.Release|Any CPU.Build.0 = Release|Any CPU
 		{210835A1-A0A0-4CAA-83AD-4037F5713418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{210835A1-A0A0-4CAA-83AD-4037F5713418}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{210835A1-A0A0-4CAA-83AD-4037F5713418}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{210835A1-A0A0-4CAA-83AD-4037F5713418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D0B690-EA51-47F8-9FF0-AA18494DB921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9AED0EA-3A7D-469F-8D34-42E684826521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9AED0EA-3A7D-469F-8D34-42E684826521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9AED0EA-3A7D-469F-8D34-42E684826521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9AED0EA-3A7D-469F-8D34-42E684826521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
