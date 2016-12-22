@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <main>
+        <h1>Google BigQuery Itinerary View</h1>
+        <div style="padding-top:30px">
+
+            <form id="booking">
+                Booking Reference: <input id="booking_reference" type="text" data-bind="value:TransactionID, valueUpdate:'keyup'"> <!-- ko if:!ValidationTransactionID() --><span style="border-radius: 32px; color: black; background-color: red;">!</span><!-- /ko --><br>
+                Date: <input id="date" type="date" data-bind="value:Date, attr: {max: MaxDate}"> <span style="border-radius: 32px; color: black; background-color: red;">!</span><br>
+                Webjet/Zuji: <select id="brand" data-bind="value:Brand"><option>Webjet</option><option>Zuji</option></select><br>
+                <hr>
+                <button id="submit" type="button" value="Submit" data-bind="enable: isValid">Submit</button>
+                <span data-bind="visible: isValid">Fields are <span style="color: green">valid!</span></span>
+            </form>
+            <span id="message"></span><br>
+            <span id="error" style="color:red"></span>
+            <img id="loading-ring" src="static/img/ring-loading.gif" hidden><br>
+            <span data-bind="text: JSON.stringify(Data(), null, '\t')"></span>
+
+        </div>
+    </main>
+
+    <script>
+    function ViewModel() {
+      var self = this;
+
+      var today = new Date();
+      var yesterday = new Date(today.setDate(today.getDate() - 1)).toISOString().slice(0,10);
+
+      self.TransactionID = ko.observable("");
+      self.Date = ko.observable(yesterday);
+      self.MaxDate = ko.observable(yesterday);
+      self.Brand = ko.observable("Webjet");
+
+      self.ValidationTransactionID = ko.pureComputed(function() {
+        var check = self.TransactionID();
+        return (check != "" && check != undefined)
+      });
+
+      self.ValidationDate = ko.pureComputed(function() {
+        var check = self.Date();
+        return (check != "" && check != undefined && check <= self.MaxDate())
+      });
+
+      self.isValid = ko.pureComputed(function() {
+        return (self.ValidationTransactionID() && self.ValidationDate());
+      });
+
+      self.Data = ko.pureComputed(function() {
+        return {
+          'transactionId': self.TransactionID().trim(),
+          'date': self.Date().replace(/-/g, ''),
+          'brand': self.Brand()
+        }
+      });
+    }
+
+    var VM = new ViewModel();
+    ko.applyBindings(VM);
+
+    $(document).ready(function() {
+      $("button#submit").click(function(e) {
+        var data = VM.Data();
+
+        console.log("POSTing with", data)
+
+        data = JSON.stringify(data)
+
+        $.ajax({
+          accept: "text/csv",
+          beforeSend: function(xhrObj){
+            xhrObj.setRequestHeader("Content-Type","application/json");
+            xhrObj.setRequestHeader("Accept","application/json");
+
+            $("#loading-ring").show();
+            $("#error").text("");
+            $("#message").text("");
+          },
+          type: "POST",
+            //URL To Replace Start
+          url: "http://127.0.0.1:5000/api/v1.0/query",
+            //URL To Replace End
+          data: data,
+          dataType: "json",
+          success: function(json){
+            console.log("Response is", json);
+
+            if (json.status) {
+              $("#message").text(json.status + ": " + json.message)
+            }
+
+            if (json.redirect) {
+              window.location.href = json.redirect;
+            }
+          },
+          error: function(json){
+            var response = json.responseJSON;
+
+            if (response.redirect) {
+              window.location.href = response.redirect
+              console.log("Redirect to", response.redirect, "from", json);
+            } else {
+              console.log("Error occurred with", json);
+
+              if (json.status) {
+                $("#error").text(json.status.toString() + ": " + json.statusText)
+              }
+            }
+
+            $("#loading-ring").hide();
+          },
+          complete: function() {
+            $("#loading-ring").hide();
+          }
+        });
+
+        e.preventDefault();
+        return false
+      })
+    });
+    </script>
+</body>
+</html>
+
