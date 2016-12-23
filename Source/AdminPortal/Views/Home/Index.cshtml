@@ -1,5 +1,6 @@
 ﻿@using AdminPortal.BusinessServices
 @using AdminPortal.Models
+@using Microsoft.SDC.Common
 @model AdminPortal.Models.LandingPageModel
 
 @{
@@ -27,14 +28,23 @@
                     <br />
                     foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
                     {
-                        if (menuItem.Text.Equals("Google Big Query Itinerary",StringComparison.OrdinalIgnoreCase))
+                       
+                        if (UriHelper.IsRelativeUrl(menuItem.Link))
+                        {
+                            <a href='@menuItem.Link'>@menuItem.Text</a>
+                        }
+                        else
+                        {
+  @Html.ActionLink(menuItem.Text, menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])
+                        }
+                        @*if (menuItem.Text.Equals("Google Big Query Itinerary", StringComparison.OrdinalIgnoreCase))
                         {
                             @Html.ActionLink(menuItem.Text, menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])
                         }
                         else
                         {
                             <a href=@menuItem.Link>@menuItem.Text</a>
-                        }
+                        }*@
                         <br />
                     }
 
