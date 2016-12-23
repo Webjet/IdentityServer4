@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GoogleBigQueryItineraryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReviewPendingBookingsController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,6 +238,7 @@
     <Content Include="Views\GoogleBigQueryItinerary\Index.cshtml" />
     <Content Include="Views\GoogleBigQueryItinerary\AddFromOtherRepository.ps1" />
     <Content Include="Views\GoogleBigQueryItinerary\ReadMe.MD" />
+    <Content Include="Views\ReviewPendingBookings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
