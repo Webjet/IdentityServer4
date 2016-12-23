@@ -10,11 +10,19 @@ namespace AdminPortal.BusinessServices
 {
     public class LandingPageLayoutLoader
     {
-        private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\UILinksMapping.xml";
-        
-        public LandingPageLayoutLoader()
-        {
+        private string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\UILinksMapping.xml";
 
+
+        public LandingPageLayoutLoader():this(null)
+        {
+            
+        }
+        public LandingPageLayoutLoader(string filePath=null)
+        {
+            if (filePath != null)
+            {
+                _filepath = filePath;
+            }
         }
 
         public  List<LandingPageTab> GetConfiguration()
