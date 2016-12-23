@@ -10,12 +10,22 @@ namespace AdminPortal.Models
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
-            : base("DefaultConnection")
+           
         {
         }
 
         public DbSet<UserTokenCache> UserTokenCacheList { get; set; }
     }
+
+    //public class ApplicationDbContext : DbContext
+    //{
+    //    public ApplicationDbContext()
+    //        : base("DefaultConnection")
+    //    {
+    //    }
+
+    //    public DbSet<UserTokenCache> UserTokenCacheList { get; set; }
+    //}
 
     public class UserTokenCache
     {
