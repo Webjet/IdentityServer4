@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.IntegrationTest", "Test\AdminPortal.IntegrationTest\AdminPortal.IntegrationTest.csproj", "{3A3708E8-0E4A-4097-95FC-91A05A5D6C08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.IntegrationTests", "Test\AdminPortal.IntegrationTest\AdminPortal.IntegrationTests.csproj", "{3A3708E8-0E4A-4097-95FC-91A05A5D6C08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.BusinessServices", "AdminPortal.BusinessServices\AdminPortal.BusinessServices.csproj", "{D2D0B690-EA51-47F8-9FF0-AA18494DB921}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal", "AdminPortal\AdminPortal.csproj", "{210835A1-A0A0-4CAA-83AD-4037F5713418}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.UnitTest", "Test\AdminPortal.UnitTest\AdminPortal.UnitTest.csproj", "{B9AED0EA-3A7D-469F-8D34-42E684826521}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPortal.UnitTests", "Test\AdminPortal.UnitTest\AdminPortal.UnitTests.csproj", "{B9AED0EA-3A7D-469F-8D34-42E684826521}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D4160D34-4E82-4DAD-A9BE-DB00F42B64F1}"
 EndProject
