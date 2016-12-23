@@ -27,7 +27,14 @@
                     <br />
                     foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
                     {
-                        @Html.ActionLink(menuItem.Text, "Index", menuItem.ControllerName)
+                        if (menuItem.Text.Equals("Google Big Query Itinerary",StringComparison.OrdinalIgnoreCase))
+                        {
+                            @Html.ActionLink(menuItem.Text, menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])
+                        }
+                        else
+                        {
+                            <a href=@menuItem.Link>@menuItem.Text</a>
+                        }
                         <br />
                     }
 

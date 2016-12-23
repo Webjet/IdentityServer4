@@ -10,7 +10,7 @@
       </MenuItem >
       <MenuItem id ="GoogleBigQueryItineraryAU"
                text="Google Big Query Itinerary"
-               link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+               link="GoogleBigQueryItinerary/Index" >
       </MenuItem >
 
     </Section>
@@ -42,7 +42,7 @@
       </MenuItem >
       <MenuItem id ="GoogleBigQueryItineraryNZ"
                text="Google Big Query Itinerary"
-               link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+               link="GoogleBigQueryItinerary/Index" >
       </MenuItem >
 
     </Section>
