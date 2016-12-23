@@ -21,7 +21,6 @@ namespace AdminPortal.BusinessServices
       
         public ResourceToApplicationRolesMapper()
         {
-          
             ReadConfiguration();
         }
 
@@ -66,6 +65,7 @@ namespace AdminPortal.BusinessServices
 
                 }
             }
+            //TODO: add logging incase xmlNode == null
         }
 
     }
