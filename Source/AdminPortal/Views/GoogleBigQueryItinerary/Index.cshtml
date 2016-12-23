@@ -7,7 +7,7 @@
 {
     if (User.IsInRole("Admin") || User.IsInRole("Analytics") || User.IsInRole("ServiceCenterManager") || User.IsInRole("ServiceCenter"))
     {
-        @Html.Raw(File.ReadAllText(Server.MapPath("~/Views/GoogleBigQueryItinerary/Content/GoogleBigQueryItinerary.html")))
+        @Html.Raw(File.ReadAllText(Server.MapPath("~/Views/GoogleBigQueryItinerary/Content/Index.html")))
     }
     if (User.IsInRole("Observer"))
     {

@@ -218,7 +218,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\GoogleBigQueryItinerary\Content\GoogleBigQueryItinerary.html" />
+    <Content Include="Views\GoogleBigQueryItinerary\Content\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -237,6 +237,7 @@
     <Content Include="Views\UserProfile\Relogin.cshtml" />
     <Content Include="Views\GoogleBigQueryItinerary\Index.cshtml" />
     <Content Include="Views\GoogleBigQueryItinerary\AddFromOtherRepository.ps1" />
+    <Content Include="Views\GoogleBigQueryItinerary\ReadMe.MD" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
