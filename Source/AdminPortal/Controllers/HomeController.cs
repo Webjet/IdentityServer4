@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using AdminPortal.BusinessServices;
+using Microsoft.SDC.Common;
 using WebGrease.Css.Ast.Selectors;
 
 namespace AdminPortal.Controllers
@@ -25,7 +26,11 @@ namespace AdminPortal.Controllers
             {
                 LandingPageTabs = GetLandingPageTabs(new LandingPageLayoutLoader())
             };
-            
+
+            if(UriHelper.IsRelativeUrl(_landingPageModel.LandingPageTabs[0].Sections[0].MenuItems[0].Link))
+            {
+                string str = _landingPageModel.LandingPageTabs[0].Sections[0].MenuItems[0].Link;
+            }
          return View(_landingPageModel);
         }
 
