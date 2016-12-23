@@ -235,8 +235,9 @@
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\UserProfile\Relogin.cshtml" />
     <Content Include="Views\GoogleBigQueryItinerary\Index.cshtml" />
-    <Content Include="Views\GoogleBigQueryItinerary\AddFromOtherRepository.ps1" />
     <Content Include="Views\GoogleBigQueryItinerary\ReadMe.MD" />
+    <Content Include="Views\GoogleBigQueryItinerary\SyncFromOtherRepository_ReadTree.ps1" />
+    <Content Include="Views\GoogleBigQueryItinerary\SynFromOtherRepository_DiffApply_NotComplete.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
