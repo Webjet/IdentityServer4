@@ -8,7 +8,7 @@
                 text="Pending Bookings"
                 link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem >
-      <MenuItem id ="GoogleBigQueryAU"
+      <MenuItem id ="GoogleBigQueryItineraryAU"
                text="Google Big Query Itinerary"
                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem >
@@ -40,7 +40,7 @@
                 text="Pending Bookings"
                 link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem >
-      <MenuItem id ="GoogleBigQueryNZ"
+      <MenuItem id ="GoogleBigQueryItineraryNZ"
                text="Google Big Query Itinerary"
                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
       </MenuItem >
