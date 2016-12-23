@@ -3,51 +3,54 @@
 @model AdminPortal.Models.LandingPageModel
 
 @{
-   
-        ViewBag.Title = "ADMIN PORTAL Landing Page";
-    
+
+    ViewBag.Title = "ADMIN PORTAL Landing Page";
+
 }
 
 <div class="jumbotron">
     <h2>ADMIN PORTAL</h2>
     <p class="lead">Admin Portal is a new site, that will replace(or wrap) TSA Admin, Flight Search and other similar functionality, and is used by internal users-service centre, product team etc.</p>
-     <br />
+    <br />
 
-@if (Request.IsAuthenticated)
-{
-    foreach (LandingPageTab tab in (List<LandingPageTab>)ViewData["uiBrandRegionTabs"])
+    @if (Request.IsAuthenticated)
     {
-       <h2> @tab.Text</h2>
-
-        foreach (LandingPageSection sectionItem in @tab.Sections)
+        foreach (LandingPageTab tab in Model.LandingPageTabs)
         {
-            <u>@sectionItem.Text</u> <br/>
-            foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
+            if (tab != null)
             {
-                @menuItem.Text
-            }
+                <h2> @tab.Text</h2>
 
-            <br/>
+                foreach (LandingPageSection sectionItem in @tab.Sections)
+                {
+                    <u>@sectionItem.Text</u>
+                    <br />
+                    foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
+                    {
+                        @menuItem.Text
+                        <br />
+                    }
+
+                    <br />
+                }
+            }
         }
+
     }
 
 
-}
-
-
-
     @*@if (Request.IsAuthenticated)
-    {
+        {
 
-        if (Model.IsResourceAllowedForUserRole("GoogleBigQuery"))
-        {
-            <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
-        }
-        if (Model.IsResourceAllowedForUserRole("CreditCardTransactionsToCheck"))
-        {
-            <p>@Html.ActionLink("Credit Card Transactions To Check", "Index", "UserProfile")</p>
-        }
-    }*@
+            if (Model.IsResourceAllowedForUserRole("GoogleBigQuery"))
+            {
+                <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
+            }
+            if (Model.IsResourceAllowedForUserRole("CreditCardTransactionsToCheck"))
+            {
+                <p>@Html.ActionLink("Credit Card Transactions To Check", "Index", "UserProfile")</p>
+            }
+        }*@
 
     @*@if (Request.IsAuthenticated)
         {

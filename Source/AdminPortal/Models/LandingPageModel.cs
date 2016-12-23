@@ -12,7 +12,7 @@ namespace AdminPortal.Models
     {
         public LandingPageModel()
         {
-            LandingPageTabs = new List<LandingPageTab>();
+           
         }
         
         public List<LandingPageTab> LandingPageTabs { get; set; }
