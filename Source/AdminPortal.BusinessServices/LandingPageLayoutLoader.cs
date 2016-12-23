@@ -13,11 +13,11 @@ namespace AdminPortal.BusinessServices
         private string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\UILinksMapping.xml";
 
 
-        public LandingPageLayoutLoader():this(null)
+        public LandingPageLayoutLoader() : this(null)
         {
-            
+
         }
-        public LandingPageLayoutLoader(string filePath=null)
+        public LandingPageLayoutLoader(string filePath = null)
         {
             if (filePath != null)
             {
@@ -25,9 +25,9 @@ namespace AdminPortal.BusinessServices
             }
         }
 
-        public  List<LandingPageTab> GetConfiguration()
+        public List<LandingPageTab> GetConfiguration()
         {
-            List<LandingPageTab> landingPageTabs=null;
+            List<LandingPageTab> landingPageTabs = null;
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(_filepath);
             XmlNode xmlNode = xmlDoc.SelectSingleNode("uilinks");
@@ -121,5 +121,6 @@ namespace AdminPortal.BusinessServices
 
         public string Link { get; set; }
 
+        public string ControllerName => (this.Key = this.Key.Remove(this.Key.Length - 2));
     }
 }
