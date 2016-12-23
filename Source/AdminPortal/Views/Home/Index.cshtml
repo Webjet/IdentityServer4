@@ -27,7 +27,7 @@
                     <br />
                     foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
                     {
-                        @menuItem.Text
+                        @Html.ActionLink(menuItem.Text, "Index", menuItem.ControllerName)
                         <br />
                     }
 
