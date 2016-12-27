@@ -31,20 +31,14 @@
                        
                         if (UriHelper.IsRelativeUrl(menuItem.Link))
                         {
-                            <a href='@menuItem.Link'>@menuItem.Text</a>
-                        }
-                        else
-                        {
-  @Html.ActionLink(menuItem.Text, menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])
-                        }
-                        @*if (menuItem.Text.Equals("Google Big Query Itinerary", StringComparison.OrdinalIgnoreCase))
-                        {
                             @Html.ActionLink(menuItem.Text, menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])
                         }
                         else
                         {
-                            <a href=@menuItem.Link>@menuItem.Text</a>
-                        }*@
+                            <a href='@menuItem.Link' target="_blank">@menuItem.Text</a>
+                          
+                        }
+                      
                         <br />
                     }
 
