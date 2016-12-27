@@ -6,7 +6,7 @@
              text="ServiceCenter Activities " >
       <MenuItem id ="ReviewPendingBookingsAU"
                 text="Pending Bookings"
-                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+                link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem >
       <MenuItem id ="GoogleBigQueryItineraryAU"
                text="Google Big Query Itinerary"
@@ -19,7 +19,7 @@
            text="Product Team Activities " >
       <MenuItem id ="CreditCardTransactionsToCheckAU"
             text="Credit Card Transaction Check"
-            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+            link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>
     </Section>
 
@@ -27,7 +27,7 @@
           text="Finance Team Activities " >
       <MenuItem id ="FareEscalationJournalAU"
             text="Fare Escalation Journal"
-            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+            link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>
     </Section>
 
@@ -38,7 +38,7 @@
              text="ServiceCenter Activities " >
       <MenuItem id ="ReviewPendingBookingsNZ"
                 text="Pending Bookings"
-                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+                link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem >
       <MenuItem id ="GoogleBigQueryItineraryNZ"
                text="Google Big Query Itinerary"
@@ -51,11 +51,11 @@
            text="Product Team Activities " >
       <MenuItem id ="ReviewPendingBookingsNZ"
                 text="Pending Bookings"
-                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+                link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>
       <MenuItem id ="CreditCardTransactionsToCheckNZ"
             text="Credit Card Transaction Check"
-            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+            link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>
     </Section>
 
@@ -63,7 +63,7 @@
           text="Finance Team Activities " >
       <MenuItem id ="FareEscalationJournalNZ"
              text="Fare Escalation Journal"
-             link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+             link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>
     </Section>
 
