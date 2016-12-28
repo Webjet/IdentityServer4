@@ -1,0 +1,209 @@
+﻿@import "utilities.less";
+
+@wj-caret-right: "\E002";
+@wj-caret-down: "\E003";
+@wj-arrow-right: "\E00A";
+@wj-arrow-down: "\E00B";
+
+.accordion {
+    background: @contentBackground;
+    color: @darkGrey;
+    font-size: 15px;
+    font-weight: 700;
+
+    .accordion-item {
+        border-bottom: 1px solid #E3E3E3;
+
+        &:last-child {
+            border: none;
+        }
+    }
+
+    .title {
+        display: block;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 @gutterWidth;
+        text-decoration: none;
+        color: @darkGrey;
+
+        &:hover, &:active {
+            background: #DFDFDF;
+        }
+
+        &:focus {
+            background: #DFDFDF;
+            box-shadow: @activeItemOutline;
+
+            &:active {
+                box-shadow: none;
+            }
+        }
+
+        .wj-icon {
+            margin-right: 2px;
+        }
+
+        &:before {
+            font-family: @iconFontFamily;
+            -webkit-font-smoothing: antialiased;
+            content: @wj-caret-down;
+            font-size: 16px;
+            padding-right: 3px;
+        }
+    }
+
+    .content {
+        margin: 0;
+        padding: 6px 12px 20px;
+        overflow: hidden;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .toggle {
+        .title:before {
+            content: @wj-caret-right;
+        }
+    }
+
+    &.collapsed {
+        .title:before {
+            content: @wj-caret-right;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .toggle {
+            .title:before {
+                content: @wj-caret-down;
+            }
+
+            .content {
+                display: block;
+            }
+        }
+    }
+
+    &.accordion-list {
+        background: @white;
+        
+        .accordion-item {
+            border-bottom: 1px solid #E3E3E3;
+        }
+
+        .title {
+            &:hover, &:active {
+                background: #f5f5f5;
+            }
+
+            &:focus {
+                background: #f5f5f5;
+            }
+
+            &:before {
+                float: right;
+                content: @wj-arrow-right;
+                padding: 0;
+            }
+        }
+
+        .content {
+            background: none;
+            padding-top: 11px;
+            display: none;
+        }
+
+        .toggle {
+            .title {
+                background: #f5f5f5;
+
+                &:before {
+                    content: @wj-arrow-down;
+                }
+            }
+        }
+    }
+}
+
+/* Multilevel Accordion */
+ul.multilevel-accordion {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: @white;
+
+    li {
+        min-height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #E3E3E3;
+
+        > a {
+            display: block;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1;
+            text-decoration: none;
+            padding: 15px 12px;
+
+            &.title {
+                display: block;
+                padding: 15px 12px;
+                font-size: 17px;
+                font-weight: bold;
+                color: @baseFontColor;
+
+                &:hover {
+                    text-decoration: none;
+                    background: @softWhite;
+                }
+
+                &:before {
+                    font-family: @iconFontFamily;
+                    -webkit-font-smoothing: antialiased;
+                    font-size: 16px;
+                    float: right;
+                    content: "\E00A";
+                    padding: 0;
+                }
+            }
+        }
+
+        &.has-children {
+           
+
+           > ul {
+               display: none;
+           }
+
+           &.toggle {
+               > .title {
+                   &:before {
+                       content: "\E00B";
+                   }
+               }
+
+               > ul {
+                   display: block;
+               }
+           }
+        }
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+            border-top: 1px solid #E3E3E3;
+            border-bottom: 0;
+
+            > a {
+                padding-left: 24px;
+            }
+        }
+    }
+}

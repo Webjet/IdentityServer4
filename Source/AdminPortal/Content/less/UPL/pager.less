@@ -1,0 +1,52 @@
+﻿@import "utilities.less";
+
+.pager {
+    font-size: 0;
+    margin: 0;
+    text-align: left;
+
+    button {
+        margin: 0 6px;
+        padding: 0;
+        min-width: 50px;
+
+        &:first-child {
+            padding: 0 18px;
+        }
+
+        &:last-child {
+            margin-right: 0;
+            padding: 0 18px;
+        }
+
+        &.active, &.active:hover {
+            background: @grey;
+            color: @white;
+            cursor: default;
+            box-shadow: none;
+            font-weight: 500;
+            height: 50px;
+            line-height: 50px;
+        }
+    }
+}
+
+@media @mobile {
+    .pager {
+        button {
+            &:not(:first-child):not(:last-child) {
+                display: none;
+            }
+
+            &:first-child {
+                width: calc(~"50% - 6px");
+                margin: 0 6px 0 0;
+            }
+
+            &:last-child {
+                width: calc(~"50% - 6px");
+                margin: 0 0 0 6px;
+            }
+        }
+    }
+}

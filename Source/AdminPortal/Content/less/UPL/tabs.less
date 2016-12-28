@@ -1,0 +1,141 @@
+﻿@import "utilities.less";
+
+
+.nav-tabs {
+    background-color: @WebjetBtnDefaultBg;
+    border-bottom: 1px solid @lightGrey;
+    border-radius: @borderRadius @borderRadius 0 0;
+
+    > li {
+        margin: 0 0 -1px;
+
+        > a {
+            line-height: 130%;
+            color: @baseFontColor;
+            border: 1px solid transparent;
+            border-radius: 0;
+            margin: 0;
+            padding: @gutterWidth;
+            height: 40px;
+
+            &:hover {
+                border-color: transparent;
+                border-bottom-color: @lightGrey;
+                background-color: @WebjetBtnDefaultHover;
+            }
+
+            &:focus {
+                background-color: @WebjetBtnDefaultHover;
+                z-index: 1001;
+            }
+
+            &:active {
+                border-bottom-color: @lightGrey;
+                background-color: @contentBackground;
+                box-shadow: none;
+            }
+        }
+
+        &.open {
+            > a, > a:focus, > a:hover, > a:active {
+                background-color: @WebjetBtnDefaultHover;
+            }
+        }
+
+        &.active {
+            > a, > a:focus, > a:hover, > a:active {
+                background-color: @contentBackground;
+                text-decoration: none;
+                border: 1px solid @lightGrey;
+                border-bottom-color: transparent;
+            }
+        }
+
+        &:first-child {
+            > a {
+                border-radius: @borderRadius 0 0 0;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        padding: 0;
+        border: 0;
+
+        > li {
+            > a {
+                line-height: 130%;
+                padding: 12px;
+                color: @baseFontColor;
+                border-bottom: 1px solid @mildWhite;
+
+                &:hover {
+                    background-color: @mildWhite;
+                    color: @baseFontColor;
+                }
+
+                &:focus {
+                    box-shadow: none;
+                    color: @baseFontColor;
+                }
+            }
+
+            &.active {
+                > a {
+                    background-color: @mildWhite !important;
+                }
+            }
+        }
+    }
+}
+
+.tab-content {
+    border: 1px solid @lightGrey;
+    border-top: 0;
+    background-color: @contentBackground;
+    border-radius: 0 0 @borderRadius @borderRadius;
+
+    > .tab-pane {
+        padding: @gutterWidth;
+
+        .nav-tabs {
+            li:last-child {
+                > a {
+                    border-radius: 0 @borderRadius 0 0;
+                }
+            }
+        }
+    }
+}
+
+.white-alternate {
+.nav-tabs > li.active > a, .nav-tabs > li > a:active, .tab-content {
+        background: @white;
+    }
+}
+
+.dark-alternate {
+    .nav-tabs {
+        > li {
+            > a {
+                &:active {
+                    color: @white;
+                    background-color: @darkGrey !important;
+                    box-shadow: none;
+                }
+            }
+
+            &.active {
+                > a {
+                    color: @white;
+                    background-color: @darkGrey !important;
+                }
+            }
+        }
+    }
+
+    .tab-content {
+        background-color: @darkGrey;
+        color: @white;
+    }
+}

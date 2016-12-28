@@ -1,0 +1,332 @@
+﻿@import "utilities.less";
+
+.wj-icon {
+    font-family: @iconFontFamily;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: normal;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+
+    &.disabled {
+        color: @iconGrey;
+    }
+    
+    &.partial {
+         &:after {color:@iconGrey;}
+    }
+}
+
+.wj-caret-up{ &:after{content: "\E001";}}
+.wj-caret-right{ &:after{content: "\E002";}}
+.wj-caret-down{ &:after{content: "\E003";}}
+.wj-caret-left{ &:after{content: "\E004";}}
+.wj-s-caret-up{ &:after{content: "\E005";}}
+.wj-s-caret-right{ &:after{content: "\E006";}}
+.wj-s-caret-down{ &:after{content: "\E007";}}
+.wj-s-caret-left{ &:after{content: "\E008";}}
+.wj-arrow-up{ &:after{content: "\E009";}}
+.wj-arrow-right{ &:after{content: "\E00A";}}
+.wj-arrow-down{ &:after{content: "\E00B";}}
+.wj-arrow-left{ &:after{content: "\E00C";}}
+.wj-dbl-arrow-up{ &:after{content: "\E00D";}}
+.wj-dbl-arrow-right{ &:after{content: "\E00E";}}
+.wj-dbl-arrow-down{ &:after{content: "\E00F";}}
+.wj-dbl-arrow-left{ &:after{content: "\E010";}}
+.wj-s-dbl-arrow-up{ &:after{content: "\E011";}}
+.wj-s-dbl-arrow-right{ &:after{content: "\E012";}}
+.wj-s-dbl-arrow-down{ &:after{content: "\E013";}}
+.wj-s-dbl-arrow-left{ &:after{content: "\E014";}}
+.wj-s-cross{ &:after{content: "\E015";}}
+.wj-cross{ &:after{content: "\E016";}}
+.wj-s-star{ &:after{content: "\E017";}}
+.wj-s-halfstar{ &:after{content: "\E018";}}
+.wj-star{ &:after{content: "\E019";}}
+.wj-halfstar{ &:after{content: "\E01A";}}
+.wj-reset{ &:after{content: "\E01B";}}
+.wj-s-mappin{ &:after{content: "\E01C";}}
+.wj-mappin{ &:after{content: "\E01D";}}
+.wj-search{ &:after{content: "\E01E";}}
+.wj-expand{ &:after{content: "\E01F";}}
+.wj-collapse{ &:after{content: "\E020";}}
+.wj-time{ &:after{content: "\E021";}}
+.wj-menu{ &:after{content: "\E022";}}
+.wj-tag{ &:after{content: "\E023";}}
+.wj-alt-time{ &:after{content: "\E024";}}
+.wj-alt-plus{ &:after{content: "\E025";}}
+.wj-alt-minus{ &:after{content: "\E026";}}
+.wj-alt-cross{ &:after{content: "\E027";}}
+.wj-check{ &:after{content: "\E028";}}
+.wj-info{ &:after{content: "\E029";}}
+
+.wj-dbl-caret{ &:after{content: "\E02A";}}
+.wj-s-flight{ &:after{content: "\E02B";}}
+.wj-baggage{ &:after{content: "\E02C";}}
+.wj-nobaggage{
+    position: relative;
+    &:before{content: "\E02D";position: absolute; left: 2px; top: 1px;font-size: 12px;color: #ff2e00;}
+    &:after{content: "\E02C";}
+}   
+.wj-faretype{ &:after{content: "\E02E";}}
+.wj-ext-url{ &:after{content: "\E031";}}
+.wj-cart{ &:after{content: "\E032";}}
+.wj-filter{ &:after{content: "\E033";}}
+.wj-grip{ &:after{content: "\E034";}}
+.wj-pair{ &:after{content: "\E035";color: #3782AC;}}
+.wj-pair-warning {
+    width: 1em;
+    color: @white;
+    text-align: left;
+    line-height: 0;
+    padding: 0.5em 0;
+    &:after {content: "\E035";color: #3782AC;}
+    &:before {content: "\E036\a\E037"; position:relative; top:0.3em; left:0.5em; margin-right:-1em;}
+    &:first-line {color: #ff2e00;}
+}
+.wj-dbl-circle{ &:after{content: "\E03D";}}
+
+.wj-lock{ &:after{content: "\E053";}}
+.wj-favourite{ &:after{content: "\E054";}}
+.wj-alt-favourite{ &:after{content: "\E055";}}
+
+.wj-flight{ &:after{content: "\F001";}}
+.wj-hotel{ &:after{content: "\F002";}}
+.wj-exclusive{ &:after{content: "\F003";}}
+.wj-cruise{ &:after{content: "\F004";}}
+.wj-car{ &:after{content: "\F005";}}
+.wj-motorhome{ &:after{content: "\F006";}}
+.wj-package{ &:before{content: "\F001";} &:after{content: "\F002";} }
+.wj-plus{ &:after{content: "\F010";}}
+.wj-minus{ &:after{content: "\F011";}}
+.wj-calendar{ &:after{content: "\F012";}}
+.wj-square{ &:after{content: "\F013";}}
+.wj-underscore{ &:after{content: "\F014";}}
+.wj-flightcalendar{ &:after{content: "\F015";}}
+.wj-dbl-square{ &:after{content: "\F016";}}
+.wj-alt-depart{ &:after{content: "\F017";}}
+.wj-depart{ &:after{content: "\F018";}}
+.wj-arrival{ &:after{content: "\F019";}}
+.wj-alt-info{ &:after{content: "\F01A";}}
+.wj-s-info{ &:after{content: "\F01B";}}
+.wj-circle{ &:after{content: "\F01C";}}
+
+.wj-previous{ &:after{content: "\F01D";}}
+.wj-next{ &:after{content: "\F01E";}}
+.wj-special{ &:after{content: "\F01F";}}
+
+.wj-slider-left{ &:after{content: "\F020";}}
+.wj-s-slider-left{ &:after{content: "\F021";}}
+.wj-stripe{ &:after{content: "\F022";}}
+.wj-slider-right{ &:after{content: "\F023";}}
+.wj-s-slider-right{ &:after{content: "\F024";}}
+.wj-alt-stripe{ &:after{content: "\F025";}}
+.wj-dbl-calendar{ &:after{content: "\F026";}}
+
+.wj-alt-star{ &:after{content: "\F030";}}
+.wj-choice{ &:after{content: "\F031";}}
+.wj-saving{ &:after{content: "\F032";}}
+.wj-like{ &:after{content: "\F033";}}
+.wj-timer{ &:after{content: "\F034";}}
+.wj-tick{ &:after{content: "\F035";}}
+.wj-mobile{ &:after{content: "\F036";}}
+.wj-banner-arrow{ &:after{content: "\F039";}}
+.wj-l-special{ &:after{content: "\F040";}}
+
+.wj-facebook{ &:after{content: "\F041";}}
+.wj-twitter{ &:after{content: "\F042";}}
+.wj-googleplus{ &:after{content: "\F043";}}
+.wj-youtube{ &:after{content: "\F044";}}
+.wj-blog{ &:after{content: "\F045";}}
+.wj-newsletter{ &:after{content: "\F046";}}
+.wj-instagram{ &:after{content: "\F047";}}
+
+.wj-circle-plus, .wj-circle-cross, .wj-circle-check {
+    line-height: 1;
+    &:before {
+        display: block;
+        text-align: left;
+        width: 1em;
+        height: 1em;
+        font-size: 50%;
+        letter-spacing: -1em;
+        position: absolute;
+        top: 70%;
+        left: 74%;
+        background: @white;
+        border-radius: 100px;
+    }
+}
+.wj-circle-plus:before {content: "\E039\E03A"; color: @blue;}
+.wj-circle-cross:before {content: "\E039\E03B"; color: @iconRed;}
+.wj-circle-check:before {content: "\E039\E03C"; color: @green;}
+
+.wj-ancillary-baggage{ &:after{content: "\E02C";}}
+.wj-ancillary-baggage-carry-on{ &:after{content: "\F051";}}
+.wj-ancillary-seat{ &:after{content: "\F052";}}
+.wj-ancillary-meal {
+    &:before {left: 84%;}
+    &:after{content: "\F053";}
+}
+.wj-lightbulb{ &:after{content: "\F054";}}
+
+.wj-droppin{ 
+    position:relative;
+    
+    &:before{
+        background: #504d4b none repeat scroll 0 0;
+        border-radius: 50%;
+        content: "";
+        display: inline-block;
+        height: 4px;
+        width: 18px;        
+        position: absolute;
+        top: 17px;
+        left: 3px;
+        z-index: -1;
+    }
+    &:after{content: "\E01D";}
+}
+
+
+.wj-flight,
+.wj-hotel,
+.wj-exclusive,
+.wj-cruise,
+.wj-car,
+.wj-motorhome,
+.wj-plus,
+.wj-minus,
+.wj-calendar,
+.wj-square,
+.wj-underscore,
+.wj-flightcalendar,
+.wj-dbl-calendar,
+.wj-dbl-square,
+.wj-alt-depart,
+.wj-depart,
+.wj-arrival,
+.wj-alt-info,
+.wj-s-info,
+.wj-circle,
+.wj-previous,
+.wj-next,
+.wj-special,
+.wj-slider-left,
+.wj-s-slider-left,
+.wj-stripe,
+.wj-slider-right,
+.wj-s-slider-right,
+.wj-alt-stripe,
+.wj-alt-star,
+.wj-choice,
+.wj-saving,
+.wj-like,
+.wj-timer,
+.wj-tick,
+.wj-mobile,
+.wj-banner-arrow,
+.wj-l-special,
+.wj-facebook,
+.wj-twitter,
+.wj-googleplus,
+.wj-youtube,
+.wj-blog,
+.wj-newsletter,
+.wj-instagram,
+.wj-ancillary-baggage,
+.wj-ancillary-baggage-carry-on,
+.wj-ancillary-seat,
+.wj-ancillary-meal,
+.wj-lightbulb
+{
+    font-size: 32px;
+}
+
+.wj-pointer-up{ &:after{content: "\2191";}}
+.wj-pointer-right{ &:after{content: "\2192";}}
+.wj-pointer-down{ &:after{content: "\2193";}}
+.wj-pointer-left{ &:after{content: "\2190";}}
+
+.wj-mappin-shadow {
+    &:before {
+        bottom: -2px;
+        color: #ccc;
+        content: "_";
+        left: 4px;
+        position: absolute;
+        text-shadow: 0 0 1px #666;
+    }
+}
+
+.wj-flight-score {
+    background-color: @mildWhite;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 3px 5px;
+    .border-radius(5px);
+
+    &.alt {
+        background-color: @softWhite;
+        color: @grey;
+        border: 1px solid @mildGrey;
+        padding: 1px 3px;
+    }
+}
+
+.wj-seat{ &:after{content: "\E040";}}
+.wj-entertainment {
+    &:after{content: "\E042";}
+    &:before{
+        content: "\E043";
+        position: absolute;
+    }
+}
+.wj-power {
+    &:after{content: "\E048";}
+    &:before{
+        content: "\E049";
+        position: absolute;
+    }
+
+    +.wj-usb {
+        padding-left: 1px;
+    }
+}
+.wj-usb {
+    &:after{content: "\E04B";}
+    &:before{
+        content: "\E04C";
+        position: absolute;
+    }
+}
+.wj-power-usb {
+    &:after{content: "\E045";}
+    &:before{
+        content: "\E046";
+        position: absolute;
+    }
+}
+.wj-food {
+    &:after{content: "\E04E";}
+    &:before{
+        content: "\E04F";
+        position: absolute;
+    }
+}
+.wj-wifi {
+    &:after{content: "\E051";}
+    &:before{
+        content: "\E052";
+        position: absolute;
+    }
+}
+.wj-paid {
+     &:after {
+         content:"\0024";
+         font-size: 10px;
+         padding-left: 1px;
+         position: relative;
+         top: -5px;
+     }
+}

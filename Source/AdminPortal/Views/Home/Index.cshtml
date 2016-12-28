@@ -4,88 +4,153 @@
 @model AdminPortal.Models.LandingPageModel
 
 @{
-
-    ViewBag.Title = "ADMIN PORTAL Landing Page";
-
+    ViewBag.Title = "Admin Launchpad";
 }
 
-<div class="jumbotron">
-    <h2>ADMIN PORTAL</h2>
-    <p class="lead">Admin Portal is a new site, that will replace(or wrap) TSA Admin, Flight Search and other similar functionality, and is used by internal users-service centre, product team etc.</p>
-    <br />
+<h1>Admin Launchpad</h1>
+<h2>Shortcuts</h2>
 
-    @if (Request.IsAuthenticated)
-    {
-        foreach (LandingPageTab tab in Model.LandingPageTabs)
+<p>Click the star beside a link to add it to your shortcuts.</p>
+<div id="shortcut-list" class="row">
+    <div class="col col-3 col-xs-12 tile-block">
+        <a href="#">
+            <span class="text-wrapper">
+                <span class="title">Bookings</span>
+                <span class="site">Webjet AU</span>
+            </span>
+        </a>
+        <span class="wj-icon wj-favourite"></span>
+    </div>
+    <div class="col col-3 col-xs-12 tile-block">
+        <a href="#">
+            <span class="text-wrapper">
+                <span class="title">Bookings</span>
+                <span class="site">Webjet NZ</span>
+            </span>
+        </a>
+        <span class="wj-icon wj-favourite"></span>
+    </div>
+    <div class="col col-3 col-xs-12 tile-block">
+        <a href="#">
+            <span class="text-wrapper">
+                <span class="title">Bookings</span>
+                <span class="site">Zuji AU</span>
+            </span>
+        </a>
+        <span class="wj-icon wj-favourite"></span>
+    </div>
+    <div class="col col-3 col-xs-12 tile-block">
+        <a href="#">
+            <span class="text-wrapper">
+                <span class="title">Drill Down</span>
+                <span class="site">All sites</span>
+            </span>
+        </a>
+        <span class="wj-icon wj-favourite"></span>
+    </div>
+</div>
+
+<hr />
+
+@if (Request.IsAuthenticated)
+{
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        @for (int i = 0; i < Model.LandingPageTabs.Count; i++)
         {
+            var tab = Model.LandingPageTabs[i];
+            var liClass = i == 0 ? "active" : "";
+            <li class="@liClass"><a href="#@tab.Key" data-toggle="tab">@tab.Text</a></li>
+        }
+    </ul>
+}
+
+@if (Request.IsAuthenticated)
+{
+    <!-- Tab panes -->
+    <div id="site-list" class="tab-content">
+        @for (int i = 0; i < Model.LandingPageTabs.Count; i++)
+        {
+            var tab = Model.LandingPageTabs[i];
             if (tab != null)
             {
-                <h2> @tab.Text</h2>
-
-                foreach (LandingPageSection sectionItem in @tab.Sections)
-                {
-                    <u>@sectionItem.Text</u>
-                    <br />
-                    foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
-                    {
-                       
-                        if (UriHelper.IsRelativeUrl(menuItem.Link))
+                var tabPaneClass = i == 0 ? "tab-pane active" : "tab-pane";
+                <div class="@tabPaneClass" id="@tab.Key">
+                    <span class="form-input btn-textfield">
+                        <input type="text" class="standard" placeholder="Start typing service name...    " />
+                        <span class="wj-icon wj-alt-cross"></span>
+                        <button class="btn-action"><span class="wj-icon wj-search"></span></button>
+                    </span>
+                    
+                    <ul class="multilevel-accordion">
+                        @foreach (LandingPageSection sectionItem in @tab.Sections)
                         {
-                            @Html.ActionLink(menuItem.Text, menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])
+                            <li class="has-children">
+                                <a href="#" class="title">@sectionItem.Text</a>
+                                <ul>
+                                    @foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
+                                    {
+                                        <li>
+                                            @if (UriHelper.IsRelativeUrl(menuItem.Link))
+                                            {
+                                                <a href="@Url.Action(menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])">
+                                                    <span class="label label-important alt">WAU</span> @menuItem.Text
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@menuItem.Link" target="_blank"><span class="label label-important alt">WAU</span> @menuItem.Text</a>
+                                            }
+                                            <span class="wj-icon wj-favourite"></span>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
                         }
-                        else
-                        {
-                            <a href='@menuItem.Link' target="_blank">@menuItem.Text</a>
-                          
-                        }
-                      
-                        <br />
-                    }
-
-                    <br />
-                }
+                    </ul>
+                </div>
             }
         }
+    </div>
+}
 
+@*@if (Request.IsAuthenticated)
+{
+
+    if (Model.IsResourceAllowedForUserRole("GoogleBigQuery"))
+    {
+        <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
     }
+    if (Model.IsResourceAllowedForUserRole("CreditCardTransactionsToCheck"))
+    {
+        <p>@Html.ActionLink("Credit Card Transactions To Check", "Index", "UserProfile")</p>
+    }
+}*@
 
+@*@if (Request.IsAuthenticated)
+    {
 
-    @*@if (Request.IsAuthenticated)
+        @foreach (string role in Model.AllowedRolesForResource("GoogleBigQuery"))
         {
-
-            if (Model.IsResourceAllowedForUserRole("GoogleBigQuery"))
+            if (User.IsInRole(role))
             {
                 <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
             }
-            if (Model.IsResourceAllowedForUserRole("CreditCardTransactionsToCheck"))
+        }
+
+        @foreach (string role in Model.AllowedRolesForResource("CreditCardTransactionsToCheck"))
+        {
+            if (User.IsInRole(role))
             {
                 <p>@Html.ActionLink("Credit Card Transactions To Check", "Index", "UserProfile")</p>
             }
-        }*@
+        }
+    }*@
 
-    @*@if (Request.IsAuthenticated)
-        {
+@*@if (User.IsInRole("Admin") || User.IsInRole("Analytics") || User.IsInRole("ServiceCenterManager") || User.IsInRole("ServiceCenter"))
+    {
+        <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
+    }*@
 
-            @foreach (string role in Model.AllowedRolesForResource("GoogleBigQuery"))
-            {
-                if (User.IsInRole(role))
-                {
-                    <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
-                }
-            }
 
-            @foreach (string role in Model.AllowedRolesForResource("CreditCardTransactionsToCheck"))
-            {
-                if (User.IsInRole(role))
-                {
-                    <p>@Html.ActionLink("Credit Card Transactions To Check", "Index", "UserProfile")</p>
-                }
-            }
-        }*@
-
-    @*@if (User.IsInRole("Admin") || User.IsInRole("Analytics") || User.IsInRole("ServiceCenterManager") || User.IsInRole("ServiceCenter"))
-        {
-            <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
-        }*@
-    <p><a href="http://local.webjet.com.au/WebjetTsa/secure.aspx" class="btn btn-primary btn-large">Visit existing DEV TSA Admin &raquo;</a></p>
-</div>
+<p><a href="http://local.webjet.com.au/WebjetTsa/secure.aspx" class="btn-standard btn-icon-right">Visit existing DEV TSA Admin <span class="wj-icon wj-caret-right"></span></a></p>

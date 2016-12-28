@@ -1,0 +1,179 @@
+﻿@import "utilities.less";
+
+input[type=text].standard,
+input[type=password].standard, 
+input[type=email].standard,
+input[type=date].standard,
+input[type=tel].standard {
+    width: 100%;
+    display: inline-block;
+    font-size: 16px;
+    background: @white;
+    color: @darkGrey;
+    padding: 15px 9px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: @borderRadius;
+    border: 1px solid @lightGrey;
+
+    &::-ms-clear, &::-ms-reveal {
+        display: none;
+    }
+
+    &::-moz-selection { 
+        background: rgba(99,158,200,0.5);
+    }
+
+    &::selection {
+        background: rgba(99,158,200,0.5);
+    }
+
+    &:hover, &:active {
+        background: @inputHoverBackground;
+    }
+
+    &:focus {
+        background: @inputHoverBackground;
+        box-shadow: @activeItemOutline;
+    }
+
+    &:disabled {
+        .disabled();
+
+        + .wj-icon {
+            .disabled();
+        }
+
+        &:hover {
+            background: @white;
+
+            + .wj-icon {
+                background: @inputIconBackground;
+            }
+        }
+    }
+
+    &.clearfield-option {
+        padding-right: 28px;
+    }
+
+    ~ .wj-alt-cross {
+        position: absolute;
+        margin-top: -33px;
+        right: 6px;
+        color: @inputCrossBtn;
+        display: none;
+        font-size: 16px;
+        padding-right: inherit;
+        cursor: pointer;
+    }
+}
+
+
+.form-input.icon-textfield {
+    input[type=text].standard,
+    input[type=password].standard, 
+    input[type=email].standard,
+    input[type=tel].standard {
+        padding-left: 59px;
+        padding-right: 9px;
+
+        &:hover, &:active {
+            cursor: pointer;
+
+            ~ .wj-icon:not(.wj-alt-cross) {
+                background: @inputIconHoverBackground;
+            }
+        }
+
+        &:focus {
+            cursor: text;
+            padding-right: 28px;
+
+            ~ .wj-icon:not(.wj-alt-cross) {
+                background: @inputIconHoverBackground;
+            }
+        }
+
+        &.input-validation-error {
+            ~ .wj-icon:not(.wj-alt-cross) {
+                background: @inputErrorIconBackground;
+                color: @inputErrorIcon;
+            }
+
+            ~ .wj-alt-cross {
+                background: none;
+                color: @inputErrorCrossBtn;
+            }
+
+            ~ .field-validation-error {
+                display: block;
+            }
+            
+            &:hover, &:active, &:focus {
+                ~ .wj-icon:not(.wj-alt-cross) {
+                    background: @inputErrorIconHoverBackground;
+                }
+            }
+       }
+
+        &.clearfield-option {
+            padding-right: 28px;
+        }
+
+       + .wj-icon:not(.wj-alt-cross) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: @inputIconBackground;
+            color: @inputIcon;
+            font-size: 32px;
+            width: 50px;
+            height: 50px;
+            border: 1px solid @lightGrey;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            text-align: center;
+            display: table;
+
+            &:after {
+                display: table-cell;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.form-input.btn-textfield {
+    input.standard {
+        padding-right: 88px;
+
+        &:disabled {
+            ~ button {
+                .disabled();
+            }
+        }
+
+        ~ .wj-alt-cross {
+            right: 66px;
+        }
+    }
+
+    button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 60px;
+        box-shadow: 0 0 0;
+        border-radius: 0 @borderRadius @borderRadius 0;
+
+        &:focus {
+            box-shadow: @activeItemOutline;
+        }
+
+        .wj-icon {
+            font-size: 24px;
+        }
+    }
+}

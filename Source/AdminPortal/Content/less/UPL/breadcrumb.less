@@ -1,0 +1,28 @@
+﻿@import "variables.less";
+.breadcrumb {
+    background: none;
+    padding: 12px;
+    margin: 0;
+    font-size: 0;
+
+    li {
+        display: inline-block;
+        color: @grey;
+        font-size: 13px;
+
+        + li:before {
+            color: @darkGrey;
+            content: "\203A";
+            font-weight: 400;
+            padding: 6px;
+        }
+    }
+
+    .current, .visited, a {
+        color: @blue;
+    }
+
+    .current {
+        font-weight: 700;
+    }
+}

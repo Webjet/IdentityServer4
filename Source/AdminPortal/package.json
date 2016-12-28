@@ -1,0 +1,13 @@
+{
+  "name": "adminportal",
+  "version": "1.0.0",
+  "description": "Admin Portal",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-less": "^3.0.5",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-watch": "^4.3.5"
+  }
+}
