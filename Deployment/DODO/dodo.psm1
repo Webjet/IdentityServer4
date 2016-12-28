@@ -147,11 +147,6 @@ function Run-DODO
 				Publish-DODOAzureCloudService -ConfigurationJSONObject $ConfigurationJSONObject -ContainerName $($container.Name) -ParametersJSONObject $ParametersJSONObject
 				break;
 			}
-			"AzureContainerService"
-			{
-				Publish-DODOAzureContainerService -ConfigurationJSONObject $ConfigurationJSONObject -ContainerName $($container.Name) -ParametersJSONObject $ParametersJSONObject
-				break;
-			}
 			"AzureKeyVault"
 			{
 				Publish-DODOAzureKeyVault -ConfigurationJSONObject $ConfigurationJSONObject -ContainerName $($container.Name) -ParametersJSONObject $ParametersJSONObject
@@ -160,11 +155,6 @@ function Run-DODO
 			"AzureLoadBalancer"
 			{
 				Publish-DODOAzureLoadBalancer -ConfigurationJSONObject $ConfigurationJSONObject -ContainerName $($container.Name) -ParametersJSONObject $ParametersJSONObject
-				break;
-			}
-			"DCOSMesosService"
-			{
-				Publish-DODODCOSMesosService -ConfigurationJSONObject $ConfigurationJSONObject -ContainerName $($container.Name) -ParametersJSONObject $ParametersJSONObject
 				break;
 			}
 			"AzureApiManagement"
@@ -250,11 +240,6 @@ function Run-DODO
 			"SlackMessage"
 			{
 				Publish-DODOSlackMessage -ConfigurationJSONObject $ConfigurationJSONObject -ContainerName $($container.Name) -ParametersJSONObject $ParametersJSONObject
-				break;
-			}
-			"AzureSearch"
-			{
-				Publish-DODOAzureSearch -ConfigurationJSONObject $ConfigurationJSONObject -ContainerName $($container.Name) -ParametersJSONObject $ParametersJSONObject
 				break;
 			}
 		}
