@@ -1,12 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AdminPortal.BusinessServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AdminPortal.BusinessServices.Tests
+namespace AdminPortal.UnitTests.BusinessServices
 {
     [TestClass(),Ignore]
     public class ResourceToApplicationRolesMapperTests
