@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using System.Reflection;
+using AdminPortal.BusinessServices;
 
 namespace AdminPortal.UnitTests.BusinessServices
 {
@@ -9,19 +13,14 @@ namespace AdminPortal.UnitTests.BusinessServices
         [TestMethod()]
         public void ResourceToApplicationRolesMapperTest()
         {
-            throw new NotImplementedException();
+            //Arrange
+            //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
+            string filepath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\config\\RoleBasedMenuItemMap.xml";
+            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(filepath);
+
+            //Act
+         
         }
 
-        [TestMethod()]
-        public void GetAllowedRolesForResourceTest()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod()]
-        public void IsUserRoleAllowedForResourceTest()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
