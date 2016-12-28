@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<uilinks>
+  <tab id ="WebjetAU" text ="Webjet AU">
+  
+  </tab>
+
+  <tab id ="WebjetNZ" text ="Webjet NZ">
+
+  </tab>
+</uilinks>

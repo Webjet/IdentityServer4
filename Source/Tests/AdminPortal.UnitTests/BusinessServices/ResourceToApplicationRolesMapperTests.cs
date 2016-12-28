@@ -1,12 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AdminPortal.BusinessServices;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using System.Reflection;
+using AdminPortal.BusinessServices;
 
-namespace AdminPortal.BusinessServices.Tests
+namespace AdminPortal.UnitTests.BusinessServices
 {
     [TestClass(),Ignore]
     public class ResourceToApplicationRolesMapperTests
@@ -14,19 +13,14 @@ namespace AdminPortal.BusinessServices.Tests
         [TestMethod()]
         public void ResourceToApplicationRolesMapperTest()
         {
-            throw new NotImplementedException();
+            //Arrange
+            //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
+            string filepath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\config\\RoleBasedMenuItemMap.xml";
+            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(filepath);
+
+            //Act
+         
         }
 
-        [TestMethod()]
-        public void GetAllowedRolesForResourceTest()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod()]
-        public void IsUserRoleAllowedForResourceTest()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
