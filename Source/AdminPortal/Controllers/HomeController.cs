@@ -14,9 +14,9 @@ namespace AdminPortal.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private static readonly ResourceToApplicationRolesMapper ResourceToApplicationRolesMapper= new ResourceToApplicationRolesMapper();
+        private static readonly ResourceToApplicationRolesMapper ResourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
 
-        private  LandingPageModel _landingPageModel;
+        private LandingPageModel _landingPageModel;
 
         [HttpGet]
         [Authorize(Roles = "ServiceCenter,ServiceCenterManager,ProductTeam,Finance,Analytics,DevSupport")]
@@ -27,20 +27,16 @@ namespace AdminPortal.Controllers
                 LandingPageTabs = GetLandingPageTabs(new LandingPageLayoutLoader())
             };
 
-            if(UriHelper.IsRelativeUrl(_landingPageModel.LandingPageTabs[0].Sections[0].MenuItems[0].Link))
-            {
-                string str = _landingPageModel.LandingPageTabs[0].Sections[0].MenuItems[0].Link;
-            }
-         return View(_landingPageModel);
+            return View(_landingPageModel);
         }
 
         private List<LandingPageTab> GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
         {
             List<LandingPageTab> landingPageTabs = new List<LandingPageTab>();
-          
+
             foreach (LandingPageTab configTab in landingPageLayoutLoader.GetConfiguration())
             {
-                LandingPageTab userAllowedTab = new LandingPageTab {Sections = GetLandingPageTabSections(configTab)};
+                LandingPageTab userAllowedTab = new LandingPageTab { Sections = GetLandingPageTabSections(configTab) };
 
                 if (userAllowedTab.Sections.Count > 0)
                 {
@@ -49,7 +45,10 @@ namespace AdminPortal.Controllers
                     landingPageTabs.Add(userAllowedTab);
                 }
             }
-            return landingPageTabs;
+
+            if (landingPageTabs.Count > 0)
+                return landingPageTabs;
+            return null;
         }
 
         private List<LandingPageSection> GetLandingPageTabSections(LandingPageTab configTab)
@@ -57,7 +56,7 @@ namespace AdminPortal.Controllers
             List<LandingPageSection> landingPageSections = new List<LandingPageSection>();
             foreach (LandingPageSection configSection in configTab.Sections)
             {
-                var userAllowedSection = new LandingPageSection {MenuItems = GetLandingPageSectionMenuItems(configSection)};
+                var userAllowedSection = new LandingPageSection { MenuItems = GetLandingPageSectionMenuItems(configSection) };
 
                 if (userAllowedSection.MenuItems.Count > 0)
                 {
@@ -75,13 +74,13 @@ namespace AdminPortal.Controllers
             List<LandingPageSectionMenuItem> landingPageSectionMenuItems = new List<LandingPageSectionMenuItem>();
             foreach (LandingPageSectionMenuItem configMenuItem in configSection.MenuItems)
             {
-                if (ResourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key,User))
+                if (ResourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
                 {
                     landingPageSectionMenuItems.Add(configMenuItem);
                 }
             }
 
-           return landingPageSectionMenuItems;
+            return landingPageSectionMenuItems;
         }
 
 

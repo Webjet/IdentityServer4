@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<uilinks>
+  <tab id ="WebjetAU" text ="Webjet AU">
+    <Section id ="ServiceCenterSectionAU"
+             text="ServiceCenter Activities " >
+      
+    </Section>
+
+    <Section id ="ProductTeamSectionAU"
+           text="Product Team Activities " >
+     
+    </Section>
+  
+  </tab>
+</uilinks>
