@@ -1,1 +1,0 @@
-$testCoverageThreshold = 80.00
