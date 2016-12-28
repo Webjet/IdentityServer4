@@ -429,7 +429,7 @@ function Publish-DODOAzureWebsite
 		$setParamsFile = $webappContainer.Attributes.Properties.ParameterFile
 		$resourceGroupName = $webappContainer.Attributes.ResourceGroup.Name
 		$resourceGroupLocation = $webappContainer.Attributes.ResourceGroup.Location
-        $deploymentRetries = $webappContainer.Attributes.Properties.MSDeployRetries
+        
 		$appServicePlan = $webappContainer.Attributes.AppServicePlan.Name
 		$appServiceTier = $webappContainer.Attributes.AppServicePlan.Tier
 		
@@ -485,7 +485,7 @@ function Publish-DODOAzureWebsite
 			Write-Host "Stopping $deploymentSlot site for deployment..."
 			Stop-AzureWebsite -Name $AzureWebAppName -Slot $deploymentSlot
 			
-			Internal-DeployAzureWebsite -Package $Package -Server $Server -IISSite $slotSiteName -SetParamsFile $setParamsFile -Username $site.PublishingUsername -Password $site.PublishingPassword -Retries $deploymentRetries
+			Internal-DeployAzureWebsite -Package $Package -Server $Server -IISSite $slotSiteName -SetParamsFile $setParamsFile -Username $site.PublishingUsername -Password $site.PublishingPassword
 			
 			Write-Host "Starting $deploymentSlot site"
 			Start-AzureWebsite -Name $AzureWebAppName -Slot $deploymentSlot
@@ -566,7 +566,7 @@ function Publish-DODOAzureWebApp
         $webAppLocation = $webappContainer.Attributes.Properties.Location
 		$resourceGroupName = $webappContainer.Attributes.ResourceGroup.Name
 		$resourceGroupLocation = $webappContainer.Attributes.ResourceGroup.Location
-        $deploymentRetries = $webappContainer.Attributes.Properties.MSDeployRetries
+
 		$appServicePlan = $webappContainer.Attributes.AppServicePlan.Name
 		$appServiceTier = $webappContainer.Attributes.AppServicePlan.Tier
         $appServicePlanLocation = $webappContainer.Attributes.AppServicePlan.Location
@@ -660,7 +660,7 @@ function Publish-DODOAzureWebApp
             Invoke-AzureRmResourceAction -ResourceGroupName $resourceGroupName -ResourceType Microsoft.Web/sites/slots -ResourceName $("$AzureWebAppName/$deploymentSlot") -Action stop -ApiVersion 2015-08-01 -Force
            
             #Deploy package to slot!
-			Internal-DeployAzureWebsite -Package $Package -Server $publishUri -IISSite $slotSiteName -SetParamsFile $setParamsFile -Username $publishCredentials.Properties.PublishingUsername -Password $publishCredentials.Properties.PublishingPassword -Retries $deploymentRetries
+			Internal-DeployAzureWebsite -Package $Package -Server $publishUri -IISSite $slotSiteName -SetParamsFile $setParamsFile -Username $publishCredentials.Properties.PublishingUsername -Password $publishCredentials.Properties.PublishingPassword
 			
 			Write-Host "Starting $deploymentSlot site"
             Invoke-AzureRmResourceAction -ResourceGroupName $resourceGroupName -ResourceType Microsoft.Web/sites/slots -ResourceName $("$AzureWebAppName/$deploymentSlot") -Action start -ApiVersion 2015-08-01 -Force		
@@ -966,19 +966,10 @@ function Internal-DeployAzureWebsite
 		 [Parameter(Position=3,Mandatory=1)] [string]$SetParamsFile,
 		 [Parameter(Position=4,Mandatory=1)] [string]$Username,
 		 [Parameter(Position=5,Mandatory=1)] [string]$Password,
-		 [Parameter(Position=6,Mandatory=0)] [string]$AzurePublishProfile,
-         [Parameter(Position=7,Mandatory=0)] [string]$Retries
+		 [Parameter(Position=6,Mandatory=0)] [string]$AzurePublishProfile
 	 )
-
-    #By default we deploy once
-    $maxDeployAttempts = 1 
-    $deployAttempts = 0
-	if($Retries -ne $NULL -and $Retries -ne "")
-    {
-        $retryCount = [System.Convert]::ToInt32($Retries);
-        $maxDeployAttempts = $maxDeployAttempts + $retryCount
-    }
-
+	 
+	 
 	$MSDeployKey = 'HKLM:\SOFTWARE\Microsoft\IIS Extensions\MSDeploy\3'
 	if(!(Test-Path $MSDeployKey)) {
 		throw "Could not find MSDeploy. Use Web Platform Installer to install the 'Web Deployment Tool' and re-run this command"
@@ -1026,40 +1017,27 @@ function Internal-DeployAzureWebsite
 		"-verbose")
 		
 	Write-Host $arguments
-
-    while($deployAttempts -le $maxDeployAttempts)
-    {
-        Write-Host "Deploy attempt: $($deployAttempts) / $($maxDeployAttempts) ..."
-        #Start up the msdeploy process and read standard and error log output
-        #Solution http://stackoverflow.com/questions/11531068/powershell-capturing-standard-out-and-error-with-process-object?lq=1
-        $psi = New-object System.Diagnostics.ProcessStartInfo 
-        $psi.CreateNoWindow = $true 
-        $psi.UseShellExecute = $false 
-        $psi.RedirectStandardOutput = $true 
-        $psi.RedirectStandardError = $true 
-        $psi.FileName = $msdeploy
-        $psi.Arguments = $arguments
-        $process = New-Object System.Diagnostics.Process 
-        $process.StartInfo = $psi 
-        $process.Start() | Out-Null
-        $output = $process.StandardOutput.ReadToEnd() 
-        $stderr = $process.StandardError.ReadToEnd()
-        $process.WaitForExit() 
-        $output
-        $stderr
-        if($process.ExitCode -ne 0){
-            $deployAttempts = $deployAttempts + 1 #We tried to deploy!
-
-            if($deployAttempts -eq $maxDeployAttempts) #We tried enough!
-            {
-                throw "MSDeploy threw an error, check the above output log for details"
-            }
-            
-        }
-        else {
-            break; #successfull deploy break out the loop!
-        }
-    }	
+		
+	#Start up the msdeploy process and read standard and error log output
+	#Solution http://stackoverflow.com/questions/11531068/powershell-capturing-standard-out-and-error-with-process-object?lq=1
+	$psi = New-object System.Diagnostics.ProcessStartInfo 
+	$psi.CreateNoWindow = $true 
+	$psi.UseShellExecute = $false 
+	$psi.RedirectStandardOutput = $true 
+	$psi.RedirectStandardError = $true 
+	$psi.FileName = $msdeploy
+	$psi.Arguments = $arguments
+	$process = New-Object System.Diagnostics.Process 
+	$process.StartInfo = $psi 
+	$process.Start() | Out-Null
+	$output = $process.StandardOutput.ReadToEnd() 
+	$stderr = $process.StandardError.ReadToEnd()
+	$process.WaitForExit() 
+	$output
+	$stderr
+	if($process.ExitCode -ne 0){
+		throw "MSDeploy threw an error, check the above output log for details"
+	}
 }
 
 function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAccountName, $blobContainerName, $resourceGroupName )
