@@ -211,6 +211,16 @@ function Internal-ConfigureARR
             Set-WebConfigurationProperty -pspath $appHostConfigXPath  -filter "$arrWebFarmConfigXPath/affinity" -name "useCookie" -value "True"
             Set-WebConfigurationProperty -pspath $appHostConfigXPath  -filter "$arrWebFarmConfigXPath/loadBalancing" -name "algorithm" -value "WeightedTotalTraffic"
 
+            if($serverFarm.EnableRoutingRules -ne "" -and $serverFarm.EnableRoutingRules -ne $null)
+            {
+                Write-Host "Setting routing rules..."
+            }
+
+            if($serverFarm.EnableSSLOffLoad -ne "" -and $serverFarm.EnableSSLOffLoad -ne $null)
+            {
+                Write-Host "Setting SSL offload..."
+            }
+
             if($serverFarm.HealthTest -ne "" -and $serverFarm.HealthTest -ne $null)
             {
                 Write-Host "Configuring Health Check..."
