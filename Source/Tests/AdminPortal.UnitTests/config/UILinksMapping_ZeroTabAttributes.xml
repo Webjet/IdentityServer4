@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<uilinks>
+  <tab>
+    <Section>
+      <MenuItem id ="ReviewPendingBookingsAU"
+                text="Pending Bookings"
+                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem >
+      <MenuItem id ="GoogleBigQueryItineraryAU"
+               text="Google Big Query Itinerary"
+               link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem >
+
+    </Section>
+    <Section>
+      <MenuItem id ="CreditCardTransactionsToCheckAU"
+            text="Credit Card Transaction Check"
+            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem>
+    </Section>
+
+   
+  </tab>
+</uilinks>

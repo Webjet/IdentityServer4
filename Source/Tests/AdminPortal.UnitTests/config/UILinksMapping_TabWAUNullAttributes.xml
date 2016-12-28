@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<uilinks>
+  <tab id ="WebjetAU" text ="Webjet AU">
+    <Section key ="ServiceCenterSectionAU"
+             value="ServiceCenter Activities " >
+      <MenuItem id ="ReviewPendingBookingsAU"
+                text="Pending Bookings"
+                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem >
+      <MenuItem id ="GoogleBigQueryItineraryAU"
+               text="Google Big Query Itinerary"
+               link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem >
+
+    </Section>
+
+  </tab>
+
+  <tab id ="WebjetNZ" text ="Webjet NZ">
+    <Section id ="ServiceCenterSectionNZ"
+             text="ServiceCenter Activities " >
+      <MenuItem id ="ReviewPendingBookingsNZ"
+                text="Pending Bookings"
+                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem >
+      <MenuItem id ="GoogleBigQueryItineraryNZ"
+               text="Google Big Query Itinerary"
+               link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem >
+
+    </Section>
+
+    <Section id ="ProductTeamSectionNZ"
+           text="Product Team Activities " >
+      <MenuItem id ="ReviewPendingBookingsNZ"
+                text="Pending Bookings"
+                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem>
+      <MenuItem id ="CreditCardTransactionsToCheckNZ"
+            text="Credit Card Transaction Check"
+            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem>
+    </Section>
+
+    <Section id ="FinanceTeamSectionNZ"
+          text="Finance Team Activities " >
+      <MenuItem id ="FareEscalationJournalNZ"
+             text="Fare Escalation Journal"
+             link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+      </MenuItem>
+    </Section>
+
+  </tab>
+</uilinks>

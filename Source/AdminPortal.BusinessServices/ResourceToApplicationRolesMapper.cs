@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,18 +10,29 @@ using System.Web.Hosting;
 using System.Xml;
 using System.Web.Mvc;
 using System.Security.Principal;
+using Microsoft.SDC.Common;
+using NLog;
 
 namespace AdminPortal.BusinessServices
 {
     public class ResourceToApplicationRolesMapper
     {
+        private static readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\RoleBasedMenuItemMap.xml";
        
         public Dictionary<string, string[]> ResourceItemsWithRoles { get; set; }
 
-      
-        public ResourceToApplicationRolesMapper()
+        public ResourceToApplicationRolesMapper():this(null)
         {
+        }
+
+        public ResourceToApplicationRolesMapper(string filepath)
+        {
+            if (!string.IsNullOrEmpty(filepath))
+            {
+                _filepath = filepath;
+            }
+
             ReadConfiguration();
         }
 
@@ -65,7 +77,11 @@ namespace AdminPortal.BusinessServices
 
                 }
             }
-            //TODO: add logging incase xmlNode == null
+            else
+            {
+                LoggerHelper.LogEvent("XML node is null for requiredResourceAccess in RoleBasedMenuItemMap.xml on filepath- " + _filepath, Logger,
+                    TraceEventType.Warning);
+            }
         }
 
     }
