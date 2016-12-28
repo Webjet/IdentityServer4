@@ -1,0 +1,235 @@
+﻿@import "utilities.less";
+
+// page loader animation
+#page-loader-popup {
+    .modal-dialog {
+        width: 240px;
+        height: 90px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -45px 0 0 -120px;
+        box-shadow: 0 5px 15px @black;
+        text-align: center;
+        background: @white;
+
+        .modal-body {
+            padding: 0;
+        }
+
+        .title {
+            font-size: 19px;
+            margin: 18px 0;
+            font-weight: 700;
+            color: @darkGrey;
+        }
+    }
+}
+
+.page-loader {
+    background: @contentBackground;
+    display: inline-block;
+    padding: 2px 50px;
+    border-radius: 2px;
+
+    span, &:before, &:after {
+        display: inline-block;
+        vertical-align: middle;
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        background: @mildGrey;
+        margin: 0 2px;
+    }
+
+    &:before {
+        content: "";
+        animation: b1 1s infinite;
+    }
+
+    span {
+        animation: b2 1s infinite;
+    }
+
+    &:after {
+        content: "";
+        animation: b3 1s infinite;
+    }
+
+    @keyframes b1 {
+        0% {
+            background: @black;
+        }
+
+        34% {
+            background: @mildGrey;
+        }
+
+        100% {
+            background: @mildGrey;
+        }
+    }
+
+    @keyframes b2 {
+        0% {
+            background: @mildGrey;
+        }
+
+        33% {
+            background: @black;
+        }
+
+        67% {
+            background: @mildGrey;
+        }
+
+        100% {
+            background: @mildGrey;
+        }
+    }
+
+    @keyframes b3 {
+        0% {
+            background: @mildGrey;
+        }
+
+        66% {
+            background: @black;
+        }
+
+        100% {
+            background: @mildGrey;
+        }
+    }
+}
+
+//// loader animation for buttons
+.loader-text {
+    display: none;
+}
+
+.loader {
+    .box-sizing(border-box);
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 150px;
+    vertical-align: middle;
+    -webkit-animation: spin 1s infinite linear;
+    animation: spin 1s infinite linear;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-right: 3px solid @white;
+
+    &.alt {
+        border: 2px solid rgba(100, 100, 100, 0.4);
+        border-right: 3px solid @grey;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            .rotate(0);
+        }
+
+        100% {
+            .rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            .rotate(0);
+        }
+
+        100% {
+            .rotate(360deg);
+        }
+    }
+}
+
+// Progress Indicator - Linear
+.loader-linear {
+    display: inline-block;
+    width: 130px;
+    height: 6px;
+    background-color: rgba(51, 51, 51, 0.5);
+    background-clip: content-box;
+    border-left: 26px solid rgba(51, 51, 51, 0.1);
+    border-right: 26px solid rgba(51, 51, 51, 1);
+    position: relative;
+    padding: 0 26px;
+    animation: loader-linear-left-border 1s infinite linear, 
+        loader-linear-background 1s infinite linear, 
+        loader-linear-right-border 1s infinite linear;
+    animation-delay: -0.8s, -0.4s, 0s;
+
+    &:before, &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 26px;
+        height: 100%;
+    }
+
+    &:before {
+        background: rgba(51, 51, 51, 0.25);
+        left: 0;
+        animation: loader-linear-background 1s infinite linear;
+        animation-delay: -0.6s;
+    }
+
+    &:after {
+        background: rgba(51, 51, 51, 0.75);
+        right: 0;
+        animation: loader-linear-background 1s infinite linear;
+        animation-delay: -0.2s;
+    }
+
+    &.alt {
+        background-color: rgba(225, 225, 225, 0.5);
+        border-left-color: rgba(225, 225, 225, 0.1);
+        border-right-color: rgba(225, 225, 225, 1);
+        animation-name: loader-linear-left-border-alt, 
+                        loader-linear-background-alt, 
+                        loader-linear-right-border-alt;
+
+        &:before {
+            background-color: rgba(225, 225, 225, 0.25);
+            animation-name: loader-linear-background-alt;
+        }
+        
+        &:after {
+            background-color: rgba(225, 225, 225, 0.75);
+            animation-name: loader-linear-background-alt;
+        }
+    }
+
+    @keyframes loader-linear-background {
+        0% { background-color: rgba(51, 51, 51, 1); }
+        100% { background-color: rgba(51, 51, 51, 0.1); }
+    }
+
+    @keyframes loader-linear-left-border {
+        0% { border-left-color: rgba(51, 51, 51, 1); }
+        100% { border-left-color: rgba(51, 51, 51, 0.1); }
+    }
+
+    @keyframes loader-linear-right-border {
+        0% { border-right-color: rgba(51, 51, 51, 1); }
+        100% { border-right-color: rgba(51, 51, 51, 0.1); }
+    }
+
+    @keyframes loader-linear-background-alt {
+        0% { background-color: rgba(225, 225, 225, 1); }
+        100% { background-color: rgba(225, 225, 225, 0.1); }
+    }
+
+    @keyframes loader-linear-left-border-alt {
+        0% { border-left-color: rgba(225, 225, 225, 1); }
+        100% { border-left-color: rgba(225, 225, 225, 0.1); }
+    }
+
+    @keyframes loader-linear-right-border-alt {
+        0% { border-right-color: rgba(225, 225, 225, 1); }
+        100% { border-right-color: rgba(225, 225, 225, 0.1); }
+    }
+}

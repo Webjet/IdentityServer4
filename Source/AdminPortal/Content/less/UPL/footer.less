@@ -1,0 +1,99 @@
+﻿@import "utilities.less";
+
+footer {
+    padding: @gutterWidth;
+    color: @grey;
+    overflow: hidden;
+    clear: both;
+
+    #footer {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        border-bottom: @lightGrey solid 1px;
+
+        >li {
+            width: 20%;
+
+            &:first-child .footer-header{
+                border-left:1px solid @grey;
+            }
+
+             &:last-child .footer-list {
+                border-right: #CCC solid 1px;
+            }
+        }
+    }
+
+    a.footer-header {
+        background: @grey;
+        color: @white;
+        border-left: 1px solid @white;
+        font-weight: bold;
+        font-size: 15px;
+        padding: 12px 12px;
+        text-align: left;
+        display: block;
+        white-space: nowrap;
+        cursor: default;
+        line-height: 18px;
+        text-decoration: none;
+        box-shadow: none;
+    }
+
+    .footer-list {
+        list-style-type: square;
+        padding: 12px 12px 12px 24px;
+        position: relative;
+
+        &:before {
+            content: "";
+            display: inline-block;
+            width: 1px;
+            height: 500px;
+            border-right: @lightGrey solid 1px;
+            position: absolute;
+            top: 0;
+            left: -1px;
+        }
+
+        li {
+            padding: 0 0 6px 3px;
+        }
+
+        &.social {
+            list-style-type: none;
+            padding: 12px 12px 2px 0;
+
+            .wj-icon {
+                vertical-align: middle;
+                color: @mildGrey;
+                padding: 12px 18px;
+
+                &:after {
+                    position: absolute;
+                    top: 0;
+                    left: 2px;
+                }
+            }
+
+            li {
+                padding: 0 0 12px 6px;
+            }
+        }
+    }
+    
+    #change-booking {
+        padding: 6px 0 0;
+        list-style: none;
+        line-height: 1.2em;
+        margin-left: -12px;
+
+        a {
+            margin-top:  6px;
+            width: 100%;
+            padding: 0;
+            max-width: 210px;
+        }
+    }    
+}

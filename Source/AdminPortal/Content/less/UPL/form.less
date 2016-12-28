@@ -1,0 +1,160 @@
+﻿@import "utilities.less";
+
+.form {
+    .row {
+        padding-bottom: @gutterWidth;
+
+        &:last-child {
+            padding: 0;
+        }
+    }
+
+    .col {
+        padding-right: @gutterWidth;
+
+        &:last-child {
+            padding: 0;
+        }
+    }
+
+    .action-panel {
+        padding: @halfGutterWidth;
+        text-align: right;
+    }
+}
+
+.form-input {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    vertical-align: top;
+}
+
+.form-group {
+    margin: 0;
+    position: relative;
+
+    .col {
+        position: relative;
+    }
+
+    .row {
+        padding: 0;
+    }
+
+    label {
+        display: inline-block;
+        font-size: 13px;
+        padding: @halfGutterWidth 0;
+
+        > .desc {
+            color: @grey;
+        }
+    }
+
+    .note {
+        color: @grey;
+        font-size: 13px;
+        padding: @halfGutterWidth 0;
+        display: inline-block;
+
+        .wj-alt-info {
+            display: inline-block;
+            font-size: 26px;
+            font-weight: normal;
+            line-height: 1;
+            vertical-align: middle;
+        }
+    }
+
+    .field-validation-error {
+        position: relative;
+        padding: 6px 8px;
+        margin-top: 8px;
+        background: @errorBackground;
+        color: @errorText;
+        font-size: 14px;
+        line-height: 130%;
+        border-radius: @borderRadius;
+        white-space: normal;
+        cursor: pointer;
+
+        &:after {
+            content: "";
+            width: 15px;
+            height: 8px;
+            background: #F2DEDE;
+            .rotate(45deg);
+            position: absolute;
+            top: -2px;
+            left: calc(~"50% - 6px");
+        }
+
+        &.alt {
+            margin: 0 0 8px;
+
+            &:after {
+                top: auto;
+                bottom: -2px;
+                left: 1px;
+            }
+        }
+    }
+
+    .input-validation-error {
+        background: @inputErrorBackground !important;
+        color: @inputErrorText !important;
+
+        &:hover, &:active, &:focus {
+            background: @inputErrorHoverBackground !important;
+        }
+
+        ~ .field-validation-error {
+            display: inline-block;
+        }
+    }
+}
+
+.contact-form {
+    input[type=text].standard, 
+    input[type=password].standard, 
+    input[type=email].standard, 
+    input[type=date].standard,
+    input[type=tel].standard {
+        height: 40px;
+        padding: 10px 9px;
+
+        &.clearfield-option {
+            padding-right: 28px;
+        }
+
+        + .wj-alt-cross {
+            margin-top: -28px;
+        }
+    }
+
+    .option-select {
+        height: 40px;
+
+         + .ui-selectmenu-button {
+            height: 40px;
+
+            .ui-selectmenu-text {
+                line-height: 40px;
+            }
+            
+            .ui-icon {
+                top: -5px;
+            }
+        }
+    }
+}
+
+.dark-alternate {
+    h1, h2, h3, h4, h5,
+    label, p,
+    .styled-checkbox-label,
+    a.standard, a.standard:hover {
+        color: @white;
+    }
+}

@@ -2,37 +2,60 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Admin Portal 1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Portal" />
+    <meta name="keywords" content="Admin Portal"/>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/favicon.ico" />
+    <link rel="apple-touch-icon" href="~/Content/images/webjet-au-icon.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Content/images/Webjet-au-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Content/images/Webjet-au-icon-114x114.png" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Admin Portal 1.0", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<body id="webjet">
+    <div id="content-wrapper" class="responsive">
+        <header>
+            <div id="logo">
+                <a href="//www.webjet.com.au" title="Webjet">
+                    <img src="~/Content/images/webjet-logo.png" srcset="~/Content/images/webjet-logo-2x.png 2x" alt="Webjet logo" width="145" height="73" />
+                </a>
             </div>
-            <div class="navbar-collapse collapse">
-               @Html.Partial("_LoginPartial")
+            <button id="nav-toggle" class="nav-toggle" type="button"><span class="wj-icon wj-menu"></span>Menu</button>
+        </header>
+        <div id="navigation">
+            <nav id="main-nav">
+                <ul class="nav-items">
+                    <li class="important">
+                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "home" })
+                    </li>
+                </ul>
+            </nav>
+            <div id="service-panel">
+                <nav id="service-nav">
+                    @Html.Partial("_LoginPartial")
+                </nav>
             </div>
+            <button id="nav-close" type="button" class="nav-toggle"><span class="wj-icon wj-s-cross"></span> Close this menu</button>
+        </div>
+        <div id="main-container">
+            <div id="content">
+                <div id="admin" class="side-gutter">
+                    @RenderBody()
+                </div>
+            </div>
+            <footer></footer>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Webjet Copyright</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="~/Content/scripts/libs/jquery-ui.min.js"></script>
+    <script src="~/Content/scripts/webjet.ui.build.js"></script>
+    <script src="~/Content/scripts/admin.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

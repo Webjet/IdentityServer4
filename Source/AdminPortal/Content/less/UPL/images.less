@@ -1,0 +1,84 @@
+﻿@import "utilities.less";
+
+
+.special-tag {
+    position: relative;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    height: 20px;
+    width: 70px;
+    white-space: nowrap;
+
+    .text {
+        position: absolute;
+        top: 1px;
+        left: 6px;
+        color: @white;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    }
+
+    .wj-icon {
+        position: absolute;
+        color: @primaryRed;
+
+        &:after {
+            position: absolute;
+            text-shadow: 0 1px 1px @specialTagShadow;
+        }
+    }
+
+    .wj-special {
+        &:after {
+            left: -2px;
+            font-size: 70px;
+        }
+
+        + .text {
+            text-transform: uppercase;
+        }
+    }
+
+    .wj-l-special {
+        &:after {
+            left: -2px;
+            font-size: 140px;
+        }
+
+        + .text {
+            top: -1px;
+            left: 8px;
+            font-size: 18px;
+        }
+    }
+
+    &.image-tag {
+        .wj-special:before {
+            position: absolute;
+            top: 19px;
+            content: "";
+            border-top: 6px solid @specialTagShadow;
+            border-left: 9px solid transparent;
+        }
+
+        .wj-l-special:before {
+            position: absolute;
+            top: 24px;
+            left: -2px;
+            content: "";
+            border-top: 10px solid @specialTagShadow;
+            border-left: 10px solid transparent;
+        }
+    }
+}
+
+
+.wifi-tag {
+    background: @WebjetBtnGreenHover;
+    padding: 3px 6px;
+    color: @white;
+
+    .text {
+        padding-left: 3px;
+    }
+}
