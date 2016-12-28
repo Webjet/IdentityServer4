@@ -1,0 +1,3 @@
+#see examples e.g. in https://github.com/clymb3r/PowerShell/blob/master/.gitignore
+!*.exe
+!.gitignore
