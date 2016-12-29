@@ -118,11 +118,11 @@ namespace AdminPortal.UnitTests.BusinessServices
             tabs[1].Sections[2].MenuItems.Count.ShouldBeEquivalentTo(1);
 
             tabs[0].Sections[0].MenuItems[0].Key.Should().Be("ReviewPendingBookingsAU");
-            tabs[0].Sections[0].MenuItems[1].Key.Should().Be("GoogleBigQueryItineraryAU");
+            tabs[0].Sections[0].MenuItems[1].Key.Should().Be("GoogleBigQueryItinerary");
             tabs[0].Sections[1].MenuItems[0].Key.Should().Be("CreditCardTransactionsToCheckAU");
             tabs[0].Sections[2].MenuItems[0].Key.Should().Be("FareEscalationJournalAU");
             tabs[1].Sections[0].MenuItems[0].Key.Should().Be("ReviewPendingBookingsNZ");
-            tabs[1].Sections[0].MenuItems[1].Key.Should().Be("GoogleBigQueryItineraryNZ");
+            tabs[1].Sections[0].MenuItems[1].Key.Should().Be("GoogleBigQueryItinerary");
             tabs[1].Sections[1].MenuItems[0].Key.Should().Be("ReviewPendingBookingsNZ");
             tabs[1].Sections[1].MenuItems[1].Key.Should().Be("CreditCardTransactionsToCheckNZ");
             tabs[1].Sections[2].MenuItems[0].Key.Should().Be("FareEscalationJournalNZ");
