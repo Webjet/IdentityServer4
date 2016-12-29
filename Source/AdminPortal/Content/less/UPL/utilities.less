@@ -1,0 +1,45 @@
+﻿@import "variables.less";
+@import "mixins.less";
+
+.show(){
+    display: block;
+}
+
+.hide () {
+    display: none;
+}
+
+.darkenColor(@color) {
+    color: darken(@color, 12%);
+}
+
+.darkenBackground(@color) {
+    background: darken(@color, 12%);
+}
+
+.darkenGradientBar(@topColor, @bottomColor) {
+    .gradientBar(darken(@topColor, 12%), darken(@bottomColor, 12%));
+}
+
+.disabled() {
+    box-shadow: none;
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+.textStroke(@width, @color) {
+    text-shadow: 0 @width 1px @color, 
+                @width 0 1px @color,
+                0 -@width 1px @color,
+                -@width 0 1px @color,
+                (@width - 1) (@width - 1) 1px @color,
+                (@width - 1) -(@width - 1) 1px @color,
+                -(@width - 1) (@width - 1) 1px @color,
+                -(@width - 1) -(@width - 1) 1px @color;
+}
+
+.ellipsis() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

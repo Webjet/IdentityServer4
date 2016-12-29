@@ -1,0 +1,86 @@
+﻿@import "utilities.less";
+
+#content-wrapper {
+    margin: 0 auto;
+    max-width: 1408px;
+    min-width: 320px;
+
+    header {
+        padding: 0 @gutterWidth;
+        position: relative;
+    }
+
+    #main-container {
+        background: @white;
+        position: relative;
+    }
+
+    #logo {
+        display: inline-block;
+        margin: @gutterWidth 0;
+        height: 74px;
+        position: relative;        
+    }
+
+    #service-panel {
+        font-size: 0;
+    }
+
+    #social-media {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 14px;
+
+        .btn-wrapper {
+            display: inline-block;
+            vertical-align: top;
+            padding-right: @gutterWidth;
+        }
+    }
+
+    #faq {
+        position: absolute;
+        right: 12px;
+        top: 60px;
+
+        .keyword {
+            border: none;
+            padding: 4px 7px;
+            width: 120px;
+            font-size: 12px;
+            height: 22px;
+            line-height: 14px;
+        }
+
+        .submit {
+            padding: 4px 8px;
+            margin-left: 3px;
+            height: 22px;
+            line-height: 14px;
+            font-size: 12px;
+        }
+    }
+
+    #content {
+        min-height: 650px;
+        float: left;
+        width: 100%;
+
+        .ad-banner {
+            height: 90px;
+            width: 728px;
+            margin: 10px auto;
+        }
+    }
+
+    #side-bar {
+        position: absolute;
+        padding: @gutterWidth;
+        right: 0;
+
+        .ad-banner {
+            height: 600px;
+            width: 160px;
+        }
+    }
+}

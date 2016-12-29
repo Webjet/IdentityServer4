@@ -1,0 +1,85 @@
+﻿@import "utilities.less";
+
+.alert {
+    padding: 12px 42px 12px 14px;
+    position: relative;
+    border-radius: @borderRadius;
+    border: 0;
+    background: @warningBackground;
+    color: @warningText;
+    margin-bottom: @gutterWidth;
+    text-shadow: none;
+
+    a[data-dismiss=alert] {
+        color: @warningText;
+        border-radius: @borderRadius;
+        text-decoration: none;
+        padding: 13px 14px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0.3;
+
+        &:hover, &:active {
+            opacity: 0.5;
+        }
+
+        &:focus {
+            box-shadow: @activeItemOutlineInset;
+            text-decoration: none;
+            outline: none;
+            opacity: 0.5;
+        }
+    }
+
+    a:not([data-dismiss=alert]) {
+        color: @warningText;
+    }
+
+    &.alert-success, &.alert-error, &.alert-warning {
+        font-size: 16px;
+        line-height: 130%;
+
+        a:not([data-dismiss=alert]) {
+            text-decoration: underline;
+        }
+    }
+}
+
+.alert-warning {
+    color: @warningText;
+
+    a:not([data-dismiss=alert]) {
+        color: @warningText;
+
+        &:hover {
+            color: darken(@warningText, 12%);
+        }
+    }
+}
+
+.alert-success {
+    background: @successBackground;
+    color: @successText;
+
+    a:not([data-dismiss=alert]) {
+        color: @successText;
+
+        &:hover {
+            color: darken(@successText, 12%);
+        }
+    }
+}
+
+.alert-error {
+    background: @errorBackground;
+    color: @errorText;
+
+    a:not([data-dismiss=alert]) {
+        color: @errorText;
+
+        &:hover {
+            color: darken(@errorText, 12%);
+        }
+    }
+}
