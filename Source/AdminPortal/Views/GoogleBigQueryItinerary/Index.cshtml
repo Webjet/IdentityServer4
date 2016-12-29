@@ -1,18 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "Google BigQuery Analytics";
+    ViewBag.Title = "Google Big Query Analytics";
 }
 
 @if (Request.IsAuthenticated)
 {
-    if (User.IsInRole("Admin") || User.IsInRole("Analytics") || User.IsInRole("ServiceCenterManager") || User.IsInRole("ServiceCenter"))
-    {
-        @Html.Raw(File.ReadAllText(Server.MapPath("~/Views/GoogleBigQueryItinerary/Content/Index.html")))
-    }
-    if (User.IsInRole("Observer"))
-    {
-        <div class="jumbotron">
-            <p class="lead">Sorry!! you do not have access permission. Please contact Administrator for Service Centre role grant.</p>
-        </div>
-    }
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Views/GoogleBigQueryItinerary/Content/Index.html")))
+    
 }
+
