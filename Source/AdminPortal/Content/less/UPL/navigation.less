@@ -1,0 +1,470 @@
+﻿@import "utilities.less";
+
+#content-wrapper {
+    position: relative;
+
+    .nav-items {
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+        min-width: 320px;
+
+        > li {
+            display: inline-block;
+            position: inherit;
+
+            a {
+                font-size: 12px;
+                text-decoration: none;
+                color: @white;
+                padding: 6px 12px;
+                display: inline-block;
+                outline: none;
+                cursor: pointer;
+
+                &:focus, &:hover {
+                    background: none;
+                }
+            }
+        }
+    }
+
+    #service-nav {
+        display: inline-block;
+
+        .wj-icon {
+            padding-left: 3px;
+        }
+
+        .wj-cart {
+            padding: 0 5px 0 3px;
+        }
+
+        a {
+            line-height: 44px;
+            padding: 0 12px;
+            width: 100%;
+        }
+
+        ul {
+            z-index: 1;
+        }
+    }
+
+    #main-nav {
+        .gradientBar(@grey, @darkGrey);
+        position: relative;
+        height: 50px;
+        min-width: 320px;
+
+        li {
+            border-right: 1px solid @darkGrey;
+            height: 50px;
+
+            &:last-child {
+                border: none;
+            }
+
+            &.important {
+                font-weight: 500;
+                text-transform: uppercase;
+                border-color: @black;
+
+                a {
+                    padding: 16px;
+
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+
+
+
+            .wj-icon {
+                padding-right: 6px;
+                font-size: 28px;
+                vertical-align: text-bottom;
+            }
+        }
+
+        .flight-hotel, .flight-hotel + .wj-hotel {
+            font-size: 24px;
+        }
+
+        .flight-hotel + .wj-hotel {
+            margin-left: -5px;
+        }
+
+        .flexMenu-viewMore {
+            > a:after {
+                font-family: @iconFontFamily;
+                content: "\E003";
+                display: inline-block !important;
+                font-size: 16px;
+                vertical-align: top;
+                -webkit-font-smoothing: antialiased;
+                padding-left: 3px;
+            }
+
+            &.active, &.active:hover {
+                background: @darkGrey;
+                border-right: none;
+            }
+
+            &.active > a:hover {
+                .darkenGradientBar(@grey, @darkGrey);
+            }
+        }
+
+        .flexMenu-popup {
+            z-index: 1;
+            right: 0;
+            top: 50px;
+            box-shadow: 0 4px 5px rgba(0,0,0, 0.70);
+            padding: 0;
+
+            li {
+                background: @darkGrey;
+                display: block;
+                min-width: 120px;
+                height: 50px;
+                text-align: center;
+                border: none;
+
+                &:hover {
+                    .darkenBackground(@darkGrey);
+                }
+            }
+
+            a {
+                padding: 15px 0;
+                display: block;
+
+                &:hover, &:focus {
+                    .darkenBackground(@darkGrey);
+                }
+            }
+
+            .important {
+                text-transform: capitalize;
+
+                span {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+//// styles for screen size that is bigger than 767px e.g. tablet, desktop or full desktop
+@media @not-mobile {
+    #content-wrapper {
+        .nav-toggle {
+            display: none;
+        }
+
+        #navigation {
+            display: block !important;
+        }
+
+        #service-panel {
+            position: absolute;
+            top: 0;
+            right: 12px;
+
+            .active, .active:hover {
+                background: @darkGrey;
+            }
+
+            .active a:focus, .active a:hover, .sub-nav a:focus {
+                .darkenBackground(@darkGrey);
+            }
+
+            a {
+                &:focus {
+                    box-shadow: @activeItemOutline;
+                    background: @serviceMenuHoverBackground;
+                    position: relative;
+                    z-index: 2;
+                }
+            }
+
+            li:hover {
+                background: @serviceMenuHoverBackground;
+            }
+
+            #customer-support, #customer-support ul, #manage-bookings, #manage-bookings ul {
+                width: 142px;
+            }
+        }
+
+        .sub-nav {
+            position: absolute;
+            z-index: 1;
+            padding: 0;
+            background: @darkGrey;
+            min-width: 107px;
+            display: none;
+            box-shadow: 0 4px 5px rgba(0,0,0, 0.70);
+
+            li {
+                display: block;
+
+                a:hover {
+                    .darkenBackground(@darkGrey);
+                }
+            }
+        }
+
+        #main-nav {
+            a {
+                padding: 17px 14px 12px 14px;
+                height: 50px;
+            }
+
+            .nav-items {
+                li {
+                    &:hover {
+                        .darkenGradientBar(@grey, @darkGrey);
+                        border-right: 1px solid @darkGrey;
+                    }
+
+                    &.important {
+                        .gradientBar(@grey, @black);
+
+                        &:hover {
+                            .darkenGradientBar(@grey, @black);
+                            border-right: 1px solid @black;
+                        }
+
+                        &.active, &.active:hover, &.active a:focus {
+                            background: @darkGrey;
+                        }
+
+                        a {
+                            &:focus {
+                                .darkenGradientBar(@grey, @black);
+                            }
+                        }
+                    }
+
+                    a:focus {
+                        box-shadow: @activeItemOutline;
+                        position: relative;
+                        z-index: 2;
+                        .darkenGradientBar(@grey, @black);
+                    }
+                }
+            }
+        }
+    }
+}
+
+//// styles for screen size that is less than or equal 767px e.g. mobile
+@media @mobile {
+    #content-wrapper {
+        #nav-toggle {
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            padding: 8px 12px;
+            border: #E97C76 1px solid;
+            background: @primaryRed;
+            color: @white;
+            border-radius: 5px;
+            font-size: 18px;
+            outline: none;
+
+            .wj-icon {
+                padding-right: 6px;
+            }
+        }
+
+        #navigation {
+            position: absolute;
+            z-index: 10000;
+            width: 100%;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+            display: none;
+
+            &:before {
+                background: @darkGrey;
+                content: "";
+                display: block;
+                width: 20px;
+                height: 20px;
+                position: relative;
+                left: 60px;
+                top: 10px;
+                transform: rotate(45deg);
+                margin-top: -22px;
+            }
+
+            &:after {
+                content: "";
+                display: block;
+                height: 56px;
+                position: absolute;
+                left: 117px;
+                top: -58px;
+                right: 0;
+            }
+        }
+
+        &.navigation-active {
+            #nav-toggle {
+                background: #BD1209;
+            }
+
+            #navigation {
+                display: block;
+            }
+
+            #main-container:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #000;
+                opacity: 0.5;
+                z-index: 9999;
+            }
+        }
+
+        #main-nav {
+            display: table;
+            width: 100%;
+
+            .nav-items {
+                background: @darkGrey;
+
+                a {
+                    padding: 16px 0;
+                    display: block;
+                    font-size: 14px;
+
+                    &:active {
+                        .darkenBackground(@darkGrey);
+                    }
+                }
+
+                li {
+                    width: 50%;
+                    height: auto;
+                    padding: 0;
+                    text-align: center;
+                    border: none;
+                    border-bottom: 1px solid @black;
+
+                    &:nth-child(odd) {
+                        border-right: 1px solid @black;
+                    }
+
+                    &.important {
+                        a {
+                            padding: 14px 0;
+                        }
+
+                        &:nth-child(7n) {
+                            text-transform: initial;
+
+                            a {
+                                padding: 16px 0;
+                            }
+
+                            .wj-icon {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+
+                .wj-icon {
+                    display: block;
+                    padding-bottom: 6px;
+                }
+            }
+        }
+
+        #service-nav {
+            background: @grey;
+            width: 100%;
+
+            .nav-items li {
+                width: 100%;
+                position: relative;
+                border-bottom: 1px solid @black;
+
+                .wj-icon {
+                    position: absolute;
+                    left: 12px;
+                }
+
+                a {
+                    font-size: 14px;
+                    padding-left: 36px;
+                    line-height: 50px;
+
+                    &:active {
+                        .darkenBackground(@grey);
+                    }
+
+                    .wj-caret-down:after {
+                        content: "\E006";
+                    }
+                }
+
+                &.active a .wj-caret-down:after {
+                    content: "\E003";
+                }
+            }
+
+            .sub-nav {
+                display: none;
+                padding-left: 35px;
+
+                li {
+                    border: none;
+                    border-top: 1px solid @black;
+
+                    a {
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+
+        #nav-close {
+            outline: none;
+            width: 100%;
+            border: none;
+            background: @darkGrey;
+            border-bottom: 1px solid @black;
+            color: @white;
+            font-size: 14px;
+            padding: 16px;
+            text-align: center;
+            text-transform: uppercase;
+
+            &:active {
+                .darkenBackground(@darkGrey);
+            }
+        }
+
+        #my-cart{
+            display: none;
+        }
+
+        a {
+            font-weight: 500;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+}

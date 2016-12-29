@@ -1,0 +1,105 @@
+﻿@import "utilities.less";
+
+a {
+    cursor: pointer;
+    color: @grey;
+    text-decoration: none;
+    padding: 0px 2px 1px;
+
+    &:visited {
+        color: @grey;
+    }
+
+    &.important {
+        font-weight: bold;
+    }
+
+    &:hover, &:active {
+        .darkenColor(@grey);
+        text-decoration: underline;
+    }
+
+    &:focus {
+        .darkenColor(@grey);
+        text-decoration: none;
+        outline: none;
+        box-shadow: @activeItemOutline;
+
+        &:active {
+            box-shadow: none;
+        }
+    }
+
+    &.primary, .primary, &.primary:visited {
+        color: @redLink;
+
+        &:hover, &:active, &:focus {
+            color: @redLinkHover;
+        }
+    }
+
+    &.standard, .standard, &.standard:visited {
+        color: @standardLink;
+        
+        &:hover, &:active, &:focus {
+            color: @standardLinkHover;
+        }
+    }
+
+    &.alt-standard, .alt-standard, &.alt-standard:visited {
+        color: @white;
+        text-decoration: underline;
+
+        &:hover, &:active, &:focus {
+            color: @mildWhite;
+            text-decoration: none;
+        }
+    }
+
+    &.text-link {
+        text-decoration: underline;
+
+        &:hover, &:active, &:focus {
+            text-decoration: none;
+        }
+    }
+
+    &.icon-link {
+        font-size: 32px;
+        line-height: 32px;
+        text-decoration: none;
+        box-shadow: none;
+        vertical-align: middle;
+        color: @mildGrey;
+        background: none;
+        display: inline;
+
+        &:hover {
+            color: @grey;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    a {
+        color: inherit;
+    }
+}
+
+h1 a {
+    &:hover, &:active, &:focus {
+        color: @redLinkHover;
+    }
+}
+
+h2 a, h3 a, h4 a {
+    &:hover, &:active, &:focus {
+        color: @blackLinkHover;
+    }
+}
+
+h5 a {
+    &:hover, &:active, &:focus {
+        color: @grayLinkHover;
+    }
+}

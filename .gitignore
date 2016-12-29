@@ -22,3 +22,5 @@ Binaries
 
 # Microsoft Fakes
 FakesAssemblies/
+
+node_modules/

@@ -1,0 +1,311 @@
+﻿@import "utilities.less";
+
+.btn-base {
+    border: 0;
+    padding: 0 16px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: @borderRadius;
+    box-shadow: @buttonShadow;
+    outline: none;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:focus {
+        box-shadow: @activeItemOutline;
+        text-decoration: none;
+        outline: none;
+    }
+
+    &:active {
+        box-shadow: @WebjetBtnActive;
+    }
+
+    &.btn-disabled {
+        .disabled();
+    }
+
+    &.btn-icon, &.btn-icon-both, &.btn-icon-left, &.btn-icon-right {
+        min-width: 100px;
+
+        .wj-icon {
+            pointer-events: none;
+        }
+    }
+
+    &.btn-icon-both {
+        .wj-icon:first-child {
+            margin: 0 -4px 0 -6px;
+            padding-right: 7px;
+        }
+
+        .wj-icon:last-child {
+            margin: 0 -6px 0 -4px;
+            padding-left: 7px;
+        }
+    }
+
+    &.btn-icon-left {
+        .wj-icon {
+            margin: 0 -4px 0 -6px;
+            padding-right: 7px;
+        }
+    }
+    
+    &.btn-icon-right {
+        .wj-icon {
+            margin: 0 -6px 0 -4px;
+            padding-left: 7px;
+        }
+    }
+
+    &.short {
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+.btn-standard {
+    .btn-base();
+    background: @WebjetBtnDefaultBg;
+    font-weight: 400;
+    color: @WebjetBtnDefaultColor;
+
+    &:visited {
+        color: @WebjetBtnDefaultColor;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: @WebjetBtnDefaultHover;
+        color: @WebjetBtnDefaultColor;
+    }
+
+    &.btn-disabled, &.btn-loading {
+        background: @WebjetBtnDefaultBg;
+    }
+
+    .loader {
+        border: 2px solid @grey;
+        border-top-color: rgba(100, 100, 100, 0.4);
+        border-left-color: rgba(100, 100, 100, 0.4);
+        border-bottom-color: rgba(100, 100, 100, 0.4);
+    }
+}
+
+.btn-selection {
+    .btn-base();
+    background: @WebjetBtnSelectiontBg;
+    font-size: 15px;
+    font-weight: 400;
+    color: @WebjetBtnSelectionColor;
+
+    &:visited {
+        color: @WebjetBtnSelectionColor;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: @WebjetBtnSelectionHover;
+        color: @WebjetBtnSelectionColor;
+    }
+
+    &.btn-disabled, &.btn-loading {
+        background: @WebjetBtnSelectiontBg;
+    }
+}
+
+.btn-action, .btn-request {
+    .btn-base();
+    background: @WebjetBtnGreenBg;
+    font-weight: 500;
+    color: @WebjetBtnGreenColor;
+
+    &:visited {
+        color: @WebjetBtnGreenColor;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: @WebjetBtnGreenHover;
+        color: @WebjetBtnGreenColor;
+    }
+
+    &.btn-disabled, &.btn-loading {
+        background: @WebjetBtnGreenBg;
+    }
+}
+
+.btn-active {
+    .btn-base();
+    background: @WebjetBtnActiveBg;
+    font-weight: 500;
+    color: @WebjetBtnActiveColor;
+
+    &:visited {
+        color: @WebjetBtnActiveColor;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: @WebjetBtnActiveHover;
+        color: @WebjetBtnActiveColor;
+    }
+
+    &.btn-disabled, &.btn-loading {
+        background: @WebjetBtnActiveBg;
+    }
+}
+
+.btn-action, .btn-action .btn-loading .loader-text {
+    font-size: 16px;
+}
+
+.btn-request {
+    font-size: 20px;
+    height: 57px;
+    line-height: 57px;
+    width: 100%;
+    margin: 0;
+
+    &.btn-loading .loader-text {
+        font-size: 20px;
+    }
+
+    &.btn-icon, &.btn-icon-both, &.btn-icon-left, &.btn-icon-right {
+        min-width: auto;
+
+        .wj-icon {
+            font-size: 24px;
+        }
+    }
+
+    &.btn-icon-both {
+        .wj-icon:first-child {
+            padding-right: 6px;
+        }
+
+        .wj-icon:last-child {
+            padding-left: 6px;
+        }
+    }
+
+    &.btn-icon-left {
+        .wj-icon {
+            padding-right: 11px;
+        }
+    }
+
+    &.btn-icon-right {
+        .wj-icon {
+            padding-left: 11px;
+        }
+    }
+}
+
+.btn-loading {
+    box-shadow: none;
+    cursor: not-allowed;
+    font-size: 0;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+
+    .loader, .loader-text {
+        display: inline-block;
+    }
+
+    .wj-icon {
+        display: none;
+    }
+
+    .loader-text {
+        font-size: 15px;
+        vertical-align: middle;
+        padding-left: 7px;
+        .opacity(50);
+    }
+}
+
+
+.btn-group {
+    .btn {
+        background: @WebjetBtnDefaultBg;
+        box-shadow: none;
+        border: none;
+        font-size: 15px;
+        font-weight: 400;
+        color: @WebjetBtnDefaultColor;
+        padding: 0 18px;
+        height: 42px;
+        line-height: 42px;
+        border-radius: @borderRadius;
+
+        &:after {
+            display: block;
+            content: "";
+            border-right: 1px solid @WebjetBtnDefaultHover;
+            height: 100%;
+            width: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 3;
+        }
+
+        &:last-child:after {
+            border: 0;
+        }
+
+        &:hover, &:active, &:focus {
+            background: @WebjetBtnDefaultHover;
+            color: @WebjetBtnDefaultColor;
+        }
+
+        &:focus, &.focus {
+            box-shadow: @activeItemOutline;
+            text-decoration: none;
+            outline: none;
+        }
+
+        &.active {
+            background: @mildGrey;
+            color: @white;
+            z-index: 5 !important;
+
+            &:after {
+                border-color: @mildGrey;
+            }
+        }
+
+        &:active {
+            box-shadow: none;
+        }
+
+        >input[type="radio"] {
+            display: inline;
+            opacity: 0;
+            position: absolute;
+        }
+    }
+    
+    &.disabled {
+        .disabled();
+    }
+}
+
+.btn-toggle {
+    box-shadow: none;
+}

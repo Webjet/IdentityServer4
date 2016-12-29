@@ -1,0 +1,79 @@
+﻿@import "utilities.less";
+
+/* style for mobile in landscap */
+@media only screen and (max-width: 767px) {
+    #content-wrapper {
+        header {
+            text-align:center;
+        }
+
+        #content {
+            min-height: 600px;
+        }
+
+        #logo {
+            margin: 8px 0 4px 0;
+            height: 46px;
+
+            img {
+                width: auto;
+                height: 42px;
+            }
+        }
+
+        footer {
+            padding: 0;
+
+            #footer {
+                border: none;
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+
+                >li {
+                    width: 100%;
+                }
+            }
+
+            .footer-header {
+                border: none;
+                padding: 0 0 0 6px;
+                height: 44px;
+                line-height: 44px;
+                cursor: pointer;
+
+                &:hover {
+                    background: #454545;
+                }
+
+                .wj-icon {
+                    padding-right: 6px;
+                }
+            }
+
+            .footer-list {
+                padding: 12px 12px 0 24px;
+
+                &:before, &:after {
+                    display: none;
+                }
+
+                li {
+                    padding: 0 0 12px 3px;
+                }
+
+                &.social {
+                    padding-left: 0;
+                    padding-bottom: 6px;
+
+                    li {
+                        padding: 0 0 6px 6px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* style for mobile in portrait */
+@media only screen and (max-width: 567px) {
+}
