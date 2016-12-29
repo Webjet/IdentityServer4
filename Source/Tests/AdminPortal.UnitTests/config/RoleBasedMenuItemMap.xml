@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <requiredResourceAccess>
-  <add key="GoogleBigQueryItineraryAU" value="ServiceCenter,AnalyticsTeam"></add>
+ 
   <add key="ReviewPendingBookingsAU" value="ServiceCenter,DevSupport"></add>
   <add key="FareEscalationJournalAU" value="FinanceTeam"></add>
   <add key="CreditCardTransactionsToCheckAU" value="ServiceCenter,DevSupport,ProductTeam"></add>
-  <add key="GoogleBigQueryItineraryNZ" value="ServiceCenter,AnalyticsTeam"></add>
+  <add key="GoogleBigQueryItinerary" value="ServiceCenter,AnalyticsTeam"></add>
   <add key="ReviewPendingBookingsNZ" value="ServiceCenter,DevSupport"></add>
   <add key="FareEscalationJournalNZ" value="FinanceTeam,ProductTeam"></add>
   <add key="CreditCardTransactionsToCheckNZ" value="ServiceCenter,DevSupport,ProductTeam"></add>
