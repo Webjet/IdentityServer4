@@ -24,11 +24,11 @@ namespace AdminPortal.UnitTests.BusinessServices
 
             //Assert
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.Count.ShouldBeEquivalentTo(8);
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("GoogleBigQueryItineraryAU").Should().BeTrue();
+            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("GoogleBigQueryItinerary").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("ReviewPendingBookingsAU").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("FareEscalationJournalAU").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("CreditCardTransactionsToCheckAU").Should().BeTrue();
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("GoogleBigQueryItineraryNZ").Should().BeTrue();
+            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("GoogleBigQueryItinerary").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("ReviewPendingBookingsNZ").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("FareEscalationJournalNZ").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("CreditCardTransactionsToCheckNZ").Should().BeTrue();
@@ -62,8 +62,8 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Act
             ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath);
 
-            ServiceCenterUser_GoogleBigQueryItineraryAU_True(loggedInUser, "GoogleBigQueryItineraryAU", mapper);
-            AnalyticsTeamUser_GoogleBigQueryItineraryNZ_True(loggedInUser, "GoogleBigQueryItineraryNZ", mapper);
+            ServiceCenterUser_GoogleBigQueryItineraryAU_True(loggedInUser, "GoogleBigQueryItinerary", mapper);
+            AnalyticsTeamUser_GoogleBigQueryItineraryNZ_True(loggedInUser, "GoogleBigQueryItinerary", mapper);
             FinanceTeamUser_FareEscalationJournalAU_True(loggedInUser, "FareEscalationJournalAU", mapper);
            
         }
@@ -123,7 +123,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         private void GoogleBigQueryItineraryAU_ServiceCenterAndAnalytics(ResourceToApplicationRolesMapper mapper)
         {
             //Act
-            List<string> roles = mapper.GetAllowedRolesForResource("GoogleBigQueryItineraryAU");
+            List<string> roles = mapper.GetAllowedRolesForResource("GoogleBigQueryItinerary");
 
             //Assert
             roles.Count.Should().Be(2);
@@ -155,7 +155,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         private void GoogleBigQueryItineraryNZ_ServiceCenterAndAnalytics(ResourceToApplicationRolesMapper mapper)
         {
             //Act
-            List<string> roles = mapper.GetAllowedRolesForResource("GoogleBigQueryItineraryNZ");
+            List<string> roles = mapper.GetAllowedRolesForResource("GoogleBigQueryItinerary");
 
             //Assert
             roles.Count.Should().Be(2);
