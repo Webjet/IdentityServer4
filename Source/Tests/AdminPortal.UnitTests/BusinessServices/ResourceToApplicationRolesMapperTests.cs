@@ -23,12 +23,11 @@ namespace AdminPortal.UnitTests.BusinessServices
             ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(_filepath);
 
             //Assert
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.Count.ShouldBeEquivalentTo(8);
+            resourceToApplicationRolesMapper.ResourceItemsWithRoles.Count.ShouldBeEquivalentTo(7);
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("GoogleBigQueryItinerary").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("ReviewPendingBookingsAU").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("FareEscalationJournalAU").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("CreditCardTransactionsToCheckAU").Should().BeTrue();
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("GoogleBigQueryItinerary").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("ReviewPendingBookingsNZ").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("FareEscalationJournalNZ").Should().BeTrue();
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("CreditCardTransactionsToCheckNZ").Should().BeTrue();
