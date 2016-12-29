@@ -25,4 +25,4 @@ FakesAssemblies/
 
 node_modules/
 # Dodo.exe extracts the files
-AdminPortal/Deployment/DODO
+Deployment/DODO
