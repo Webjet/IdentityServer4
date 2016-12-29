@@ -19,7 +19,7 @@ namespace AdminPortal.Controllers
         private LandingPageModel _landingPageModel;
 
         [HttpGet]
-        [Authorize(Roles = "ServiceCenter,ServiceCenterManager,ProductTeam,Finance,Analytics,DevSupport")]
+        //[Authorize(Roles = "ServiceCenter,ServiceCenterManager,ProductTeam,Finance,Analytics,DevSupport")]
         public ActionResult Index()
         {
             _landingPageModel = new LandingPageModel

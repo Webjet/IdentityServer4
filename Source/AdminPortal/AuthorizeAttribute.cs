@@ -6,12 +6,24 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using AdminPortal.BusinessServices;
 
 namespace AdminPortal
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class AuthorizeAttribute : System.Web.Mvc.AuthorizeAttribute
     {
+        private readonly string _resourceKey;
+
+        public AuthorizeAttribute() : this(null)
+        {
+
+        }
+        public AuthorizeAttribute(string resourceKey)
+        {
+            this._resourceKey = resourceKey;
+        }
+
         /// <summary>
         /// By Default, MVC returns a 401 Unauthorized when a user's roles do not meet the AuthorizeAttribute requirements.
         /// This initializes a reauthentication request to our identity provider.  Since the user is already logged in, 
@@ -43,21 +55,18 @@ namespace AdminPortal
             }
         }
 
-        //protected override bool AuthorizeCore(HttpContextBase httpContext)
-        //{
-        //    if (httpContext.User.Identity.IsAuthenticated)
-        //    {
-        //        var authCookie = httpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
-        //        if (authCookie != null)
-        //        {
-        //            var ticket = FormsAuthentication.Decrypt(authCookie.Value);
-        //            var roles = ticket.UserData.Split('|');
-        //            var identity = new GenericIdentity(ticket.Name);
-        //            httpContext.User = new GenericPrincipal(identity, roles);
-        //        }
-        //    }
-        //    return base.AuthorizeCore(httpContext);
-        //}
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            if (!httpContext.Request.IsAuthenticated)
+                return false;
 
+            if (!string.IsNullOrEmpty(_resourceKey))
+            {
+                Roles = new ResourceToApplicationRolesMapper().AllowedRolesForResource(_resourceKey);
+            }
+
+            return base.AuthorizeCore(httpContext);
+        }
+        
     }
 }

@@ -45,6 +45,16 @@ namespace AdminPortal.BusinessServices
             return null;
         }
 
+
+        public string AllowedRolesForResource(string resourceKey)
+        {
+            if (ResourceItemsWithRoles != null && ResourceItemsWithRoles.ContainsKey(resourceKey))
+            {
+                return string.Join(",", ResourceItemsWithRoles[resourceKey]);
+            }
+            return null;
+        }
+
         public bool IsUserRoleAllowedForResource(string resourceKey, IPrincipal loggedUser)
         {
             List<string> roles = GetAllowedRolesForResource(resourceKey);
