@@ -92,10 +92,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config\RoleBasedMenuItemMap_NullAttribute.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\RoleBasedMenuItemMap_RootNodeNull.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="config\RoleBasedMenuItemMap.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="config\UILinksMapping_RootNodeNull.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\UILinksMapping_TabNodeNull.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="config\UILinksMapping_TabNullAttributes.xml">
