@@ -46,7 +46,48 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Assert
             tabs.Should().BeNull();
         }
+
+        [TestMethod()]
+        public void LandingPageLayoutLoader_HostApplicationFilePath_LandingPageTabs()
+        {
+            //Arrange
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _nlogger);
+
+            //Act
+            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+
+            //Assert
+            tabs.Should().NotBeNull();
+        }
+
+        [TestMethod()]
+        public void LandingPageLayoutLoader_InCorrectFilePath_ExceptionLogAndNullLandingPageTabs()
+        {
+            //Arrange
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+
+            //Act
+            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+
+            //Assert
+            tabs.Should().BeNull();
+        }
+
         
+        [TestMethod()]
+        public void LandingPageLayoutLoader_TabNodeNull_NullLandingPageTabs()
+        {
+            //Arrange
+            _filepath += "UILinksMapping_TabNodeNull.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+
+            //Act
+            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+
+            //Assert
+            tabs.Should().BeNull();
+        }
+
         [TestMethod()]
         public void LandingPageLayoutLoader_TabWith0SectionItem_NullLandingPageTabs()
         {

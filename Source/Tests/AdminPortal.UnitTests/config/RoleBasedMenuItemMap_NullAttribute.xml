@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<requiredResourceAccess>
+ <add title="ReviewPendingBookingsAU" roles="ServiceCenter,DevSupport"></add>
+ </requiredResourceAccess>
+
+

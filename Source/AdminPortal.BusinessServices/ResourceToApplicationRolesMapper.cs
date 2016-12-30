@@ -78,15 +78,21 @@ namespace AdminPortal.BusinessServices
                 ResourceItemsWithRoles = new Dictionary<string, string[]>();
                 foreach (XmlNode node in xmlNode.ChildNodes)
                 {
-                    if (node.Attributes != null)
+                    try
                     {
-                        ResourceItemsWithRoles.Add(
-                            node.Attributes["key"].InnerText,
-                            node.Attributes["value"].InnerText.Split(',')
-                            );
-
+                        if (node.Attributes != null)
+                        {
+                            ResourceItemsWithRoles.Add(
+                                node.Attributes["key"].InnerText,
+                                node.Attributes["value"].InnerText.Split(',')
+                                );
+                        }
                     }
-
+                    catch (Exception ex)
+                    {
+                        _nLogger.Log(LogLevel.Warn, ex,
+                    "XML node attribute parsing error in RoleBasedMenuItemMap.xml ");
+                    }
                 }
             }
             else

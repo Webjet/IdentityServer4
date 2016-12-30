@@ -74,25 +74,17 @@ namespace AdminPortal.BusinessServices
         private LandingPageTab PopulateTabObject(XmlNode tabNode)
         {
             LandingPageTab landingPageTab = null;
-            try
+            if (tabNode.Attributes != null && tabNode.Attributes["id"] != null && tabNode.Attributes["text"] != null)
             {
-                if (tabNode.Attributes != null && tabNode.Attributes["id"] != null && tabNode.Attributes["text"] != null)
+                List<LandingPageSection> landingPageTabSections = PopulateSectionObject(tabNode);
+
+                if (landingPageTabSections != null)
                 {
-                    List<LandingPageSection> landingPageTabSections = PopulateSectionObject(tabNode);
-
-                    if (landingPageTabSections != null)
-                    {
-                        landingPageTab = new LandingPageTab();
-                        landingPageTab.Sections = landingPageTabSections;
-                        landingPageTab.Key = tabNode.Attributes["id"].InnerText;
-                        landingPageTab.Text = tabNode.Attributes["text"].InnerText;
-                    }
-
+                    landingPageTab = new LandingPageTab();
+                    landingPageTab.Sections = landingPageTabSections;
+                    landingPageTab.Key = tabNode.Attributes["id"].InnerText;
+                    landingPageTab.Text = tabNode.Attributes["text"].InnerText;
                 }
-            }
-            catch (Exception ex)
-            {
-                _nLogger.Log(LogLevel.Warn, ex, "Error in XML parsing UILinksMapping.xml");
             }
 
             return landingPageTab;
@@ -141,17 +133,14 @@ namespace AdminPortal.BusinessServices
                 {
                     try
                     {
-                        if (menuItemNode.Attributes != null)
+                        LandingPageSectionMenuItem menuItem = new LandingPageSectionMenuItem
                         {
-                            LandingPageSectionMenuItem menuItem = new LandingPageSectionMenuItem
-                            {
-                                Key = menuItemNode.Attributes["id"].InnerText,
-                                Text = menuItemNode.Attributes["text"].InnerText,
-                                Link = menuItemNode.Attributes["link"].InnerText
-                            };
+                            Key = menuItemNode.Attributes["id"].InnerText,
+                            Text = menuItemNode.Attributes["text"].InnerText,
+                            Link = menuItemNode.Attributes["link"].InnerText
+                        };
 
-                            landingPageMenuItems.Add(menuItem);
-                        }
+                        landingPageMenuItems.Add(menuItem);
                     }
                     catch (Exception ex)
                     {
