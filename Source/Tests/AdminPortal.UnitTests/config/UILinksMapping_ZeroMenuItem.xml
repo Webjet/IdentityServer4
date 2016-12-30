@@ -6,11 +6,6 @@
              text="ServiceCenter Activities " >
       
     </Section>
-
-    <Section id ="ProductTeamSectionAU"
-           text="Product Team Activities " >
-     
-    </Section>
   
   </tab>
 </uilinks>

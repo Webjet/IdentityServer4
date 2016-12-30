@@ -8,39 +8,43 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Xml;
+using NLog.Common;
 
 namespace AdminPortal.BusinessServices
 {
     public class LandingPageLayoutLoader
     {
-        private static readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\UILinksMapping.xml";
+        private readonly NLog.ILogger _nLogger;
 
-
-        public LandingPageLayoutLoader() : this(null)
+        public LandingPageLayoutLoader() : this(null, LogManager.GetCurrentClassLogger())
         {
 
         }
-        public LandingPageLayoutLoader(string filepath)
+
+        public LandingPageLayoutLoader(string filepath, ILogger nLogger)
         {
             if (!string.IsNullOrEmpty(filepath))
             {
                 _filepath = filepath;
             }
+            _nLogger = nLogger;
         }
 
         public List<LandingPageTab> GetConfiguration()
         {
             List<LandingPageTab> landingPageTabs = new List<LandingPageTab>();
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(_filepath);
-            XmlNode xmlNode = xmlDoc.SelectSingleNode("uilinks");
-
-            if (xmlNode != null && xmlNode.HasChildNodes)
+            try
             {
-                foreach (XmlNode tabNode in xmlNode.ChildNodes)
+
+
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(_filepath);
+                XmlNode xmlNode = xmlDoc.SelectSingleNode("uilinks");
+
+                if (xmlNode != null && xmlNode.HasChildNodes)
                 {
-                    if (tabNode != null)
+                    foreach (XmlNode tabNode in xmlNode.ChildNodes)
                     {
                         LandingPageTab landingPageTab = PopulateTabObject(tabNode);
                         if (landingPageTab != null)
@@ -49,11 +53,16 @@ namespace AdminPortal.BusinessServices
                         }
                     }
                 }
+                else
+                {
+                    _nLogger.Log(LogLevel.Warn,
+                        "XML node is null for uilinks in UILinksMapping.xml on filepath- " + _filepath);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                LoggerHelper.LogEvent("XML node is null for uilinks in UILinksMapping.xml on filepath- " + _filepath, Logger,
-                    TraceEventType.Warning);
+                _nLogger.Log(LogLevel.Error, ex,
+                      "Error in XML parsing UILinksMapping.xml ");
             }
 
             if (landingPageTabs.Count > 0)
@@ -65,26 +74,19 @@ namespace AdminPortal.BusinessServices
         private LandingPageTab PopulateTabObject(XmlNode tabNode)
         {
             LandingPageTab landingPageTab = null;
-            if (tabNode.Attributes != null)
+            if (tabNode.Attributes != null && tabNode.Attributes["id"] != null && tabNode.Attributes["text"] != null)
             {
                 List<LandingPageSection> landingPageTabSections = PopulateSectionObject(tabNode);
-                try
-                {
-                    if (landingPageTabSections != null)
-                    {
-                        landingPageTab = new LandingPageTab();
-                        landingPageTab.Sections = landingPageTabSections;
-                        landingPageTab.Key = tabNode.Attributes["id"].InnerText;
-                        landingPageTab.Text = tabNode.Attributes["text"].InnerText;
-                    }
-                }
 
-                catch (Exception ex)
+                if (landingPageTabSections != null)
                 {
-                    LoggerHelper.LogEvent("Error in XML parsing UILinksMapping.xml- " + ex, Logger,
-                        TraceEventType.Warning);
+                    landingPageTab = new LandingPageTab();
+                    landingPageTab.Sections = landingPageTabSections;
+                    landingPageTab.Key = tabNode.Attributes["id"].InnerText;
+                    landingPageTab.Text = tabNode.Attributes["text"].InnerText;
                 }
             }
+
             return landingPageTab;
         }
 
@@ -96,9 +98,9 @@ namespace AdminPortal.BusinessServices
             {
                 if (sectionNode.Attributes != null)
                 {
-                    List<LandingPageSectionMenuItem> landingPageSectionMenuItems = PopulateMenuItemObject(sectionNode);
                     try
                     {
+                        List<LandingPageSectionMenuItem> landingPageSectionMenuItems = PopulateMenuItemObject(sectionNode);
                         if (landingPageSectionMenuItems != null)
                         {
                             LandingPageSection section = new LandingPageSection();
@@ -111,11 +113,10 @@ namespace AdminPortal.BusinessServices
                     }
                     catch (Exception ex)
                     {
-                        LoggerHelper.LogEvent("Error in XML parsing UILinksMapping.xml- " + ex, Logger,
-                            TraceEventType.Warning);
+                        _nLogger.Log(LogLevel.Warn, ex, "Error in XML parsing UILinksMapping.xml");
+
                     }
                 }
-
             }
 
             if (landingPageSections.Count > 0)
@@ -132,22 +133,19 @@ namespace AdminPortal.BusinessServices
                 {
                     try
                     {
-                        if (menuItemNode.Attributes != null)
+                        LandingPageSectionMenuItem menuItem = new LandingPageSectionMenuItem
                         {
-                            LandingPageSectionMenuItem menuItem = new LandingPageSectionMenuItem
-                            {
-                                Key = menuItemNode.Attributes["id"].InnerText,
-                                Text = menuItemNode.Attributes["text"].InnerText,
-                                Link = menuItemNode.Attributes["link"].InnerText
-                            };
+                            Key = menuItemNode.Attributes["id"].InnerText,
+                            Text = menuItemNode.Attributes["text"].InnerText,
+                            Link = menuItemNode.Attributes["link"].InnerText
+                        };
 
-                            landingPageMenuItems.Add(menuItem);
-                        }
+                        landingPageMenuItems.Add(menuItem);
                     }
                     catch (Exception ex)
                     {
-                        LoggerHelper.LogEvent("Error in XML parsing UILinksMapping.xml- " + ex, Logger,
-                        TraceEventType.Warning);
+                        _nLogger.Log(LogLevel.Warn, ex, "Error in XML parsing UILinksMapping.xml");
+
                     }
 
                 }
@@ -155,7 +153,7 @@ namespace AdminPortal.BusinessServices
             if (landingPageMenuItems.Count > 0)
                 return landingPageMenuItems;
             return null;
-        
+
         }
 
         //public List<LandingPageTab> GetConfiguration()
