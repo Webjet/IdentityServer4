@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Security.Principal;
 using AdminPortal.BusinessServices;
 using FluentAssertions;
+using NSubstitute;
 
 namespace AdminPortal.UnitTests.BusinessServices
 {
@@ -14,13 +15,15 @@ namespace AdminPortal.UnitTests.BusinessServices
     {
         //Arrange
         //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
-        readonly string _filepath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\config\\RoleBasedMenuItemMap.xml";
-
+        const string ConfigFolder = "\\config\\";
+        private NLog.ILogger _nlogger = Substitute.For<NLog.ILogger>();
+        private readonly string _filepath = TestHelper.GetExecutingAssembly() + ConfigFolder + "RoleBasedMenuItemMap.xml";
+        
         [TestMethod()]
         public void ResourceToApplicationRolesMapperTest()
         {
             //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(_filepath);
+            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(_filepath, _nlogger);
 
             //Assert
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.Count.ShouldBeEquivalentTo(7);
@@ -37,7 +40,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void GetAllowedRolesForResourceTest()
         {
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _nlogger);
 
             //Assert
             GoogleBigQueryItineraryAU_ServiceCenterAndAnalytics(mapper);
@@ -52,6 +55,21 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
+        public void AllowedRolesForResourceTest()
+        {
+            //Act
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _nlogger);
+
+            //Act
+            string roles = mapper.AllowedRolesForResource("GoogleBigQueryItinerary");
+
+            //Assert
+            roles.Should().NotBeEmpty();
+            roles.Contains("ServiceCenter").Should().BeTrue();
+            roles.Contains("AnalyticsTeam").Should().BeTrue();
+        }
+
+        [TestMethod()]
         public void IsUserRoleAllowedForResource_Allowed()
         {
             //Arrange
@@ -59,7 +77,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             IPrincipal loggedInUser = new GenericPrincipal(new GenericIdentity("LoggedInUser"), loggedInUserRole);
 
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _nlogger);
 
             ServiceCenterUser_GoogleBigQueryItineraryAU_True(loggedInUser, "GoogleBigQueryItinerary", mapper);
             AnalyticsTeamUser_GoogleBigQueryItineraryNZ_True(loggedInUser, "GoogleBigQueryItinerary", mapper);
@@ -75,11 +93,12 @@ namespace AdminPortal.UnitTests.BusinessServices
             IPrincipal loggedInUser = new GenericPrincipal(new GenericIdentity("LoggedInUser"), loggedInUserRole);
 
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _nlogger);
             
             AnalyticsTeamUser_ReviewPendingBookingsNZ_False(loggedInUser, "ReviewPendingBookingsNZ", mapper);
             FinanceTeamUser_CreditCardTransactionsToCheckNZ_False(loggedInUser, "CreditCardTransactionsToCheckNZ", mapper);
         }
+
 
         private void ServiceCenterUser_GoogleBigQueryItineraryAU_True(IPrincipal loggedInUser, string resourceKey,ResourceToApplicationRolesMapper mapper)
         {
@@ -87,38 +106,30 @@ namespace AdminPortal.UnitTests.BusinessServices
             bool result = mapper.IsUserRoleAllowedForResource(resourceKey, loggedInUser);
             result.Should().BeTrue();
         }
-
-
         private void AnalyticsTeamUser_GoogleBigQueryItineraryNZ_True(IPrincipal loggedInUser, string resourceKey, ResourceToApplicationRolesMapper mapper)
         {
             //Assert
             bool result = mapper.IsUserRoleAllowedForResource(resourceKey, loggedInUser);
             result.Should().BeTrue();
         }
-
-
         private void AnalyticsTeamUser_ReviewPendingBookingsNZ_False(IPrincipal loggedInUser, string resourceKey, ResourceToApplicationRolesMapper mapper)
         {
             //Assert
             bool result = mapper.IsUserRoleAllowedForResource(resourceKey, loggedInUser);
             result.Should().BeFalse();
         }
-
         private void FinanceTeamUser_FareEscalationJournalAU_True(IPrincipal loggedInUser, string resourceKey, ResourceToApplicationRolesMapper mapper)
         {
             //Assert
             bool result = mapper.IsUserRoleAllowedForResource(resourceKey, loggedInUser);
             result.Should().BeTrue();
         }
-
-
         private void FinanceTeamUser_CreditCardTransactionsToCheckNZ_False(IPrincipal loggedInUser, string resourceKey, ResourceToApplicationRolesMapper mapper)
         {
             //Assert
             bool result = mapper.IsUserRoleAllowedForResource(resourceKey, loggedInUser);
             result.Should().BeFalse();
         }
-
         private void GoogleBigQueryItineraryAU_ServiceCenterAndAnalytics(ResourceToApplicationRolesMapper mapper)
         {
             //Act
@@ -129,7 +140,6 @@ namespace AdminPortal.UnitTests.BusinessServices
             roles[0].ShouldBeEquivalentTo("ServiceCenter");
             roles[1].ShouldBeEquivalentTo("AnalyticsTeam");
         }
-
         private void ReviewPendingBookingsAU_ServiceCenterAndDevSupport(ResourceToApplicationRolesMapper mapper)
         {
             //Act
@@ -140,7 +150,6 @@ namespace AdminPortal.UnitTests.BusinessServices
             roles[0].ShouldBeEquivalentTo("ServiceCenter");
             roles[1].ShouldBeEquivalentTo("DevSupport");
         }
-
         private void FareEscalationJournalAU_FinanceTeam(ResourceToApplicationRolesMapper mapper)
         {
             //Act
@@ -204,9 +213,6 @@ namespace AdminPortal.UnitTests.BusinessServices
             roles[2].ShouldBeEquivalentTo("ProductTeam");
             
         }
-       
-       
-
-
+        
     }
 }

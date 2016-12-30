@@ -17,21 +17,23 @@ namespace AdminPortal.BusinessServices
 {
     public class ResourceToApplicationRolesMapper
     {
-        private static readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\RoleBasedMenuItemMap.xml";
-       
+        private readonly NLog.ILogger _nLogger;
+
+
         public Dictionary<string, string[]> ResourceItemsWithRoles { get; set; }
 
-        public ResourceToApplicationRolesMapper():this(null)
+        public ResourceToApplicationRolesMapper() : this(null, LogManager.GetCurrentClassLogger())
         {
         }
 
-        public ResourceToApplicationRolesMapper(string filepath)
+        public ResourceToApplicationRolesMapper(string filepath, ILogger nLogger)
         {
             if (!string.IsNullOrEmpty(filepath))
             {
                 _filepath = filepath;
             }
+            _nLogger = nLogger;
 
             ReadConfiguration();
         }
@@ -70,7 +72,7 @@ namespace AdminPortal.BusinessServices
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(_filepath);
             XmlNode xmlNode = xmlDoc.SelectSingleNode("requiredResourceAccess");
-            //TODO: Add UTC
+
             if (xmlNode != null)
             {
                 ResourceItemsWithRoles = new Dictionary<string, string[]>();
@@ -89,8 +91,9 @@ namespace AdminPortal.BusinessServices
             }
             else
             {
-                LoggerHelper.LogEvent("XML node is null for requiredResourceAccess in RoleBasedMenuItemMap.xml on filepath- " + _filepath, Logger,
-                    TraceEventType.Warning);
+                _nLogger.Log(LogLevel.Warn,
+                    "XML node is null for requiredResourceAccess in RoleBasedMenuItemMap.xml on filepath- " + _filepath);
+
             }
         }
 
