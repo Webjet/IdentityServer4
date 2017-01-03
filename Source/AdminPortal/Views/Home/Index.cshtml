@@ -83,12 +83,12 @@
                     </span>
                     
                     <ul class="multilevel-accordion">
-                        @foreach (LandingPageSection sectionItem in @tab.Sections)
+                        @foreach (UiLinksLandingPageTabSection sectionItem in @tab.Section)
                         {
                             <li class="has-children">
                                 <a href="#" class="title">@sectionItem.Text</a>
                                 <ul>
-                                    @foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
+                                    @foreach (UiLinksLandingPageTabSectionMenuItem menuItem in @sectionItem.MenuItem)
                                     {
                                         <li>
                                             @if (UriHelper.IsRelativeUrl(menuItem.Link))

@@ -1,72 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<uilinks>
-  <tab id ="WebjetAU" text ="Webjet AU">
-    <Section id ="ServiceCenterSectionAU"
-             text="ServiceCenter Activities " >
-      <MenuItem id ="ReviewPendingBookingsAU"
-                text="Pending Bookings"
-                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+<UiLinks>
+  <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
+    <Section Key ="ServiceCenterSectionAU"
+             Text="ServiceCenter Activities " >
+      <MenuItem Key ="ReviewPendingBookingsAU"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+      </MenuItem>
+      <MenuItem Key ="GoogleBigQueryItinerary"
+               Text="Google Big Query Itinerary"
+               Link="GoogleBigQueryItinerary/Index" >
       </MenuItem >
-      <MenuItem id ="GoogleBigQueryItinerary"
-               text="Google Big Query Itinerary"
-               link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+    </Section>
+
+    <Section Key ="ProductTeamSectionAU"
+           Text="Product Team Activities " >
+      <MenuItem Key ="CreditCardTransactionsToCheckAU"
+            Text="Credit Card Transaction Check"
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+      </MenuItem>
+
+    </Section>
+
+    <Section Key ="FinanceTeamSectionAU"
+          Text="Finance Team Activities " >
+      <MenuItem Key ="FareEscalationJournalAU"
+            Text="Fare Escalation Journal"
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+      </MenuItem>
+
+    </Section>
+
+  </LandingPageTab>
+
+  <LandingPageTab Key ="WebjetNZ" Text ="Webjet NZ">
+    <Section Key ="ServiceCenterSectionNZ"
+             Text="ServiceCenter Activities " >
+      <MenuItem Key ="ReviewPendingBookingsNZ"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+      </MenuItem >
+      <MenuItem Key ="GoogleBigQueryItinerary"
+               Text="Google Big Query Itinerary"
+               Link="GoogleBigQueryItinerary/Index" >
       </MenuItem >
 
     </Section>
 
-    <Section id ="ProductTeamSectionAU"
-           text="Product Team Activities " >
-      <MenuItem id ="CreditCardTransactionsToCheckAU"
-            text="Credit Card Transaction Check"
-            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+    <Section Key ="ProductTeamSectionNZ"
+           Text="Product Team Activities " >
+      <MenuItem Key ="ReviewPendingBookingsNZ"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+      </MenuItem>
+      <MenuItem Key ="CreditCardTransactionsToCheckNZ"
+            Text="Credit Card Transaction Check"
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>
     </Section>
 
-    <Section id ="FinanceTeamSectionAU"
-          text="Finance Team Activities " >
-      <MenuItem id ="FareEscalationJournalAU"
-            text="Fare Escalation Journal"
-            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
+    <Section Key ="FinanceTeamSectionNZ"
+          Text="Finance Team Activities " >
+      <MenuItem Key ="FareEscalationJournalNZ"
+             Text="Fare Escalation Journal"
+             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>
     </Section>
 
-  </tab>
+  </LandingPageTab>
 
-  <tab id ="WebjetNZ" text ="Webjet NZ">
-    <Section id ="ServiceCenterSectionNZ"
-             text="ServiceCenter Activities " >
-      <MenuItem id ="ReviewPendingBookingsNZ"
-                text="Pending Bookings"
-                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
-      </MenuItem >
-      <MenuItem id ="GoogleBigQueryItinerary"
-               text="Google Big Query Itinerary"
-               link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
-      </MenuItem >
-
-    </Section>
-
-    <Section id ="ProductTeamSectionNZ"
-           text="Product Team Activities " >
-      <MenuItem id ="ReviewPendingBookingsNZ"
-                text="Pending Bookings"
-                link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
-      </MenuItem>
-      <MenuItem id ="CreditCardTransactionsToCheckNZ"
-            text="Credit Card Transaction Check"
-            link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
-      </MenuItem>
-    </Section>
-
-    <Section id ="FinanceTeamSectionNZ"
-          text="Finance Team Activities " >
-      <MenuItem id ="FareEscalationJournalNZ"
-             text="Fare Escalation Journal"
-             link="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
-      </MenuItem>
-    </Section>
-
-  </tab>
-
-</uilinks>
+</UiLinks>

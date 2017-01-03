@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<uilinks>
-  <tab id ="WebjetAU" text ="Webjet AU">
-    <Section id ="ServiceCenterSectionAU"
-             text="ServiceCenter Activities " >
-      
+<UiLinks>
+  <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
+    <Section Key ="ServiceCenterSectionAU"
+             Text="ServiceCenter Activities " >
+     
     </Section>
-  
-  </tab>
-</uilinks>
+  </LandingPageTab >
+</UiLinks>

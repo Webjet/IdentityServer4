@@ -15,21 +15,41 @@ namespace AdminPortal.BusinessServices
     public class LandingPageLayoutLoader
     {
         private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\UILinksMapping.xml";
-        private readonly NLog.ILogger _nLogger;
+        private static readonly NLog.ILogger StaticLogger = LogManager.GetCurrentClassLogger();
+        private readonly NLog.ILogger _logger; //= LogManager.GetCurrentClassLogger();
 
-        public LandingPageLayoutLoader() : this(null, LogManager.GetCurrentClassLogger())
-        {
+        //public LandingPageLayoutLoader() : this(null, LogManager.GetCurrentClassLogger())
+        //{
 
-        }
+        //}
 
-        public LandingPageLayoutLoader(string filepath, ILogger nLogger)
+        //TODO: added by MF. will need to comment default constructor
+        public LandingPageLayoutLoader(string filepath = null, ILogger logger = null)
         {
             if (!string.IsNullOrEmpty(filepath))
             {
                 _filepath = filepath;
             }
-            _nLogger = nLogger;
+            _logger = logger ?? StaticLogger;
         }
+
+
+        public UiLinks GetParsedXmlToObject()
+        {
+            try
+            {
+                string xml = StreamHelper.FileToString(_filepath);
+                return xml.ParseXml<UiLinks>();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Warn, ex,
+                    "Error parsing xml in RoleBasedMenuItemMap.xml ");
+            }
+            return null;
+        }
+
 
         public List<LandingPageTab> GetConfiguration()
         {
@@ -55,13 +75,13 @@ namespace AdminPortal.BusinessServices
                 }
                 else
                 {
-                    _nLogger.Log(LogLevel.Warn,
+                    _logger.Log(LogLevel.Warn,
                         "XML node is null for uilinks in UILinksMapping.xml on filepath- " + _filepath);
                 }
             }
             catch (Exception ex)
             {
-                _nLogger.Log(LogLevel.Error, ex,
+                _logger.Log(LogLevel.Error, ex,
                       "Error in XML parsing UILinksMapping.xml ");
             }
 
@@ -113,7 +133,7 @@ namespace AdminPortal.BusinessServices
                     }
                     catch (Exception ex)
                     {
-                        _nLogger.Log(LogLevel.Warn, ex, "Error in XML parsing UILinksMapping.xml");
+                        _logger.Log(LogLevel.Warn, ex, "Error in XML parsing UILinksMapping.xml");
 
                     }
                 }
@@ -144,7 +164,7 @@ namespace AdminPortal.BusinessServices
                     }
                     catch (Exception ex)
                     {
-                        _nLogger.Log(LogLevel.Warn, ex, "Error in XML parsing UILinksMapping.xml");
+                        _logger.Log(LogLevel.Warn, ex, "Error in XML parsing UILinksMapping.xml");
 
                     }
 
@@ -229,7 +249,6 @@ namespace AdminPortal.BusinessServices
         //    }
         //}
     }
-
 
     public class LandingPageTab
     {
