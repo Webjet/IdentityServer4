@@ -18,14 +18,15 @@ namespace AdminPortal.BusinessServices
     public static class ParseHelper
     {
 
-        public static T ParseXmlFromPath<T>(string xmlFilePath) where T : class
-        {
-            string xml = File.ReadAllText(xmlFilePath);
-            var reader = XmlReader.Create(xmlFilePath, new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Document });
+        //TODO: Not tested nor refered in solution either. Commenting below code
+        //public static T ParseXmlFromPath<T>(string xmlFilePath) where T : class
+        //{
+        //    string xml = File.ReadAllText(xmlFilePath);
+        //    var reader = XmlReader.Create(xmlFilePath, new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Document });
 
-            return new XmlSerializer(typeof(T)).Deserialize(reader) as T;
+        //    return new XmlSerializer(typeof(T)).Deserialize(reader) as T;
 
-        }
+        //}
 
         //TODO: Move to Microsoft.SDC.Common
         /// <summary>
@@ -56,7 +57,7 @@ namespace AdminPortal.BusinessServices
             return new XmlSerializer(typeof(T)).Deserialize(reader) as T;
         }
 
-        //TODO: Not tested yet, commenting this code
+        //TODO: Not tested nor refered in solution either. Commenting below code
         //public static T ParseJSON<T>(this string @this) where T : class
         //{
         //    return JSON.Deserialize<T>(@this.Trim());
