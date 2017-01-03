@@ -94,7 +94,7 @@
                                             @if (UriHelper.IsRelativeUrl(menuItem.Link))
                                             {
                                                 <a href="@Url.Action(menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])">
-                                                    <span class="label label-important alt">WAU</span> @menuItem.Text
+                                                    <span class="label label-important alt">@menuItem.AreaIndicator</span> @menuItem.Text
                                                 </a>
                                             }
                                             else

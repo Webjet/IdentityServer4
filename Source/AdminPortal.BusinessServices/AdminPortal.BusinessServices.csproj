@@ -59,9 +59,9 @@
     <Compile Include="Common\ParseHelper.cs" />
     <Compile Include="ResourceToApplicationRolesMap.cs" />
     <Compile Include="ResourceToApplicationRolesMapper.cs" />
-    <Compile Include="LandingPageLayoutLoader.cs" />
+    <Compile Include="LandingPage\LandingPageLayoutLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UiLinks.cs" />
+    <Compile Include="LandingPage\UiLinks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
