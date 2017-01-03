@@ -9,6 +9,10 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace AdminPortal.Models
 {
+#if FUTURE
+    //"Not included in solution as its reference has been removed, it required database caching. Also not tested yet.
+    // Might consider to include in FUTURE"
+
     public class ADALTokenCache : TokenCache
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -96,4 +100,5 @@ namespace AdminPortal.Models
             base.DeleteItem(item);
         }
     }
+#endif
 }
