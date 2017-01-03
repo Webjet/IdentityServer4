@@ -7,6 +7,9 @@ using System.Web;
 
 namespace AdminPortal.Models
 {
+    #if FUTURE
+    //"Not included in solution as its reference has been removed, it required database caching. Also not tested yet.
+    // Might consider to include in FUTURE"
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
@@ -35,4 +38,5 @@ namespace AdminPortal.Models
         public byte[] cacheBits { get; set; }
         public DateTime LastWrite { get; set; }
     }
+#endif
 }
