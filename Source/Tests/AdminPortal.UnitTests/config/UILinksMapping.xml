@@ -6,11 +6,13 @@
              Text="ServiceCenter Activities " >
       <MenuItem Key ="ReviewPendingBookingsAU"
                 Text="Pending Bookings"
-                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                AreaIndicator="WAU">
       </MenuItem>
       <MenuItem Key ="GoogleBigQueryItinerary"
                Text="Google Big Query Itinerary"
-               Link="GoogleBigQueryItinerary/Index" >
+               Link="GoogleBigQueryItinerary/Index"
+                AreaIndicator="WAU">
       </MenuItem >
     </Section>
 
@@ -18,7 +20,8 @@
            Text="Product Team Activities " >
       <MenuItem Key ="CreditCardTransactionsToCheckAU"
             Text="Credit Card Transaction Check"
-            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                AreaIndicator="WAU">
       </MenuItem>
 
     </Section>
@@ -27,7 +30,8 @@
           Text="Finance Team Activities " >
       <MenuItem Key ="FareEscalationJournalAU"
             Text="Fare Escalation Journal"
-            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                AreaIndicator="WAU">
       </MenuItem>
 
     </Section>
@@ -39,11 +43,13 @@
              Text="ServiceCenter Activities " >
       <MenuItem Key ="ReviewPendingBookingsNZ"
                 Text="Pending Bookings"
-                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                AreaIndicator="WNZ">
       </MenuItem >
       <MenuItem Key ="GoogleBigQueryItinerary"
                Text="Google Big Query Itinerary"
-               Link="GoogleBigQueryItinerary/Index" >
+               Link="GoogleBigQueryItinerary/Index"
+                AreaIndicator="WNZ">
       </MenuItem >
 
     </Section>
@@ -52,11 +58,13 @@
            Text="Product Team Activities " >
       <MenuItem Key ="ReviewPendingBookingsNZ"
                 Text="Pending Bookings"
-                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                AreaIndicator="WNZ">
       </MenuItem>
       <MenuItem Key ="CreditCardTransactionsToCheckNZ"
             Text="Credit Card Transaction Check"
-            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                AreaIndicator="WNZ">
       </MenuItem>
     </Section>
 
@@ -64,7 +72,8 @@
           Text="Finance Team Activities " >
       <MenuItem Key ="FareEscalationJournalNZ"
              Text="Fare Escalation Journal"
-             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                AreaIndicator="WNZ">
       </MenuItem>
     </Section>
 
