@@ -19,26 +19,27 @@ namespace AdminPortal.Controllers
         private LandingPageModel _landingPageModel;
 
         [HttpGet]
-        //[Authorize(Roles = "ServiceCenter,ServiceCenterManager,ProductTeam,Finance,Analytics,DevSupport")]
-        public ActionResult Index()
+       public ActionResult Index()
         {
             _landingPageModel = new LandingPageModel
             {
-                LandingPageTabs = GetLandingPageTabs(new LandingPageLayoutLoader())
+             LandingPageTabs = GetLandingPageTabs(new LandingPageLayoutLoader())
             };
 
             return View(_landingPageModel);
         }
 
-        private List<LandingPageTab> GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
+
+        private List<UiLinksLandingPageTab> GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
         {
-            List<LandingPageTab> landingPageTabs = new List<LandingPageTab>();
+            List<UiLinksLandingPageTab> landingPageTabs = new List<UiLinksLandingPageTab>();
+            UiLinks uiLinks = landingPageLayoutLoader.GetParsedXmlToObject();
 
-            foreach (LandingPageTab configTab in landingPageLayoutLoader.GetConfiguration())
+            foreach (UiLinksLandingPageTab configTab in uiLinks.LandingPageTab)
             {
-                LandingPageTab userAllowedTab = new LandingPageTab { Sections = GetLandingPageTabSections(configTab) };
+                UiLinksLandingPageTab userAllowedTab = new UiLinksLandingPageTab { Section = GetLandingPageTabSections(configTab).ToArray() };
 
-                if (userAllowedTab.Sections.Count > 0)
+                if (userAllowedTab.Section.Length  > 0)
                 {
                     userAllowedTab.Key = configTab.Key;
                     userAllowedTab.Text = configTab.Text;
@@ -51,14 +52,14 @@ namespace AdminPortal.Controllers
             return null;
         }
 
-        private List<LandingPageSection> GetLandingPageTabSections(LandingPageTab configTab)
+        private List<UiLinksLandingPageTabSection> GetLandingPageTabSections(UiLinksLandingPageTab configTab)
         {
-            List<LandingPageSection> landingPageSections = new List<LandingPageSection>();
-            foreach (LandingPageSection configSection in configTab.Sections)
+            List<UiLinksLandingPageTabSection> landingPageSections = new List<UiLinksLandingPageTabSection>();
+            foreach (UiLinksLandingPageTabSection configSection in configTab.Section )
             {
-                var userAllowedSection = new LandingPageSection { MenuItems = GetLandingPageSectionMenuItems(configSection) };
+                var userAllowedSection = new UiLinksLandingPageTabSection { MenuItem = GetLandingPageSectionMenuItems(configSection).ToArray() };
 
-                if (userAllowedSection.MenuItems.Count > 0)
+                if (userAllowedSection.MenuItem.Length > 0)
                 {
                     userAllowedSection.Key = configSection.Key;
                     userAllowedSection.Text = configSection.Text;
@@ -69,10 +70,10 @@ namespace AdminPortal.Controllers
             return landingPageSections;
         }
 
-        private List<LandingPageSectionMenuItem> GetLandingPageSectionMenuItems(LandingPageSection configSection)
+        private List<UiLinksLandingPageTabSectionMenuItem> GetLandingPageSectionMenuItems(UiLinksLandingPageTabSection configSection)
         {
-            List<LandingPageSectionMenuItem> landingPageSectionMenuItems = new List<LandingPageSectionMenuItem>();
-            foreach (LandingPageSectionMenuItem configMenuItem in configSection.MenuItems)
+            List<UiLinksLandingPageTabSectionMenuItem> landingPageSectionMenuItems = new List<UiLinksLandingPageTabSectionMenuItem>();
+            foreach (UiLinksLandingPageTabSectionMenuItem configMenuItem in configSection.MenuItem)
             {
                 if (ResourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
                 {
@@ -82,55 +83,6 @@ namespace AdminPortal.Controllers
 
             return landingPageSectionMenuItems;
         }
-
-
-        //private List<LandingPageTab> GetLandingPageTabs()
-        //{
-        //    LandingPageLayoutLoader landingPageLayoutLoader = new LandingPageLayoutLoader();
-
-        //    foreach (LandingPageTab configTab in landingPageLayoutLoader.GetConfiguration())
-        //    {
-        //        var userAllowedTab = new LandingPageTab { Sections = new List<LandingPageSection>() };
-
-        //        GetLandingPageTabSections(configTab, userAllowedTab);
-        //    }
-        //    return null;
-        //}
-
-        //private void GetLandingPageTabSections(LandingPageTab configTab, LandingPageTab userAllowedTab)
-        //{
-        //    foreach (LandingPageSection configSection in configTab.Sections)
-        //    {
-        //        var userAllowedSection = new LandingPageSection { MenuItems = new List<LandingPageSectionMenuItem>() };
-        //        GetLandingPageSectionMenuItems(configSection, userAllowedSection, userAllowedTab);
-        //    }
-
-        //    if (userAllowedTab.Sections.Count > 0)
-        //    {
-        //        userAllowedTab.Key = configTab.Key;
-        //        userAllowedTab.Text = configTab.Text;
-        //        _landingPageModel.LandingPageTabs.Add(userAllowedTab);
-        //    }
-        //}
-
-        //private void GetLandingPageSectionMenuItems(LandingPageSection configSection, LandingPageSection userAllowedSection, LandingPageTab userAllowedTab)
-        //{
-        //    foreach (LandingPageSectionMenuItem configMenuItem in configSection.MenuItems)
-        //    {
-        //        if (ResourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
-        //        {
-        //            userAllowedSection.MenuItems.Add(configMenuItem);
-        //        }
-        //    }
-
-        //    if (userAllowedSection.MenuItems.Count > 0)
-        //    {
-        //        userAllowedSection.Key = configSection.Key;
-        //        userAllowedSection.Text = configSection.Text;
-        //        userAllowedTab.Sections.Add(userAllowedSection);
-        //    }
-        //}
-
-
+        
     }
 }

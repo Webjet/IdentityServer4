@@ -15,8 +15,9 @@ namespace AdminPortal.Models
            
         }
         
-        public List<LandingPageTab> LandingPageTabs { get; set; }
+        public List<UiLinksLandingPageTab> LandingPageTabs { get; set; } 
 
-
+        
+        
     }
 }
