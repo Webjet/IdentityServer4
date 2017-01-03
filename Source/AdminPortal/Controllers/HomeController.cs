@@ -19,13 +19,13 @@ namespace AdminPortal.Controllers
         private LandingPageModel _landingPageModel;
 
         [HttpGet]
-       public ActionResult Index()
+        public ActionResult Index()
         {
             _landingPageModel = new LandingPageModel
             {
-             LandingPageTabs = GetLandingPageTabs(new LandingPageLayoutLoader())
+                LandingPageTabs = GetLandingPageTabs(new LandingPageLayoutLoader())
             };
-
+            
             return View(_landingPageModel);
         }
 
@@ -39,7 +39,7 @@ namespace AdminPortal.Controllers
             {
                 UiLinksLandingPageTab userAllowedTab = new UiLinksLandingPageTab { Section = GetLandingPageTabSections(configTab).ToArray() };
 
-                if (userAllowedTab.Section.Length  > 0)
+                if (userAllowedTab.Section.Length > 0)
                 {
                     userAllowedTab.Key = configTab.Key;
                     userAllowedTab.Text = configTab.Text;
@@ -55,7 +55,7 @@ namespace AdminPortal.Controllers
         private List<UiLinksLandingPageTabSection> GetLandingPageTabSections(UiLinksLandingPageTab configTab)
         {
             List<UiLinksLandingPageTabSection> landingPageSections = new List<UiLinksLandingPageTabSection>();
-            foreach (UiLinksLandingPageTabSection configSection in configTab.Section )
+            foreach (UiLinksLandingPageTabSection configSection in configTab.Section)
             {
                 var userAllowedSection = new UiLinksLandingPageTabSection { MenuItem = GetLandingPageSectionMenuItems(configSection).ToArray() };
 
@@ -83,6 +83,6 @@ namespace AdminPortal.Controllers
 
             return landingPageSectionMenuItems;
         }
-        
+
     }
 }
