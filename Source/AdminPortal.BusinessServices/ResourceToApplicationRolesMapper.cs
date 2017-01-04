@@ -12,30 +12,48 @@ using System.Web.Mvc;
 using System.Security.Principal;
 using Microsoft.SDC.Common;
 using NLog;
+using System.Web.Script.Serialization;
+using System.Xml.Serialization;
 
 namespace AdminPortal.BusinessServices
 {
     public class ResourceToApplicationRolesMapper
     {
         private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\RoleBasedMenuItemMap.xml";
-        private readonly NLog.ILogger _nLogger;
-
-
+        private static readonly NLog.ILogger StaticLogger = LogManager.GetCurrentClassLogger();
+        private readonly NLog.ILogger _logger;
+        
         public Dictionary<string, string[]> ResourceItemsWithRoles { get; set; }
-
-        public ResourceToApplicationRolesMapper() : this(null, LogManager.GetCurrentClassLogger())
-        {
-        }
-
-        public ResourceToApplicationRolesMapper(string filepath, ILogger nLogger)
+        
+        public ResourceToApplicationRolesMapper(string filepath = null, ILogger logger = null)
         {
             if (!string.IsNullOrEmpty(filepath))
-            {
                 _filepath = filepath;
-            }
-            _nLogger = nLogger;
 
-            ReadConfiguration();
+            _logger = logger ?? StaticLogger;
+
+            ParseXmlToObject();
+           
+        }
+
+        private void ParseXmlToObject()
+        {
+            try
+            {
+                string xml = StreamHelper.FileToString(_filepath); 
+                ResourceToApplicationRolesMap mapper = xml.ParseXml<ResourceToApplicationRolesMap>();
+
+                ResourceItemsWithRoles = new Dictionary<string, string[]>();
+                foreach (ResourceToApplicationRolesMapResourceToRoles resourceToRolesItem in mapper.ResourceToRoles)
+                {
+                    ResourceItemsWithRoles.Add(resourceToRolesItem.ResourceId, resourceToRolesItem.Roles.Split(','));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Warn, ex,
+                    "Error parsing xml in RoleBasedMenuItemMap.xml ");
+            }
         }
 
         public List<string> GetAllowedRolesForResource(string resourceKey)
@@ -67,41 +85,6 @@ namespace AdminPortal.BusinessServices
             return false;
         }
 
-        private void ReadConfiguration()
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(_filepath);
-            XmlNode xmlNode = xmlDoc.SelectSingleNode("requiredResourceAccess");
-
-            if (xmlNode != null)
-            {
-                ResourceItemsWithRoles = new Dictionary<string, string[]>();
-                foreach (XmlNode node in xmlNode.ChildNodes)
-                {
-                    try
-                    {
-                        if (node.Attributes != null)
-                        {
-                            ResourceItemsWithRoles.Add(
-                                node.Attributes["key"].InnerText,
-                                node.Attributes["value"].InnerText.Split(',')
-                                );
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _nLogger.Log(LogLevel.Warn, ex,
-                    "XML node attribute parsing error in RoleBasedMenuItemMap.xml ");
-                    }
-                }
-            }
-            else
-            {
-                _nLogger.Log(LogLevel.Warn,
-                    "XML node is null for requiredResourceAccess in RoleBasedMenuItemMap.xml on filepath- " + _filepath);
-
-            }
-        }
 
     }
 

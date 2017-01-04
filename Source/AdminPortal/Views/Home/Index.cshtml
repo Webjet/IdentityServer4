@@ -7,6 +7,11 @@
     ViewBag.Title = "Admin Launchpad";
 }
 
+@section FooterScripts
+{
+    <script src="~/Content/scripts/admin.js"></script>
+}
+
 <h1>Admin Launchpad</h1>
 <h2>Shortcuts</h2>
 
@@ -77,31 +82,37 @@
                 var tabPaneClass = i == 0 ? "tab-pane active" : "tab-pane";
                 <div class="@tabPaneClass" id="@tab.Key">
                     <span class="form-input btn-textfield">
-                        <input type="text" class="standard" placeholder="Start typing service name...    " />
+                        <input type="text" class="standard" placeholder="Start typing service name..." />
                         <span class="wj-icon wj-alt-cross"></span>
                         <button class="btn-action"><span class="wj-icon wj-search"></span></button>
                     </span>
                     
                     <ul class="multilevel-accordion">
-                        @foreach (LandingPageSection sectionItem in @tab.Sections)
+                        @foreach (UiLinksLandingPageTabSection sectionItem in @tab.Section)
                         {
                             <li class="has-children">
                                 <a href="#" class="title">@sectionItem.Text</a>
                                 <ul>
-                                    @foreach (LandingPageSectionMenuItem menuItem in @sectionItem.MenuItems)
+                                    @foreach (UiLinksLandingPageTabSectionMenuItem menuItem in @sectionItem.MenuItem)
                                     {
+                                        var allArea = menuItem.AreaIndicator == "ALL";
                                         <li>
                                             @if (UriHelper.IsRelativeUrl(menuItem.Link))
                                             {
+
                                                 <a href="@Url.Action(menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])">
-                                                    <span class="label label-important alt">WAU</span> @menuItem.Text
+                                                    <span class="label @(allArea ? "label-default" : "label-important") alt">@menuItem.AreaIndicator</span>
+                                                    <span class="link-title">@menuItem.Text</span>
                                                 </a>
                                             }
                                             else
                                             {
-                                                <a href="@menuItem.Link" target="_blank"><span class="label label-important alt">WAU</span> @menuItem.Text</a>
+                                                <a href="@menuItem.Link" target="_blank">
+                                                    <span class="label @(allArea ? "label-default" : "label-important") alt">@menuItem.AreaIndicator</span>
+                                                    <span class="link-title">@menuItem.Text</span>
+                                                </a>
                                             }
-                                            <span class="wj-icon wj-favourite"></span>
+                                            <span class="wj-icon wj-alt-favourite" title="Add to shortcut"></span>
                                         </li>
                                     }
                                 </ul>
@@ -152,5 +163,5 @@
         <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
     }*@
 
-
-<p><a href="http://local.webjet.com.au/WebjetTsa/secure.aspx" class="btn-standard btn-icon-right">Visit existing DEV TSA Admin <span class="wj-icon wj-caret-right"></span></a></p>
+<br/>
+<p><a href="http://local.webjet.com.au/WebjetTsa/secure.aspx" target="_blank" class="btn-standard btn-icon-right">Visit existing DEV TSA Admin <span class="wj-icon wj-caret-right"></span></a></p>
