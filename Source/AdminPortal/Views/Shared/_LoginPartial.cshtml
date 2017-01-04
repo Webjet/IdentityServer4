@@ -1,7 +1,7 @@
 ﻿@if (Request.IsAuthenticated)
 {
     <ul class="nav-items">
-        <li>
+        <li class="username">
             @Html.ActionLink("Welcome, " + User.Identity.Name, "Index", "UserProfile", routeValues: null, htmlAttributes: new { title = "User Profile" })
         </li>
         <li>
@@ -13,7 +13,7 @@ else
 {
     <ul class="nav-items">
         <li>
-            Html.ActionLink("Log In", "SignIn", "Account", routeValues: null, htmlAttributes: new { title = "Log In" })
+            @Html.ActionLink("Log In", "SignIn", "Account", routeValues: null, htmlAttributes: new { title = "Log In" })
         </li>
     </ul>
 }
