@@ -13,7 +13,7 @@
 }
 
 <h1>Admin Launchpad</h1>
-<h2>Shortcuts</h2>
+@*<h2>Shortcuts</h2>
 
 <p>Click the star beside a link to add it to your shortcuts.</p>
 <div id="shortcut-list" class="row">
@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<hr />
+<hr />*@
 
 @if (Request.IsAuthenticated)
 {
@@ -81,10 +81,10 @@
             {
                 var tabPaneClass = i == 0 ? "tab-pane active" : "tab-pane";
                 <div class="@tabPaneClass" id="@tab.Key">
-                    <span class="form-input btn-textfield">
+                    <span class="form-input icon-textfield">
                         <input type="text" class="standard" placeholder="Start typing service name..." />
+                        <span class="wj-icon wj-search"></span>
                         <span class="wj-icon wj-alt-cross"></span>
-                        <button class="btn-action"><span class="wj-icon wj-search"></span></button>
                     </span>
                     
                     <ul class="multilevel-accordion">
@@ -112,7 +112,7 @@
                                                     <span class="link-title">@menuItem.Text</span>
                                                 </a>
                                             }
-                                            <span class="wj-icon wj-alt-favourite" title="Add to shortcut"></span>
+                                            @*<span class="wj-icon wj-alt-favourite" title="Add to shortcut"></span>*@
                                         </li>
                                     }
                                 </ul>
