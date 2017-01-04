@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<uilinks>
-  
-  <tab id ="WebjetNZ" text ="Webjet NZ">
-    <Section id ="ServiceCenterSectionNZ"
-             text="ServiceCenter Activities " >
-      <MenuItem key ="ReviewPendingBookingsNZ"
-                title="Pending Bookings"
-                url="http://admin.webjet.com.au/webjettsa/admin/bookingsList?bookingstatus=pending" >
-      </MenuItem >
-     </Section>
-
-  </tab>
-</uilinks>
+<UiLinks>
+  <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
+    <Section Key ="ServiceCenterSectionAU"
+             Text="ServiceCenter Activities " >
+      <MenuItem Id ="ReviewPendingBookingsAU"
+                value="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
+      </MenuItem>
+    
+    </Section>
+  </LandingPageTab >
+</UiLinks>

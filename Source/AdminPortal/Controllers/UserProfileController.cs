@@ -15,6 +15,9 @@ using AdminPortal.Models;
 
 namespace AdminPortal.Controllers
 {
+#if FUTURE  
+    //"Not included in solution as not refered nor tested yet. It might be required in FUTURE"
+
     [Authorize]
     public class UserProfileController : Controller
     {
@@ -78,4 +81,5 @@ namespace AdminPortal.Controllers
             return authenticationResult.AccessToken;
         }
     }
+#endif 
 }

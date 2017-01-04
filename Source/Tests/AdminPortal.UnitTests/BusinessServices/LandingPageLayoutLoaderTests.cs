@@ -15,7 +15,7 @@ namespace AdminPortal.UnitTests.BusinessServices
     {
         const string ConfigFolder = "\\config\\";
         private string _filepath = TestHelper.GetExecutingAssembly() + ConfigFolder;
-        private NLog.ILogger _nlogger = Substitute.For<NLog.ILogger>();
+        private readonly NLog.ILogger _logger = Substitute.For<NLog.ILogger>();
 
         [TestMethod()]
         public void LandingPageLayoutLoaderTest()
@@ -23,13 +23,13 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
             _filepath += "UILinksMapping.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
-
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            
             //Assert
-            ValidateLandingPageTabsSectionsMenuItems(tabs);
+            ValidateLandingPageTabsSectionsMenuItems(uiLinks.LandingPageTab);
         }
 
         [TestMethod()]
@@ -38,39 +38,40 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
             _filepath += "UILinksMapping_RootNodeNull.xml";
-             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
-
+             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
 
             //Assert
-            tabs.Should().BeNull();
+            uiLinks.Should().BeNull();
         }
 
         [TestMethod()]
         public void LandingPageLayoutLoader_HostApplicationFilePath_LandingPageTabs()
         {
             //Arrange
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _nlogger);
-
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger);
+            
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
 
             //Assert
-            tabs.Should().NotBeNull();
+            uiLinks.Should().NotBeNull();
+            uiLinks.LandingPageTab.Should().NotBeNull();
         }
 
         [TestMethod()]
         public void LandingPageLayoutLoader_InCorrectFilePath_ExceptionLogAndNullLandingPageTabs()
         {
             //Arrange
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
-
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
 
             //Assert
-            tabs.Should().BeNull();
+            uiLinks.Should().BeNull();
         }
 
         
@@ -79,13 +80,13 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             _filepath += "UILinksMapping_TabNodeNull.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
-
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            
             //Assert
-            tabs.Should().BeNull();
+            uiLinks.Should().BeNull();
         }
 
         [TestMethod()]
@@ -93,13 +94,16 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             _filepath += "UILinksMapping_ZeroSectionItem.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
 
             //Assert
-            tabs.Should().BeNull();
+            uiLinks.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Key.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Text.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Section.Should().BeNull();
         }
 
         [TestMethod()]
@@ -107,13 +111,15 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             _filepath += "UILinksMapping_ZeroMenuItem.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
 
             //Assert
-            tabs.Should().BeNull();
+            uiLinks.Should().NotBeNull();
+             uiLinks.LandingPageTab[0].Section.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Section[0].MenuItem.Should().BeNull();
         }
 
         [TestMethod()]
@@ -121,52 +127,36 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             _filepath += "UILinksMapping_ZeroTabAttributes.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
 
             //Assert
-            tabs.Should().BeNull();
+            uiLinks.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Key.Should().BeNull();
+            uiLinks.LandingPageTab[0].Text.Should().BeNull();
+            uiLinks.LandingPageTab[0].Section.Should().NotBeNull();
         }
 
-        [TestMethod()]
-        //[ExpectedException(typeof(Exception))]
-        public void LandingPageLayoutLoader_TabWAUSectionNullAttribute_WNZLandingPageTabs()
-        {
-            //Arrange
-            _filepath += "UILinksMapping_TabWAUSectionNullAttributes.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
-
-            //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
-
-            //Assert
-            tabs.Should().NotBeNull();
-            tabs.Count.Should().Be(1);
-
-            tabs[0].Key.Should().Be("WebjetNZ");
-            tabs[0].Sections.Count.ShouldBeEquivalentTo(3);
-            tabs[0].Sections[0].Key.Should().Be("ServiceCenterSectionNZ");
-            tabs[0].Sections[0].MenuItems.Count.ShouldBeEquivalentTo(2);
-            tabs[0].Sections[1].Key.Should().Be("ProductTeamSectionNZ");
-            tabs[0].Sections[1].MenuItems.Count.ShouldBeEquivalentTo(2);
-            tabs[0].Sections[2].Key.Should().Be("FinanceTeamSectionNZ");
-            tabs[0].Sections[2].MenuItems.Count.ShouldBeEquivalentTo(1);
-        }
+       
 
         [TestMethod()]
         public void LandingPageLayoutLoader_MenuItemNullAttributes_NullLandingPageTabs()
         {
             //Arrange
             _filepath += "UILinksMapping_MenuItemNullAttributes.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
 
             //Assert
-            tabs.Should().BeNull();
+            uiLinks.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Section.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Section[0].MenuItem.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Section[0].MenuItem[0].Key.Should().BeNull();
+            uiLinks.LandingPageTab[0].Section[0].MenuItem[0].Text.Should().BeNull();
 
         }
 
@@ -175,48 +165,50 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             _filepath += "UILinksMapping_TabNullAttributes.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _nlogger);
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
             //Act
-            List<LandingPageTab> tabs = landingPage.GetConfiguration();
+            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
 
             //Assert
-            tabs.Should().BeNull();
+            uiLinks.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Section.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Section[0].MenuItem.Should().NotBeNull();
         }
 
-        private void ValidateLandingPageTabsSectionsMenuItems(List<LandingPageTab> tabs)
+        private void ValidateLandingPageTabsSectionsMenuItems(UiLinksLandingPageTab[]  tabs)
         {
             //Assert
             tabs.Should().NotBeNull();
-            tabs.Count.Should().Be(2);
+            tabs.Length.Should().Be(2);
             tabs[0].Key.Should().Be("WebjetAU");
             tabs[1].Key.Should().Be("WebjetNZ");
 
-            tabs[0].Sections.Count.ShouldBeEquivalentTo(3);
-            tabs[1].Sections.Count.ShouldBeEquivalentTo(3);
+            tabs[0].Section.Length.ShouldBeEquivalentTo(3);
+            tabs[1].Section.Length.ShouldBeEquivalentTo(3);
 
-            tabs[0].Sections[0].Key.Should().Be("ServiceCenterSectionAU");
-            tabs[0].Sections[0].MenuItems.Count.ShouldBeEquivalentTo(2);
-            tabs[0].Sections[1].Key.Should().Be("ProductTeamSectionAU");
-            tabs[0].Sections[1].MenuItems.Count.ShouldBeEquivalentTo(1);
-            tabs[0].Sections[2].Key.Should().Be("FinanceTeamSectionAU");
-            tabs[0].Sections[2].MenuItems.Count.ShouldBeEquivalentTo(1);
-            tabs[1].Sections[0].Key.Should().Be("ServiceCenterSectionNZ");
-            tabs[1].Sections[0].MenuItems.Count.ShouldBeEquivalentTo(2);
-            tabs[1].Sections[1].Key.Should().Be("ProductTeamSectionNZ");
-            tabs[1].Sections[1].MenuItems.Count.ShouldBeEquivalentTo(2);
-            tabs[1].Sections[2].Key.Should().Be("FinanceTeamSectionNZ");
-            tabs[1].Sections[2].MenuItems.Count.ShouldBeEquivalentTo(1);
+            tabs[0].Section[0].Key.Should().Be("ServiceCenterSectionAU");
+            tabs[0].Section[0].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[0].Section[1].Key.Should().Be("ProductTeamSectionAU");
+            tabs[0].Section[1].MenuItem.Length.ShouldBeEquivalentTo(1);
+            tabs[0].Section[2].Key.Should().Be("FinanceTeamSectionAU");
+            tabs[0].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
+            tabs[1].Section[0].Key.Should().Be("ServiceCenterSectionNZ");
+            tabs[1].Section[0].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[1].Section[1].Key.Should().Be("ProductTeamSectionNZ");
+            tabs[1].Section[1].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[1].Section[2].Key.Should().Be("FinanceTeamSectionNZ");
+            tabs[1].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
 
-            tabs[0].Sections[0].MenuItems[0].Key.Should().Be("ReviewPendingBookingsAU");
-            tabs[0].Sections[0].MenuItems[1].Key.Should().Be("GoogleBigQueryItinerary");
-            tabs[0].Sections[1].MenuItems[0].Key.Should().Be("CreditCardTransactionsToCheckAU");
-            tabs[0].Sections[2].MenuItems[0].Key.Should().Be("FareEscalationJournalAU");
-            tabs[1].Sections[0].MenuItems[0].Key.Should().Be("ReviewPendingBookingsNZ");
-            tabs[1].Sections[0].MenuItems[1].Key.Should().Be("GoogleBigQueryItinerary");
-            tabs[1].Sections[1].MenuItems[0].Key.Should().Be("ReviewPendingBookingsNZ");
-            tabs[1].Sections[1].MenuItems[1].Key.Should().Be("CreditCardTransactionsToCheckNZ");
-            tabs[1].Sections[2].MenuItems[0].Key.Should().Be("FareEscalationJournalNZ");
+            tabs[0].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookingsAU");
+            tabs[0].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
+            tabs[0].Section[1].MenuItem[0].Key.Should().Be("CreditCardTransactionsToCheckAU");
+            tabs[0].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournalAU");
+            tabs[1].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookingsNZ");
+            tabs[1].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
+            tabs[1].Section[1].MenuItem[0].Key.Should().Be("ReviewPendingBookingsNZ");
+            tabs[1].Section[1].MenuItem[1].Key.Should().Be("CreditCardTransactionsToCheckNZ");
+            tabs[1].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournalNZ");
         }
     }
 }

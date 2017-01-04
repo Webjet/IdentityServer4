@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<requiredResourceAccess>
-  <add key="GoogleBigQueryItinerary" value="ServiceCenter,AnalyticsTeam"></add>
-  <add key="ReviewPendingBookingsAU" value="ServiceCenter,DevSupport"></add>
-  <add key="FareEscalationJournalAU" value="FinanceTeam"></add>
-  <add key="CreditCardTransactionsToCheckAU" value="ServiceCenter,DevSupport,ProductTeam"></add>
-  <add key="ReviewPendingBookingsNZ" value="ServiceCenter,DevSupport"></add>
-  <add key="FareEscalationJournalNZ" value="FinanceTeam,ProductTeam"></add>
-  <add key="CreditCardTransactionsToCheckNZ" value="ServiceCenter,DevSupport,ProductTeam"></add>
-</requiredResourceAccess>
+<ResourceToApplicationRolesMap>
+  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="ReviewPendingBookingsAU" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
+  <ResourceToRoles ResourceId="FareEscalationJournalAU" Roles="FinanceTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="CreditCardTransactionsToCheckAU" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="ReviewPendingBookingsNZ" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
+  <ResourceToRoles ResourceId="FareEscalationJournalNZ" Roles="FinanceTeam,ProductTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="CreditCardTransactionsToCheckNZ" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
+</ResourceToApplicationRolesMap>
 
 
