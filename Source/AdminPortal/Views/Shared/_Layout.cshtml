@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" sizes="114x114" href="~/Content/images/Webjet-au-icon-114x114.png" />
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     @Styles.Render("~/Content/css")
 </head>
 <body id="webjet">
@@ -54,8 +54,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="~/Content/scripts/libs/jquery-ui.min.js"></script>
     <script src="~/Content/scripts/webjet.ui.build.js"></script>
-    <script src="~/Content/scripts/admin.js"></script>
 
-    @RenderSection("scripts", required: false)
+    @RenderSection("FooterScripts", false)
 </body>
 </html>
