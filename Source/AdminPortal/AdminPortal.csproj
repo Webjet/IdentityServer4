@@ -199,6 +199,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config\RegionIndicatorList.xml" />
     <Content Include="config\RoleBasedMenuItemMap.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -264,6 +265,7 @@
     <Content Include="Content\fonts\webjet-icons.woff2" />
     <Content Include="Content\less\UPL\form.less" />
     <Content Include="Content\less\UPL\textfield.less" />
+    <Content Include="config\RegionIndicatorList.json" />
     <None Include="Properties\PublishProfiles\ToZip.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

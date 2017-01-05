@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Web.Caching;
 using AdminPortal.BusinessServices;
+using AdminPortal.BusinessServices.LandingPage;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NLog;
@@ -26,10 +27,26 @@ namespace AdminPortal.UnitTests.BusinessServices
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
             //Act
+           
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
             
             //Assert
             ValidateLandingPageTabsSectionsMenuItems(uiLinks.LandingPageTab);
+        }
+
+        [TestMethod()]
+        public void LandingPageLayoutLoader_ParseRegionIndicatorListXML_RegionIndicatorListObject()
+        {
+            //Arrange
+            //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
+            _filepath += "RegionIndicatorList.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger,_filepath);
+
+            //Act
+            RegionIndicatorList regionIndicator = landingPage.GetParsedRegionIndicatorXmlToObject();
+
+            //Assert
+            regionIndicator.Should().NotBeNull();
         }
 
         [TestMethod()]
@@ -200,15 +217,15 @@ namespace AdminPortal.UnitTests.BusinessServices
             tabs[1].Section[2].Key.Should().Be("FinanceTeamSectionNZ");
             tabs[1].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
 
-            tabs[0].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookingsAU");
+            tabs[0].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetAU");
             tabs[0].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
-            tabs[0].Section[1].MenuItem[0].Key.Should().Be("CreditCardTransactionsToCheckAU");
-            tabs[0].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournalAU");
-            tabs[1].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookingsNZ");
+            tabs[0].Section[1].MenuItem[0].Key.Should().Be("CreditCardTransactionsToCheck_WebjetAU");
+            tabs[0].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournal_WebjetAU");
+            tabs[1].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetNZ");
             tabs[1].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
-            tabs[1].Section[1].MenuItem[0].Key.Should().Be("ReviewPendingBookingsNZ");
-            tabs[1].Section[1].MenuItem[1].Key.Should().Be("CreditCardTransactionsToCheckNZ");
-            tabs[1].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournalNZ");
+            tabs[1].Section[1].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetNZ");
+            tabs[1].Section[1].MenuItem[1].Key.Should().Be("CreditCardTransactionsToCheck_WebjetNZ");
+            tabs[1].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournal_WebjetNZ");
         }
     }
 }

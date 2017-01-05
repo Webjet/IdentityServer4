@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<RegionIndicatorList>
+  <RegionIndicator Id="WebjetAU" ShowDescription="WAU" Description="Webjet AU"></RegionIndicator>
+  <RegionIndicator Id="WebjetNZ" ShowDescription="WNZ" Description="Webjet NZ"></RegionIndicator>
+  <RegionIndicator Id="ZujiAU" ShowDescription="ZAU" Description="Zuji AU"></RegionIndicator>
+  <RegionIndicator Id="ALL" ShowDescription="ALL" Description="All sites"></RegionIndicator>
+</RegionIndicatorList>
+
+

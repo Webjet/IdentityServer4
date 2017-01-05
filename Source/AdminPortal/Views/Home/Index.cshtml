@@ -95,20 +95,20 @@
                                 <ul>
                                     @foreach (UiLinksLandingPageTabSectionMenuItem menuItem in @sectionItem.MenuItem)
                                     {
-                                        var allArea = menuItem.AreaIndicator == "ALL";
+                                        var allArea = menuItem.RegionIndicator == "ALL";
                                         <li>
                                             @if (UriHelper.IsRelativeUrl(menuItem.Link))
                                             {
 
                                                 <a href="@Url.Action(menuItem.Link.Split('/')[1], menuItem.Link.Split('/')[0])">
-                                                    <span class="label @(allArea ? "label-default" : "label-important") alt">@menuItem.AreaIndicator</span>
+                                                    <span class="label @(allArea ? "label-default" : "label-important") alt">@menuItem.RegionIndicator</span>
                                                     <span class="link-title">@menuItem.Text</span>
                                                 </a>
                                             }
                                             else
                                             {
                                                 <a href="@menuItem.Link" target="_blank">
-                                                    <span class="label @(allArea ? "label-default" : "label-important") alt">@menuItem.AreaIndicator</span>
+                                                    <span class="label @(allArea ? "label-default" : "label-important") alt">@menuItem.RegionIndicator</span>
                                                     <span class="link-title">@menuItem.Text</span>
                                                 </a>
                                             }
