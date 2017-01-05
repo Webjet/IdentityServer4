@@ -1,0 +1,147 @@
+{
+  "appId": "7601235d-4350-443d-b094-28da93f0846f",
+  "appRoles": [
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Any user, who needs access to TSA Admin",
+      "displayName": "TSA Admin",
+      "id": "56CED3FC-C646-4D9D-8F3D-5AC6874ECB66",
+      "isEnabled": true,
+      "value": "Admin"
+    }, 
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Analytics team will have access for anlaytics reporting - BIG Query data, WTI",
+      "displayName": "Analytics",
+      "id": "8c7d7e09-5f2b-4f8b-87b9-3cd8d3235c7c",
+      "isEnabled": true,
+      "value": "Analytics"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Finance team which will have access for FaresManager, FareEscalationPaymentTypeReport etc.",
+      "displayName": "Finance",
+      "id": "6d78b9c3-f41b-421d-899f-172d2ce447ce",
+      "isEnabled": true,
+      "value": "Finance"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Dev Support - API support team L1/L2 team members.",
+      "displayName": "Dev Support",
+      "id": "27bd1d78-2c66-4a78-971b-46fd95a245e3",
+      "isEnabled": true,
+      "value": "DevSupport"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Service Center manager acts as approver/administrator for Service Center.",
+      "displayName": "Service Center Manager",
+      "id": "1579eed6-fcb5-4448-b8ec-e62cb4d46f59",
+      "isEnabled": true,
+      "value": "ServiceCenterManager"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Service Center has the ability to work with Pending Bookings and related work.",
+      "displayName": "Service Center",
+      "id": "aab62896-ef7a-4208-9ba6-c7c8598bbd8b",
+      "isEnabled": true,
+      "value": "ServiceCenter"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Writer has the ability to create tasks",
+      "displayName": "ProductTeam",
+      "id": "d48816af-72c6-49d9-89da-9afdf6870b71",
+      "isEnabled": true,
+      "value": "ProductTeam"
+    }
+  ],
+  "availableToOtherTenants": false,
+  "displayName": "Webjet Admin Portal",
+  "errorUrl": null,
+  "groupMembershipClaims": null,
+  "homepage": "https://localhost/WebjetAdminPortal",
+  "identifierUris": [
+    "https://mfreidgeimwebjetcom.onmicrosoft.com/AdminPortal"
+  ],
+  "keyCredentials": [],
+  "knownClientApplications": [],
+  "logoutUrl": null,
+  "oauth2AllowImplicitFlow": false,
+  "oauth2AllowUrlPathMatching": false,
+  "oauth2Permissions": [
+    {
+      "adminConsentDescription": "Allow the application to access Webjet Admin Portal on behalf of the signed-in user.",
+      "adminConsentDisplayName": "Access Webjet Admin Portal",
+      "id": "a6fa763d-598c-4555-8b20-31e503f5acae",
+      "isEnabled": true,
+      "type": "User",
+      "userConsentDescription": "Allow the application to access Webjet Admin Portal on your behalf.",
+      "userConsentDisplayName": "Access Webjet Admin Portal",
+      "value": "user_impersonation"
+    }
+  ],
+  "oauth2RequirePostResponse": false,
+  "passwordCredentials": [
+    {
+      "customKeyIdentifier": "QQBkAG0AaQBuAFAAbwByAHQAYQBsAA==",
+      "endDate": "2299-12-30T13:00:00Z",
+      "keyId": "b225b4a1-98d8-4a7c-b533-542831c0f896",
+      "startDate": "2016-12-15T01:39:46.5764884Z",
+      "value": null
+    }
+  ],
+  "publicClient": false,
+  "replyUrls": [
+    "https://localhost/WebjetAdminPortal/.auth/login/aad/callback"
+  ],
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "00000003-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+          "type": "Scope"
+        }
+      ]
+    },
+    {
+      "resourceAppId": "00000002-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "311a71cc-e848-46a1-bdf8-97ff7156d8e6",
+          "type": "Scope"
+        }
+      ]
+    }
+  ],
+  "samlMetadataUrl": null,
+  "extensionProperties": [],
+  "objectType": "Application",
+  "objectId": "8402010a-6287-4c34-ba42-90b0b4cbab14",
+  "deletionTimestamp": null,
+  "createdOnBehalfOf": null,
+  "createdObjects": [],
+  "manager": null,
+  "directReports": [],
+  "members": [],
+  "memberOf": [],
+  "owners": [],
+  "ownedObjects": []
+}
