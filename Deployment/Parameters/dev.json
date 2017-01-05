@@ -1,11 +1,11 @@
 {
 	"Parameters": {
 		"Subscription": "Webjet - Development",
-        "SubscriptionID": "9e1abf4b-916f-4fcf-91ef-2ddd4052b24d",//-not found
+        "SubscriptionID": "9e1abf4b-916f-4fcf-91ef-2ddd4052b24d", 
 	//    "SubscriptionID": "45e12566-3cd8-4ae6-b187-3c56a5f6029a",
         "TenantID": "5de0e68c-0afd-4a67-b089-31f168aa4ca0", 
         "ResourceGroupName": "AdminPortalDev",
-        "ResourceGroupNameLog": "WJZU-Dev-LogsRG",
+        "ResourceGroupNameLog": "WJ-Dev-LogsRG",
         "ResourceGroupLocation": "Australia East",
 		"AppServicePlan": "Dev-AdminPortal",
         "WebAppName": "WJ-Dev-AdminPortal",
