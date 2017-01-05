@@ -14,80 +14,80 @@
 				"Password": "[variables('AzurePassword')]"
 			}
 		},
-		{
-			"Name" : "Logs Storage Account",
-			"Type" : "AzureStorageAccount",
-			"Attributes" : {
-				"Properties": 
-				{
-					"Name" : "[variables('DiagnosticStorageAccountName')]",
-					"IsClassic" : "false",
-					"Subscription": "[variables('Subscription')]",
-					"SubscriptionID": "[variables('SubscriptionID')]",
-					"TenantID": "[variables('TenantID')]",
-					"Type" : "Standard_GRS"
-				},
-				"ResourceGroup":{
-					"Name" : "[variables('ResourceGroupNameLog')]",
-					"Location" : "[variables('ResourceGroupLocation')]"
-				},
-				"Containers" : 
-				[
-					{
-						"Name" : "DiagnosticStorageContainerName",
-						"Permission" : "Container"
-					}
-				]
-			}
+		//{
+		//	"Name" : "Logs Storage Account",
+		//	"Type" : "AzureStorageAccount",
+		//	"Attributes" : {
+		//		"Properties": 
+		//		{
+		//			"Name" : "[variables('DiagnosticStorageAccountName')]",
+		//			"IsClassic" : "false",
+		//			"Subscription": "[variables('Subscription')]",
+		//			"SubscriptionID": "[variables('SubscriptionID')]",
+		//			"TenantID": "[variables('TenantID')]",
+		//			"Type" : "Standard_GRS"
+		//		},
+		//		"ResourceGroup":{
+		//			"Name" : "[variables('ResourceGroupNameLog')]",
+		//			"Location" : "[variables('ResourceGroupLocation')]"
+		//		},
+		//		"Containers" : 
+		//		[
+		//			{
+		//				"Name" : "DiagnosticStorageContainerName",
+		//				"Permission" : "Container"
+		//			}
+		//		]
+		//	}
 			
-		},
-		{
-			"Name": "Traffic Manager",
-			"Type": "AzureTrafficManager",
-			"Attributes": {
-				"Properties": {
-					"Name": "[variables('TrafficManagerName')]",
-					"Subscription": "[variables('Subscription')]",
-					"SubscriptionID": "[variables('SubscriptionID')]",
-					"TenantID": "[variables('TenantID')]",
-					"MonitorPath": "/",
-					"MonitorPort": "443",
-					"MonitorProtocol": "HTTPS",
-					"RelativeDnsName": "[variables('TrafficManagerName')]",
-					"TrafficRoutingMethod": "Performance",
-					"__TrafficRoutingMethods": [
-						"Performance",
-						"Weighted",
-						"Priority"
-					],
-					"ProfileStatus": "Enabled",
-					"Ttl": "300"
-				},
-				"EndPoints": [
-					{
-						"Name": "[variables('TrafficManagerEndpointName1')]",
-						"Type" : "AzureEndpoints",
-						"ResourceType": "AzureRmResource",
-						"ResourceGroupName": "[variables('ResourceGroupName')]",
-						"Status" : "Enabled"
-					},
-					{
-						"Name": "[variables('TrafficManagerEndpointName2')]",
-						"Type" : "AzureEndpoints",
-						"ResourceType": "AzureRmResource",
-						"ResourceGroupName": "[variables('ResourceGroupName')]",
-						"Status" : "Enabled"
-					}
-				],
-				"__EndpointTypes": [
-					"AzureRmPublicIpAddress"
-				],
-				"ResourceGroup": {
-					"Name": "[variables('ResourceGroupName')]",
-					"Location": "[variables('ResourceGroupLocation')]"
-				}
-			}
-		},
+		//},
+		//{
+		//	"Name": "Traffic Manager",
+		//	"Type": "AzureTrafficManager",
+		//	"Attributes": {
+		//		"Properties": {
+		//			"Name": "[variables('TrafficManagerName')]",
+		//			"Subscription": "[variables('Subscription')]",
+		//			"SubscriptionID": "[variables('SubscriptionID')]",
+		//			"TenantID": "[variables('TenantID')]",
+		//			"MonitorPath": "/",
+		//			"MonitorPort": "443",
+		//			"MonitorProtocol": "HTTPS",
+		//			"RelativeDnsName": "[variables('TrafficManagerName')]",
+		//			"TrafficRoutingMethod": "Performance",
+		//			"__TrafficRoutingMethods": [
+		//				"Performance",
+		//				"Weighted",
+		//				"Priority"
+		//			],
+		//			"ProfileStatus": "Enabled",
+		//			"Ttl": "300"
+		//		},
+		//		"EndPoints": [
+		//			{
+		//				"Name": "[variables('TrafficManagerEndpointName1')]",
+		//				"Type" : "AzureEndpoints",
+		//				"ResourceType": "AzureRmResource",
+		//				"ResourceGroupName": "[variables('ResourceGroupName')]",
+		//				"Status" : "Enabled"
+		//			},
+		//			{
+		//				"Name": "[variables('TrafficManagerEndpointName2')]",
+		//				"Type" : "AzureEndpoints",
+		//				"ResourceType": "AzureRmResource",
+		//				"ResourceGroupName": "[variables('ResourceGroupName')]",
+		//				"Status" : "Enabled"
+		//			}
+		//		],
+		//		"__EndpointTypes": [
+		//			"AzureRmPublicIpAddress"
+		//		],
+		//		"ResourceGroup": {
+		//			"Name": "[variables('ResourceGroupName')]",
+		//			"Location": "[variables('ResourceGroupLocation')]"
+		//		}
+		//	}
+		//},
         {
 			"Name" : "Admin Portal",
 			"Type": "AzureWebApp",

@@ -1,3 +1,4 @@
+//See usage of values in ..\Templates\webapp-template.json
 {
 	"Parameters": {
 		"Subscription": "Webjet - Development",
@@ -18,11 +19,11 @@
 		"COR_PROFILER_PATH": " D:\\Home\\site\\wwwroot\\newrelic\\NewRelic.Profiler.dll ",
 		"COR_PROFILER": "{71DA0A04-7777-4EC6-9643-7D28B46A8A41}",
 		"COR_ENABLE_PROFILING": "1",
-	  "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjzudevstorageau;AccountKey=5ANlfhoMnIXTRaJVTS9eSzmScF3LpJCS05Vx0imtFfk6vEAyfpSfkGIMkl9nDm8n9feMGoQXfxm27fbpA+2BiA==",
+	  "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "logging.application_name": "WJZU-Dev-API-FlightMerchandising-AU001",
-    "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjzudevstorageau;AccountKey=5ANlfhoMnIXTRaJVTS9eSzmScF3LpJCS05Vx0imtFfk6vEAyfpSfkGIMkl9nDm8n9feMGoQXfxm27fbpA+2BiA==",
+    "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "BuildVersion": "{Teamcity-Parameter-BuildVersion}",
-    "DiagnosticStorageAccountName": "wjzudevstorageau",
+    "DiagnosticStorageAccountName": "wjdevstglogsau",
     "DiagnosticStorageContainerName": "wjau-dev-api-flightmerchandising-au001",
 
  /*   "TrafficManagerName":"WJZU-Dev-FlightMerchandisingTM",
