@@ -190,7 +190,7 @@ Webjet.Shared = {
             return $list.appendTo(ul);
         },
 
-        renderItem: function($list, item) {
+        renderItem: function ($list, item) {
             var text = this.renderHighlight(item.value);
             var $listTop = $("<span>").addClass("ac-list-top").html(text);
             $list.append($("<a>").append($listTop));
@@ -308,7 +308,7 @@ Webjet.Shared = {
         });
 
         this.siblings(".wj-alt-cross").on("click", function (e) {
-            $(this).siblings("input.standard").val("");
+            $(this).siblings("input.standard").val("").change();
             $(this).siblings("input.standard").removeClass("input-validation-error");
             $(this).toggle();
         });
@@ -457,9 +457,9 @@ Webjet.Shared = {
         return this;
     }
 
-    $.fn.wjTooltip = function() {
+    $.fn.wjTooltip = function () {
         var tooltipClass = this.data("tooltip-class");
-        
+
         this.tooltip({
             template: '<div class="tooltip ' + tooltipClass + '"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
             delay: { show: 200, hide: 200 },
@@ -469,7 +469,7 @@ Webjet.Shared = {
         return this;
     }
 
-    $.fn.wjPopover = function() {
+    $.fn.wjPopover = function () {
         this.popover();
         return this;
     }

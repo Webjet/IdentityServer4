@@ -81,10 +81,26 @@ Webjet.AdminLaunchpad = {
 };
 
 $(function () {
-    // Multilevel accordion init
+    // Component init
     $(".multilevel-accordion").wjMultilevelAccordion({
         multiple: true
     });
+    $("input.standard").wjTextField();
+
+
+    // Render mobile menu
+    var contentWrapper = $("#content-wrapper");
+    var toggleNavigation = function () {
+        contentWrapper.toggleClass("navigation-active");
+    };
+    contentWrapper.on("click", ".nav-toggle", toggleNavigation);
+    $(window).resize(function () {
+        // Close the mobile menu when users go to desktop size
+        if (contentWrapper.hasClass("navigation-active") && !Webjet.Shared.isMobileSize()) {
+            toggleNavigation();
+        }
+    });
+
 
     // Loop through each tab
     $("#site-list .tab-pane").each(function () {
@@ -92,6 +108,6 @@ $(function () {
         var linkGroupList = Webjet.AdminLaunchpad.createLinkObjectList($(this).find("ul.multilevel-accordion > li"));
 
         // Add keyup event handler to search field
-        $(this).find("input.standard").keyup(Webjet.AdminLaunchpad.onSearchFieldKeyUp(linkGroupList));
+        $(this).find("input.standard").bind("keyup change", Webjet.AdminLaunchpad.onSearchFieldKeyUp(linkGroupList));
     });
 });
