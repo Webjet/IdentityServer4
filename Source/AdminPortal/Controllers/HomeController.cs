@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using AdminPortal.BusinessServices;
+using AdminPortal.BusinessServices.LandingPage;
 using Microsoft.SDC.Common;
 using WebGrease.Css.Ast.Selectors;
 
@@ -15,12 +16,13 @@ namespace AdminPortal.Controllers
     public class HomeController : Controller
     {
         private static readonly ResourceToApplicationRolesMapper ResourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
-
+        private static RegionIndicatorList _regionIndicatorList;
         private LandingPageModel _landingPageModel;
 
         [HttpGet]
         public ActionResult Index()
         {
+            
             _landingPageModel = new LandingPageModel
             {
                 LandingPageTabs = GetLandingPageTabs(new LandingPageLayoutLoader())
@@ -32,6 +34,8 @@ namespace AdminPortal.Controllers
 
         private List<UiLinksLandingPageTab> GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
         {
+            _regionIndicatorList = landingPageLayoutLoader.GetParsedRegionIndicatorXmlToObject();
+
             List<UiLinksLandingPageTab> landingPageTabs = new List<UiLinksLandingPageTab>();
             UiLinks uiLinks = landingPageLayoutLoader.GetParsedXmlToObject();
 
@@ -57,7 +61,7 @@ namespace AdminPortal.Controllers
             List<UiLinksLandingPageTabSection> landingPageSections = new List<UiLinksLandingPageTabSection>();
             foreach (UiLinksLandingPageTabSection configSection in configTab.Section)
             {
-                var userAllowedSection = new UiLinksLandingPageTabSection { MenuItem = GetLandingPageSectionMenuItems(configSection).ToArray() };
+                var userAllowedSection = new UiLinksLandingPageTabSection { MenuItem = GetLandingPageSectionMenuItems(configSection, configTab.Key).ToArray() };
 
                 if (userAllowedSection.MenuItem.Length > 0)
                 {
@@ -70,18 +74,34 @@ namespace AdminPortal.Controllers
             return landingPageSections;
         }
 
-        private List<UiLinksLandingPageTabSectionMenuItem> GetLandingPageSectionMenuItems(UiLinksLandingPageTabSection configSection)
+        private List<UiLinksLandingPageTabSectionMenuItem> GetLandingPageSectionMenuItems(UiLinksLandingPageTabSection configSection, string configTabKey)
         {
             List<UiLinksLandingPageTabSectionMenuItem> landingPageSectionMenuItems = new List<UiLinksLandingPageTabSectionMenuItem>();
             foreach (UiLinksLandingPageTabSectionMenuItem configMenuItem in configSection.MenuItem)
             {
                 if (ResourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
                 {
+                    if (string.IsNullOrEmpty(configMenuItem.RegionIndicator))
+                    {
+
+                        configMenuItem.RegionIndicator = GetDescriptionForRegionId(configTabKey);
+                    }
                     landingPageSectionMenuItems.Add(configMenuItem);
                 }
             }
 
             return landingPageSectionMenuItems;
+        }
+
+        private string GetDescriptionForRegionId(string id)
+        {
+            foreach (RegionIndicatorListRegionIndicator  regionIndicator in _regionIndicatorList.RegionIndicator)
+            {
+                if (regionIndicator.Id == id)
+                    return regionIndicator.ShowDescription;
+            }
+            return null;
+
         }
 
     }

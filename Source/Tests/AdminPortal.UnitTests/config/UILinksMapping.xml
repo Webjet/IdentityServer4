@@ -4,34 +4,34 @@
   <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
     <Section Key ="ServiceCenterSectionAU"
              Text="ServiceCenter Activities " >
-      <MenuItem Key ="ReviewPendingBookingsAU"
+      <MenuItem Key ="ReviewPendingBookings_WebjetAU"
                 Text="Pending Bookings"
                 Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
-                AreaIndicator="WAU">
+                >
       </MenuItem>
       <MenuItem Key ="GoogleBigQueryItinerary"
                Text="Google Big Query Itinerary"
                Link="GoogleBigQueryItinerary/Index"
-                AreaIndicator="WAU">
+                RegionIndicator="ALL">
       </MenuItem >
     </Section>
 
     <Section Key ="ProductTeamSectionAU"
            Text="Product Team Activities " >
-      <MenuItem Key ="CreditCardTransactionsToCheckAU"
+      <MenuItem Key ="CreditCardTransactionsToCheck_WebjetAU"
             Text="Credit Card Transaction Check"
             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
-                AreaIndicator="WAU">
+               >
       </MenuItem>
 
     </Section>
 
     <Section Key ="FinanceTeamSectionAU"
           Text="Finance Team Activities " >
-      <MenuItem Key ="FareEscalationJournalAU"
+      <MenuItem Key ="FareEscalationJournal_WebjetAU"
             Text="Fare Escalation Journal"
             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
-                AreaIndicator="WAU">
+               >
       </MenuItem>
 
     </Section>
@@ -41,42 +41,43 @@
   <LandingPageTab Key ="WebjetNZ" Text ="Webjet NZ">
     <Section Key ="ServiceCenterSectionNZ"
              Text="ServiceCenter Activities " >
-      <MenuItem Key ="ReviewPendingBookingsNZ"
+      <MenuItem Key ="ReviewPendingBookings_WebjetNZ"
                 Text="Pending Bookings"
                 Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
-                AreaIndicator="WNZ">
+                >
       </MenuItem >
       <MenuItem Key ="GoogleBigQueryItinerary"
                Text="Google Big Query Itinerary"
                Link="GoogleBigQueryItinerary/Index"
-                AreaIndicator="WNZ">
+                >
       </MenuItem >
 
     </Section>
 
     <Section Key ="ProductTeamSectionNZ"
            Text="Product Team Activities " >
-      <MenuItem Key ="ReviewPendingBookingsNZ"
+      <MenuItem Key ="ReviewPendingBookings_WebjetNZ"
                 Text="Pending Bookings"
                 Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
-                AreaIndicator="WNZ">
+                >
       </MenuItem>
-      <MenuItem Key ="CreditCardTransactionsToCheckNZ"
+      <MenuItem Key ="CreditCardTransactionsToCheck_WebjetNZ"
             Text="Credit Card Transaction Check"
             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
-                AreaIndicator="WNZ">
+                >
       </MenuItem>
     </Section>
 
     <Section Key ="FinanceTeamSectionNZ"
           Text="Finance Team Activities " >
-      <MenuItem Key ="FareEscalationJournalNZ"
+      <MenuItem Key ="FareEscalationJournal_WebjetNZ"
              Text="Fare Escalation Journal"
              Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
-                AreaIndicator="WNZ">
+                >
       </MenuItem>
     </Section>
 
   </LandingPageTab>
 
 </UiLinks>
+

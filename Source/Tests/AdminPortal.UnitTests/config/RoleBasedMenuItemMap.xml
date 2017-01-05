@@ -2,12 +2,12 @@
 
 <ResourceToApplicationRolesMap>
   <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="ReviewPendingBookingsAU" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
-  <ResourceToRoles ResourceId="FareEscalationJournalAU" Roles="FinanceTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="CreditCardTransactionsToCheckAU" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="ReviewPendingBookingsNZ" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
-  <ResourceToRoles ResourceId="FareEscalationJournalNZ" Roles="FinanceTeam,ProductTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="CreditCardTransactionsToCheckNZ" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="ReviewPendingBookings_WebjetAU" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
+  <ResourceToRoles ResourceId="FareEscalationJournal_WebjetAU" Roles="FinanceTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetAU" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="ReviewPendingBookings_WebjetNZ" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
+  <ResourceToRoles ResourceId="FareEscalationJournal_WebjetNZ" Roles="FinanceTeam,ProductTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetNZ" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
 </ResourceToApplicationRolesMap>
 
 

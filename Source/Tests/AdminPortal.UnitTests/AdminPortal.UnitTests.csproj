@@ -106,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="config\RegionIndicatorList.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +122,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config\RegionIndicatorList.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="config\RoleBasedMenuItemMap_IncorrectFormat.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

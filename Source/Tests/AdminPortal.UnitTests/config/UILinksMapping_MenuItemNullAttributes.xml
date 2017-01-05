@@ -4,7 +4,7 @@
   <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
     <Section Key ="ServiceCenterSectionAU"
              Text="ServiceCenter Activities " >
-      <MenuItem Id ="ReviewPendingBookingsAU"
+      <MenuItem Id ="ReviewPendingBookings_WebjetAU"
                 value="Pending Bookings"
                 Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>

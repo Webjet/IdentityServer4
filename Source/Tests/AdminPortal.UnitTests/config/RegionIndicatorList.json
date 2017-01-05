@@ -1,0 +1,32 @@
+﻿{
+  "RegionIndicator": [
+    {
+
+      "Id": "WebjetAU",
+      "ShowDescription": "WAU",
+      "Description": "Webjet AU"
+
+    },
+    {
+
+      "Id": "WebjetNZ",
+      "ShowDescription": "WNZ",
+      "Description": "Webjet NZ"
+
+    },
+
+    {
+
+      "Id": "ZujiAU",
+      "ShowDescription": "ZAU",
+      "Description": "Zuji AU"
+
+    },
+
+    {
+      "Id": "ALL",
+      "ShowDescription": "ALL",
+      "Description": "All sites"
+    }
+  ]
+}

@@ -9,7 +9,8 @@ namespace AdminPortal.BusinessServices
     // This class is auto generated from UILinksMapping.xml using 'Edit>>Paste Special' option from menu.
     //Reference URL - http://stackoverflow.com/questions/3187444/convert-xml-string-to-object/19613953#19613953
     #endregion
-        
+
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
@@ -152,7 +153,7 @@ namespace AdminPortal.BusinessServices
 
         private string linkField;
 
-        private string areaIndicatorField;
+        private string regionIndicatorField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -198,18 +199,19 @@ namespace AdminPortal.BusinessServices
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string AreaIndicator
+        public string RegionIndicator
         {
             get
             {
-                return this.areaIndicatorField;
+                return this.regionIndicatorField;
             }
             set
             {
-                this.areaIndicatorField = value;
+                this.regionIndicatorField = value;
             }
         }
     }
+
 
 
 

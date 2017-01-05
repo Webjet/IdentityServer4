@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Json;
 
 namespace AdminPortal.BusinessServices
 {
@@ -58,10 +59,10 @@ namespace AdminPortal.BusinessServices
         }
 
         //TODO: Not tested nor refered in solution either. Commenting below code
-        //public static T ParseJSON<T>(this string @this) where T : class
-        //{
-        //    return JSON.Deserialize<T>(@this.Trim());
-        //}
+        public static T ParseJSON<T>(this string @this) where T : class
+        {
+            return JsonParser.Deserialize<T>(@this.Trim());
+        }
 
     }
 }

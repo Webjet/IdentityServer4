@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c6752e45808247c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\JSON.1.0.1\lib\net40\Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.SDC.Common">
       <HintPath>..\packages\Microsoft.SDC.Common\Microsoft.SDC.Common.dll</HintPath>
     </Reference>
@@ -57,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ParseHelper.cs" />
+    <Compile Include="LandingPage\RegionindicatorList.cs" />
     <Compile Include="ResourceToApplicationRolesMap.cs" />
     <Compile Include="ResourceToApplicationRolesMapper.cs" />
     <Compile Include="LandingPage\LandingPageLayoutLoader.cs" />
