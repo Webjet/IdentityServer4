@@ -62,7 +62,7 @@ namespace AdminPortal
 
             if (!string.IsNullOrEmpty(_resourceKey))
             {
-                Roles = new ResourceToApplicationRolesMapper().AllowedRolesForResource(_resourceKey);
+                Roles  = string.Join(",", new ResourceToApplicationRolesMapper().GetAllowedRolesForResource(_resourceKey));
             }
 
             return base.AuthorizeCore(httpContext);

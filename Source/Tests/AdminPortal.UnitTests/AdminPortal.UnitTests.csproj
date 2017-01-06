@@ -96,6 +96,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorizeAttributeTests.cs" />
     <Compile Include="BusinessServices\LandingPageLayoutLoaderTests.cs" />
     <Compile Include="BusinessServices\ResourceToApplicationRolesMapperTests.cs" />
     <Compile Include="Controllers\ErrorControllerTests.cs" />

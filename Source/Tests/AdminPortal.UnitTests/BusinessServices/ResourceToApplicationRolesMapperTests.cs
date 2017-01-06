@@ -119,25 +119,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             mapper.ResourceItemsWithRoles.Should().BeNull();
             
         }
-
-        [TestMethod()]
-        public void AllowedRolesForResourceTest()
-        {
-            _filepath += "RoleBasedMenuItemMap.xml";
-
-            //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
-
-            //Act
-            string roles = mapper.AllowedRolesForResource("GoogleBigQueryItinerary");
-
-            //Assert
-            mapper.ResourceItemsWithRoles.Should().NotBeNull();
-            mapper.ResourceItemsWithRoles.Count.Should().Be(7);
-            roles.Should().NotBeEmpty();
-            roles.Contains("ServiceCenter").Should().BeTrue();
-            roles.Contains("AnalyticsTeam").Should().BeTrue();
-        }
+        
 
         [TestMethod()]
         public void IsUserRoleAllowedForResource_Allowed()
