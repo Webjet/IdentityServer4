@@ -79,5 +79,19 @@
 
   </LandingPageTab>
 
+  <LandingPageTab Key ="ZujiAU" Text ="Zuji AU">
+    <Section Key ="ServiceCenterSectionAU"
+             Text="ServiceCenter Activities " >
+      <MenuItem Key ="ReviewPendingBookings_ZujiAU"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem >
+     
+    </Section>
+ 
+
+  </LandingPageTab>
+  
 </UiLinks>
 
