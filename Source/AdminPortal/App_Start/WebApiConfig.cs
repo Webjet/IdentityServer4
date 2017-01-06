@@ -11,7 +11,7 @@ namespace AdminPortal
     {
         public static void Register(HttpConfiguration configuration)
         {
-            configuration.Routes.MapHttpRoute("API Default", "api/{controller}/{id}",
+            configuration.Routes.MapHttpRoute("API Default", "api/{controller}/{resourceKey}",
                 new { id = RouteParameter.Optional });
         }
 
