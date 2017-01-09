@@ -8,6 +8,8 @@
   <ResourceToRoles ResourceId="ReviewPendingBookings_WebjetNZ" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
   <ResourceToRoles ResourceId="FareEscalationJournal_WebjetNZ" Roles="FinanceTeam,ProductTeam"></ResourceToRoles>
   <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetNZ" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
+  <ResourceToRoles ResourceId="ReviewPendingBookings_ZujiAU" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
+  
 </ResourceToApplicationRolesMap>
 
 

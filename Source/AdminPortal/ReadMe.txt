@@ -9,4 +9,12 @@ To force all users (anonymous user or authenticated user) to redirect to Webjet 
 append ".auth/login/aad/callback" with application home page URL in Reply URLs setting value (www.portal.azure.com) 
 
 Reply URLs - https://localhost/WebjetAdminPortal/.auth/login/aad/callback
+
+
+Which Authorize Attribute 
+http://stackoverflow.com/questions/19152109/system-web-http-authorize-versus-system-web-mvc-authorize
+
+https://localhost/WebjetAdminPortal/api/allowedRolesForResource/ReviewPendingBookings_WebjetAU
+
+
  
