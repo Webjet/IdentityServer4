@@ -16,5 +16,7 @@ http://stackoverflow.com/questions/19152109/system-web-http-authorize-versus-sys
 
 https://localhost/WebjetAdminPortal/api/allowedRolesForResource/ReviewPendingBookings_WebjetAU
 
+https://github.com/AzureAD/azure-activedirectory-library-for-dotnet/issues/144
+
 
  
