@@ -12,12 +12,12 @@
 		"AppServicePlanLocation": "Australia East",		
 		"AzureUsername" : "{Teamcity-Parameter-UserName}",
     "AzurePassword": "{Teamcity-Parameter-Password}",
-    "ida:ClientId":"43c42f66-e21c-4d89-a5ca-8a8ebc2be260" , //Application ID
+        "ida:ClientId":"7601235d-4350-443d-b094-28da93f0846f" ,
     "ida:AADInstance":"https://login.microsoftonline.com/" ,
-    "ida:ClientSecret":"BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=" ,//key from Classic Portal
+    "ida:ClientSecret":"0ObUWAQDydoKRGoQud7sqqj6YkRM7heM+Ws9BwnkWMs=" ,
     "ida:Domain":"mfreidgeimwebjetcom.onmicrosoft.com" ,
     "ida:TenantId":"0f79d43c-098d-49b1-b8bc-4c9107c64dd4" ,
-    "ida:PostLogoutRedirectUri":"https://wj-dev-adminportal.azurewebsites.net" ,
+    "ida:PostLogoutRedirectUri":"https://localhost/WebjetAdminPortal" ,
 
     //    "NewRelic.AppName": "WJ-Dev-AdminPortal",
     //    "NEWRELIC_LICENSEKEY": "dac6eb61fde6242216562aa4fc2de1c1092c3519",
