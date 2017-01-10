@@ -24,7 +24,8 @@
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "BuildVersion": "{Teamcity-Parameter-BuildVersion}",
     "DiagnosticStorageAccountName": "wjdevstglogsau",
-    "DiagnosticStorageContainerName": "wjau-dev-api-flightmerchandising-au001",
+    "DiagnosticStorageContainerName": "wj-dev-adminportal",//lower case letter, number or dash with no consecutive dashes and is 3 through 63 characters long.
+
 
  /*   "TrafficManagerName":"WJZU-Dev-FlightMerchandisingTM",
 		"TrafficManagerEndpointName1" : "WJZU-Dev-API-FlightMerchandising-AU001",
