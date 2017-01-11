@@ -22,30 +22,39 @@ namespace AdminPortal.UnitTests.BusinessServices
         [TestMethod()]
         public void ResourceToApplicationRolesMapperTest()
         {
-            _filepath += "RoleBasedMenuItemMap.xml";
+            var file= _filepath + "ResourceToRolesMapSample.xml";
 
             //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
 
             //Assert
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.Count.ShouldBeEquivalentTo(7);
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("GoogleBigQueryItinerary").Should().BeTrue();
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("ReviewPendingBookings_WebjetAU").Should().BeTrue();
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("FareEscalationJournal_WebjetAU").Should().BeTrue();
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("CreditCardTransactionsToCheck_WebjetAU").Should().BeTrue();
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("ReviewPendingBookings_WebjetNZ").Should().BeTrue();
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("FareEscalationJournal_WebjetNZ").Should().BeTrue();
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.ContainsKey("CreditCardTransactionsToCheck_WebjetNZ").Should().BeTrue();
-        }
+            mapper.ResourceItemsWithRoles.Should().NotBeNull();
+            mapper.ResourceItemsWithRoles.Count.Should().Be(7);
+            mapper.ResourceItemsWithRoles.ContainsKey("GoogleBigQueryItinerary").Should().BeTrue();
+            mapper.ResourceItemsWithRoles.ContainsKey("ReviewPendingBookings_WebjetAU").Should().BeTrue();
+            mapper.ResourceItemsWithRoles.ContainsKey("FareEscalationJournal_WebjetAU").Should().BeTrue();
+            mapper.ResourceItemsWithRoles.ContainsKey("CreditCardTransactionsToCheck_WebjetAU").Should().BeTrue();
+            mapper.ResourceItemsWithRoles.ContainsKey("ReviewPendingBookings_WebjetNZ").Should().BeTrue();
+            mapper.ResourceItemsWithRoles.ContainsKey("FareEscalationJournal_WebjetNZ").Should().BeTrue();
+            mapper.ResourceItemsWithRoles.ContainsKey("CreditCardTransactionsToCheck_WebjetNZ").Should().BeTrue();
+      
+            GoogleBigQueryItinerary_ServiceCenterAndAnalytics(mapper);
+            ReviewPendingBookingsAU_ServiceCenterAndDevSupport(mapper);
+            ReviewPendingBookingsNZ_ServiceCenterAndDevSupport(mapper);
+            CreditCardTransactionsToCheckAU_ServiceCenterAndDevSupportAndProductTeam(mapper);
+            CreditCardTransactionsToCheckNZ_ServiceCenterAndDevSupportAndProductTeam(mapper);
+            FareEscalationJournalAU_FinanceTeam(mapper);
+            FareEscalationJournalNZ_FinanceTeamAndProductTeam(mapper);
 
+        }
         [TestMethod()]
         public void ResourceToApplicationRolesMapper_RootNodeNull_NullResourceItemsWithRolesCollection()
         {
             //Arrange
-            _filepath += "RoleBasedMenuItemMap_RootNodeNull.xml";
+            var file= _filepath + "RoleBasedMenuItemMap_RootNodeNull.xml";
 
             //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
+            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(file, _logger);
 
             //Assert
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.Should().BeNull();
@@ -55,10 +64,10 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void ResourceToApplicationRolesMapper_NullAttribute_ResourceItemsWithRolesWithCount0()
         {
             //Arrange
-            _filepath += "RoleBasedMenuItemMap_NullAttribute.xml";
+            var file= _filepath + "RoleBasedMenuItemMap_NullAttribute.xml";
 
             //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
+            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(file, _logger);
 
             //Assert
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.Count.Should().Be(0);
@@ -68,10 +77,10 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void ResourceToApplicationRolesMapper_IncorrectXML_NullResourceItemsWithRoles()
         {
             //Arrange
-            _filepath += "RoleBasedMenuItemMap_IncorrectFormat.xml";
+            var file= _filepath + "RoleBasedMenuItemMap_IncorrectFormat.xml";
 
             //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
+            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(file, _logger);
 
             //Assert
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.Should().BeNull();
@@ -87,33 +96,14 @@ namespace AdminPortal.UnitTests.BusinessServices
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.Should().NotBeNull();
         }
 
-        [TestMethod()]
-        public void GetAllowedRolesForResourceTest()
-        {
-            //Act
-            _filepath += "RoleBasedMenuItemMap.xml";
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
-
-            //Assert
-            mapper.ResourceItemsWithRoles.Should().NotBeNull();
-            mapper.ResourceItemsWithRoles.Count.Should().Be(7);
-            GoogleBigQueryItinerary_ServiceCenterAndAnalytics(mapper);
-           
-            ReviewPendingBookingsAU_ServiceCenterAndDevSupport(mapper);
-            ReviewPendingBookingsNZ_ServiceCenterAndDevSupport(mapper);
-            CreditCardTransactionsToCheckAU_ServiceCenterAndDevSupportAndProductTeam(mapper);
-            CreditCardTransactionsToCheckNZ_ServiceCenterAndDevSupportAndProductTeam(mapper);
-            FareEscalationJournalAU_FinanceTeam(mapper);
-            FareEscalationJournalNZ_FinanceTeamAndProductTeam(mapper);
-
-        }
+     
 
         [TestMethod()]
         public void GetAllowedRolesForResource_NullResourceItemWithRoles_ReturnsNull()
         {
             //Act
-            _filepath += "RoleBasedMenuItemMap_RootNodeNull.xml";
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
+            var file= _filepath + "RoleBasedMenuItemMap_RootNodeNull.xml";
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
 
             //Assert
             mapper.ResourceItemsWithRoles.Should().BeNull();
@@ -125,12 +115,12 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void IsUserRoleAllowedForResource_Allowed()
         {
             //Arrange
-            _filepath += "RoleBasedMenuItemMap.xml";
+            var file= _filepath + "RoleBasedMenuItemMap.xml";
             String[] loggedInUserRole = { "ServiceCenter", "AnalyticsTeam", "FinanceTeam" };
             IPrincipal loggedInUser = new GenericPrincipal(new GenericIdentity("LoggedInUser"), loggedInUserRole);
 
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
 
             mapper.ResourceItemsWithRoles.Should().NotBeNull();
             ServiceCenterUser_GoogleBigQueryItinerary_True(loggedInUser, "GoogleBigQueryItinerary", mapper);
@@ -142,12 +132,12 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void IsUserRoleAllowedForResource_NotAllowed()
         {
             //Arrange
-            _filepath += "RoleBasedMenuItemMap.xml";
+            var file= _filepath + "RoleBasedMenuItemMap.xml";
             String[] loggedInUserRole = { "AnalyticsTeam", "FinanceTeam" };
             IPrincipal loggedInUser = new GenericPrincipal(new GenericIdentity("LoggedInUser"), loggedInUserRole);
 
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(_filepath, _logger);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
 
             AnalyticsTeamUser_ReviewPendingBookingsNZ_False(loggedInUser, "ReviewPendingBookings_WebjetNZ", mapper);
             FinanceTeamUser_CreditCardTransactionsToCheckNZ_False(loggedInUser, "CreditCardTransactionsToCheck_WebjetNZ", mapper);
