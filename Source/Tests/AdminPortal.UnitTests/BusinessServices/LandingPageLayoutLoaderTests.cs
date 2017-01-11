@@ -15,23 +15,23 @@ namespace AdminPortal.UnitTests.BusinessServices
     public class LandingPageLayoutLoaderTests
     {
         const string ConfigFolder = "\\config\\";
-        private string _filepath = TestHelper.GetExecutingAssembly() + ConfigFolder;
+        private readonly string _filepath = TestHelper.GetExecutingAssembly() + ConfigFolder;
         private readonly NLog.ILogger _logger = Substitute.For<NLog.ILogger>();
 
         [TestMethod()]
-        public void LandingPageLayoutLoaderTest()
+        public void LandingPageLayoutLoader_2TabsExample_MatchExpected()
         {
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
-            _filepath += "UILinksMapping.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            var file= _filepath + "UILinksMapping_2Tabs.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
            
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
             
             //Assert
-            ValidateLandingPageTabsSectionsMenuItems(uiLinks.LandingPageTab);
+            Validate2TabsExample(uiLinks.LandingPageTab);
         }
 
         [TestMethod()]
@@ -39,8 +39,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
-            _filepath += "RegionIndicatorList.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger,_filepath);
+            var regionsfile= _filepath + "RegionIndicatorList.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger, regionsfile);
 
             //Act
             RegionIndicatorList regionIndicator = landingPage.GetParsedRegionIndicatorXmlToObject();
@@ -54,8 +54,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
-            _filepath += "UILinksMapping_RootNodeNull.xml";
-             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            var file= _filepath + "UILinksMapping_RootNodeNull.xml";
+             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
             
             //Act
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
@@ -96,8 +96,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void LandingPageLayoutLoader_TabNodeNull_NullLandingPageTabs()
         {
             //Arrange
-            _filepath += "UILinksMapping_TabNodeNull.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            var file= _filepath + "UILinksMapping_TabNodeNull.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
@@ -110,8 +110,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void LandingPageLayoutLoader_TabWith0SectionItem_NullLandingPageTabs()
         {
             //Arrange
-            _filepath += "UILinksMapping_ZeroSectionItem.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            var file= _filepath + "UILinksMapping_ZeroSectionItem.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
@@ -127,8 +127,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void LandingPageLayoutLoader_TabSectionsWith0MenuItem_NullLandingPageTabs()
         {
             //Arrange
-            _filepath += "UILinksMapping_ZeroMenuItem.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            var file= _filepath + "UILinksMapping_ZeroMenuItem.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
@@ -143,8 +143,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void LandingPageLayoutLoader_TabSectionsWith0Attribute_NullLandingPageTabs()
         {
             //Arrange
-            _filepath += "UILinksMapping_ZeroTabAttributes.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            var file= _filepath + "UILinksMapping_ZeroTabAttributes.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
@@ -162,8 +162,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void LandingPageLayoutLoader_MenuItemNullAttributes_NullLandingPageTabs()
         {
             //Arrange
-            _filepath += "UILinksMapping_MenuItemNullAttributes.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            var file= _filepath + "UILinksMapping_MenuItemNullAttributes.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
@@ -181,8 +181,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         public void LandingPageLayoutLoader_TabNullAttributes_NullLandingPageTabs()
         {
             //Arrange
-            _filepath += "UILinksMapping_TabNullAttributes.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
+            var file= _filepath + "UILinksMapping_TabNullAttributes.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
@@ -193,7 +193,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             uiLinks.LandingPageTab[0].Section[0].MenuItem.Should().NotBeNull();
         }
 
-        private void ValidateLandingPageTabsSectionsMenuItems(UiLinksLandingPageTab[]  tabs)
+        private void Validate2TabsExample(UiLinksLandingPageTab[]  tabs)
         {
             //Assert
             tabs.Should().NotBeNull();
