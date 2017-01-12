@@ -1094,6 +1094,10 @@ function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAcco
     return $newUrl;
 
 }
+function DODOAzureWebApp_GetVersion
+{
+	return "3.2.2.1"  #to verify is correct version is loaded, not necessary to update each time
+}
 
 Export-ModuleMember -Function 'Publish-DODOAzureWebsite'
 Export-ModuleMember -Function 'Publish-DODOAzureWebsiteConfiguration'
@@ -1104,5 +1108,7 @@ Export-ModuleMember -Function 'Switch-DODOAzureWebApp'
 Export-ModuleMember -Function 'Publish-DODOAzureWebAppConfiguration'
 
 Export-ModuleMember -Function 'Invoke-DODOAzureWebsiteWarmup'
+
+Export-ModuleMember -Function 'DODOAzureWebApp_GetVersion' 
 
 
