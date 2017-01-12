@@ -151,7 +151,7 @@
           ,{ "Key": "ida:ClientSecret", "Value": "[variables('ida:ClientSecret')]" }
           ,{ "Key": "ida:Domain", "Value": "[variables('ida:Domain')]" }
           ,{ "Key": "ida:TenantId", "Value": "[variables('ida:TenantId')]" }
-          ,{ "Key": "ida:PostLogoutRedirectUri", "Value": "[variables('ida:PostLogoutRedirectUri')]" }
+          //,{ "Key": "ida:PostLogoutRedirectUri", "Value": "[variables('ida:PostLogoutRedirectUri')]" }
  				],
 		//		"AppSettingNames" : [ "routehappy.api_key" , "routehappy.base_url" ],
 				"ResourceGroup":{
