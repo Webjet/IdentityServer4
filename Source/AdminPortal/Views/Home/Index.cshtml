@@ -13,49 +13,51 @@
 }
 
 <h1>Admin Launchpad</h1>
-@*<h2>Shortcuts</h2>
+@* Code for Add favourites. Will require to uncomment when work on PBI - 31448 New admin home page (desktop) - favourite functionality*@
 
-<p>Click the star beside a link to add it to your shortcuts.</p>
-<div id="shortcut-list" class="row">
-    <div class="col col-3 col-xs-12 tile-block">
-        <a href="#">
-            <span class="text-wrapper">
-                <span class="title">Bookings</span>
-                <span class="site">Webjet AU</span>
-            </span>
-        </a>
-        <span class="wj-icon wj-favourite"></span>
-    </div>
-    <div class="col col-3 col-xs-12 tile-block">
-        <a href="#">
-            <span class="text-wrapper">
-                <span class="title">Bookings</span>
-                <span class="site">Webjet NZ</span>
-            </span>
-        </a>
-        <span class="wj-icon wj-favourite"></span>
-    </div>
-    <div class="col col-3 col-xs-12 tile-block">
-        <a href="#">
-            <span class="text-wrapper">
-                <span class="title">Bookings</span>
-                <span class="site">Zuji AU</span>
-            </span>
-        </a>
-        <span class="wj-icon wj-favourite"></span>
-    </div>
-    <div class="col col-3 col-xs-12 tile-block">
-        <a href="#">
-            <span class="text-wrapper">
-                <span class="title">Drill Down</span>
-                <span class="site">All sites</span>
-            </span>
-        </a>
-        <span class="wj-icon wj-favourite"></span>
-    </div>
-</div>
+  @* <h2>Shortcuts</h2>
 
-<hr />*@
+    <p>Click the star beside a link to add it to your shortcuts.</p>
+    <div id="shortcut-list" class="row">
+        <div class="col col-3 col-xs-12 tile-block">
+            <a href="#">
+                <span class="text-wrapper">
+                    <span class="title">Bookings</span>
+                    <span class="site">Webjet AU</span>
+                </span>
+            </a>
+            <span class="wj-icon wj-favourite"></span>
+        </div>
+        <div class="col col-3 col-xs-12 tile-block">
+            <a href="#">
+                <span class="text-wrapper">
+                    <span class="title">Bookings</span>
+                    <span class="site">Webjet NZ</span>
+                </span>
+            </a>
+            <span class="wj-icon wj-favourite"></span>
+        </div>
+        <div class="col col-3 col-xs-12 tile-block">
+            <a href="#">
+                <span class="text-wrapper">
+                    <span class="title">Bookings</span>
+                    <span class="site">Zuji AU</span>
+                </span>
+            </a>
+            <span class="wj-icon wj-favourite"></span>
+        </div>
+        <div class="col col-3 col-xs-12 tile-block">
+            <a href="#">
+                <span class="text-wrapper">
+                    <span class="title">Drill Down</span>
+                    <span class="site">All sites</span>
+                </span>
+            </a>
+            <span class="wj-icon wj-favourite"></span>
+        </div>
+    </div>
+
+    <hr />*@
 
 @if (Request.IsAuthenticated)
 {
@@ -124,44 +126,6 @@
         }
     </div>
 }
-
-@*@if (Request.IsAuthenticated)
-{
-
-    if (Model.IsResourceAllowedForUserRole("GoogleBigQuery"))
-    {
-        <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
-    }
-    if (Model.IsResourceAllowedForUserRole("CreditCardTransactionsToCheck"))
-    {
-        <p>@Html.ActionLink("Credit Card Transactions To Check", "Index", "UserProfile")</p>
-    }
-}*@
-
-@*@if (Request.IsAuthenticated)
-    {
-
-        @foreach (string role in Model.AllowedRolesForResource("GoogleBigQuery"))
-        {
-            if (User.IsInRole(role))
-            {
-                <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
-            }
-        }
-
-        @foreach (string role in Model.AllowedRolesForResource("CreditCardTransactionsToCheck"))
-        {
-            if (User.IsInRole(role))
-            {
-                <p>@Html.ActionLink("Credit Card Transactions To Check", "Index", "UserProfile")</p>
-            }
-        }
-    }*@
-
-@*@if (User.IsInRole("Admin") || User.IsInRole("Analytics") || User.IsInRole("ServiceCenterManager") || User.IsInRole("ServiceCenter"))
-    {
-        <p>@Html.ActionLink("Google BigQuery Itinerary View", "Index", "GoogleBigQueryItinerary")</p>
-    }*@
 
 <br/>
 <p><a href="http://local.webjet.com.au/WebjetTsa/secure.aspx" target="_blank" class="btn-standard btn-icon-right">Visit existing DEV TSA Admin <span class="wj-icon wj-caret-right"></span></a></p>

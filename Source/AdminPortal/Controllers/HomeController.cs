@@ -18,22 +18,32 @@ namespace AdminPortal.Controllers
         private static readonly ResourceToApplicationRolesMapper ResourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
         private static RegionIndicatorList _regionIndicatorList;
         private LandingPageModel _landingPageModel;
+        private LandingPageLayoutLoader _landingPageLayoutLoader;
+
+        public HomeController() : this(new LandingPageLayoutLoader())
+        {
+
+        }
+
+        public HomeController(LandingPageLayoutLoader landingPageLayoutLoader)
+        {
+          
+            _landingPageLayoutLoader = landingPageLayoutLoader;
+        }
 
         [HttpGet]
         public ActionResult Index()
         {
-            
-            _landingPageModel = new LandingPageModel
-            {
-                LandingPageTabs = GetLandingPageTabs(new LandingPageLayoutLoader())
-            };
+
+            _landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
             
             return View(_landingPageModel);
         }
 
 
-        private List<UiLinksLandingPageTab> GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
+        private LandingPageModel GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
         {
+            _landingPageModel=new LandingPageModel();
             _regionIndicatorList = landingPageLayoutLoader.GetParsedRegionIndicatorXmlToObject();
 
             List<UiLinksLandingPageTab> landingPageTabs = new List<UiLinksLandingPageTab>();
@@ -52,7 +62,10 @@ namespace AdminPortal.Controllers
             }
 
             if (landingPageTabs.Count > 0)
-                return landingPageTabs;
+            {
+                _landingPageModel.LandingPageTabs = landingPageTabs;
+                return _landingPageModel;
+            }
             return null;
         }
 
@@ -95,7 +108,7 @@ namespace AdminPortal.Controllers
 
         private string GetDescriptionForRegionId(string id)
         {
-            foreach (RegionIndicatorListRegionIndicator  regionIndicator in _regionIndicatorList.RegionIndicator)
+            foreach (RegionIndicatorListRegionIndicator regionIndicator in _regionIndicatorList.RegionIndicator)
             {
                 if (regionIndicator.Id == id)
                     return regionIndicator.ShowDescription;

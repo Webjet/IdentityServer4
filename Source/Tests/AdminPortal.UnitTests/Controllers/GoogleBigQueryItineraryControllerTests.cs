@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AdminPortal.UnitTests;
+using AdminPortal.UnitTests.TestUtilities;
 using FluentAssertions;
 using NSubstitute;
 
@@ -22,7 +23,7 @@ namespace AdminPortal.Controllers.Tests
         {
             //Arrange
             var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.User = TestHelper.GetUserIdentityPrincipal();
+            httpContext.User = PrincipalStubBuilder.GetLoggedInUser();
           
             //Act
             var controller = new GoogleBigQueryItineraryController();

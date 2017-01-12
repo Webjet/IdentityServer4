@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Web.Caching;
 using AdminPortal.BusinessServices;
 using AdminPortal.BusinessServices.LandingPage;
+using AdminPortal.UnitTests.TestUtilities;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NLog;
@@ -14,8 +15,8 @@ namespace AdminPortal.UnitTests.BusinessServices
     [TestClass()]
     public class LandingPageLayoutLoaderTests
     {
-        const string ConfigFolder = "\\config\\";
-        private readonly string _filepath = TestHelper.GetExecutingAssembly() + ConfigFolder;
+        const string ConfigFolder = "\\BusinessServices\\config\\";
+        private readonly string _filepath = AssemblyHelper.GetExecutingAssemblyDirectoryPath() + ConfigFolder;
         private readonly NLog.ILogger _logger = Substitute.For<NLog.ILogger>();
 
         [TestMethod()]
@@ -27,11 +28,40 @@ namespace AdminPortal.UnitTests.BusinessServices
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
-           
             UiLinks uiLinks = landingPage.GetParsedXmlToObject();
-            
+            UiLinksLandingPageTab[] tabs = uiLinks.LandingPageTab;
+
             //Assert
-            Validate2TabsExample(uiLinks.LandingPageTab);
+            tabs.Should().NotBeNull();
+            tabs.Length.Should().Be(2);
+            tabs[0].Key.Should().Be("WebjetAU");
+            tabs[1].Key.Should().Be("WebjetNZ");
+
+            tabs[0].Section.Length.ShouldBeEquivalentTo(3);
+            tabs[1].Section.Length.ShouldBeEquivalentTo(3);
+
+            tabs[0].Section[0].Key.Should().Be("ServiceCenterSectionAU");
+            tabs[0].Section[0].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[0].Section[1].Key.Should().Be("ProductTeamSectionAU");
+            tabs[0].Section[1].MenuItem.Length.ShouldBeEquivalentTo(1);
+            tabs[0].Section[2].Key.Should().Be("FinanceTeamSectionAU");
+            tabs[0].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
+            tabs[1].Section[0].Key.Should().Be("ServiceCenterSectionNZ");
+            tabs[1].Section[0].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[1].Section[1].Key.Should().Be("ProductTeamSectionNZ");
+            tabs[1].Section[1].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[1].Section[2].Key.Should().Be("FinanceTeamSectionNZ");
+            tabs[1].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
+
+            tabs[0].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetAU");
+            tabs[0].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
+            tabs[0].Section[1].MenuItem[0].Key.Should().Be("CreditCardTransactionsToCheck_WebjetAU");
+            tabs[0].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournal_WebjetAU");
+            tabs[1].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetNZ");
+            tabs[1].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
+            tabs[1].Section[1].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetNZ");
+            tabs[1].Section[1].MenuItem[1].Key.Should().Be("CreditCardTransactionsToCheck_WebjetNZ");
+            tabs[1].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournal_WebjetNZ");
         }
 
         [TestMethod()]
@@ -191,41 +221,6 @@ namespace AdminPortal.UnitTests.BusinessServices
             uiLinks.Should().NotBeNull();
             uiLinks.LandingPageTab[0].Section.Should().NotBeNull();
             uiLinks.LandingPageTab[0].Section[0].MenuItem.Should().NotBeNull();
-        }
-
-        private void Validate2TabsExample(UiLinksLandingPageTab[]  tabs)
-        {
-            //Assert
-            tabs.Should().NotBeNull();
-            tabs.Length.Should().Be(2);
-            tabs[0].Key.Should().Be("WebjetAU");
-            tabs[1].Key.Should().Be("WebjetNZ");
-
-            tabs[0].Section.Length.ShouldBeEquivalentTo(3);
-            tabs[1].Section.Length.ShouldBeEquivalentTo(3);
-
-            tabs[0].Section[0].Key.Should().Be("ServiceCenterSectionAU");
-            tabs[0].Section[0].MenuItem.Length.ShouldBeEquivalentTo(2);
-            tabs[0].Section[1].Key.Should().Be("ProductTeamSectionAU");
-            tabs[0].Section[1].MenuItem.Length.ShouldBeEquivalentTo(1);
-            tabs[0].Section[2].Key.Should().Be("FinanceTeamSectionAU");
-            tabs[0].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
-            tabs[1].Section[0].Key.Should().Be("ServiceCenterSectionNZ");
-            tabs[1].Section[0].MenuItem.Length.ShouldBeEquivalentTo(2);
-            tabs[1].Section[1].Key.Should().Be("ProductTeamSectionNZ");
-            tabs[1].Section[1].MenuItem.Length.ShouldBeEquivalentTo(2);
-            tabs[1].Section[2].Key.Should().Be("FinanceTeamSectionNZ");
-            tabs[1].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
-
-            tabs[0].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetAU");
-            tabs[0].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
-            tabs[0].Section[1].MenuItem[0].Key.Should().Be("CreditCardTransactionsToCheck_WebjetAU");
-            tabs[0].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournal_WebjetAU");
-            tabs[1].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetNZ");
-            tabs[1].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
-            tabs[1].Section[1].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetNZ");
-            tabs[1].Section[1].MenuItem[1].Key.Should().Be("CreditCardTransactionsToCheck_WebjetNZ");
-            tabs[1].Section[2].MenuItem[0].Key.Should().Be("FareEscalationJournal_WebjetNZ");
         }
     }
 }
