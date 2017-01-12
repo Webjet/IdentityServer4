@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AdminPortal.UnitTests;
+using AdminPortal.UnitTests.TestUtilities;
 using FluentAssertions;
 using NSubstitute;
 
@@ -23,7 +24,7 @@ namespace AdminPortal.Controllers.Tests
         {
             //Arrange
             var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.User = TestHelper.GetUserIdentityPrincipal();
+            httpContext.User = PrincipalStubBuilder.GetLoggedInUser();
             string errorMessage = "You do not have sufficient priviliges to view this page.";
             
             //Act

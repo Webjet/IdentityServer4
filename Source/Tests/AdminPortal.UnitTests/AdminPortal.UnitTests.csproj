@@ -103,11 +103,12 @@
     <Compile Include="Controllers\GoogleBigQueryItineraryControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHelper.cs" />
+    <Compile Include="TestUtilities\PrincipalStubBuilder.cs" />
+    <Compile Include="TestUtilities\AssemblyHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="config\RegionIndicatorList.json">
+    <Content Include="BusinessServices\config\RegionIndicatorList.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
@@ -123,43 +124,43 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\RegionIndicatorList.xml">
+    <Content Include="BusinessServices\config\RegionIndicatorList.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\RoleBasedMenuItemMap_IncorrectFormat.xml">
+    <Content Include="BusinessServices\config\ResourceToRolesMapSample_IncorrectFormat.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\RoleBasedMenuItemMap_NullAttribute.xml">
+    <Content Include="BusinessServices\config\ResourceToRolesMapSample_NullAttribute.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\RoleBasedMenuItemMap_RootNodeNull.xml">
+    <Content Include="BusinessServices\config\ResourceToRolesMapSample_RootNodeNull.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\ResourceToRolesMapSample.xml">
+    <Content Include="BusinessServices\config\ResourceToRolesMapSample.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping_RootNodeNull.xml">
+    <Content Include="BusinessServices\config\UILinksMapping_RootNodeNull.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping_TabNodeNull.xml">
+    <Content Include="BusinessServices\config\UILinksMapping_TabNodeNull.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping_TabNullAttributes.xml">
+    <Content Include="BusinessServices\config\UILinksMapping_TabNullAttributes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping_MenuItemNullAttributes.xml">
+    <Content Include="BusinessServices\config\UILinksMapping_MenuItemNullAttributes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping_ZeroTabAttributes.xml">
+    <Content Include="BusinessServices\config\UILinksMapping_ZeroTabAttributes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping_ZeroSectionItem.xml">
+    <Content Include="BusinessServices\config\UILinksMapping_ZeroSectionItem.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping_ZeroMenuItem.xml">
+    <Content Include="BusinessServices\config\UILinksMapping_ZeroMenuItem.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping_2Tabs.xml">
+    <Content Include="BusinessServices\config\UILinksMapping_2Tabs.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

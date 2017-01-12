@@ -19,7 +19,7 @@ namespace AdminPortal.BusinessServices
 {
     public class ResourceToApplicationRolesMapper
     {
-        private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\RoleBasedMenuItemMap.xml";
+        private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\ResourceToRolesMap.xml";
         private static readonly NLog.ILogger StaticLogger = LogManager.GetCurrentClassLogger();
         private readonly NLog.ILogger _logger;
         

@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using AdminPortal.Controllers;
 using AdminPortal.UnitTests;
+using AdminPortal.UnitTests.TestUtilities;
 using FluentAssertions;
 using NSubstitute;
 
@@ -118,7 +119,7 @@ namespace AdminPortal.Tests
         private AuthorizationContext GetFilterAuthorizationContext()
         {
             var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.User = TestHelper.GetUserIdentityPrincipal();
+            httpContext.User = PrincipalStubBuilder.GetLoggedInUser();
             var controller = Substitute.For<ControllerBase>();
             var actionDescriptor = Substitute.For<ActionDescriptor>();
             var controllerContext = new ControllerContext(httpContext, new RouteData(), controller);
