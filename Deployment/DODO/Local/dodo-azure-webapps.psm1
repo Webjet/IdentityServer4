@@ -1051,8 +1051,10 @@ function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAcco
     
     $accountKeys = (Get-AzureRmStorageAccountKey -Name $storageAccountName -ResourceGroupName $resourceGroupName)
     $accountKey =$accountKeys.Key1 #$accountKeys[0].Value
+	Write-Output "Debug only accountKeys.Key1: $accountKeys.Key1"
+	Write-Output "Debug  accountKeys[0].Value: $accountKeys[0].Value"
 	Write-Debug "accountKeys.Key1: $accountKeys.Key1 accountKeys[0].Value: $accountKeys[0].Value"
-      Write-Host "Setting up blob sas connection - creating storage context..."
+    Write-Host "Setting up blob sas connection - creating storage context..."
     $storageContext = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $accountKey
 
     Write-Host "Setting up blob sas connection - setting up container..."
