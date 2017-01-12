@@ -4,12 +4,21 @@ using System.Configuration;
 using System.Globalization;
 using System.IdentityModel.Claims;
 using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
+using System.IdentityModel.Claims;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.Owin.Extensions;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Notifications;
 using Microsoft.Owin.Security.OpenIdConnect;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Owin;
 using AdminPortal.Models;
 
@@ -33,7 +42,7 @@ namespace AdminPortal
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
-
+           Uri test= HttpContext.Current.Request.Url;
             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {

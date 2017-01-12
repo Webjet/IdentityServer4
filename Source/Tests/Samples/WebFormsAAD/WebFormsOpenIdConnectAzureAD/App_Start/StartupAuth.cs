@@ -13,6 +13,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
 using WebFormsOpenIdConnectAzureAD.Models;
+using Microsoft.IdentityModel.Protocols;
 
 namespace WebFormsOpenIdConnectAzureAD
 {
@@ -27,9 +28,12 @@ namespace WebFormsOpenIdConnectAzureAD
         private string authority = aadInstance + tenantId;
         // This is the resource ID of the AAD Graph API.  We'll need this to request a token to call the Graph API.
         private static string graphResourceId = "https://graph.windows.net";
-
+        public static string Authority = aadInstance + tenantId;
+        
         public void ConfigureAuth(IAppBuilder app)
         {
+           string str= HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path);
+
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
@@ -40,6 +44,8 @@ namespace WebFormsOpenIdConnectAzureAD
                     ClientId = clientId,
                     Authority = authority,
                     PostLogoutRedirectUri = postLogoutRedirectUri,
+                    ResponseType = OpenIdConnectResponseTypes.CodeIdToken,
+                  
                     Notifications = new OpenIdConnectAuthenticationNotifications()
                     {
                         //
@@ -49,16 +55,19 @@ namespace WebFormsOpenIdConnectAzureAD
                         {
                             var code = context.Code;
                             ClientCredential credential = new ClientCredential(clientId, appKey);
-                            string signedInUserID = context.AuthenticationTicket.Identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                            string signedInUserID = context.AuthenticationTicket.Identity.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
                             AuthenticationContext authContext = new AuthenticationContext(authority, new ADALTokenCache(signedInUserID));
                             AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
                             code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
-
+                           
                             return Task.FromResult(0);
                         }
+                        
                     }
+
                 }
                 );
+            
 
             // This makes any middleware defined above this line run before the Authorization rule is applied in web.config
             app.UseStageMarker(PipelineStage.Authenticate);
