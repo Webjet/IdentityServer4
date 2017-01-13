@@ -1068,7 +1068,6 @@ function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAcco
     Write-Host "blob ContainerName: $blobContainerName"
     Write-Host "resource group: $resourceGroupName"
 	
-	$DebugPreference-"Continue"
     Write-Host "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
     $accountKeys = (Get-AzureRmStorageAccountKey -Name $storageAccountName -ResourceGroupName $resourceGroupName)
