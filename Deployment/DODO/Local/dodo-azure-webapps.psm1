@@ -101,7 +101,7 @@ function Publish-DODOAzureWebAppConfiguration
 
 	
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
     Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
     #region Read Json 
@@ -136,7 +136,7 @@ function Publish-DODOAzureWebAppConfiguration
 
 
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
     Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
 
@@ -219,7 +219,7 @@ function Publish-DODOAzureWebAppConfiguration
 
 
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
     Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
         #Update slot config names
@@ -233,7 +233,7 @@ function Publish-DODOAzureWebAppConfiguration
         Write-Host "Slot config names updated!"
 		
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
     Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
 		#Connection strings update
@@ -255,7 +255,7 @@ function Publish-DODOAzureWebAppConfiguration
         Write-Host "Updating Diagnostics..."
 
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
     Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
         
@@ -339,7 +339,7 @@ function Publish-DODOAzureWebAppConfiguration
         $logging.Properties.ApplicationLogs.AzureBlobStorage.RetentionInDays = 30
 
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
     Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
         if($applicationLoggingBlob.Enabled)
@@ -360,7 +360,7 @@ function Publish-DODOAzureWebAppConfiguration
         Write-Host "Setting HTTPLoggingBlob Mode to $($httpLoggingBlob.Mode)..."
 
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
     Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
         switch ($httpLoggingBlob.Mode) 
@@ -387,7 +387,7 @@ function Publish-DODOAzureWebAppConfiguration
 				
 				
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
     Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
                 #Set-DODOAzureAuthentication -SubscriptionName  $SubscriptionName -SubscriptionId $SubscriptionId;
@@ -970,7 +970,7 @@ function Internal-CreateAzureWebsiteSlot
 		[string]$Slot
 	)
 	
-	Write-Host "Checking new $Slot slot"
+	Write-Host "($Get-FunctionName): Checking new $Slot slot"
 	
 	$deploymentSlot = Get-AzureRmWebAppSlot -Name $AzureWebAppName -Slot $Slot -ResourceGroupName $ResourceGroupName -ErrorVariable e -ErrorAction SilentlyContinue
 	if ($e[0] -ne $null)
@@ -1079,20 +1079,24 @@ function Internal-DeployAzureWebsite
 
 function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAccountName, $blobContainerName, $resourceGroupName )
 {
-    Write-Host "Setting up blob sas connection..."
+    Write-Host "($Get-FunctionName) Setting up blob sas connection..."
     Write-Host "subscription: $subscriptionName"
     Write-Host "subscription id: $subscriptionId"
     Write-Host "storage AccountName: $storageAccountName"
     Write-Host "blob ContainerName: $blobContainerName"
     Write-Host "resource group: $resourceGroupName"
 	
-    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) "
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
     $accountKeys = (Get-AzureRmStorageAccountKey -Name $storageAccountName -ResourceGroupName $resourceGroupName)
     $accountKey =$accountKeys.Key1 #$accountKeys[0].Value
+	
 	Write-Output "Debug only accountKeys.Key1: $accountKeys.Key1"
 	Write-Output "Debug  accountKeys[0].Value: $accountKeys[0].Value"
-	Write-Debug "accountKeys.Key1: $accountKeys.Key1 accountKeys[0].Value: $accountKeys[0].Value"
+	Write-Output "accountKeys.Key1: $accountKeys.Key1 accountKeys[0].Value: $accountKeys[0].Value" #debug
+	
     Write-Host "Setting up blob sas connection - creating storage context..."
     $storageContext = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $accountKey
 
@@ -1107,7 +1111,7 @@ function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAcco
     {
         Write-Host "Blob container not found, creating..."
          $container = New-AzureStorageContainer -Context $storageContext -Name $blobContainerName
-      	Write-Debug "container $container "
+      	Write-Output "container $container " #debug
 		Write-Host "Blob container created $container.Name "
     }
 
