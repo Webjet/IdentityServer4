@@ -15,8 +15,8 @@ using AdminPortal.Models;
 
 namespace AdminPortal.Controllers
 {
-#if FUTURE  
-    //"Not included in solution as not refered nor tested yet. It might be required in FUTURE"
+#if INCLUDE_NOT_COVERED_BY_TESTS  
+    //"Not included in solution as not refered nor tested yet. It might be required in a future"
 
     [Authorize]
     public class UserProfileController : Controller

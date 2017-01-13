@@ -11,7 +11,7 @@
       </MenuItem>
       <MenuItem Key ="GoogleBigQueryItinerary"
                Text="Google Big Query Itinerary"
-               Link="GoogleBigQueryItinerary/Index"
+               Link="ViewHtml/GoogleBigQueryItinerary"
                 RegionIndicator="ALL">
       </MenuItem >
     </Section>
@@ -31,6 +31,15 @@
       <MenuItem Key ="FareEscalationJournal_WebjetAU"
             Text="Fare Escalation Journal"
             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+               >
+      </MenuItem>
+
+    </Section>
+    <Section Key ="Marketing"
+            Text="Marketing Team Activities " >
+      <MenuItem Key ="GenerateRandomNumber"
+            Text="Generate Random Number"
+            Link="ViewHtml/GenerateRandomNumber"
                >
       </MenuItem>
 

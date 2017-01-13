@@ -9,9 +9,9 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace AdminPortal.Models
 {
-#if FUTURE
+#if INCLUDE_NOT_COVERED_BY_TESTS
     //"Not included in solution as its reference has been removed, it required database caching. Also not tested yet.
-    // Might consider to include in FUTURE"
+    // Might consider to include in a future"
 
     public class ADALTokenCache : TokenCache
     {

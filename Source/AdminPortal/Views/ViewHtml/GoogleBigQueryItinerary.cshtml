@@ -6,9 +6,8 @@
 
 @if (Request.IsAuthenticated)
 {
-    <input type="hidden"  name="targetUrl" id="targetUrl" value="@ViewData["GoogleBigQueryHostUrl"]">
-    @Html.Raw(File.ReadAllText(Server.MapPath("~/Views/GoogleBigQueryItinerary/Content/Index.html")))
-
+    <input type="hidden" name="targetUrl" id="targetUrl" value="@ViewData["GoogleBigQueryHostUrl"]">
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Views/ViewHtml/GoogleBigQueryItinerary/Index.html")))
     @*var googleBigQueryItineraryView = File.ReadAllText(Server.MapPath("~/Views/GoogleBigQueryItinerary/Content/Index.html"));
     @Html.Raw(googleBigQueryItineraryView)*@
 

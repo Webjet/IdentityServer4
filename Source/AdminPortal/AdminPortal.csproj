@@ -200,7 +200,7 @@
     <Compile Include="AuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\GoogleBigQueryItineraryController.cs" />
+    <Compile Include="Controllers\ViewHtmlController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,7 +291,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\GoogleBigQueryItinerary\Content\index.html" />
+    <Content Include="Views\ViewHtml\GoogleBigQueryItinerary\index.html" />
+    <Content Include="Views\ViewHtml\GenerateRandomNumber.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -308,11 +309,12 @@
     <Content Include="Views\Account\SignOutCallback.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\UserProfile\Relogin.cshtml" />
-    <Content Include="Views\GoogleBigQueryItinerary\Index.cshtml" />
-    <Content Include="Views\GoogleBigQueryItinerary\ReadMe.MD" />
-    <Content Include="Views\GoogleBigQueryItinerary\SyncFromOtherRepository_ReadTree.ps1" />
-    <Content Include="Views\GoogleBigQueryItinerary\SynFromOtherRepository_DiffApply_NotComplete.ps1" />
+    <Content Include="Views\ViewHtml\GoogleBigQueryItinerary.cshtml" />
+    <Content Include="Views\ViewHtml\ReadMe.MD" />
+    <Content Include="Views\ViewHtml\GoogleBigQueryItinerary_SyncFromOtherRepository_ReadTree.ps1" />
+    <Content Include="Views\ViewHtml\GoogleBigQueryItinerary_SynFromOtherRepository_DiffApply_NotComplete.ps1" />
     <Content Include="Views\Error\ShowError.cshtml" />
+    <Content Include="Views\ViewHtml\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

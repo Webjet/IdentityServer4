@@ -38,7 +38,7 @@ namespace AdminPortal
             return new ResourceToApplicationRolesMapper().IsUserRoleAllowedForResource(resourceKey, User);
         }
         
-#if FUTURE
+#if INCLUDE_NOT_COVERED_BY_TESTS
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
