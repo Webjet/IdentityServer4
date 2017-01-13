@@ -98,7 +98,12 @@ function Publish-DODOAzureWebAppConfiguration
      )
 
 	Write-Host "Executing Publish-DODOAzureWebAppConfiguration"
+
 	
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
+
     #region Read Json 
 	switch ($PsCmdlet.ParameterSetName) 
     { 
@@ -125,9 +130,14 @@ function Publish-DODOAzureWebAppConfiguration
 
     if($webappJson -eq $NULL)
 	{
-		throw "AzureWebApp container not found in json" + $ContainerName
+		throw "AzureWebApp container not found in json " + $ContainerName
 	}
     #endregion
+
+
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
 
 	foreach($webAppContainers in $webappJson)
@@ -207,6 +217,11 @@ function Publish-DODOAzureWebAppConfiguration
             $connectionStringNames = @()
         }
 
+
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
+
         #Update slot config names
         Write-Host "Updating slot appsetting names ..."
         $slotConfigObj = @{
@@ -216,8 +231,12 @@ function Publish-DODOAzureWebAppConfiguration
         
         Set-AzureRmResource -PropertyObject $slotConfigObj -ResourceGroupName $resourceGroupName -ResourceType Microsoft.Web/sites/config -ResourceName $("$AzureWebAppName/slotConfigNames") -ApiVersion 2015-08-01 -Force
         Write-Host "Slot config names updated!"
+		
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
-        #Connection strings update
+		#Connection strings update
         #
         if($connectionStrings -ne "" -and $connectionStrings -ne $NULL)
         {
@@ -234,6 +253,10 @@ function Publish-DODOAzureWebAppConfiguration
         #Diagnostics update
         #
         Write-Host "Updating Diagnostics..."
+
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
         
         #region Failed Request Tracing
@@ -315,6 +338,10 @@ function Publish-DODOAzureWebAppConfiguration
         $logging.Properties.ApplicationLogs.AzureBlobStorage.Level =  $applicationLoggingBlob.Level
         $logging.Properties.ApplicationLogs.AzureBlobStorage.RetentionInDays = 30
 
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
+
         if($applicationLoggingBlob.Enabled)
         {
             #Set-DODOAzureAuthentication -SubscriptionName  $SubscriptionName -SubscriptionId $SubscriptionId
@@ -331,6 +358,10 @@ function Publish-DODOAzureWebAppConfiguration
         #HTTP Logging Blob
         #
         Write-Host "Setting HTTPLoggingBlob Mode to $($httpLoggingBlob.Mode)..."
+
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
         switch ($httpLoggingBlob.Mode) 
         { 
@@ -353,6 +384,12 @@ function Publish-DODOAzureWebAppConfiguration
                 $logging.Properties.HttpLogs.FileSystem.Enabled = $false;
                 $logging.Properties.HttpLogs.AzureBlobStorage.Enabled = $true;
                 $logging.Properties.HttpLogs.AzureBlobStorage.RetentionInDays = 30;
+				
+				
+	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
+    Write-Debug  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
+
                 #Set-DODOAzureAuthentication -SubscriptionName  $SubscriptionName -SubscriptionId $SubscriptionId;
                 $blobSasUrl = Internal-GetBlobSasUrl $SubscriptionName $SubscriptionId $httpLoggingStorageAccountName $httpLoggingStorageContainerName $httpLoggingStorageResourceGroupName
 
