@@ -99,7 +99,6 @@ function Publish-DODOAzureWebAppConfiguration
 
 	Write-Host "Executing Publish-DODOAzureWebAppConfiguration"
 
-    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
     #region Read Json 
 	switch ($PsCmdlet.ParameterSetName) 
@@ -222,8 +221,6 @@ function Publish-DODOAzureWebAppConfiguration
         Set-AzureRmResource -PropertyObject $slotConfigObj -ResourceGroupName $resourceGroupName -ResourceType Microsoft.Web/sites/config -ResourceName $("$AzureWebAppName/slotConfigNames") -ApiVersion 2015-08-01 -Force
         Write-Host "Slot config names updated!"
 		
-    $DebugPreference = "Continue" #temporary
-    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
 		#Connection strings update
         #
@@ -323,9 +320,6 @@ function Publish-DODOAzureWebAppConfiguration
         $logging.Properties.ApplicationLogs.AzureBlobStorage.Level =  $applicationLoggingBlob.Level
         $logging.Properties.ApplicationLogs.AzureBlobStorage.RetentionInDays = 30
 
-$DebugPreference = "Continue" #temporary
-    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
-
         if($applicationLoggingBlob.Enabled)
         {
             #Set-DODOAzureAuthentication -SubscriptionName  $SubscriptionName -SubscriptionId $SubscriptionId
@@ -342,9 +336,6 @@ $DebugPreference = "Continue" #temporary
         #HTTP Logging Blob
         #
         Write-Host "Setting HTTPLoggingBlob Mode to $($httpLoggingBlob.Mode)..."
-
-	$DebugPreference = "Continue" #temporary
-    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
         switch ($httpLoggingBlob.Mode) 
         { 
@@ -369,9 +360,6 @@ $DebugPreference = "Continue" #temporary
                 $logging.Properties.HttpLogs.AzureBlobStorage.RetentionInDays = 30;
 				
 				
-$DebugPreference = "Continue" #temporary
-    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
-
                 #Set-DODOAzureAuthentication -SubscriptionName  $SubscriptionName -SubscriptionId $SubscriptionId;
                 $blobSasUrl = Internal-GetBlobSasUrl $SubscriptionName $SubscriptionId $httpLoggingStorageAccountName $httpLoggingStorageContainerName $httpLoggingStorageResourceGroupName
 
@@ -1068,17 +1056,20 @@ function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAcco
     Write-Host "blob ContainerName: $blobContainerName"
     Write-Host "resource group: $resourceGroupName"
 	
-    Write-Host "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
+    Write-Debug "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
     $accountKeys = (Get-AzureRmStorageAccountKey -Name $storageAccountName -ResourceGroupName $resourceGroupName)
+	#By some reason response is different (why ??)
+	# on local machine -just 2 properties Key1 and Key2
+	#  on teamcity dictionary 
+	#"keys": [{"keyName": "key1",       "value": "xxx"    },
+    #         {"keyName": "key2",       "value": "yyy"   }
     $accountKey =$accountKeys[0].Value
     $accountKey =Coalesce $accountKey  $accountKeys.Key1 
 	
-	Write-Host "Debug only accountKeys : $accountKeys "
-	Write-Host "Debug only accountKeys.Key1: $($accountKeys.Key1)"
-	Write-Host "Debug  accountKeys[0].Value: $($accountKeys[0].Value)"
-	Write-Host "debug accountKeys.Key1: $accountKeys.Key1 accountKeys[0].Value: $accountKeys[0].Value" #
-	Write-Host "debug accountKey: $accountKey" #debug
+	Write-Debug "Debug only accountKeys : $accountKeys "
+	Write-Debug "debug accountKeys.Key1: $accountKeys.Key1 accountKeys[0].Value: $accountKeys[0].Value" #
+	Write-Debug "debug accountKey: $accountKey" #debug
 
     Write-Host "Setting up blob sas connection - creating storage context..."
     $storageContext = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $accountKey
@@ -1094,7 +1085,7 @@ function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAcco
     {
         Write-Host "Blob container not found, creating..."
          $container = New-AzureStorageContainer -Context $storageContext -Name $blobContainerName
-      	Write-Output "container $container " #debug
+      	Write-Debug "container $container  $(Get-CurrentFileName) $(Get-CurrentLineNumber) "     
 		Write-Host "Blob container created $container.Name "
     }
 
