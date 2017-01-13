@@ -970,7 +970,7 @@ function Internal-CreateAzureWebsiteSlot
 		[string]$Slot
 	)
 	
-	Write-Host "($Get-FunctionName): Checking new $Slot slot"
+	Write-Host "$(Get-FunctionName): Checking new $Slot slot"
 	
 	$deploymentSlot = Get-AzureRmWebAppSlot -Name $AzureWebAppName -Slot $Slot -ResourceGroupName $ResourceGroupName -ErrorVariable e -ErrorAction SilentlyContinue
 	if ($e[0] -ne $null)
@@ -1079,7 +1079,7 @@ function Internal-DeployAzureWebsite
 
 function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAccountName, $blobContainerName, $resourceGroupName )
 {
-    Write-Host "($Get-FunctionName) Setting up blob sas connection..."
+    Write-Host "$(Get-FunctionName) Setting up blob sas connection..."
     Write-Host "subscription: $subscriptionName"
     Write-Host "subscription id: $subscriptionId"
     Write-Host "storage AccountName: $storageAccountName"
@@ -1087,15 +1087,15 @@ function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAcco
     Write-Host "resource group: $resourceGroupName"
 	
 	$GetVersionExist= Get-Command -Module "dodo-azure-webapps" -Name "DODOAzureWebApp_GetVersion" #debug
-    Write-Output  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
-    Write-Output "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
+    Write-Host  "Debug :GetVersionExist: $GetVersionExist  $(Get-CurrentFileName) $(Get-CurrentLineNumber)  " #debug
+    Write-Host "DebugPreference : $DebugPreference $(Get-CurrentFileName) $(Get-CurrentLineNumber) " #debug
 
     $accountKeys = (Get-AzureRmStorageAccountKey -Name $storageAccountName -ResourceGroupName $resourceGroupName)
     $accountKey =$accountKeys.Key1 #$accountKeys[0].Value
 	
-	Write-Output "Debug only accountKeys.Key1: $accountKeys.Key1"
-	Write-Output "Debug  accountKeys[0].Value: $accountKeys[0].Value"
-	Write-Output "accountKeys.Key1: $accountKeys.Key1 accountKeys[0].Value: $accountKeys[0].Value" #debug
+	Write-Host "Debug only accountKeys.Key1: $accountKeys.Key1"
+	Write-Host "Debug  accountKeys[0].Value: $accountKeys[0].Value"
+	Write-Host "accountKeys.Key1: $accountKeys.Key1 accountKeys[0].Value: $accountKeys[0].Value" #debug
 	
     Write-Host "Setting up blob sas connection - creating storage context..."
     $storageContext = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $accountKey
