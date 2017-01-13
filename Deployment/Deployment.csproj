@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Deploy.ps1" />
+    <None Include="Modules\Readme.MD" />
     <None Include="Parameters\dev.json" />
     <None Include="Parameters\prod.json" />
     <None Include="ReadMe.MD" />
