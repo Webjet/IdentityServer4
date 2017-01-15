@@ -2,7 +2,8 @@
 {
     <ul class="nav-items">
         <li class="username">
-            @Html.ActionLink("Welcome, " + User.Identity.Name, "Index", "UserProfile", routeValues: null, htmlAttributes: new { title = "User Profile" })
+            <a href="#">Welcome, @User.Identity.Name </a>
+            @*@Html.ActionLink("Welcome, " + User.Identity.Name, "Index", "UserProfile", routeValues: null, htmlAttributes: new {title = "User Profile"})*@
         </li>
         <li>
             @Html.ActionLink("Log Out", "SignOut", "Account", routeValues: null, htmlAttributes: new { title = "Log Out" })

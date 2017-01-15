@@ -100,6 +100,7 @@
     <Compile Include="BusinessServices\LandingPageLayoutLoaderTests.cs" />
     <Compile Include="BusinessServices\ResourceToApplicationRolesMapperTests.cs" />
     <Compile Include="Controllers\ErrorControllerTests.cs" />
+    <Compile Include="Controllers\UserProfileControllerTests.cs" />
     <Compile Include="Controllers\ViewHtmlControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

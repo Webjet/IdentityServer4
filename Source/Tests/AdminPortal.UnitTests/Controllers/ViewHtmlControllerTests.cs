@@ -13,7 +13,7 @@ using NSubstitute;
 namespace AdminPortal.UnitTests.Controllers
 {
     [TestClass()]
-    public class GoogleBigQueryItineraryControllerTests
+    public class ViewHtmlControllerTests
     {
         [TestMethod()]
         public void GoogleBigQueryItineraryTest()

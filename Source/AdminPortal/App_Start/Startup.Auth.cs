@@ -12,6 +12,8 @@ using Microsoft.Owin.Security.OpenIdConnect;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Owin;
 using AdminPortal.Models;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.Owin.Security.Notifications;
 
 namespace AdminPortal
 {
@@ -33,7 +35,7 @@ namespace AdminPortal
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
-
+    //        System.Diagnostics.Debugger.Break();
             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {
@@ -50,30 +52,46 @@ namespace AdminPortal
 
                     Notifications = new OpenIdConnectAuthenticationNotifications()
                     {
+                        AuthorizationCodeReceived = OnAuthorizationCodeReceived,
+                        AuthenticationFailed = OnAuthenticationFailed,
                         RedirectToIdentityProvider = (context) =>
-                        {  //from https://github.com/Azure-Samples/active-directory-dotnet-webapp-multitenant-openidconnect/blob/master/TodoListWebApp/App_Start/Startup.Auth.cs
+                        {
+             //               System.Diagnostics.Debugger.Break();
+                            //from https://github.com/Azure-Samples/active-directory-dotnet-webapp-multitenant-openidconnect/blob/master/TodoListWebApp/App_Start/Startup.Auth.cs
                             // This ensures that the address used for sign in and sign out is picked up dynamically from the request
                             // this allows you to deploy your app (to Azure Web Sites, for example)without having to change settings
                             // Remember that the base URL of the address used here must be provisioned in Azure AD beforehand.
                             string appBaseUrl = context.Request.Scheme + "://" + context.Request.Host + context.Request.PathBase;
-                            context.ProtocolMessage.RedirectUri = appBaseUrl;
+                            context.ProtocolMessage.RedirectUri = appBaseUrl + "/"; //tail slash (from https://www.microsoftpressstore.com/articles/article.aspx?p=2473126&seqNum=2)
                             context.ProtocolMessage.PostLogoutRedirectUri = appBaseUrl;
                             return Task.FromResult(0);
                         },
-                        // If there is a code in the OpenID Connect response, redeem it for an access token and refresh token, and store those away.
-                        AuthorizationCodeReceived = (context) => 
-                       {
-                           var code = context.Code;
-                           ClientCredential credential = new ClientCredential(clientId, appKey);
-                           string signedInUserID = context.AuthenticationTicket.Identity.FindFirst(ClaimTypes.NameIdentifier).Value;
-                           AuthenticationContext authContext = new AuthenticationContext(Authority, false);//new ADALTokenCache(signedInUserID));
-                           AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
-                           code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
 
-                           return Task.FromResult(0);
-                       }
                     }
                 });
         }
+
+        private Task OnAuthenticationFailed(AuthenticationFailedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> context)
+        {
+   //         System.Diagnostics.Debugger.Break();
+            context.HandleResponse();
+            context.Response.Redirect("/Home/Error?message=" + context.Exception.Message);
+            return Task.FromResult(0);
+        }
+
+        // If there is a code in the OpenID Connect response, redeem it for an access token and refresh token, and store those away.
+        private Task OnAuthorizationCodeReceived(AuthorizationCodeReceivedNotification context)
+        {
+  //          System.Diagnostics.Debugger.Break();
+            var code = context.Code;
+            ClientCredential credential = new ClientCredential(clientId, appKey);
+            string signedInUserID = context.AuthenticationTicket.Identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            AuthenticationContext authContext = new AuthenticationContext(Authority, false); //new ADALTokenCache(signedInUserID));
+            AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
+                code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
+
+            return Task.FromResult(0);
+        }
+
     }
 }

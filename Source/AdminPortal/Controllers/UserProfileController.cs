@@ -15,12 +15,11 @@ using AdminPortal.Models;
 
 namespace AdminPortal.Controllers
 {
-#if INCLUDE_NOT_COVERED_BY_TESTS  
-    //"Not included in solution as not refered nor tested yet. It might be required in a future"
-
     [Authorize]
     public class UserProfileController : Controller
     {
+#if INCLUDE_NOT_COVERED_BY_TESTS
+
         private ApplicationDbContext db = new ApplicationDbContext();
         private string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
         private string appKey = ConfigurationManager.AppSettings["ida:ClientSecret"];
@@ -59,14 +58,15 @@ namespace AdminPortal.Controllers
                 return View("Relogin");
             }
         }
-
+#endif
         public void RefreshSession()
         {
             HttpContext.GetOwinContext().Authentication.Challenge(
-                new AuthenticationProperties { RedirectUri = "/UserProfile" },
+                new AuthenticationProperties {RedirectUri = "/UserProfile"},
                 OpenIdConnectAuthenticationDefaults.AuthenticationType);
         }
 
+#if INCLUDE_NOT_COVERED_BY_TESTS
         public async Task<string> GetTokenForApplication()
         {
             string signedInUserID = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -80,6 +80,6 @@ namespace AdminPortal.Controllers
             AuthenticationResult authenticationResult = await authenticationContext.AcquireTokenSilentAsync(graphResourceID, clientcred, new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
             return authenticationResult.AccessToken;
         }
+#endif
     }
-#endif 
 }
