@@ -30,7 +30,9 @@ Function Write-Output-WithPosition ($message)
 {
   Write-Output "$message   $($MyInvocation.ScriptName):$($MyInvocation.ScriptLineNumber) "
 }
+# http://stackoverflow.com/questions/3689543/is-there-a-way-to-retrieve-a-powershell-function-name-from-within-a-function
 # to determine Function Name $MyInvocation.MyCommand  should be called directly from code (not wrapped in function as required for file and linenumber) 
+
 <#
 Examples of call:
   Write-WithPosition "Message logged at $($MyInvocation.MyCommand)"
