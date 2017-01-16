@@ -61,12 +61,15 @@ namespace WebFormsOpenIdConnectAzureAD
             try
             {
 
+                //// API in ASP .Net MVC, named as 'WebejetAdminPortal', coupled with AdminPortal solution
+                //string adminPortalApiSuffix = "/api/AllowedRolesForResource/ReviewPendingBookings_WebjetAU";
+                //string adminPortalApiSuffix = "/api/AllowedRolesForResource"; 
 
-                string adminPortalApiSuffix = "/api/AllowedRolesForResource/ReviewPendingBookings_WebjetAU";
-                //string adminPortalApiSuffix = "/api/AllowedRolesForResource";
+                //// API in ASP Core named as 'AdminPortalWebApi' and added as separate project in AdminPortal solution
+                string adminPortalApiSuffix = "/api/values";  
 
                 HttpClient client = new HttpClient();
-
+                
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, adminPortalApiBaseAddress + adminPortalApiSuffix);
 
                 //http://brainof-dave.blogspot.com.au/2008/08/remote-certificate-is-invalid-according.html
@@ -94,6 +97,5 @@ namespace WebFormsOpenIdConnectAzureAD
         }
     }
 
-    //ServicePointManager.ServerCertificateValidationCallback =
-                    //(sender, certificate, chain, sslPolicyErrors) => true;
+    
 }
