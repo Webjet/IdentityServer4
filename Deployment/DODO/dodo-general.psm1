@@ -18,7 +18,7 @@ function Get-CurrentLineNumber {
     [string]$MyInvocation.ScriptLineNumber 
 }
 
-New-Alias -Name __LINE__ -Value Get-CurrentLineNumber –Description 'Returns the current line number in a PowerShell script file.'
+New-Alias -Name __LINE__ -Value Get-CurrentLineNumber  Description 'Returns the current line number in a PowerShell script file.'
 
 function Get-CurrentFileName { 
     $MyInvocation.ScriptName 
