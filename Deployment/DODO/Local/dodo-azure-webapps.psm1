@@ -940,7 +940,7 @@ function Internal-CreateAzureWebsiteSlot
 		[string]$Slot
 	)
 	
-	Write-Host "$(Get-FunctionName) : Checking new $Slot slot"
+	Write-Host "$($MyInvocation.MyCommand) : Checking new $Slot slot"
 	
 	$deploymentSlot = Get-AzureRmWebAppSlot -Name $AzureWebAppName -Slot $Slot -ResourceGroupName $ResourceGroupName -ErrorVariable e -ErrorAction SilentlyContinue
 	if ($e[0] -ne $null)
@@ -1049,7 +1049,7 @@ function Internal-DeployAzureWebsite
 
 function Internal-GetBlobSasUrl($subscriptionName, $subscriptionId, $storageAccountName, $blobContainerName, $resourceGroupName )
 {
-    Write-Host "$(Get-FunctionName) : Setting up blob sas connection..."
+    Write-Host "$($MyInvocation.MyCommand) : Setting up blob sas connection..."
     Write-Host "subscription: $subscriptionName"
     Write-Host "subscription id: $subscriptionId"
     Write-Host "storage AccountName: $storageAccountName"
