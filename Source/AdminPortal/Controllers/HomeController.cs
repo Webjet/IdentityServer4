@@ -17,7 +17,6 @@ namespace AdminPortal.Controllers
     {
         private static readonly ResourceToApplicationRolesMapper ResourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
         private static RegionIndicatorList _regionIndicatorList;
-        private LandingPageModel _landingPageModel;
         private LandingPageLayoutLoader _landingPageLayoutLoader;
 
         public HomeController() : this(new LandingPageLayoutLoader())
@@ -35,16 +34,16 @@ namespace AdminPortal.Controllers
         public ActionResult Index()
         {
 
-            _landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
+           var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
             
-            return View(_landingPageModel);
+            return View(landingPageModel);
         }
 
 
         private LandingPageModel GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
         {
-            _landingPageModel=new LandingPageModel();
-            _regionIndicatorList = landingPageLayoutLoader.GetParsedRegionIndicatorXmlToObject();
+            var landingPageModel=new LandingPageModel();
+            _regionIndicatorList = landingPageLayoutLoader.GetRegionIndicators();
 
             List<UiLinksLandingPageTab> landingPageTabs = new List<UiLinksLandingPageTab>();
             UiLinks uiLinks = landingPageLayoutLoader.GetParsedXmlToObject();
@@ -61,12 +60,9 @@ namespace AdminPortal.Controllers
                 }
             }
 
-            if (landingPageTabs.Count > 0)
-            {
-                _landingPageModel.LandingPageTabs = landingPageTabs;
-                return _landingPageModel;
-            }
-            return null;
+            landingPageModel.LandingPageTabs = landingPageTabs;
+            return landingPageModel;
+          
         }
 
         private List<UiLinksLandingPageTabSection> GetLandingPageTabSections(UiLinksLandingPageTab configTab)
@@ -96,7 +92,6 @@ namespace AdminPortal.Controllers
                 {
                     if (string.IsNullOrEmpty(configMenuItem.RegionIndicator))
                     {
-
                         configMenuItem.RegionIndicator = GetDescriptionForRegionId(configTabKey);
                     }
                     landingPageSectionMenuItems.Add(configMenuItem);
@@ -108,10 +103,13 @@ namespace AdminPortal.Controllers
 
         private string GetDescriptionForRegionId(string id)
         {
-            foreach (RegionIndicatorListRegionIndicator regionIndicator in _regionIndicatorList.RegionIndicator)
+            if (_regionIndicatorList != null && _regionIndicatorList.RegionIndicator !=null)
             {
-                if (regionIndicator.Id == id)
-                    return regionIndicator.ShowDescription;
+                foreach (var regionIndicator in _regionIndicatorList.RegionIndicator)
+                {
+                    if (regionIndicator.Id == id)
+                        return regionIndicator.ShowDescription;
+                }
             }
             return null;
 

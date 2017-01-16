@@ -32,6 +32,11 @@ namespace AdminPortal.UnitTests.BusinessServices
             UiLinksLandingPageTab[] tabs = uiLinks.LandingPageTab;
 
             //Assert
+            AssertUILinksMapping2Tabs(tabs);
+        }
+
+        public static void AssertUILinksMapping2Tabs(UiLinksLandingPageTab[] tabs)
+        {
             tabs.Should().NotBeNull();
             tabs.Length.Should().Be(2);
             tabs[0].Key.Should().Be("WebjetAU");
@@ -65,7 +70,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_ParseRegionIndicatorListXML_RegionIndicatorListObject()
+        public void GetRegionIndicators_RegionIndicatorListObject()
         {
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
@@ -73,7 +78,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger, regionsfile);
 
             //Act
-            RegionIndicatorList regionIndicator = landingPage.GetParsedRegionIndicatorXmlToObject();
+            RegionIndicatorList regionIndicator = landingPage.GetRegionIndicators();
 
             //Assert
             regionIndicator.Should().NotBeNull();

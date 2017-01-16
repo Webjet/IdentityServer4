@@ -52,7 +52,7 @@ namespace AdminPortal.BusinessServices
         }
 
 
-        public RegionIndicatorList GetParsedRegionIndicatorXmlToObject()
+        public RegionIndicatorList GetRegionIndicators()
         {
             try
             {
@@ -62,11 +62,9 @@ namespace AdminPortal.BusinessServices
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Warn, ex,
-                    "Error parsing xml in RoleBasedMenuItemMap.xml ");
+                _logger.Log(LogLevel.Warn, ex, "Error in  " + _regionIndicatorFilepath);
             }
             return null;
-
         }
 
         //public Rootobject GetParsedJsonToObject()

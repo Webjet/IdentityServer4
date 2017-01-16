@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// This class is auto generated from UILinksMapping.xml using 'Edit>>Paste Special' option from menu.
+//Reference URL - http://stackoverflow.com/questions/3187444/convert-xml-string-to-object/19613953#19613953
 
-namespace AdminPortal.BusinessServices
+namespace AdminPortal.BusinessServices.LandingPage
 {
-    #region Summary
-    // This class is auto generated from UILinksMapping.xml using 'Edit>>Paste Special' option from menu.
-    //Reference URL - http://stackoverflow.com/questions/3187444/convert-xml-string-to-object/19613953#19613953
-    #endregion
-
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
