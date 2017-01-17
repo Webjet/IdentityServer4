@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Web.Caching;
 using AdminPortal.BusinessServices;
@@ -20,15 +22,15 @@ namespace AdminPortal.UnitTests.BusinessServices
         private readonly NLog.ILogger _logger = Substitute.For<NLog.ILogger>();
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_2TabsExample_MatchExpected()
+        public void GetUiLinks_2TabsExample_MatchExpected()
         {
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
-            var file= _filepath + "UILinksMapping_2Tabs.xml";
+            var file = _filepath + "UILinksMapping_2Tabs.xml";
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPage.GetUiLinks();
             UiLinksLandingPageTab[] tabs = uiLinks.LandingPageTab;
 
             //Assert
@@ -74,7 +76,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
-            var regionsfile= _filepath + "RegionIndicatorList.xml";
+            var regionsfile = _filepath + "RegionIndicatorList.xml";
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger, regionsfile);
 
             //Act
@@ -82,31 +84,47 @@ namespace AdminPortal.UnitTests.BusinessServices
 
             //Assert
             regionIndicator.Should().NotBeNull();
+            regionIndicator.RegionIndicator.Length.Should().Be(4);
+            regionIndicator.RegionIndicator[0].ShortDescription.Should().Be("WAU");
+            regionIndicator.RegionIndicator[1].ShortDescription.Should().Be("WNZ");
+            regionIndicator.RegionIndicator[2].ShortDescription.Should().Be("ZAU");
+            regionIndicator.RegionIndicator[3].ShortDescription.Should().Be("ALL");
+
+            regionIndicator.RegionIndicator[0].Description.Should().Be("Webjet AU");
+            regionIndicator.RegionIndicator[1].Description.Should().Be("Webjet NZ");
+            regionIndicator.RegionIndicator[2].Description.Should().Be("Zuji AU");
+            regionIndicator.RegionIndicator[3].Description.Should().Be("All sites");
+
+            regionIndicator.RegionIndicator[0].Id.Should().Be("WebjetAU");
+            regionIndicator.RegionIndicator[1].Id.Should().Be("WebjetNZ");
+            regionIndicator.RegionIndicator[2].Id.Should().Be("ZujiAU");
+            regionIndicator.RegionIndicator[3].Id.Should().Be("ALL");
+
         }
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_RootNodeNull_NullLandingPageTabs()
+        public void UILinksXMlWithRootNodeNull_NullLandingPageTabs()
         {
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
-            var file= _filepath + "UILinksMapping_RootNodeNull.xml";
-             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
-            
+            var file = _filepath + "UILinksMapping_RootNodeNull.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
+
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPage.GetUiLinks();
 
             //Assert
             uiLinks.Should().BeNull();
         }
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_HostApplicationFilePath_LandingPageTabs()
+        public void GetUiLinks_HostApplicationFilePath_LandingPageTabs()
         {
             //Arrange
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger);
-            
+
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPage.GetUiLinks();
 
             //Assert
             uiLinks.Should().NotBeNull();
@@ -114,42 +132,43 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_InCorrectFilePath_ExceptionLogAndNullLandingPageTabs()
+        public void GetUiLinks_InCorrectFilePath_DirectoryNotFoundExceptionThrown()
         {
             //Arrange
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
-            
+
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            //UiLinks uiLinks = landingPage.GetUiLinks();
+            Action act = () => landingPage.GetUiLinks();
+
+            //Assert
+            act.ShouldThrow<System.IO.DirectoryNotFoundException>();
+        }
+
+
+        [TestMethod()]
+        public void UiLinksXMLWithTabNodeNull_NullLandingPageTabs()
+        {
+            //Arrange
+            var file = _filepath + "UILinksMapping_TabNodeNull.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
+
+            //Act
+            UiLinks uiLinks = landingPage.GetUiLinks();
 
             //Assert
             uiLinks.Should().BeNull();
         }
 
-        
         [TestMethod()]
-        public void LandingPageLayoutLoader_TabNodeNull_NullLandingPageTabs()
+        public void UiLinksXMLWithZeroSectionItem_NullLandingPageTabs()
         {
             //Arrange
-            var file= _filepath + "UILinksMapping_TabNodeNull.xml";
+            var file = _filepath + "UILinksMapping_ZeroSectionItem.xml";
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
-            
-            //Assert
-            uiLinks.Should().BeNull();
-        }
-
-        [TestMethod()]
-        public void LandingPageLayoutLoader_TabWith0SectionItem_NullLandingPageTabs()
-        {
-            //Arrange
-            var file= _filepath + "UILinksMapping_ZeroSectionItem.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
-
-            //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPage.GetUiLinks();
 
             //Assert
             uiLinks.Should().NotBeNull();
@@ -159,30 +178,30 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_TabSectionsWith0MenuItem_NullLandingPageTabs()
+        public void UiLinksXMLWithTabSectionsAndZeroMenuItem_NullLandingPageTabs()
         {
             //Arrange
-            var file= _filepath + "UILinksMapping_ZeroMenuItem.xml";
+            var file = _filepath + "UILinksMapping_ZeroMenuItem.xml";
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPage.GetUiLinks();
 
             //Assert
             uiLinks.Should().NotBeNull();
-             uiLinks.LandingPageTab[0].Section.Should().NotBeNull();
+            uiLinks.LandingPageTab[0].Section.Should().NotBeNull();
             uiLinks.LandingPageTab[0].Section[0].MenuItem.Should().BeNull();
         }
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_TabSectionsWith0Attribute_NullLandingPageTabs()
+        public void UiLinksXMLWithTabSectionsAndZeroAttribute_NullLandingPageTabs()
         {
             //Arrange
-            var file= _filepath + "UILinksMapping_ZeroTabAttributes.xml";
+            var file = _filepath + "UILinksMapping_ZeroTabAttributes.xml";
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPage.GetUiLinks();
 
             //Assert
             uiLinks.Should().NotBeNull();
@@ -191,17 +210,17 @@ namespace AdminPortal.UnitTests.BusinessServices
             uiLinks.LandingPageTab[0].Section.Should().NotBeNull();
         }
 
-       
+
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_MenuItemNullAttributes_NullLandingPageTabs()
+        public void UiLinksXMLWithMenuItemNullAttributes_NullLandingPageTabs()
         {
             //Arrange
-            var file= _filepath + "UILinksMapping_MenuItemNullAttributes.xml";
+            var file = _filepath + "UILinksMapping_MenuItemNullAttributes.xml";
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPage.GetUiLinks();
 
             //Assert
             uiLinks.Should().NotBeNull();
@@ -213,14 +232,14 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public void LandingPageLayoutLoader_TabNullAttributes_NullLandingPageTabs()
+        public void UiLinksXMLWithTabNullAttributes_NullLandingPageTabs()
         {
             //Arrange
-            var file= _filepath + "UILinksMapping_TabNullAttributes.xml";
+            var file = _filepath + "UILinksMapping_TabNullAttributes.xml";
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(file, _logger);
 
             //Act
-            UiLinks uiLinks = landingPage.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPage.GetUiLinks();
 
             //Assert
             uiLinks.Should().NotBeNull();

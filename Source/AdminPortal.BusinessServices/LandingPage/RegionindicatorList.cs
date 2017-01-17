@@ -38,7 +38,7 @@ namespace AdminPortal.BusinessServices.LandingPage
 
         private string idField;
 
-        private string showDescriptionField;
+        private string shortDescriptionField;
 
         private string descriptionField;
 
@@ -58,15 +58,15 @@ namespace AdminPortal.BusinessServices.LandingPage
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string ShowDescription
+        public string ShortDescription
         {
             get
             {
-                return this.showDescriptionField;
+                return this.shortDescriptionField;
             }
             set
             {
-                this.showDescriptionField = value;
+                this.shortDescriptionField = value;
             }
         }
 
@@ -85,20 +85,4 @@ namespace AdminPortal.BusinessServices.LandingPage
         }
     }
 
-
-
-    //public class Rootobject
-    //{
-    //    public Regionindicator[] RegionIndicator { get; set; }
-    //}
-
-    //public class Regionindicator
-    //{
-    //    public string Id { get; set; }
-    //    public string ShowDescription { get; set; }
-    //    public string Description { get; set; }
-    //}
-
-
-
-}
+ }

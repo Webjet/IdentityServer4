@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
+<!-- RegionIndicator field is mapped with RegionIndicator.xml 'ShortDescription' attribute value-->
 <UiLinks>
   <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
     <Section Key ="ServiceCenterSectionAU"
@@ -7,6 +7,7 @@
       <MenuItem Key ="ReviewPendingBookings_WebjetAU"
                 Text="Pending Bookings"
                 Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+               RegionIndicator="WAU">
                 >
       </MenuItem>
       <MenuItem Key ="GoogleBigQueryItinerary"

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AdminPortal.BusinessServices;
 using AdminPortal.BusinessServices.LandingPage;
 using Microsoft.SDC.Common;
@@ -26,27 +27,37 @@ namespace AdminPortal.Controllers
 
         public HomeController(LandingPageLayoutLoader landingPageLayoutLoader)
         {
-          
+
             _landingPageLayoutLoader = landingPageLayoutLoader;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
+            try
+            {
+                var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
 
-           var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
-            
-            return View(landingPageModel);
+                return View(landingPageModel);
+            }
+            catch 
+            {
+                //TODO: Handle with application error or custom error handling via config. Temporaty added, working on it.
+               
+                // Redirect to Error page in case of exception while get LandingPageTabs.
+                return RedirectToAction("ShowError", "Error");
+            }
+
         }
 
 
         private LandingPageModel GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
         {
-            var landingPageModel=new LandingPageModel();
+            var landingPageModel = new LandingPageModel();
             _regionIndicatorList = landingPageLayoutLoader.GetRegionIndicators();
 
             List<UiLinksLandingPageTab> landingPageTabs = new List<UiLinksLandingPageTab>();
-            UiLinks uiLinks = landingPageLayoutLoader.GetParsedXmlToObject();
+            UiLinks uiLinks = landingPageLayoutLoader.GetUiLinks();
 
             foreach (UiLinksLandingPageTab configTab in uiLinks.LandingPageTab)
             {
@@ -62,7 +73,7 @@ namespace AdminPortal.Controllers
 
             landingPageModel.LandingPageTabs = landingPageTabs;
             return landingPageModel;
-          
+
         }
 
         private List<UiLinksLandingPageTabSection> GetLandingPageTabSections(UiLinksLandingPageTab configTab)
@@ -92,7 +103,7 @@ namespace AdminPortal.Controllers
                 {
                     if (string.IsNullOrEmpty(configMenuItem.RegionIndicator))
                     {
-                        configMenuItem.RegionIndicator = GetDescriptionForRegionId(configTabKey);
+                        configMenuItem.RegionIndicator = GetShortDescriptionForRegionId(configTabKey);
                     }
                     landingPageSectionMenuItems.Add(configMenuItem);
                 }
@@ -101,14 +112,14 @@ namespace AdminPortal.Controllers
             return landingPageSectionMenuItems;
         }
 
-        private string GetDescriptionForRegionId(string id)
+        private string GetShortDescriptionForRegionId(string configTabKey)
         {
-            if (_regionIndicatorList != null && _regionIndicatorList.RegionIndicator !=null)
+            if (_regionIndicatorList != null && _regionIndicatorList.RegionIndicator != null)
             {
                 foreach (var regionIndicator in _regionIndicatorList.RegionIndicator)
                 {
-                    if (regionIndicator.Id == id)
-                        return regionIndicator.ShowDescription;
+                    if (regionIndicator.Id == configTabKey)
+                        return regionIndicator.ShortDescription;
                 }
             }
             return null;
