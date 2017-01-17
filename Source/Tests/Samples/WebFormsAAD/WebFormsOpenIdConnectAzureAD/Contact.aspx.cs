@@ -66,7 +66,7 @@ namespace WebFormsOpenIdConnectAzureAD
                 //string adminPortalApiSuffix = "/api/AllowedRolesForResource"; 
 
                 //// API in ASP Core named as 'AdminPortalWebApi' and added as separate project in AdminPortal solution
-                string adminPortalApiSuffix = "/api/values";  
+                string adminPortalApiSuffix = "/api/values";  //"/api/AllowedRolesForResource";
 
                 HttpClient client = new HttpClient();
                 
