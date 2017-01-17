@@ -57,12 +57,12 @@ namespace AdminPortal.BusinessServices
             var reader = XmlReader.Create(xmlString.Trim().ToStream(), new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Document });
             return new XmlSerializer(typeof(T)).Deserialize(reader) as T;
         }
-
+#if INCLUDE_NOT_COVERED_BY_TESTS
         //TODO: Not tested nor refered in solution either. Commenting below code
         public static T ParseJSON<T>(this string @this) where T : class
         {
             return JsonParser.Deserialize<T>(@this.Trim());
         }
-
+#endif
     }
 }

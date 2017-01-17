@@ -75,7 +75,7 @@ namespace AdminPortal
         {
    //         System.Diagnostics.Debugger.Break();
             context.HandleResponse();
-            context.Response.Redirect("/Home/Error?message=" + context.Exception.Message);
+            context.Response.Redirect("/Error/ShowError?message=" + context.Exception.Message); 
             return Task.FromResult(0);
         }
 
