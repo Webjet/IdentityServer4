@@ -19,9 +19,9 @@ namespace AdminPortal.BusinessServices
         private string _regionIndicatorFilepath = HostingEnvironment.ApplicationPhysicalPath + "config\\RegionIndicatorList.xml";
 
         private static readonly NLog.ILogger StaticLogger = LogManager.GetCurrentClassLogger();
-        private readonly NLog.ILogger _logger; 
+        private readonly NLog.ILogger _logger;
 
-        public LandingPageLayoutLoader(string filepath = null, ILogger logger = null, string regionIndicatorFilePath=null)
+        public LandingPageLayoutLoader(string filepath = null, ILogger logger = null, string regionIndicatorFilePath = null)
         {
             if (!string.IsNullOrEmpty(filepath))
             {
@@ -35,20 +35,15 @@ namespace AdminPortal.BusinessServices
         }
 
 
-        public UiLinks GetParsedXmlToObject()
+        public UiLinks GetUiLinks()
         {
-            try
-            {
+            
                 string xml = StreamHelper.FileToString(_filepath);
                 return xml.ParseXml<UiLinks>();
+            
+                
 
-            }
-            catch (Exception ex)
-            {
-                _logger.Log(LogLevel.Warn, ex,
-                    "Error parsing xml in RoleBasedMenuItemMap.xml ");
-            }
-            return null;
+            
         }
 
 
@@ -67,23 +62,7 @@ namespace AdminPortal.BusinessServices
             return null;
         }
 
-        //public Rootobject GetParsedJsonToObject()
-        //{
-        //    try
-        //    {
-        //        _filepath += "RegionIndicatorList.json";
-        //        string json = StreamHelper.FileToString(_filepath);
-        //        return json.ParseJSON<Rootobject>();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.Log(LogLevel.Warn, ex,
-        //            "Error parsing xml in RoleBasedMenuItemMap.xml ");
-        //    }
-        //    return null;
-
-        //}
     }
 
 }
