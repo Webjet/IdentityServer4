@@ -21,12 +21,7 @@ namespace AdminPortal
     [System.Web.Http.Authorize()]
     public class AllowedRolesForResourceController : ApiController
     {
-        // GET api/<controller>/ReviewPendingBookings_WebjetAU
-        public IEnumerable<string> Get()
-        {
-            return new ResourceToApplicationRolesMapper().GetAllowedRolesForResource("ReviewPendingBookings_WebjetAU");
-        }
-
+       
         //// GET api/<controller>/ReviewPendingBookings_WebjetAU
         //public IEnumerable<string> Get(string resourceKey)
         //{

@@ -8,12 +8,12 @@ using System.Web.UI.WebControls;
 
 namespace WebFormsOpenIdConnectAzureAD
 {
-    [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+    [Authorize(SecurityAction.Demand, ResourceKey = "ReviewPendingBookings")]
     public partial class About : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
         }
     }
 }

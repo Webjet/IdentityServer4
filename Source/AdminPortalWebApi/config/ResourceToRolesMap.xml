@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ResourceToApplicationRolesMap>
   <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam"></ResourceToRoles>
   <ResourceToRoles ResourceId="ReviewPendingBookings_WebjetAU" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
@@ -10,12 +11,13 @@
   <ResourceToRoles ResourceId="ReviewPendingBookings_ZujiAU" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
   <!--GenerateRandomNumber TODO  leave only marketing team-->
   <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="ServiceCenter,DevSupport,ProductTeam,MarketingTeam"></ResourceToRoles>
+  
+
 </ResourceToApplicationRolesMap>
-<!-- This is common shared config and its another copy is placed at AdminPortalWebApi\config ResourceToRolesMap.xml. 
-Note: Any change will require to do changes in copy manually. 
+
+<!-- This is temporary copy of AdminPortal\config ResourceToRolesMap.xml. 
+Note: Any change will require to do changes in original copy manually. 
 Proposed solution- Blog storage on Azure. To share common config data between AdminPortal and WebApi
 ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
 -->
-
-
 

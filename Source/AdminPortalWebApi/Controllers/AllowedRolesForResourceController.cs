@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 using AdminPortal.BusinessServices;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.PlatformAbstractions;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,6 +21,9 @@ namespace AdminPortalWebApi.Controllers
     [Route("api/[controller]")]
     public class AllowedRolesForResourceController : Controller
     {
+        //private var t = Directory.GetCurrentDirectory();
+        private readonly string _filepath = Directory.GetCurrentDirectory() + "\\config\\ResourceToRolesMap.xml";
+
         // GET: api/AllowedRolesForResource
         [HttpGet]
         public IEnumerable<string> Get()
@@ -21,10 +31,15 @@ namespace AdminPortalWebApi.Controllers
             return new ResourceToApplicationRolesMapper().GetAllowedRolesForResource("ReviewPendingBookings_WebjetAU");
         }
         [HttpGet("{resourceKey}")]
-        public bool Get(string resourceKey)
+        public object Get(string resourceKey)
         {
-            return new ResourceToApplicationRolesMapper().IsUserRoleAllowedForResource(resourceKey, User);
+            bool result = new ResourceToApplicationRolesMapper(_filepath).IsUserRoleAllowedForResource(resourceKey, User);
+
+            return new {isAllowed=result};
+            
         }
+
+
 
 #if INCLUDE_NOT_COVERED_BY_TESTS
 
