@@ -23,6 +23,10 @@ Binaries
 # Microsoft Fakes
 FakesAssemblies/
 
+#http://stackoverflow.com/questions/38448468/should-project-lock-json-file-be-checked-into-source-control-asp-net-core-1-0
+**/project.lock.json
+
 node_modules/
+
 # Dodo.exe extracts the files
 Deployment/DODO
