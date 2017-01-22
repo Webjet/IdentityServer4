@@ -7,6 +7,7 @@ setup
 **/bin
 [Pp]ackages
 **/*.psproj
+**/*.bak
 # do not ignore gitignore http://stackoverflow.com/questions/767147/ignore-the-gitignore-file-itself/767213#767213
 #.gitignore
 #**/.gitignore
@@ -23,8 +24,11 @@ Binaries
 # Microsoft Fakes
 FakesAssemblies/
 
-#http://stackoverflow.com/questions/38448468/should-project-lock-json-file-be-checked-into-source-control-asp-net-core-1-0
-**/project.lock.json
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
 
 node_modules/
 
