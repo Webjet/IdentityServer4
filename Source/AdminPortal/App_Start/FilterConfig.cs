@@ -7,7 +7,10 @@ namespace AdminPortal
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+ #if INCLUDE_NOT_COVERED_BY_TESTS
+//old filters.Add(new HandleErrorAttribute());
+            filters.Add(new ErrorHandler.AiHandleErrorAttribute());
+#endif
         }
     }
 }

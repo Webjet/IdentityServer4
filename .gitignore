@@ -7,6 +7,7 @@ setup
 **/bin
 [Pp]ackages
 **/*.psproj
+**/*.bak
 # do not ignore gitignore http://stackoverflow.com/questions/767147/ignore-the-gitignore-file-itself/767213#767213
 #.gitignore
 #**/.gitignore
@@ -23,6 +24,13 @@ Binaries
 # Microsoft Fakes
 FakesAssemblies/
 
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
 node_modules/
+
 # Dodo.exe extracts the files
 Deployment/DODO
