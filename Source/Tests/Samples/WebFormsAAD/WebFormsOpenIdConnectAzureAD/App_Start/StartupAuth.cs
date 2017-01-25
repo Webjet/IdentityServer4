@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.IdentityModel.Claims;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace WebFormsOpenIdConnectAzureAD
                             var code = context.Code;
                             ClientCredential credential = new ClientCredential(clientId, appKey);
                             string signedInUserID = context.AuthenticationTicket.Identity.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                            AuthenticationContext authContext = new AuthenticationContext(authority, new ADALTokenCache(signedInUserID));
+                            var authContext = NewAuthenticationContext(signedInUserID, HttpContext.Current);
                             AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
                             code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
                            
@@ -71,6 +72,26 @@ namespace WebFormsOpenIdConnectAzureAD
 
             // This makes any middleware defined above this line run before the Authorization rule is applied in web.config
             app.UseStageMarker(PipelineStage.Authenticate);
+        }
+        /// <summary>
+        /// See other alternatives in http://www.cloudidentity.com/blog/2014/07/09/the-new-token-cache-in-adal-v2/
+        /// FileCache, EFADALTokenCache, NaiveSessionCache
+        /// </summary>
+        /// <param name="signedInUserId"></param>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        public static AuthenticationContext NewAuthenticationContext(string signedInUserId, HttpContext httpContext)
+        {
+            AuthenticationContext authContext = null;
+            if (httpContext != null)
+            {
+                authContext = new AuthenticationContext(Authority, new NaiveSessionCache(httpContext, signedInUserId));
+            }
+            else
+            {
+                authContext = new AuthenticationContext(Authority, new ADALTokenCache(signedInUserId));
+            }
+            return authContext;
         }
     }
 }

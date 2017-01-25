@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Net.Security;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -32,7 +33,11 @@ namespace WebFormsOpenIdConnectAzureAD
         private NLog.ILogger _logger = LogManager.GetCurrentClassLogger();
         protected void Page_Load(object sender, EventArgs e)
         {
-            GetAADToken();
+            var attrib = new Authorize(SecurityAction.Demand);
+            attrib.ResourceKey = "ReviewPendingBookings_WebjetAU";
+            var perm=attrib.CreatePermission();
+            Debug.Assert(perm is PrincipalPermission);
+            //  GetAADToken();
         }
 
         private async void GetAADToken()

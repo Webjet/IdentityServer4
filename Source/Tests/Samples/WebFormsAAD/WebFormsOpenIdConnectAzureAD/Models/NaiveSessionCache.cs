@@ -7,15 +7,18 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace WebFormsOpenIdConnectAzureAD
 {
+    //from https://github.com/Azure-Samples/active-directory-dotnet-webapp-webapi-openidconnect/blob/master/TodoListWebApp/Utils/NaiveSessionCache.cs
     public class NaiveSessionCache : TokenCache
     {
         private static ReaderWriterLockSlim SessionLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
         string UserObjectId = string.Empty;
         string CacheId = string.Empty;
+        private HttpContext _httpContext = null;
 
-        public NaiveSessionCache(string userId)
+        public NaiveSessionCache(HttpContext httpContext, string userId)
         {
             UserObjectId = userId;
+            _httpContext = httpContext;
             CacheId = UserObjectId + "_TokenCache";
 
             this.AfterAccess = AfterAccessNotification;
@@ -25,17 +28,17 @@ namespace WebFormsOpenIdConnectAzureAD
 
         public void Load()
         {
-            if (HttpContext.Current.Session != null)
+            if (_httpContext.Session != null)
             {
                 SessionLock.EnterReadLock();
-                this.Deserialize((byte[]) HttpContext.Current.Session[CacheId]);
+                this.Deserialize((byte[])_httpContext.Session[CacheId]);
                 SessionLock.ExitReadLock();
             }
         }
 
         public void Persist()
         {
-            if (HttpContext.Current.Session != null)
+            if (_httpContext.Session != null)
             {
                 SessionLock.EnterWriteLock();
 
@@ -43,7 +46,7 @@ namespace WebFormsOpenIdConnectAzureAD
                 this.HasStateChanged = false;
 
                 // Reflect changes in the persistent store
-                HttpContext.Current.Session[CacheId] = this.Serialize();
+                _httpContext.Session[CacheId] = this.Serialize();
                 SessionLock.ExitWriteLock();
             }
         }
@@ -52,7 +55,7 @@ namespace WebFormsOpenIdConnectAzureAD
         public override void Clear()
         {
             base.Clear();
-            System.Web.HttpContext.Current.Session.Remove(CacheId);
+            _httpContext.Session.Remove(CacheId);
         }
 
         // Triggered right before ADAL needs to access the cache.
