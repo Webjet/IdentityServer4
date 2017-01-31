@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using WebFormsOpenIdConnectAzureAD.Models;
 using AuthenticationContext = Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext;
 using System.Configuration;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
@@ -40,6 +41,7 @@ namespace WebFormsOpenIdConnectAzureAD
         {
             Debug.Assert(HttpContext.Current!=null);
           _httpContext = HttpContext.Current;
+            Global.LogSession(MethodBase.GetCurrentMethod().Name, this);
         }
 
        public string ResourceKey { get; set; }
@@ -48,16 +50,11 @@ namespace WebFormsOpenIdConnectAzureAD
         {
             string resourceKey = ResourceKey + "_" + _brandRegion;
             Task<bool> task = Task.Run<bool>(async () => await GetHttpResponseFromAdminPortalApiAsync(_httpContext, resourceKey));
-            bool temp = task.Result;
+            bool isAllowed = task.Result;
+            var permissionState = isAllowed ? PermissionState.Unrestricted : PermissionState.None;
+            return new PrincipalPermission(permissionState);
+           //     throw new SecurityException("Sorry!! You do not have access permission for requested resource " + resourceKey);
 
-            if (task.Result == true)
-            {
-                return new PrincipalPermission(null, null, true);
-            }
-            else
-            {
-                throw new SecurityException("Sorry!! You do not have access permission for requested resource " + resourceKey);
-            }
 
         }
 
@@ -69,28 +66,32 @@ namespace WebFormsOpenIdConnectAzureAD
             {
                 string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
 
-                AuthenticationContext authContext = Startup.NewAuthenticationContext(userObjectID, httpContext); //new AuthenticationContext(Startup.Authority, new ADALTokenCache(userObjectID));
-
-                ClientCredential credential = new ClientCredential(clientId, _clientSecret);
+            AuthenticationContext authContext = Startup.NewAuthenticationContext(userObjectID, httpContext); //new AuthenticationContext(Startup.Authority, new ADALTokenCache(userObjectID));
+            Debug.Assert(authContext.TokenCache.Count > 0);
+            ClientCredential credential = new ClientCredential(clientId, _clientSecret);
 
                 AuthenticationResult result = await authContext.AcquireTokenSilentAsync(adminPortalApiResourceId, credential, new UserIdentifier(userObjectID, UserIdentifierType.UniqueId)).ConfigureAwait(false);
 
                 accessToken = result.AccessToken;
             }
-            catch (AdalException ex)
+            catch (AdalSilentTokenAcquisitionException ex)
             {
-                File.WriteAllText("c:\\Exception.txt", ex.ToString());
+                //http://stackoverflow.com/questions/41519132/how-to-store-the-token-received-in-acquiretokenasync-with-active-directory
+                //https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie
+                //try to get token as in start 
 
+                //   Debug.WriteLine(ex.ToString());
+                throw;
             }
 
-            try
-            {
-                //// API in ASP .Net MVC, named as 'WebejetAdminPortal', coupled with AdminPortal solution
-                //string adminPortalApiSuffix = "/api/AllowedRolesForResource/ReviewPendingBookings_WebjetAU";
-                //string adminPortalApiSuffix = "/api/AllowedRolesForResource"; 
+            //try
+            //{
+            //// API in ASP .Net MVC, named as 'WebejetAdminPortal', coupled with AdminPortal solution
+            //string adminPortalApiSuffix = "/api/AllowedRolesForResource/ReviewPendingBookings_WebjetAU";
+            //string adminPortalApiSuffix = "/api/AllowedRolesForResource"; 
 
-                //// API in ASP Core named as 'AdminPortalWebApi' and added as separate project in AdminPortal solution
-                string adminPortalApiSuffix = "/api/AllowedRolesForResource/" + resourceKey; //"/api/values"; 
+            //// API in ASP Core named as 'AdminPortalWebApi' and added as separate project in AdminPortal solution
+            string adminPortalApiSuffix = "/api/AllowedRolesForResource/" + resourceKey; //"/api/values"; 
                 HttpResponseMessage response = null;
                 if (!adminPortalApiBaseAddress.StartsWith("Mock:"))
                 {
@@ -115,18 +116,22 @@ namespace WebFormsOpenIdConnectAzureAD
                         responseString = responseElements["isAllowed"];
                         userAllowedForResource = responseString == "True" ? true : false;
                     }
+                    else
+                    {
+                       Debug.WriteLine("request:"+request.ToString() + "response:" + response.ToString());//TODO: Logger.
+                    }
                 }
                 else
                 {
                     response = new HttpResponseMessage() { StatusCode = HttpStatusCode.OK, Content = new StringContent("") };
                     userAllowedForResource = true;
                 }
-            }
+            //}
 
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.ToString());
-            }
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine(ex.ToString());
+            //}
 
 
             return userAllowedForResource;

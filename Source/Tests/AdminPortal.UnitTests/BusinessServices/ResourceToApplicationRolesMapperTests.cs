@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
 using AdminPortal.BusinessServices;
@@ -17,7 +18,6 @@ namespace AdminPortal.UnitTests.BusinessServices
         //Arrange
         //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
         const string ConfigFolder = "\\BusinessServices\\config\\";
-        private readonly NLog.ILogger _logger = Substitute.For<NLog.ILogger>();
         private readonly string _filepath = AssemblyHelper.GetExecutingAssemblyDirectoryPath() + ConfigFolder;
 
         [TestMethod()]
@@ -26,7 +26,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             var file= _filepath + "ResourceToRolesMapSample.xml";
 
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file);
 
             //Assert
             mapper.ResourceItemsWithRoles.Should().NotBeNull();
@@ -42,7 +42,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             var file = _filepath + "ResourceToRolesMapSample.xml";
 
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file);
             List<string> roles = mapper.GetAllowedRolesForResource("GoogleBigQueryItinerary");
 
             //Assert
@@ -54,78 +54,64 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public void ResourceToApplicationRolesMapper_RootNodeNull_NullResourceItemsWithRolesCollection()
+        public void ResourceToApplicationRolesMapper_NoRootNode_Exception()
         {
             //Arrange
-            var file= _filepath + "ResourceToRolesMapSample_RootNodeNull.xml";
+            var file= _filepath + "ResourceToRolesMapSample_NoRootNode.xml";
 
-            //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(file, _logger);
+            Action act = () => new ResourceToApplicationRolesMapper(file);
 
-            //Assert
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.Should().BeNull();
+            //Act and Assert
+            act.ShouldThrow<InvalidOperationException>()
+                .Where(e => e.Message.StartsWith("There is an error in XML document")); ;
         }
 
         [TestMethod()]
-        public void ResourceToApplicationRolesMapper_NullAttribute_ResourceItemsWithRolesWithCount0()
+        public void ResourceToApplicationRolesMapper_NullResourceId_Exception()
         {
             //Arrange
-            var file= _filepath + "ResourceToRolesMapSample_NullAttribute.xml";
+            var file= _filepath + "ResourceToRolesMapSample_NullResourceId.xml";
+ 
+            Action act = () => new ResourceToApplicationRolesMapper(file);
 
-            //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(file, _logger);
-
-            //Assert
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.Count.Should().Be(0);
+            //Act and Assert
+            act.ShouldThrow<NullReferenceException>()
+                .Where(e => e.Message.StartsWith("Object reference not set to an instance of an object")); ;
         }
 
         [TestMethod()]
-        public void ResourceToApplicationRolesMapper_IncorrectXML_NullResourceItemsWithRoles()
+        public void ResourceToApplicationRolesMapper_IncorrectXML_Exception()
         {
             //Arrange
             var file= _filepath + "ResourceToRolesMapSample_IncorrectFormat.xml";
 
-            //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(file, _logger);
+            Action act = () => new ResourceToApplicationRolesMapper(file);
 
-            //Assert
-            resourceToApplicationRolesMapper.ResourceItemsWithRoles.Should().BeNull();
+            //Act and Assert
+            act.ShouldThrow<InvalidOperationException>()
+                .Where(e => e.Message.StartsWith("There is an error in XML document")); ;
         }
 
         [TestMethod()]
         public void ResourceToApplicationRolesMapper_HostApplicationFilePath_Test()
         {
             //Act
-            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(null, _logger);
+            ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(null);
 
             //Assert
             resourceToApplicationRolesMapper.ResourceItemsWithRoles.Should().NotBeNull();
         }
 
-     
-
-        [TestMethod()]
-        public void GetAllowedRolesForResource_NullResourceItemWithRoles_ReturnsNull()
-        {
-            //Act
-            var file= _filepath + "ResourceToRolesMapSample_RootNodeNull.xml";
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
-
-            //Assert
-            mapper.ResourceItemsWithRoles.Should().BeNull();
-            
-        }
-        
 
         [TestMethod()]
         public void IsUserRoleAllowedForResource_Allowed()
         {
             //Arrange
             var file= _filepath + "ResourceToRolesMapSample.xml";
-            IPrincipal loggedInUser = PrincipalStubBuilder.GetLoggedInUser();
+            IPrincipal loggedInUser = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
 
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file);
 
             mapper.ResourceItemsWithRoles.Should().NotBeNull();
             ServiceCenterUser_GoogleBigQueryItinerary_True(loggedInUser, "GoogleBigQueryItinerary", mapper);
@@ -138,15 +124,55 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             var file= _filepath + "ResourceToRolesMapSample.xml";
-            IPrincipal loggedInUser = PrincipalStubBuilder.GetUserFromAnalyticsAndFinanceRole();
+            IPrincipal loggedInUser = PrincipalStubBuilder.GetUserWithAnalyticsAndFinanceRoles();
 
             //Act
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file, _logger);
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file);
 
             AnalyticsTeamUser_ReviewPendingBookingsNZ_False(loggedInUser, "ReviewPendingBookings_WebjetNZ", mapper);
             FinanceTeamUser_CreditCardTransactionsToCheckNZ_False(loggedInUser, "CreditCardTransactionsToCheck_WebjetNZ", mapper);
         }
+        [TestMethod()]
+        public void IsUserRoleAllowedForResource_DiffferentCase_Allowed()
+        {
+            //Arrange
+            var file = _filepath + "ResourceToRolesMapSample.xml";
+            IPrincipal loggedInUser = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
+            var resourceKey = "ReviewPendingBookings_WEBJETnz";
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file);
+            //Act
+            bool result = mapper.IsUserRoleAllowedForResource(resourceKey, loggedInUser);
+            //Assert
+            result.Should().BeTrue();
+        }
 
+        [TestMethod()]
+        public void GetAllowedForUserResources_Found()
+        {
+            //Arrange
+            var file = _filepath + "ResourceToRolesMapSample.xml";
+            IPrincipal user = PrincipalStubBuilder.GetUserWithAnalyticsAndFinanceRoles();
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file);
+            //Act
+            var resources = mapper.GetAllowedForUserResources(user);
+            //Assert
+            resources.Count.Should().Be(3);
+            var expected=new List<String>() {"GoogleBigQueryItinerary","FareEscalationJournal_WebjetAU","FareEscalationJournal_WebjetNZ"};
+            resources.Union(expected).Count().Should().Be(3);
+        }
+
+        [TestMethod()]
+        public void IsUserRoleAllowedForResource_NotFound()
+        {
+            //Arrange
+            var file = _filepath + "ResourceToRolesMapSample.xml";
+            IPrincipal user = PrincipalStubBuilder.GetUserWithDevRole();
+            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(file);
+            //Act
+            var resources = mapper.GetAllowedForUserResources(user);
+            //Assert
+            resources.Count.Should().Be(0);
+        }
         private void ServiceCenterUser_GoogleBigQueryItinerary_True(IPrincipal loggedInUser, string resourceKey, ResourceToApplicationRolesMapper mapper)
         {
             //Act

@@ -9,30 +9,37 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace WebFormsOpenIdConnectAzureAD.Models
 {
+    //From where?
     public class ADALTokenCache : TokenCache
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private string userId;
+        private string _uniqueKey;
         private UserTokenCache Cache;
 
         public ADALTokenCache(string signedInUserId)
         {
             // associate the cache to the current user of the web app
-            userId = signedInUserId;
+            _uniqueKey = UserIdUniqueKey(signedInUserId);
             this.AfterAccess = AfterAccessNotification;
             this.BeforeAccess = BeforeAccessNotification;
             this.BeforeWrite = BeforeWriteNotification;
             // look up the entry in the database
-            Cache = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == userId);
+            Cache = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == _uniqueKey);
             // place the entry in memory
             this.Deserialize((Cache == null) ? null : MachineKey.Unprotect(Cache.cacheBits,"ADALCache"));
+        }
+
+        private static string UserIdUniqueKey(string signedInUserId)
+        {
+           //return HttpContext.Current.Server.MachineName +signedInUserId;
+			return signedInUserId;
         }
 
         // clean up the database
         public override void Clear()
         {
             base.Clear();
-            var cacheEntry = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == userId);
+            var cacheEntry = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == _uniqueKey);
             db.UserTokenCacheList.Remove(cacheEntry);
             db.SaveChanges();
         }
@@ -44,13 +51,13 @@ namespace WebFormsOpenIdConnectAzureAD.Models
             if (Cache == null)
             {
                 // first time access
-                Cache = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == userId);
+                Cache = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == _uniqueKey);
             }
             else
             { 
                 // retrieve last write from the DB
                 var status = from e in db.UserTokenCacheList
-                             where (e.webUserUniqueId == userId)
+                             where (e.webUserUniqueId == _uniqueKey)
                 select new
                 {
                     LastWrite = e.LastWrite
@@ -60,7 +67,7 @@ namespace WebFormsOpenIdConnectAzureAD.Models
                 if (status.First().LastWrite > Cache.LastWrite)
                 {
                     // read from from storage, update in-memory copy
-                    Cache = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == userId);
+                    Cache = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == _uniqueKey);
                 }
             }
             this.Deserialize((Cache == null) ? null : MachineKey.Unprotect(Cache.cacheBits, "ADALCache"));
@@ -75,7 +82,7 @@ namespace WebFormsOpenIdConnectAzureAD.Models
             {
                 Cache = new UserTokenCache
                 {
-                    webUserUniqueId = userId,
+                    webUserUniqueId = _uniqueKey,
                     cacheBits = MachineKey.Protect(this.Serialize(), "ADALCache"),
                     LastWrite = DateTime.Now
                 };

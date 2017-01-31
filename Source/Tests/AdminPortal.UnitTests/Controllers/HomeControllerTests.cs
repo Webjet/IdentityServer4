@@ -52,7 +52,7 @@ namespace AdminPortal.Controllers.Tests
         private static HomeController InitHomeController(LandingPageLayoutLoader landingPageLayout)
         {
             var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.User = PrincipalStubBuilder.GetLoggedInUser();
+            httpContext.User = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
 
             var controller = new HomeController(landingPageLayout);
             controller.ControllerContext = new ControllerContext()

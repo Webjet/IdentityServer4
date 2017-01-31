@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Mime;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Hosting;
@@ -21,24 +23,37 @@ namespace AdminPortalWebApi.Controllers
     [Route("api/[controller]")]
     public class AllowedRolesForResourceController : Controller
     {
-        //private var t = Directory.GetCurrentDirectory();
-        private readonly string _filepath = Directory.GetCurrentDirectory() + "\\config\\ResourceToRolesMap.xml";
+        private readonly ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper;
+
+        public AllowedRolesForResourceController()
+        {
+            _resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
+        }
 
         // GET: api/AllowedRolesForResource
         [HttpGet]
-        public IEnumerable<string> Get()
+        public Dictionary<string, string[]> Get()
         {
-            return new ResourceToApplicationRolesMapper().GetAllowedRolesForResource("ReviewPendingBookings_WebjetAU");
+            return _resourceToApplicationRolesMapper.ResourceItemsWithRoles;
         }
+        
         [HttpGet("{resourceKey}")]
-        public object Get(string resourceKey)
+        public bool Get(string resourceKey)
         {
-            bool result = new ResourceToApplicationRolesMapper(_filepath).IsUserRoleAllowedForResource(resourceKey, User);
+            bool result = _resourceToApplicationRolesMapper.IsUserRoleAllowedForResource(resourceKey, User);
 
-            return new {isAllowed=result};
-            
+            return result;
+
         }
+//Consider to rename to Dictionary<string, string[]> Get()
+        [HttpGet]
+        public List<string> GetResourcesForUser(string resourceKey)
+        {
+            var resources = _resourceToApplicationRolesMapper.GetAllowedForUserResources(User);
 
+            return resources;
+
+        }
 
 
 #if INCLUDE_NOT_COVERED_BY_TESTS

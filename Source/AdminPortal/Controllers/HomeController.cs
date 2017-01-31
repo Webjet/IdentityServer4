@@ -16,7 +16,7 @@ namespace AdminPortal.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private static readonly ResourceToApplicationRolesMapper ResourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
+        private static readonly ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
         private static RegionIndicatorList _regionIndicatorList;
         private LandingPageLayoutLoader _landingPageLayoutLoader;
 
@@ -99,7 +99,7 @@ namespace AdminPortal.Controllers
             List<UiLinksLandingPageTabSectionMenuItem> landingPageSectionMenuItems = new List<UiLinksLandingPageTabSectionMenuItem>();
             foreach (UiLinksLandingPageTabSectionMenuItem configMenuItem in configSection.MenuItem)
             {
-                if (ResourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
+                if (_resourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
                 {
                     if (string.IsNullOrEmpty(configMenuItem.RegionIndicator))
                     {

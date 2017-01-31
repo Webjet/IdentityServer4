@@ -119,7 +119,7 @@ namespace AdminPortal.Tests
         private AuthorizationContext GetFilterAuthorizationContext()
         {
             var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.User = PrincipalStubBuilder.GetLoggedInUser();
+            httpContext.User = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
             var controller = Substitute.For<ControllerBase>();
             var actionDescriptor = Substitute.For<ActionDescriptor>();
             var controllerContext = new ControllerContext(httpContext, new RouteData(), controller);

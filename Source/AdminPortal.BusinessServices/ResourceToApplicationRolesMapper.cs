@@ -11,7 +11,6 @@ using System.Xml;
 using System.Web.Mvc;
 using System.Security.Principal;
 using Microsoft.SDC.Common;
-using NLog;
 using System.Web.Script.Serialization;
 using System.Xml.Serialization;
 
@@ -19,40 +18,26 @@ namespace AdminPortal.BusinessServices
 {
     public class ResourceToApplicationRolesMapper
     {
-        private readonly string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\ResourceToRolesMap.xml";
-        private static readonly NLog.ILogger StaticLogger = LogManager.GetCurrentClassLogger();
-        private readonly NLog.ILogger _logger;
-        
+       public static string ConfigFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"config\ResourceToRolesMap.xml");
+        private readonly string _filepath ;
+
         public Dictionary<string, string[]> ResourceItemsWithRoles { get; set; }
-        
-        public ResourceToApplicationRolesMapper(string filepath = null, ILogger logger = null)
+
+         public ResourceToApplicationRolesMapper(string filepath=null)
         {
-            if (!string.IsNullOrEmpty(filepath))
-                _filepath = filepath;
-
-            _logger = logger ?? StaticLogger;
-
+            _filepath = !string.IsNullOrEmpty(filepath) ? filepath : ConfigFilePath;
             ParseXmlToObject();
-           
         }
 
         private void ParseXmlToObject()
         {
-            try
-            {
-                string xml = StreamHelper.FileToString(_filepath); 
-                ResourceToApplicationRolesMap mapper = xml.ParseXml<ResourceToApplicationRolesMap>();
+            string xml = StreamHelper.FileToString(_filepath); 
+            ResourceToApplicationRolesMap mapper = xml.ParseXml<ResourceToApplicationRolesMap>();
 
-                ResourceItemsWithRoles = new Dictionary<string, string[]>();
-                foreach (ResourceToApplicationRolesMapResourceToRoles resourceToRolesItem in mapper.ResourceToRoles)
-                {
-                    ResourceItemsWithRoles.Add(resourceToRolesItem.ResourceId, resourceToRolesItem.Roles.Split(','));
-                }
-            }
-            catch (Exception ex)
+            ResourceItemsWithRoles = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
+            foreach (ResourceToApplicationRolesMapResourceToRoles resourceToRolesItem in mapper.ResourceToRoles)
             {
-                _logger.Log(LogLevel.Warn, ex,
-                    "Error parsing xml in RoleBasedMenuItemMap.xml ");
+                ResourceItemsWithRoles.Add(resourceToRolesItem.ResourceId, resourceToRolesItem.Roles.Split(','));
             }
         }
 
@@ -68,13 +53,17 @@ namespace AdminPortal.BusinessServices
         public bool IsUserRoleAllowedForResource(string resourceKey, IPrincipal loggedUser)
         {
             List<string> roles = GetAllowedRolesForResource(resourceKey);
+            bool isAllowed = false;
             if (roles != null && loggedUser != null)
             {
-                return roles.Any(role => loggedUser.IsInRole(role));
+                isAllowed = roles.Any(role => loggedUser.IsInRole(role));
             }
-            return false;
+            return isAllowed;
         }
-
+        public List<string> GetAllowedForUserResources(IPrincipal loggedUser)
+        {
+            return (from kvp in ResourceItemsWithRoles where IsUserRoleAllowedForResource(kvp.Key, loggedUser) select kvp.Key).ToList();
+        }
 
     }
 

@@ -24,7 +24,7 @@ namespace AdminPortal.Controllers.Tests
         {
             //Arrange
             var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.User = PrincipalStubBuilder.GetLoggedInUser();
+            httpContext.User = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
             string errorMessage = "You do not have sufficient priviliges to view this page.";
             
             //Act

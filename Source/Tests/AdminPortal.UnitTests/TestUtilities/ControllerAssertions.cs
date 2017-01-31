@@ -16,7 +16,7 @@ namespace AdminPortal.UnitTests.TestUtilities
         public static T ArrangeController<T>() where T : Controller
         {
             var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.User = PrincipalStubBuilder.GetLoggedInUser();
+            httpContext.User = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
 
             var controller = (T)Activator.CreateInstance(typeof(T)); // to add args , see  http://stackoverflow.com/questions/840261/passing-arguments-to-c-sharp-generic-new-of-templated-type
             controller.ControllerContext = new ControllerContext()

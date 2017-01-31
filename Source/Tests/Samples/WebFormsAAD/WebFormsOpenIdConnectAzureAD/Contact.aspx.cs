@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Security;
+using System.Reflection;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Permissions;
@@ -33,33 +34,22 @@ namespace WebFormsOpenIdConnectAzureAD
         private NLog.ILogger _logger = LogManager.GetCurrentClassLogger();
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["RequestCounter_" + Session.Count] = Session.Count + 1;
+            Global.LogSession(MethodBase.GetCurrentMethod().Name, sender);
+
             var attrib = new Authorize(SecurityAction.Demand);
-            attrib.ResourceKey = "ReviewPendingBookings_WebjetAU";
-            var perm=attrib.CreatePermission();
-            Debug.Assert(perm is PrincipalPermission);
-            //  GetAADToken();
-        }
-
-        private async void GetAADToken()
-        {
-            try
-            {
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority, new ADALTokenCache(userObjectID));
-
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-
-                AuthenticationResult result = await authContext.AcquireTokenSilentAsync(adminPortalApiResourceId, credential, new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                GetHttpResponseFromAdminPortalApi(result.AccessToken);
-            }
-            catch (AdalException ex)
-            {
-                File.WriteAllText("c:\\Exception.txt", ex.ToString());
-
+            attrib.ResourceKey = "ReviewPendingBookings";
+            var perm=attrib.CreatePermission() as PrincipalPermission;
+            Debug.Assert(perm !=null);
+            if (!perm.IsUnrestricted())
+            {   //http://stackoverflow.com/questions/217678/how-to-generate-an-401-error-programatically-in-an-asp-net-page/1627748#1627748
+                throw new HttpException((int) HttpStatusCode.Forbidden, "No permissions to access " + attrib.ResourceKey);
+                //Context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                //Response.End();
             }
         }
+
+  
 
         private async void GetHttpResponseFromAdminPortalApi(string accessToken)
         {
