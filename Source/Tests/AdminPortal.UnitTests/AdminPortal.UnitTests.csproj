@@ -129,14 +129,15 @@
     <Content Include="BusinessServices\config\ResourceToRolesMapSample_IncorrectFormat.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BusinessServices\config\ResourceToRolesMapSample_NullAttribute.xml">
+    <Content Include="BusinessServices\config\ResourceToRolesMapSample_NullResourceId.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BusinessServices\config\ResourceToRolesMapSample_RootNodeNull.xml">
+    <Content Include="BusinessServices\config\ResourceToRolesMapSample_NoRootNode.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="BusinessServices\config\ResourceToRolesMapSample.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="BusinessServices\config\UILinksMapping_RootNodeNull.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

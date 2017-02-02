@@ -1,15 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceToApplicationRolesMap>
+<!-- All Roles should be created in AAD-->
   <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam"></ResourceToRoles>
   <ResourceToRoles ResourceId="ReviewPendingBookings_WebjetAU" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
   <ResourceToRoles ResourceId="FareEscalationJournal_WebjetAU" Roles="FinanceTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetAU" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
   <ResourceToRoles ResourceId="ReviewPendingBookings_WebjetNZ" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
   <ResourceToRoles ResourceId="FareEscalationJournal_WebjetNZ" Roles="FinanceTeam,ProductTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetNZ" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
   <ResourceToRoles ResourceId="ReviewPendingBookings_ZujiAU" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
   <!--GenerateRandomNumber TODO  leave only marketing team-->
   <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="ServiceCenter,DevSupport,ProductTeam,MarketingTeam"></ResourceToRoles>
+
+  <ResourceToRoles ResourceId="AddNewItineraryItem" Roles="ServiceCenter,ITOPs"></ResourceToRoles>
+  <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,ITOPs"></ResourceToRoles>
+  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs"></ResourceToRoles><!-- used for drilldown-->
+
+  <!--May be not used-->
+  <ResourceToRoles ResourceId="PendingBookingsCount" Roles="ServiceCenter,ITOPs"></ResourceToRoles>
+
+
+  <ResourceToRoles ResourceId="CampaignManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
+  <ResourceToRoles ResourceId="CouponCampaignManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
+  <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
+  <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
+  <ResourceToRoles ResourceId="FlightFiltersManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
+  <ResourceToRoles ResourceId="InterlineManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </ResourceToApplicationRolesMap>
 <!-- This is common shared config and its another copy is placed at AdminPortalWebApi\config ResourceToRolesMap.xml. 
 Note: Any change will require to do changes in copy manually. 

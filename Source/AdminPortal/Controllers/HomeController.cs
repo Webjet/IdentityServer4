@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AdminPortal.BusinessServices;
+using AdminPortal.BusinessServices.Common.Debugging;
 using AdminPortal.BusinessServices.LandingPage;
 using Microsoft.SDC.Common;
 using WebGrease.Css.Ast.Selectors;
@@ -16,19 +17,20 @@ namespace AdminPortal.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private static readonly ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
-        private static RegionIndicatorList _regionIndicatorList;
+        private static  ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper;
+        private static RegionIndicatorList _regionIndicatorList;// to load once
         private LandingPageLayoutLoader _landingPageLayoutLoader;
 
-        public HomeController() : this(new LandingPageLayoutLoader())
+        public HomeController() : this(new LandingPageLayoutLoader(), new ResourceToApplicationRolesMapper())
         {
-
+  
         }
 
-        public HomeController(LandingPageLayoutLoader landingPageLayoutLoader)
+        public HomeController(LandingPageLayoutLoader landingPageLayoutLoader, ResourceToApplicationRolesMapper resourceToApplicationRolesMapper)
         {
 
             _landingPageLayoutLoader = landingPageLayoutLoader;
+            _resourceToApplicationRolesMapper = resourceToApplicationRolesMapper;
         }
 
         [HttpGet]

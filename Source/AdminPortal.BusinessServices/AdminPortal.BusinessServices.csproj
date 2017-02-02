@@ -60,7 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Debugging\DebugEnvironmentSettings.cs" />
     <Compile Include="Common\ParseHelper.cs" />
+    <Compile Include="Common\WebApplicationHelper.cs" />
     <Compile Include="LandingPage\RegionindicatorList.cs" />
     <Compile Include="ResourceToApplicationRolesMap.cs" />
     <Compile Include="ResourceToApplicationRolesMapper.cs" />

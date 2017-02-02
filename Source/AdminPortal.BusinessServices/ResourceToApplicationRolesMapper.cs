@@ -13,19 +13,31 @@ using System.Security.Principal;
 using Microsoft.SDC.Common;
 using System.Web.Script.Serialization;
 using System.Xml.Serialization;
+using AdminPortal.BusinessServices.Common;
+using AdminPortal.BusinessServices.Common.Debugging;
 
 namespace AdminPortal.BusinessServices
 {
     public class ResourceToApplicationRolesMapper
     {
-       public static string ConfigFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"config\ResourceToRolesMap.xml");
+
+        private static string DefaultConfigFilePath
+        {
+            get
+            {
+                DebugEnvironmentSettings.DebugApplicationFolderPath();
+                return Path.Combine(WebApplicationHelper.WebApplicationRootDirectory(), @"config\ResourceToRolesMap.xml");
+            }
+        }
+
+
         private readonly string _filepath ;
 
         public Dictionary<string, string[]> ResourceItemsWithRoles { get; set; }
 
          public ResourceToApplicationRolesMapper(string filepath=null)
         {
-            _filepath = !string.IsNullOrEmpty(filepath) ? filepath : ConfigFilePath;
+            _filepath = !string.IsNullOrEmpty(filepath) ? filepath : DefaultConfigFilePath;
             ParseXmlToObject();
         }
 

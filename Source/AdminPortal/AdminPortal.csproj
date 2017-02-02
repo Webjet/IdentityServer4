@@ -263,7 +263,10 @@
     <Content Include="config\ResourceToRolesMap.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\UILinksMapping.xml">
+    <Content Include="config\LandingPageLayout.Local.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\LandingPageLayout.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\css\main.css" />

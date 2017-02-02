@@ -49,12 +49,12 @@ namespace AdminPortal.Controllers.Tests
             LandingPageLayoutLoaderTests.AssertUILinksMapping2Tabs(uiLinksLandingPageTabs);
         }
 
-        private static HomeController InitHomeController(LandingPageLayoutLoader landingPageLayout)
+        private  HomeController InitHomeController(LandingPageLayoutLoader landingPageLayout)
         {
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.User = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
-
-            var controller = new HomeController(landingPageLayout);
+            var resourceToRolesMap = _filepath + "ResourceToRolesMapSample.xml";
+            var controller = new HomeController(landingPageLayout, new ResourceToApplicationRolesMapper(resourceToRolesMap));
             controller.ControllerContext = new ControllerContext()
             {
                 Controller = (HomeController) controller,

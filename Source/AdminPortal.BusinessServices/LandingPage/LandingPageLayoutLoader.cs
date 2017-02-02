@@ -3,11 +3,15 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Compilation;
+using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Xml;
+using AdminPortal.BusinessServices.Common;
 using AdminPortal.BusinessServices.LandingPage;
 using NLog.Common;
 
@@ -15,7 +19,18 @@ namespace AdminPortal.BusinessServices
 {
     public class LandingPageLayoutLoader
     {
-        private string _filepath = HostingEnvironment.ApplicationPhysicalPath + "config\\UILinksMapping.xml";
+        private string _filepath ="";
+
+        private string DefaultConfigFilePath
+        {
+            get
+            {
+                //TODO: DI configuration after Core
+                var relPath=WebConfigurationManager.AppSettings["LandingPageLayoutRelativePath"] ??"";
+                return Path.Combine(WebApplicationHelper.WebApplicationRootDirectory(), relPath);
+            }
+        }
+
         private string _regionIndicatorFilepath = HostingEnvironment.ApplicationPhysicalPath + "config\\RegionIndicatorList.xml";
 
         private static readonly NLog.ILogger StaticLogger = LogManager.GetCurrentClassLogger();
@@ -23,10 +38,7 @@ namespace AdminPortal.BusinessServices
 
         public LandingPageLayoutLoader(string filepath = null, ILogger logger = null, string regionIndicatorFilePath = null)
         {
-            if (!string.IsNullOrEmpty(filepath))
-            {
-                _filepath = filepath;
-            }
+            _filepath = !string.IsNullOrEmpty(filepath) ? filepath : DefaultConfigFilePath;
             if (!string.IsNullOrEmpty(regionIndicatorFilePath))
             {
                 _regionIndicatorFilepath = regionIndicatorFilePath;

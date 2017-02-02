@@ -45,21 +45,21 @@ namespace AdminPortal.UnitTests.BusinessServices
             tabs[0].Key.Should().Be("WebjetAU");
             tabs[1].Key.Should().Be("WebjetNZ");
 
-            tabs[0].Section.Length.ShouldBeEquivalentTo(3);
-            tabs[1].Section.Length.ShouldBeEquivalentTo(3);
+            tabs[0].Section.Length.Should().Be(3);
+            tabs[1].Section.Length.Should().Be(3);
 
             tabs[0].Section[0].Key.Should().Be("ServiceCenterSectionAU");
-            tabs[0].Section[0].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[0].Section[0].MenuItem.Length.Should().Be(2);
             tabs[0].Section[1].Key.Should().Be("ProductTeamSectionAU");
-            tabs[0].Section[1].MenuItem.Length.ShouldBeEquivalentTo(1);
+            tabs[0].Section[1].MenuItem.Length.Should().Be(1);
             tabs[0].Section[2].Key.Should().Be("FinanceTeamSectionAU");
-            tabs[0].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
+            tabs[0].Section[2].MenuItem.Length.Should().Be(1);
             tabs[1].Section[0].Key.Should().Be("ServiceCenterSectionNZ");
-            tabs[1].Section[0].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[1].Section[0].MenuItem.Length.Should().Be(2);
             tabs[1].Section[1].Key.Should().Be("ProductTeamSectionNZ");
-            tabs[1].Section[1].MenuItem.Length.ShouldBeEquivalentTo(2);
+            tabs[1].Section[1].MenuItem.Length.Should().Be(2);
             tabs[1].Section[2].Key.Should().Be("FinanceTeamSectionNZ");
-            tabs[1].Section[2].MenuItem.Length.ShouldBeEquivalentTo(1);
+            tabs[1].Section[2].MenuItem.Length.Should().Be(1);
 
             tabs[0].Section[0].MenuItem[0].Key.Should().Be("ReviewPendingBookings_WebjetAU");
             tabs[0].Section[0].MenuItem[1].Key.Should().Be("GoogleBigQueryItinerary");
@@ -78,7 +78,8 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Arrange
             //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
             var regionsfile = _filepath + "RegionIndicatorList.xml";
-            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger, regionsfile);
+            var landingPageLayoutFile = _filepath + "UILinksMapping_2Tabs.xml";
+            LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(landingPageLayoutFile, _logger, regionsfile);
 
             //Act
             RegionIndicatorList regionIndicator = landingPage.GetRegionIndicators();
@@ -120,30 +121,26 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public void GetUiLinks_HostApplicationFilePath_LandingPageTabs()
+        public void GetUiLinks_NullFilePath_LandingPageTabs()
         {
             //Arrange
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(null, _logger);
 
-            //Act
-            UiLinks uiLinks = landingPage.GetUiLinks();
-
-            //Assert
-            uiLinks.Should().NotBeNull();
-            uiLinks.LandingPageTab.Should().NotBeNull();
+            Action act = () => landingPage.GetUiLinks();
+            //Act and Assert
+            //<System.UnauthorizedAccessException>: System.UnauthorizedAccessException with message "Access to the path 'C:\GitRepos\AdminPortal\Source\Tests\AdminPortal.UnitTests\bin\Debug' is denied."
+            act.ShouldThrow<System.UnauthorizedAccessException>();
         }
 
         [TestMethod()]
-        public void GetUiLinks_InCorrectFilePath_DirectoryNotFoundExceptionThrown()
+        public void GetUiLinks_IncorrectFilePath_DirectoryNotFoundExceptionThrown()
         {
             //Arrange
             LandingPageLayoutLoader landingPage = new LandingPageLayoutLoader(_filepath, _logger);
 
-            //Act
-            //UiLinks uiLinks = landingPage.GetUiLinks();
             Action act = () => landingPage.GetUiLinks();
 
-            //Assert
+            //Act and Assert
             act.ShouldThrow<System.IO.DirectoryNotFoundException>();
         }
 

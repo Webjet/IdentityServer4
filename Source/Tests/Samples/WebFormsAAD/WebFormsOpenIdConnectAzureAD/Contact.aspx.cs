@@ -49,7 +49,18 @@ namespace WebFormsOpenIdConnectAzureAD
             }
         }
 
-  
+        public void Authorise(Control theControl)
+        {
+            IsAuthorised(theControl.GetType().Name, true);
+        }
+        public bool IsAuthorised(string securityKey, bool throwExceptionIfNoPermission=false)
+        {
+            var attrib = new Authorize(SecurityAction.Demand) { ThrowExceptionIfNoPermission = throwExceptionIfNoPermission, ResourceKey = securityKey };
+            var perm = attrib.CreatePermission() as PrincipalPermission;
+            Debug.Assert(perm != null);
+            return perm.IsUnrestricted();
+        }
+
 
         private async void GetHttpResponseFromAdminPortalApi(string accessToken)
         {
