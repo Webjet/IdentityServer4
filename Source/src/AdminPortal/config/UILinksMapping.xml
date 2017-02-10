@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- RegionIndicator field is mapped with RegionIndicator.xml 'ShortDescription' attribute value-->
+<UiLinks>
+  <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
+    <Section Key ="ServiceCenterSectionAU"
+             Text="ServiceCenter Activities " >
+      <MenuItem Key ="ReviewPendingBookings_WebjetAU"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+               RegionIndicator="WAU">
+                >
+      </MenuItem>
+      <MenuItem Key ="GoogleBigQueryItinerary"
+               Text="Google Big Query Itinerary"
+               Link="ViewHtml/GoogleBigQueryItinerary"
+                RegionIndicator="ALL">
+      </MenuItem >
+    </Section>
+
+    <Section Key ="ProductTeamSectionAU"
+           Text="Product Team Activities " >
+      <MenuItem Key ="CreditCardTransactionsToCheck_WebjetAU"
+            Text="Credit Card Transaction Check"
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+               >
+      </MenuItem>
+
+    </Section>
+
+    <Section Key ="FinanceTeamSectionAU"
+          Text="Finance Team Activities " >
+      <MenuItem Key ="FareEscalationJournal_WebjetAU"
+            Text="Fare Escalation Journal"
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+               >
+      </MenuItem>
+
+    </Section>
+    <Section Key ="Marketing"
+            Text="Marketing Team Activities " >
+      <MenuItem Key ="GenerateRandomNumber"
+            Text="Generate Random Number"
+            Link="ViewHtml/GenerateRandomNumber"
+               >
+      </MenuItem>
+
+    </Section>
+
+  </LandingPageTab>
+
+  <LandingPageTab Key ="WebjetNZ" Text ="Webjet NZ">
+    <Section Key ="ServiceCenterSectionNZ"
+             Text="ServiceCenter Activities " >
+      <MenuItem Key ="ReviewPendingBookings_WebjetNZ"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem >
+      <MenuItem Key ="GoogleBigQueryItinerary"
+               Text="Google Big Query Itinerary"
+               Link="GoogleBigQueryItinerary/Index"
+                >
+      </MenuItem >
+
+    </Section>
+
+    <Section Key ="ProductTeamSectionNZ"
+           Text="Product Team Activities " >
+      <MenuItem Key ="ReviewPendingBookings_WebjetNZ"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem>
+      <MenuItem Key ="CreditCardTransactionsToCheck_WebjetNZ"
+            Text="Credit Card Transaction Check"
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem>
+    </Section>
+
+    <Section Key ="FinanceTeamSectionNZ"
+          Text="Finance Team Activities " >
+      <MenuItem Key ="FareEscalationJournal_WebjetNZ"
+             Text="Fare Escalation Journal"
+             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem>
+    </Section>
+
+  </LandingPageTab>
+
+  <LandingPageTab Key ="ZujiAU" Text ="Zuji AU">
+    <Section Key ="ServiceCenterSectionAU"
+             Text="ServiceCenter Activities " >
+      <MenuItem Key ="ReviewPendingBookings_ZujiAU"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem >
+     
+    </Section>
+ 
+
+  </LandingPageTab>
+  
+</UiLinks>
+

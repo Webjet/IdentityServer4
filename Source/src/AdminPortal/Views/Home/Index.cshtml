@@ -1,0 +1,129 @@
+﻿@using System.Security.Policy
+@using AdminPortal.BusinessServices
+@using AdminPortal.BusinessServices.LandingPage
+@using AdminPortal.Models
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Extensions
+@using Webjet.DotNet.Common
+@using UriHelper = Webjet.DotNet.Common.UriHelper
+
+@model AdminPortal.Models.LandingPageModel
+@{
+    ViewBag.Title = "Admin Launchpad";
+}
+<h1>Admin Launchpad</h1>
+@* Code for Add favourites. Will require to uncomment when work on PBI - 31448 New admin home page (desktop) - favourite functionality*@
+@* <h2>Shortcuts</h2>
+
+    <p>Click the star beside a link to add it to your shortcuts.</p>
+    <div id="shortcut-list" class="row">
+        <div class="col col-3 col-xs-12 tile-block">
+            <a href="#">
+                <span class="text-wrapper">
+                    <span class="title">Bookings</span>
+                    <span class="site">Webjet AU</span>
+                </span>
+            </a>
+            <span class="wj-icon wj-favourite"></span>
+        </div>
+        <div class="col col-3 col-xs-12 tile-block">
+            <a href="#">
+                <span class="text-wrapper">
+                    <span class="title">Bookings</span>
+                    <span class="site">Webjet NZ</span>
+                </span>
+            </a>
+            <span class="wj-icon wj-favourite"></span>
+        </div>
+        <div class="col col-3 col-xs-12 tile-block">
+            <a href="#">
+                <span class="text-wrapper">
+                    <span class="title">Bookings</span>
+                    <span class="site">Zuji AU</span>
+                </span>
+            </a>
+            <span class="wj-icon wj-favourite"></span>
+        </div>
+        <div class="col col-3 col-xs-12 tile-block">
+            <a href="#">
+                <span class="text-wrapper">
+                    <span class="title">Drill Down</span>
+                    <span class="site">All sites</span>
+                </span>
+            </a>
+            <span class="wj-icon wj-favourite"></span>
+        </div>
+    </div>
+
+    <hr />*@
+@if (User.Identity.IsAuthenticated)
+{
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        @for (int i = 0; i < Model.LandingPageTabs.Count; i++)
+        {
+            var tab = Model.LandingPageTabs[i];
+            var liClass = i == 0 ? "active" : "";
+            <li class="@liClass"><a href="#@tab.Key" data-toggle="tab">@tab.Text</a></li>
+        }
+    </ul>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <!-- Tab panes -->
+    <div id="site-list" class="tab-content">
+        @for (int i = 0; i < Model.LandingPageTabs.Count; i++)
+        {
+            var tab = Model.LandingPageTabs[i];
+            if (tab != null)
+            {
+                var tabPaneClass = i == 0 ? "tab-pane active" : "tab-pane";
+                <div class="@tabPaneClass" id="@tab.Key">
+                    <span class="form-input icon-textfield">
+                        <input type="text" class="standard" placeholder="Start typing service name..." />
+                        <span class="wj-icon wj-search"></span>
+                        <span class="wj-icon wj-alt-cross"></span>
+                    </span>
+
+                    <ul class="multilevel-accordion">
+                        @foreach (UiLinksLandingPageTabSection sectionItem in @tab.Section)
+                        {
+                            <li class="has-children toggle">
+                                <a href="#" class="title">@sectionItem.Text</a>
+                                <ul>
+                                    @foreach (UiLinksLandingPageTabSectionMenuItem menuItem in @sectionItem.MenuItem)
+                                    {
+                                        var allArea = menuItem.RegionIndicator == "ALL";
+                                        bool isRel = UriHelper.IsRelativeUrl(menuItem.Link);
+                                        string target = isRel ? "" : "_blank";
+                                        <li>
+                                            <a href="@menuItem.Link" target="@target">
+                                                <span class="label @(allArea ? "label-default" : "label-important") alt">@menuItem.RegionIndicator</span>
+                                                <span class="link-title">@menuItem.Text</span>
+                                            </a>
+
+                                            @*<span class="wj-icon wj-alt-favourite" title="Add to shortcut"></span>*@
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        }
+    </div>
+    if (Model.LandingPageTabs.Count == 0)
+    {
+        <p>
+            You have not been assigned any rights for Admin Portal Menu.
+            Please contact your manager to request for the necessary permissions.
+            Thank you.
+        </p>
+    }
+}
+<br />
+<p><a href="http://local.webjet.com.au/WebjetTsa/secure.aspx" target="_blank" class="btn-standard btn-icon-right">Visit existing DEV TSA Admin <span class="wj-icon wj-caret-right"></span></a></p>
+
+

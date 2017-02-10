@@ -40,11 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\build.ps1">
-      <Link>build.ps1</Link>
-    </None>
-    <None Include="build-steps.ps1" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="build.ps1" />
+    <None Include="Build_Local.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

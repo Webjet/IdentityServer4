@@ -1,0 +1,105 @@
+﻿// Configure bundling and minification for the project.
+// More info at https://go.microsoft.com/fwlink/?LinkId=808241
+[
+  {
+    "outputFileName": "wwwroot/css/main.css",
+    // An array of relative input file paths. Globbing patterns supported
+    "inputFiles": [
+      "wwwroot/css/main.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/admin.js",
+    "inputFiles": [
+      "wwwroot/js/admin.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+
+    // Optinally generate .map file
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/webjet.ui.build.js",
+    "inputFiles": [
+      "wwwroot/js/webjet.ui.build.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+
+    // Optinally generate .map file
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/libs/jquery-ui/jquery-ui.min.js",
+    "inputFiles": [
+      "wwwroot/libs/jquery-ui/jquery-ui.min.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+
+    // Optinally generate .map file
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/libs/bootstrap/dist/js/bootstrap.js",
+    "inputFiles": [
+      "wwwroot/libs/bootstrap/dist/js/bootstrap.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+
+    // Optinally generate .map file
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/libs/jquery/dist/jquery.js",
+    "inputFiles": [
+      "wwwroot/libs/jquery/dist/jquery.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+
+    // Optinally generate .map file
+    "sourceMap": false
+  }
+] 
+
+//Original ASP CORE
+//[
+//  {
+//    "outputFileName": "wwwroot/css/site.min.css",
+//    // An array of relative input file paths. Globbing patterns supported
+//    "inputFiles": [
+//      "wwwroot/css/site.css"
+//    ]
+//  },
+//  {
+//    "outputFileName": "wwwroot/js/site.min.js",
+//    "inputFiles": [
+//      "wwwroot/js/site.js"
+//    ],
+//    // Optionally specify minification options
+//    "minify": {
+//      "enabled": true,
+//      "renameLocals": true
+//    },
+//    // Optinally generate .map file
+//    "sourceMap": false
+//  }
+//]

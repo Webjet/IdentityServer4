@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Admin Portal 1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Portal" />
+    <meta name="keywords" content="Admin Portal" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/favicon.ico" />
+    <link rel="apple-touch-icon" href="~/images/webjet-au-icon.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="~/images/Webjet-au-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="~/images/Webjet-au-icon-114x114.png" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/css/main.css" />
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/main.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    </environment>
+
+    <script type='text/javascript'>
+        var appInsights = window.appInsights || function (config) {
+            function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } }
+            var t = { config: config }, u = document, e = window, o = 'script', s = u.createElement(o), i, f; for (s.src = config.url || '//az416426.vo.msecnd.net/scripts/a/ai.0.js', u.getElementsByTagName(o)[0].parentNode.appendChild(s), t.cookie = u.cookie, t.queue = [], i = ['Event', 'Exception', 'Metric', 'PageView', 'Trace', 'Ajax']; i.length;) r('track' + i.pop()); return r('setAuthenticatedUserContext'), r('clearAuthenticatedUserContext'), config.disableExceptionTracking || (i = 'onerror', r('_' + i), f = e[i], e[i] = function (config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o), s }), t
+        }({
+            instrumentationKey: 'd4633832-b2a0-4341-bd78-be9dd0ad04a1'
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
+</head>
+<body id="webjet">
+    <div id="content-wrapper" class="responsive">
+        <header>
+            <div id="logo">
+                <a href="//www.webjet.com.au" title="Webjet">
+                    <img src="~/images/webjet-logo.png" srcset="~/images/webjet-logo-2x.png 2x" alt="Webjet logo" width="145" height="73" />
+                </a>
+            </div>
+            <button id="nav-toggle" class="nav-toggle" type="button"><span class="wj-icon wj-menu"></span>Menu</button>
+        </header>
+        <div id="navigation">
+            <nav id="main-nav">
+                <ul class="nav-items">
+                    <li class="important">
+                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "home" })
+                    </li>
+                </ul>
+            </nav>
+            <div id="service-panel">
+                <nav id="service-nav">
+                    @Html.Partial("_LoginPartial")
+                </nav>
+            </div>
+            <button id="nav-close" type="button" class="nav-toggle"><span class="wj-icon wj-s-cross"></span> Close this menu</button>
+        </div>
+        <div id="main-container">
+            <div id="content">
+                <div id="admin" class="side-gutter">
+                    @RenderBody()
+                </div>
+            </div>
+            <footer></footer>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
+            asp-fallback-src="~/libs/jquery/dist/jquery.min.js">
+    </script>
+
+
+@* src="~/libs/jquery-ui/jquery-ui.min.js" conflict with bootstrap.min.js due to common toolTip method. 
+    solution, we have to refer bootstrap tooltip method, add bootstrap reference after jquery-ui to overcome error*@
+
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.js"
+            asp-fallback-src="~/libs/jquery-ui/jquery-ui.min.js">
+    </script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            asp-fallback-src="~/libs/bootstrap/dist/js/bootstrap.min.js">
+    </script>
+
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+    <script src="~/js/webjet.ui.build.js"></script>
+
+    @RenderSection("FooterScripts", false)
+
+    @* Below is default syntax in ASP CORE,to define environment. Currently we are not referring*@
+    @*<environment names="Development">
+                    <script src="~/libs/jquery/dist/jquery.js"></script>
+                    <script src="~/libs/bootstrap/dist/js/bootstrap.js"></script>
+                    <script src="~/libs/jquery-ui.min.js"></script>
+                    <script src="~/js/admin.js" asp-append-version="true"></script>
+                    <script src="~/js/webjet.ui.build.js"></script>
+        </environment>*@
+
+</body>
+</html>
+
+
+
+
+@*    ..........Below is original code from ASP CORE.................*@
+@*<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - AdminPortal</title>
+
+        <environment names="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+        </environment>
+        <environment names="Staging,Production">
+            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AdminPortal</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    </ul>
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2017 - AdminPortal</p>
+            </footer>
+        </div>
+
+        <environment names="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@
