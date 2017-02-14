@@ -28,9 +28,15 @@ namespace AdminPortalWebApi.Controllers
 
         }
         // GET api/Test/{id}
-        [Authorize]
+        //  [Authorize]
+        [HttpGet("GetStringList")]
+        public List<String> GetStringList()
+        {
+            return new List<String>{"Role1","Role2","Role3"};
+        }
+
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(string id)
         {
             return "Authorized response " + id;
         }

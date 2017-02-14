@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AdminPortal.BusinessServices;
+using AdminPortal.BusinessServices.Common.Debugging;
 using AdminPortal.BusinessServices.LandingPage;
 using AdminPortal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
+using Serilog;
+
+
+
+
+
 
 
 namespace AdminPortal.Controllers
@@ -20,23 +28,22 @@ namespace AdminPortal.Controllers
         private static ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper;
         private static RegionIndicatorList _regionIndicatorList;// to load once
         private LandingPageLayoutLoader _landingPageLayoutLoader;
-        
+        static Serilog.ILogger _logger = Log.ForContext<HomeController>();
 
-        //public HomeController() : this(new LandingPageLayoutLoader(), new ResourceToApplicationRolesMapper())
-        //{
-
-        //}
-        
 
         public HomeController(IConfigurationRoot config, LandingPageLayoutLoader landingPageLayoutLoader, ResourceToApplicationRolesMapper resourceToApplicationRolesMapper)
         {
             _landingPageLayoutLoader = landingPageLayoutLoader;
             _resourceToApplicationRolesMapper = resourceToApplicationRolesMapper;
+
+            _logger.Debug( (User as ClaimsPrincipal).WriteClaims());
+
         }
 
         [HttpGet]
         public ActionResult Index()
         {
+            _logger.Debug((User as ClaimsPrincipal).WriteClaims());
             
                 var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
 
@@ -92,6 +99,8 @@ namespace AdminPortal.Controllers
         private List<UiLinksLandingPageTabSectionMenuItem> GetLandingPageSectionMenuItems(UiLinksLandingPageTabSection configSection, string configTabKey)
         {
             List<UiLinksLandingPageTabSectionMenuItem> landingPageSectionMenuItems = new List<UiLinksLandingPageTabSectionMenuItem>();
+            if (configSection.MenuItem != null)
+            {
             foreach (UiLinksLandingPageTabSectionMenuItem configMenuItem in configSection.MenuItem)
             {
                 if (_resourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
@@ -103,7 +112,7 @@ namespace AdminPortal.Controllers
                     landingPageSectionMenuItems.Add(configMenuItem);
                 }
             }
-
+            }
             return landingPageSectionMenuItems;
         }
 

@@ -13,6 +13,7 @@ using AdminPortal.BusinessServices.Common;
 using AdminPortal.BusinessServices.Common.Debugging;
 using Microsoft.Extensions.Configuration;
 using Webjet.DotNet.Common;
+using Webjet.DotNet.Common.Strings;
 
 namespace AdminPortal.BusinessServices
 {
@@ -55,10 +56,16 @@ namespace AdminPortal.BusinessServices
         private void ParseXmlToObject()
         {
             string xml = StreamHelper.FileToString(_filepath);
-            ResourceToApplicationRolesMap mapper = xml.ParseXml<ResourceToApplicationRolesMap>();
+            ResourceToApplicationRolesMap map = xml.ParseXml<ResourceToApplicationRolesMap>();
+            var validator = new ResourceIdsConfigValidator();
 
+            var errorMessage = validator.Validate(map, _filepath);
+            if (!errorMessage.IsNullOrBlank())
+            {
+                throw new ApplicationException(errorMessage);
+            }
             ResourceItemsWithRoles = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
-            foreach (ResourceToApplicationRolesMapResourceToRoles resourceToRolesItem in mapper.ResourceToRoles)
+            foreach (ResourceToApplicationRolesMapResourceToRoles resourceToRolesItem in map.ResourceToRoles)
             {
                 ResourceItemsWithRoles.Add(resourceToRolesItem.ResourceId, resourceToRolesItem.Roles.Split(','));
             }

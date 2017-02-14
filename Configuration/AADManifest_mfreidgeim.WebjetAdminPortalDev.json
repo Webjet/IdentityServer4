@@ -5,70 +5,80 @@
       "allowedMemberTypes": [
         "User"
       ],
+      "description": "Product Team",
       "displayName": "Product Team",
       "id": "d48816af-72c6-49d9-89da-9afdf6870b71",
       "isEnabled": true,
-      "description": "Product Team",
       "value": "ProductTeam"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
+      "description": "Service Center has the ability to work with Pending Bookings and related work.",
       "displayName": "Service Center",
       "id": "aab62896-ef7a-4208-9ba6-c7c8598bbd8b",
       "isEnabled": true,
-      "description": "Service Center has the ability to work with Pending Bookings and related work.",
       "value": "ServiceCenter"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
+      "description": "Service Center manager acts as approver/administrator for Service Center.",
       "displayName": "Service Center Manager",
       "id": "1579eed6-fcb5-4448-b8ec-e62cb4d46f59",
       "isEnabled": true,
-      "description": "Service Center manager acts as approver/administrator for Service Center.",
       "value": "ServiceCenterManager"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
+      "description": "Dev Support.",
       "displayName": "Dev Support",
       "id": "27bd1d78-2c66-4a78-971b-46fd95a245e3",
       "isEnabled": true,
-      "description": "Dev Support - API support team L1/L2 team members.",
       "value": "DevSupport"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
+      "description": "Finance team which will have access for FaresManager, FareEscalationPaymentTypeReport etc.",
       "displayName": "Finance",
       "id": "6d78b9c3-f41b-421d-899f-172d2ce447ce",
       "isEnabled": true,
-      "description": "Finance team which will have access for FaresManager, FareEscalationPaymentTypeReport etc.",
-      "value": "Finance"
+      "value": "FinanceTeam"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
+      "description": "Analytics team will have access for anlaytics reporting - BIG Query data, WTI",
       "displayName": "Analytics",
       "id": "8c7d7e09-5f2b-4f8b-87b9-3cd8d3235c7c",
       "isEnabled": true,
-      "description": "Analytics team will have access for anlaytics reporting - BIG Query data, WTI",
-      "value": "Analytics"
+      "value": "AnalyticsTeam"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
+      "description": "IT Admin, having access to all functionality",
+      "displayName": "ITOPs",
+      "id": "07608FCB-99CE-40CE-9DA2-2693101B6CA5",
+      "isEnabled": true,
+      "value": "ITOPs"
+    },
+	{
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Any user, who needs access to TSA Admin-old way,will be obsolete",
       "displayName": "TSA Admin",
       "id": "56ced3fc-c646-4d9d-8f3d-5ac6874ecb66",
       "isEnabled": true,
-      "description": "Any user, who needs access to TSA Admin",
       "value": "Admin"
     }
   ],
@@ -78,7 +88,7 @@
   "groupMembershipClaims": null,
   "homepage": "https://wj-dev-adminportal.azurewebsites.net",
   "identifierUris": [
-    "https://mfreidgeimwebjetcom.onmicrosoft.com/e0a25761-8ee6-4ddf-9bd6-2aefc7e3134d",
+    "https://mfreidgeimwebjetcom.onmicrosoft.com/e0a25761-8ee6-4ddf-9bd6-2aefc7e3134d"
   ],
   "keyCredentials": [],
   "knownClientApplications": [],
@@ -97,8 +107,7 @@
       "value": "user_impersonation"
     }
   ],
-  "oauth2RequiredPostResponse": false,
-  "objectId": "fdee95da-a08d-49b8-ab55-0dfc235cb612",
+  "oauth2RequirePostResponse": false,
   "passwordCredentials": [
     {
       "customKeyIdentifier": "VwBlAGIARgBvAHIAbQBzAA==",
@@ -123,7 +132,6 @@
     }
   ],
   "publicClient": false,
-  "supportsConvergence": false,
   "replyUrls": [
     "https://localhost:44379/",
     "https://local.webjet.com.au/WebjetTsa/",
@@ -136,6 +144,15 @@
     "https://localhost/WebjetAdminPortal"
   ],
   "requiredResourceAccess": [
+    {
+      "resourceAppId": "fdfa2546-127c-44f5-bf4f-b4065a35325e",
+      "resourceAccess": [
+        {
+          "id": "6ac4c784-0f40-407f-866f-55428779cedb",
+          "type": "Scope"
+        }
+      ]
+    },
     {
       "resourceAppId": "b7429c68-bc02-4243-b378-1ea72d54a092",
       "resourceAccess": [
@@ -160,7 +177,16 @@
     }
   ],
   "samlMetadataUrl": null,
-  "defaultIdentifierUri": null,
-  "appCategory": null,
-  "appMetadata": null
+  "extensionProperties": [],
+  "objectType": "Application",
+  "objectId": "fdee95da-a08d-49b8-ab55-0dfc235cb612",
+  "deletionTimestamp": null,
+  "createdOnBehalfOf": null,
+  "createdObjects": [],
+  "manager": null,
+  "directReports": [],
+  "members": [],
+  "memberOf": [],
+  "owners": [],
+  "ownedObjects": []
 }

@@ -52,15 +52,25 @@ namespace AdminPortal.Controllers.Tests
             var uiLinksLandingPageTabs = ((LandingPageModel)result.Model).LandingPageTabs.ToArray();
             LandingPageLayoutLoaderTests.AssertUILinksMapping2Tabs(uiLinksLandingPageTabs);
         }
-
-        private  HomeController InitHomeController(LandingPageLayoutLoader landingPageLayout)
+        [TestMethod()]
+        public void Index_EmptySectionInLandingPageLayout()
         {
-            var resourceToRolesMap = _filepath + "ResourceToRolesMapSample.xml";
-            object[] args = new object[] { null, landingPageLayout, new ResourceToApplicationRolesMapper(null, resourceToRolesMap) };
-            var controller = ControllerAssertions.ArrangeController<HomeController>(args);
-            
-            return controller;
+            //Arrange
+            var file = _filepath + "LandingPageLayout_EmptySection.xml";
+            LandingPageLayoutLoader landingPageLayout = new LandingPageLayoutLoader(null,file, _logger);
+
+            var controller = InitHomeController(landingPageLayout);
+            //Act
+
+            var result = controller.Index() as ViewResult;
+
+            //Assert
+            result.Model.Should().NotBeNull();
+            UiLinksLandingPageTab[] tabs = ((LandingPageModel)result.Model).LandingPageTabs.ToArray();
+            tabs.Should().NotBeNull();
+            tabs[0].Section.Length.Should().Be(1); //Empty section will be ignored
         }
+  
 
         [TestMethod()]
         public void Index_RegionIndicatorListNull()
@@ -82,11 +92,28 @@ namespace AdminPortal.Controllers.Tests
 
             var allMenus = from t in uiLinksLandingPageTabs.SelectMany(t => t.Section).SelectMany(s=>s.MenuItem)
                            select t;
-            var regionIndicators = allMenus.Select(m=>m.RegionIndicator).Distinct();
+            var regionIndicators = allMenus.Select(m=>m.RegionIndicator).Distinct().ToList();
             regionIndicators.Count().Should().Be(2);//null & "all"
             regionIndicators.Should().Contain((string)null);
            regionIndicators.Should().Contain("ALL");
             regionIndicators.Should().NotContain("WAU");
+        }
+
+       
+        private HomeController InitHomeController(LandingPageLayoutLoader landingPageLayout)
+        {
+            var httpContext = Substitute.For<HttpContextBase>();
+            httpContext.User = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
+            var resourceToRolesMap = _filepath + "ResourceToRolesMapSample.xml";
+            object[] args = new object[] { null, landingPageLayout, new ResourceToApplicationRolesMapper(null, resourceToRolesMap) };
+           // var controller = new HomeController(landingPageLayout, new ResourceToApplicationRolesMapper(resourceToRolesMap));
+            var controller = ControllerAssertions.ArrangeController<HomeController>(args);
+            //controller.ControllerContext = new ControllerContext()
+            //{
+            //    Controller = (HomeController)controller,
+            //    RequestContext = new RequestContext(httpContext, new RouteData())
+            //};
+            return controller;
         }
     }
 }

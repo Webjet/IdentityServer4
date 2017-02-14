@@ -11,7 +11,9 @@ using AdminPortal.BusinessServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.PlatformAbstractions;
+using Serilog;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,6 +23,8 @@ namespace AdminPortalWebApi.Controllers
     [Route("api/[controller]")]
     public class AllowedRolesForResourceController : Controller
     {
+        static Serilog.ILogger _logger = Log.ForContext<AllowedRolesForResourceController>();
+
         private readonly ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper;
 
         public AllowedRolesForResourceController()
@@ -34,23 +38,21 @@ namespace AdminPortalWebApi.Controllers
         {
             return _resourceToApplicationRolesMapper.ResourceItemsWithRoles;
         }
-
+        [HttpGet("GetResourcesForUser")]
+        public List<string> GetResourcesForUser()
+        {
+            var resources = _resourceToApplicationRolesMapper.GetAllowedForUserResources(User);
+    
+            _logger.Debug(resources.ToString());
+ 
+            return resources;
+        }
         [HttpGet("{resourceKey}")]
         public bool Get(string resourceKey)
         {
             bool result = _resourceToApplicationRolesMapper.IsUserRoleAllowedForResource(resourceKey, User);
 
             return result;
-
-        }
-        //Consider to rename to Dictionary<string, string[]> Get()
-        [HttpGet]
-        public List<string> GetResourcesForUser(string resourceKey)
-        {
-            var resources = _resourceToApplicationRolesMapper.GetAllowedForUserResources(User);
-
-            return resources;
-
         }
 
 

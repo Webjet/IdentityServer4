@@ -1,26 +1,25 @@
 {
-  "version": "1.0.0-*",
-
   "dependencies": {
     "Microsoft.AspNetCore.Hosting": "1.1.0",
     "Microsoft.AspNetCore.Mvc": "1.1.1",
     "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
-    "NETStandard.Library": "1.6.0",
+    "NETStandard.Library": "1.6.1",
     "NLog": "4.4.1",
-    "System.Xml.XmlSerializer": "4.0.11",
-    "Webjet.DotNet.Common": "1.0.0"
+    "System.Xml.XmlSerializer": "4.0.10",
+    "Webjet.DotNet.Common": "1.0.0.27275"
   },
-    "frameworks": {
-      "net461": {
-        "dependencies": {
-        }
-        //"dependencies": {
-        //  "Webjet.DotNet.Common": {
-        //    "target": "project"
-        //  }
-        //}
-        // "imports": "dnxcore50"
+  "frameworks": {
+    "net461": {
+      "dependencies": {
       }
+      //"dependencies": {
+      //  "Webjet.DotNet.Common": {
+      //    "target": "project"
+      //  }
+      //}
+      // "imports": "dnxcore50"
     }
-  }
+  },
+  "version": "1.0.0-*"
+}
 

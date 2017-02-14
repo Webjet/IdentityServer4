@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Webjet.DotNet.Common.Strings;
 
 namespace Webjet.DotNet.Common
 {

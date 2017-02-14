@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
+using VBStrings=Microsoft.VisualBasic.Strings;
 
-namespace Webjet.DotNet.Common
+namespace Webjet.DotNet.Common.Data
 {
     public static class DataHelper
     {
@@ -15,7 +12,7 @@ namespace Webjet.DotNet.Common
         //'Generic method to set not NULL values, similar to SQL Coalesce
         //It is similar to SafeRef class, but also consider DBNull
         //USE ToString_EmptyIfNull if convert to String is required
-        //For strings see StringHelper.Coalesce
+        //For VBStrings see StringHelper.Coalesce
         public static object Nz(object oItemValue, object oDefault)
         {
             if (oItemValue == null)
@@ -30,7 +27,7 @@ namespace Webjet.DotNet.Common
             return oItemValue;
         }
         /// <summary>
-        /// Method similar to Nz, but empty strings also replaced with Default
+        /// Method similar to Nz, but empty Strings also replaced with Default
         /// </summary>
         /// <param name="oItemValue"></param>
         /// <param name="oDefault"></param>
@@ -195,12 +192,12 @@ namespace Webjet.DotNet.Common
         //		'To use in SQL queries
         public static string Quoted(string arg)
         {
-            return ("'" + Strings.Replace(arg, "'", "''", 1, -1, CompareMethod.Binary) + "'");
+            return ("'" + VBStrings.Replace(arg, "'", "''", 1, -1, CompareMethod.Binary) + "'");
         }
         //    'Used in some cases when Quoted is not appropriate
         public static string EscapeSQL(string arg)
         {
-            return Strings.Replace(arg, "'", "''", 1, -1, CompareMethod.Binary);
+            return VBStrings.Replace(arg, "'", "''", 1, -1, CompareMethod.Binary);
         }
         //		'Should be called inside Quoted, eg " LIKE " + Quoted(SafeLikeLiteral(sInput) + "%")
         public static string SafeLikeLiteral(string inputSQL)
@@ -221,7 +218,7 @@ namespace Webjet.DotNet.Common
 
         public static string sSQLAppendWhereOrAnd(string strWhere)
         {
-            if (Strings.Len(strWhere) == 0)
+            if (VBStrings.Len(strWhere) == 0)
             {
                 strWhere = " Where ";
                 return strWhere;
@@ -232,7 +229,7 @@ namespace Webjet.DotNet.Common
         //		'Not very relyable, because it can be 'where' in the data, not as keyword
         public static string PrefixWhereIfRequired(string strWhere)
         {
-            if ((Strings.Len(strWhere.Trim()) > 0) && (Strings.InStr(strWhere, "Where", CompareMethod.Text) <= 0))
+            if ((VBStrings.Len(strWhere.Trim()) > 0) && (VBStrings.InStr(strWhere, "Where", CompareMethod.Text) <= 0))
             {
                 strWhere = " Where " + strWhere;
             }
@@ -245,7 +242,7 @@ namespace Webjet.DotNet.Common
         /// <returns></returns>
         public static string SQLAppendAndIfNotEmpty(string strWhere)
         {
-            if (Strings.Len(strWhere) > 0)
+            if (VBStrings.Len(strWhere) > 0)
                 strWhere = strWhere + " and ";
             return strWhere;
         }
@@ -257,7 +254,7 @@ namespace Webjet.DotNet.Common
         /// <returns></returns>
         public static string SQLAppendCondition(string strWhere, string Condition)
         {
-            if (Strings.Len(strWhere) > 0)
+            if (VBStrings.Len(strWhere) > 0)
             {
                 strWhere = strWhere + " and ";
             }

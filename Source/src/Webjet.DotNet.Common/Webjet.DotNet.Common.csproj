@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\CollectionHelper.cs" />
+    <Compile Include="Collections\ListOfStringsHelper.cs" />
     <Compile Include="Common\ParseHelper.cs" />
     <Compile Include="Common\StreamHelper.cs" />
     <Compile Include="Data\DataContractSerializerHelper.cs" />
@@ -67,6 +68,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\AssemblyInfo.t4" />
+    <None Include="ToInternalRepository.bat" />
     <None Include="Webjet.DotNet.Common.nuspec" />
   </ItemGroup>
   <ItemGroup>

@@ -1,46 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ResourceToApplicationRolesMap>
-<!-- All Roles should be created in AAD-->
-  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="ReviewPendingBookings_WebjetAU" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
-  <ResourceToRoles ResourceId="FareEscalationJournal_WebjetAU" Roles="FinanceTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="ReviewPendingBookings_WebjetNZ" Roles="ServiceCenter,DevSupport"></ResourceToRoles>
-  <ResourceToRoles ResourceId="FareEscalationJournal_WebjetNZ" Roles="FinanceTeam,ProductTeam"></ResourceToRoles>
-  <ResourceToRoles ResourceId="ReviewPendingBookings_ZujiAU" Roles="ServiceCenter,DevSupport,ProductTeam"></ResourceToRoles>
-  <!--GenerateRandomNumber TODO  leave only marketing team-->
-  <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="ServiceCenter,DevSupport,ProductTeam,MarketingTeam"></ResourceToRoles>
-
-  <ResourceToRoles ResourceId="AddNewItineraryItem" Roles="ServiceCenter,ITOPs"></ResourceToRoles>
-  <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,ITOPs"></ResourceToRoles>
-  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs"></ResourceToRoles><!-- used for drilldown-->
-
-  <!--May be not used-->
-  <ResourceToRoles ResourceId="PendingBookingsCount" Roles="ServiceCenter,ITOPs"></ResourceToRoles>
-
-
-  <ResourceToRoles ResourceId="CampaignManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
-  <ResourceToRoles ResourceId="CouponCampaignManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
-  <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
-  <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
-  <ResourceToRoles ResourceId="FlightFiltersManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
-  <ResourceToRoles ResourceId="InterlineManager" Roles="ProductTeam,ITOPs"></ResourceToRoles>
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</ResourceToApplicationRolesMap>
-<!-- This is common shared config and its another copy is placed at AdminPortalWebApi\config ResourceToRolesMap.xml. 
-Note: Any change will require to do changes in copy manually. 
+<!-- This is temporary copy of AdminPortal\config ResourceToRolesMap.xml. 
+Note: Any change will require to do changes in original copy manually. 
 Proposed solution- Blog storage on Azure. To share common config data between AdminPortal and WebApi
 ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
 -->
+<ResourceToApplicationRolesMap>
+  <!-- All Roles should be created in AAD and saved in git C:\GitRepos\AdminPortal\Configuration\AADManifest_mfreidgeim.WebjetAdminPortalDev.json
+  ServiceCenter,ServiceCenterManager, AnalyticsTeam, ITOPs, FinanceTeam,ProductTeam
 
+  -->
+  <!--Test Resources -to review and delete if not applicable-->
+  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam" />
+  <ResourceToRoles ResourceId="FareEscalationJournal_WebjetNZ" Roles="FinanceTeam,ProductTeam" />
+  <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetNZ" Roles="ServiceCenter,DevSupport,ProductTeam" />
+  <!--GenerateRandomNumber TODO  leave only marketing team-->
+  <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="ServiceCenter,DevSupport,ProductTeam,MarketingTeam" />
+
+  <!--ServiceCenter-->
+  <ResourceToRoles ResourceId="LogonAsCustomer" Roles="" /> <!--Not required to support -->
+  <ResourceToRoles ResourceId="SearchBooking" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="PendingItems" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs" />
+
+  <ResourceToRoles ResourceId="AddNewItineraryItem" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs" /><!-- used for drilldown-->
+  
+   <ResourceToRoles ResourceId="RefundAccess" Roles="?" />
+ 
+  <!--ServiceCenterManager-->
+  <ResourceToRoles ResourceId="FareEscalationAuthorisation" Roles="ServiceCenterManager" />
+
+  <!--May be not used-->
+  <ResourceToRoles ResourceId="PendingBookingsCount" Roles="ServiceCenter,ITOPs" />
+
+  <!--ProductTeam-->
+  <ResourceToRoles ResourceId="CampaignManager" Roles="ProductTeam,ITOPs" /> <!--AKA Virtual Fare- -most likely not working in WCS-->
+  <ResourceToRoles ResourceId="CouponCampaignManager" Roles="ProductTeam,ITOPs" />
+  <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs" />
+  <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="ProductTeam,ITOPs" />
+  <ResourceToRoles ResourceId="FlightFiltersManager" Roles="ProductTeam,ITOPs" />
+
+
+  <!--Test pages for Web Forms Client-->
+  <ResourceToRoles ResourceId="Contact" Roles="ServiceCenter" />
+  <ResourceToRoles ResourceId="About" Roles="ServiceCenter" />
+
+</ResourceToApplicationRolesMap>
 
 

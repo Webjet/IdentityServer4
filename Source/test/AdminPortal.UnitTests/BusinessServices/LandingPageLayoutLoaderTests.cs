@@ -23,6 +23,9 @@ using NSubstitute;
 
 namespace AdminPortal.UnitTests.BusinessServices
 {
+    /// <summary>
+    /// See also homecontrollertests.cs, where conversion UiLinks to LandingPageModel tested.
+    /// </summary>
     [TestClass()]
     public class LandingPageLayoutLoaderTests
     {
@@ -165,8 +168,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Act and Assert
             act.ShouldThrow<System.IO.DirectoryNotFoundException>();
         }
-
-
+  
         [TestMethod()]
         [Ignore]//System.InvalidOperationException: There is an error in XML document (3, 2). ---> System.InvalidOperationException: <uilinks xmlns=''> was not expected
         public void UiLinksXMLWithTabNodeNull_NullLandingPageTabs()

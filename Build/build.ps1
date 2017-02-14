@@ -1,34 +1,16 @@
-$ProjectJsonDir = $psscriptroot + "\..\Source\src\AdminPortal\"
-$ZipFilePath = $psscriptroot + "\..\Source\src\AdminPortal\bin\release\net461"
+cls
+$SolutionRoot = $psscriptroot + "\..\Source" 
+
+$ProjectJsonDir =  "$SolutionRoot\src\AdminPortal\" #
+$ZipFilePath = $SolutionRoot + "\src\AdminPortal\bin\release\net461"
 $BuildVersion = $env:Build
 $ZipFileName = "AdminPortal-$BuildVersion.zip"
-	
-#Not required for AdminPortal
-<#function SendSlack($title, $message){
-		if($notifySlack -ne "")
-		{
-			$hook = "https://hooks.slack.com/services/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";
-			$payload = @{
-					channel = "#payment_team";
-					username = "Payments_BOT";
-					icon_url = "http://besticons.net/sites/default/files/departing-flight-icon-3634.png";
-					attachments = @(
-						@{
-							fallback = $message;
-							color = "warning";
-							title = $title;
-							fields = @(
-								@{
-									value = $message;
-								});
-						};
-					);
-				}
-        	Invoke-Restmethod -Method POST -Body ($payload | ConvertTo-Json -Depth 4) -Uri $hook
-		}
-	}
-#>
-
+	$slackDetails = @{channel =  "#adminportal";
+					username = "@mfreidgeim";#adminportal
+					#icon_url = "http://besticons.net/sites/default/files/departing-flight-icon-3634.png"
+                   }
+. "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
+$env:path +=";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External;"
 
 function Restore ($projectjsondir)
 {
@@ -49,12 +31,12 @@ write-host "Finished Building the project"
 function Publish($projectjsondir)
 {
 write-host "PUBLISHING"
-dotnet publish $projectjsondir\project.json --configuration release
+dotnet --verbose publish $projectjsondir\project.json --configuration release 
 write-host "Finished Publishing"
 
 if ($lastexitcode -eq 1)
 {
-#SendSlack "NABRewardsAPI" "Publishing NABRewardsAPI project failed"
+SendSlack "AdminPortal Build" "Publishing AdminPortal  project failed" $slackDetails
 }
 
 }
@@ -81,7 +63,9 @@ dotnet restore
 dotnet test
 }
 
-Restore $ProjectJsonDir
-Publish $ProjectJsonDir
+Restore $SolutionRoot #$ProjectJsonDir
+
 ArchiveAndCopy $ZipFilePath
 UnitTest
+
+Publish $ProjectJsonDir

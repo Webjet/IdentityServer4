@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
 using Microsoft.VisualBasic.CompilerServices;
+using Webjet.DotNet.Common.Data;
 
 namespace Webjet.DotNet.Common
 {

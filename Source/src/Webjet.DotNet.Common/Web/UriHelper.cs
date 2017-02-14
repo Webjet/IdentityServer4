@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.VisualBasic;
+using Webjet.DotNet.Common.Strings;
+using VBStrings = Microsoft.VisualBasic.Strings;
 
 namespace Webjet.DotNet.Common
 {   /// <summary>
@@ -163,7 +165,7 @@ namespace Webjet.DotNet.Common
                 int nHash = strURL.IndexOf("#");
                 //there are special cases in e-library like www.xxx.com#http://www.xxx.com#"
                 if ((nHash > 0) && (nHash < nSchemeEnd)) return sRet;
-                sRet = Strings.Left(strURL, nSchemeEnd);
+                sRet = VBStrings.Left(strURL, nSchemeEnd);
             }
             else
             {

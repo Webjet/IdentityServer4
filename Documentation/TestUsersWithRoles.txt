@@ -1,5 +1,11 @@
+Main location \\wjltd.net\DATA\public\Admin Portal  AKA N:\Admin Portal 
+
+Backup location in git AdminPortal\Documentation
 
 mfreidgeimwebjetcom AD
+
+
+GlobalAdmin@mfreidgeimwebjetcom.onmicrosoft.com  Pugo4215
 
 NoRoles@mfreidgeimwebjetcom.onmicrosoft.com Huho0423
 
@@ -11,6 +17,7 @@ Product Team user
 test_pt1@mfreidgeimwebjetcom.onmicrosoft.com
 Password - KajalBhatia09!
 
-GlobalAdmin@mfreidgeimwebjetcom.onmicrosoft.com  Pugo4215
-
+Analytics.Tester@mfreidgeimwebjetcom.onmicrosoft.com Tazo4924
+Finance.Tester@mfreidgeimwebjetcom.onmicrosoft.com Vado2715
+ITOPs.Tester@mfreidgeimwebjetcom.onmicrosoft.com Bupu4031
 

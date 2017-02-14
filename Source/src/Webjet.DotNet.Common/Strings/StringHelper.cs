@@ -1,45 +1,18 @@
-﻿using System;
+﻿#region Namespace Imports
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 
-
-namespace Webjet.DotNet.Common
+#endregion
+namespace Webjet.DotNet.Common.Strings
 {
-    public static class ListHelper
-    {
-        public static IList<string> MergeWith(this IList<string> source, IList<string> listToMerge, string joinerString)
-        {
-            if (source == null && listToMerge != null)
-                return listToMerge;
 
-            if (listToMerge == null)
-                return source;
-
-            var minIndex = Math.Min(source.Count, listToMerge.Count);
-
-            var returnValue = source;
-
-            for (var i = 0; i < minIndex; i++)
-            {
-                returnValue[i] = string.Join(joinerString, new[] { source[i], listToMerge[i] }.Where(x => !string.IsNullOrEmpty(x)));
-            }
-
-            if (listToMerge.Count > source.Count)
-            {
-                for (var i = minIndex; i < listToMerge.Count; i++)
-                {
-                    returnValue.Add(listToMerge[i]);
-                }
-            }
-            return returnValue;
-        }
-    }
     public static class StringHelper
     {
         // See also Westwind.Utilities.StringUtils	
@@ -241,15 +214,16 @@ namespace Webjet.DotNet.Common
             return str;
         }
         //		'Removes the end part of the string, if it is matchs, otherwise leave string unchanged
-        public static string TrimEnd(this string str, string sEndValue)
+        public static string TrimEnd(this string str, string sEndValue, bool ignoreCase = true)
         {
-            if (str == null) { throw new NullReferenceException("str is null"); }
-            if (str.EndsWith(sEndValue))
+            if (str == null) return str;
+            if (str.EndsWith(sEndValue, ignoreCase, CultureInfo.CurrentCulture))
             {
                 str = str.Remove(str.Length - sEndValue.Length, sEndValue.Length);
             }
             return str;
         }
+
         /// <summary>
         /// If lenght of the string is greater than max allowed, remove the end
         /// </summary>
@@ -640,8 +614,11 @@ namespace Webjet.DotNet.Common
         /// <returns></returns>
         public static string RemoveAllWhitespace(string str)
         {
-            Regex reg = new Regex(@"\s*");
-            str = reg.Replace(str, "");
+            if (!string.IsNullOrEmpty(str))
+            {
+                Regex reg = new Regex(@"\s*");
+                str = reg.Replace(str, "");
+            }
             return str;
         }
 
@@ -712,7 +689,8 @@ namespace Webjet.DotNet.Common
             return String.Join(separator, list);
         }
         #endregion //"String Array Functions"
-        
+
+
         #region "String Brackets Functions"
         //		
         /// <summary>

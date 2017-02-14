@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace AdminPortalWebApi
 {
@@ -58,6 +59,10 @@ namespace AdminPortalWebApi
             });
 
             app.UseMvc();
+
+            Log.Logger = new LoggerConfiguration().ReadFrom.ConfigurationSection(Configuration.GetSection("Serilog")).CreateLogger();
+            Serilog.Debugging.SelfLog.Enable(Console.Error);
+
         }
     }
 }

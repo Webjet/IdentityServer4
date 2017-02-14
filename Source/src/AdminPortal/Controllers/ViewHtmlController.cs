@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.InternalAbstractions;
 using Microsoft.Extensions.Configuration;
 using Webjet.DotNet.Common;
+using Webjet.DotNet.Common.Strings;
 
 namespace AdminPortal.Controllers
 {

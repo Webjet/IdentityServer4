@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- RegionIndicator field is mapped with RegionIndicator.xml 'ShortDescription' attribute value-->
+<UiLinks>
+  <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
+    <Section Key ="ServiceCenterSectionAU" Text="Service Center Activities " >
+         <MenuItem Text="Google Big Query Itinerary" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
+    </Section>
+    <Section Key ="FinanceTeamSectionAU" Text="Finance Team Activities " >
+    </Section>
+ 
+  </LandingPageTab>
+
+  
+</UiLinks>
+

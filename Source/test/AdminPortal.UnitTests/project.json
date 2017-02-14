@@ -9,11 +9,12 @@
     "FluentAssertions": "4.18.0",
     "Microsoft.AspNetCore.Http": "1.1.0",
     "Microsoft.AspNetCore.Identity": "1.1.0",
-    "Microsoft.AspNetCore.Mvc": "1.0.0",
+    "Microsoft.AspNetCore.Mvc": "1.1.1",
     "Microsoft.Extensions.Configuration": "1.1.0",
     "Microsoft.Extensions.Configuration.Binder": "1.1.0",
     "MSTest.TestFramework": "1.0.8-rc2",
-    "NSubstitute": "1.10.0"
+    "NSubstitute": "1.10.0",
+    "Serilog.Sinks.Console": "2.1.0"
   },
 
   "frameworks": {
