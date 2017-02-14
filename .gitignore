@@ -8,6 +8,7 @@ setup
 [Pp]ackages
 **/*.psproj
 **/*.bak
+**/.merge_file_*
 # do not ignore gitignore http://stackoverflow.com/questions/767147/ignore-the-gitignore-file-itself/767213#767213
 #.gitignore
 #**/.gitignore
@@ -29,6 +30,10 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 **/Properties/launchSettings.json
+
+#http://stackoverflow.com/questions/35411417/what-should-be-stored-in-source-control-for-an-asp-net-core-mvc-application
+wwwroot\libs
+**/*.min.css
 
 node_modules/
 
