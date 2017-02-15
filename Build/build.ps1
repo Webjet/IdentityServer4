@@ -4,7 +4,7 @@ $baseParent = "$((Get-Item  $psscriptroot).Parent.FullName)"
 $SolutionRoot =$baseParent + "\Source" 
 $ProjectJsonDir =  "$SolutionRoot\src\AdminPortal\"  
 $ZipFilePath = $SolutionRoot + "\src\AdminPortal\bin\release\net461"
-#$env:runDevCoverage='false'
+$env:runDevCoverage='false'
 $outPath="$psscriptroot\..\OUTPUT"
 $packagesRoot ="$SolutionRoot\packages"
 $BuildVersion = $env:Build
@@ -124,6 +124,7 @@ $targetargs="  test $($csTestAssemblies)"
 Restore $SolutionRoot #$ProjectJsonDir
 
 Build $SolutionRoot
+Write-Host "CodeCoverage : $env:runDevCoverage"
 
 if($env:runDevCoverage='true') {
 CodeCoverage
