@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.InternalAbstractions;
 using Microsoft.Extensions.Configuration;
-using Webjet.DotNet.Common;
-using Webjet.DotNet.Common.Strings;
+using Webjet.Common;
+using Webjet.Common.Strings;
 
 namespace AdminPortal.Controllers
 {

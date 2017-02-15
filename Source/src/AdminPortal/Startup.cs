@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Owin;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Core;
@@ -60,9 +61,10 @@ namespace AdminPortal
             //http://www.dotnetcurry.com/aspnet-mvc/1250/dependency-injection-aspnet-mvc-core
             services.TryAddSingleton<LandingPageLayoutLoader>();
             services.TryAddSingleton<ResourceToApplicationRolesMapper>();
-            
+
             services.AddAuthentication(
-                SharedOptions => SharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+            SharedOptions => SharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+
          
             // Add framework services.
             services.AddMvc();
@@ -75,7 +77,7 @@ namespace AdminPortal
 			//Log.Logger = new LoggerConfiguration().ReadFrom.AppSettings().CreateLogger();
            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
            loggerFactory.AddDebug();
-
+            
             try
             {
                 //Adding Serilog log provider to logging pipeline for logging with configuration/settings from appsettings.json file, specially from the 'Serilog' configuartion section
@@ -117,16 +119,27 @@ namespace AdminPortal
             });
 
             //Authentication instructions.
+            //https://stormpath.com/blog/openid-connect-user-authentication-in-asp-net-core
+            //https://joonasw.net/view/asp-net-core-1-azure-ad-authentication
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 ClientId = Configuration["Authentication:AzureAd:ClientId"],
                 Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
-                CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"]
-                
-
-                
+                CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"],
+                //ResponseType = OpenIdConnectResponseType.IdToken,
+               
             });
-           
+
+            //JwtBearerAuthentication is used to access WebAPI from client app
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+
+                Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
+                Audience = Configuration["Authentication:AzureAd:Audience"]
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

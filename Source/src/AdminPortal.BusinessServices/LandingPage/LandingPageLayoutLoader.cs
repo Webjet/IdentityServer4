@@ -13,7 +13,7 @@ using AdminPortal.BusinessServices.LandingPage;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.Configuration;
 using NLog.Common;
-using Webjet.DotNet.Common;
+using Webjet.Common;
 
 namespace AdminPortal.BusinessServices
 {

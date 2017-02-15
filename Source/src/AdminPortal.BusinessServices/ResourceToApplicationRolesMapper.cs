@@ -12,8 +12,9 @@ using System.Xml.Serialization;
 using AdminPortal.BusinessServices.Common;
 using AdminPortal.BusinessServices.Common.Debugging;
 using Microsoft.Extensions.Configuration;
-using Webjet.DotNet.Common;
-using Webjet.DotNet.Common.Strings;
+using Webjet.Common;
+using Webjet.Common.Strings;
+
 
 namespace AdminPortal.BusinessServices
 {
