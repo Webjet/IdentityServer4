@@ -65,7 +65,10 @@ SendSlack "AdminPortal Build" "Publishing AdminPortal  project failed" $slackDet
 }
 function ArchiveAndCopy($zipfilepath)
 {
-Remove-Item $zipfilepath\AdminPortal.*-force
+$zipFiles="$zipfilepath\AdminPortal.*"
+if(Test-Path $zipFiles) { 
+   Remove-Item $zipfilepath\AdminPortal.* -force
+}
 Invoke-Expression "$psscriptroot\Tools\7za.exe a -tzip $zipfilepath\$ZipFileName $psscriptroot\..\Source\src\AdminPortal\bin\release\net461\win7-x64\publish\*"
 
 DeleteIfExistsAndCreateEmptyFolder $outPath
