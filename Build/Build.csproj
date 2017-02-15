@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="build-steps.ps1" />
     <None Include="build.ps1" />
     <None Include="Build_Local.ps1" />
     <None Include="packages.config" />

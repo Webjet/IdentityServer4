@@ -37,3 +37,6 @@ http://stackoverflow.com/questions/40912473/can-system-web-be-used-with-asp-net-
 
  //
  https://blog.elmah.io/config-transformations-in-aspnetcore/
+
+ //outsource the authentication part from the Web API to Microsoft Azure Active Directory (AD).
+ http://bitoftech.net/2014/09/12/secure-asp-net-web-api-2-azure-active-directory-owin-middleware-adal/

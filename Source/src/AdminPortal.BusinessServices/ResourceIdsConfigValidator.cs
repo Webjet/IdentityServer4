@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Webjet.DotNet.Common.Collections;
+using Webjet.Common.Collections;
+
 namespace AdminPortal.BusinessServices
 {
     public class ResourceIdsConfigValidator
