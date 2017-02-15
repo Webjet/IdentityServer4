@@ -36,6 +36,8 @@ artifacts/
 **/wwwroot/libs/
 **/*.min.css
 bower_components/
+wwwroot/_references.js
+
 
 node_modules/
 

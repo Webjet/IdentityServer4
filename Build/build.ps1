@@ -12,6 +12,7 @@ $ZipFileName = "AdminPortal-$BuildVersion.zip"
 					username = "@mfreidgeim";#adminportal
 					#icon_url = "http://besticons.net/sites/default/files/departing-flight-icon-3634.png"
                    }
+$DebugPreference="Continue"				   
 #import-module "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
