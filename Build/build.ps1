@@ -12,7 +12,9 @@ $ZipFileName = "AdminPortal-$BuildVersion.zip"
 					username = "@mfreidgeim";#adminportal
 					#icon_url = "http://besticons.net/sites/default/files/departing-flight-icon-3634.png"
                    }
+import-module "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
+
 $env:path +=";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External;"
 
 #test/coverage configurations
