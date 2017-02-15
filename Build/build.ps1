@@ -19,6 +19,8 @@ $DebugPreference="Continue"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
 
 $env:path +=";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External;"
+#for bower http://stackoverflow.com/questions/20666989/bower-enogit-git-is-not-installed-or-not-in-the-path
+$env:path +=";%PROGRAMFILES(x86)%\Git\bin;%PROGRAMFILES(x86)%\Git\cmd;"
 
 #test/coverage configurations
 #	$csTestRunner = "`"$baseParent\Source\packages\xunit.runner.console.2.1.0\tools\xunit.console.exe`""
