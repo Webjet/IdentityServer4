@@ -2,8 +2,9 @@ cls
 $ErrorActionPreference = "Stop" 
 $baseParent = "$((Get-Item  $psscriptroot).Parent.FullName)"
 $SolutionRoot =$baseParent + "\Source" 
-$ProjectJsonDir =  "$SolutionRoot\src\AdminPortal\" #
+$ProjectJsonDir =  "$SolutionRoot\src\AdminPortal\"  
 $ZipFilePath = $SolutionRoot + "\src\AdminPortal\bin\release\net461"
+#$env:runDevCoverage='false'
 $outPath="$psscriptroot\..\OUTPUT"
 $packagesRoot ="$SolutionRoot\packages"
 $BuildVersion = $env:Build
@@ -123,9 +124,13 @@ $targetargs="  test $($csTestAssemblies)"
 Restore $SolutionRoot #$ProjectJsonDir
 
 Build $SolutionRoot
-#UnitTest
-CodeCoverage
 
+if($env:runDevCoverage='true') {
+CodeCoverage
+}
+else {
+UnitTest
+}
 ArchiveAndCopy $ZipFilePath
 
 Publish $ProjectJsonDir
