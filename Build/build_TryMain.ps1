@@ -4,7 +4,9 @@ $ErrorActionPreference = "Stop"
 $DebugPreference="Continue"	
 function Main {
 try {
+ Write-Host "Test-Invoke-Executable calling..."
 Test-Invoke-Executable
+ Write-Host "Test-Invoke-Executable returned"
 	
 	    $buildTask = ($env:build_task, 'Test' -ne $null)[0]
 	    #restoring NuGet packages to get PSAKE
