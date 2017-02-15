@@ -126,7 +126,7 @@ Restore $SolutionRoot #$ProjectJsonDir
 Build $SolutionRoot
 Write-Host "CodeCoverage : $env:runDevCoverage"
 
-if($env:runDevCoverage='true') {
+if($env:runDevCoverage -eq 'true') {
 CodeCoverage
 }
 else {
