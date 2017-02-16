@@ -43,6 +43,15 @@ dotnet restore $projectjsondir #\project.json
 Write-host "Finish Restoring dependencies"
 
 }
+function RestoreFullNetPackages ($solutionFile)
+{
+     $nugetExe = "$PSScriptRoot\Tools\Nuget\Nuget.exe"
+    
+    Write-Host "Restoring packages for Full.Net..."
+	.$nugetExe restore $solutionFile
+	ValidateExitCode(0)
+	Write-Host "Packages for Full.Net restored"
+}
 
 function Build ($solutionDir)
 {
@@ -136,6 +145,7 @@ Build $SolutionRoot
 Write-Host "CodeCoverage : $env:runDevCoverage"
 
 if($env:runDevCoverage -eq 'true') {
+RestoreFullNetPackages "$solutionDir\AdminPortal.sln"
 CodeCoverage
 }
 else {
