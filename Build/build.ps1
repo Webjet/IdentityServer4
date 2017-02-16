@@ -108,10 +108,8 @@ dotnet test
 		$coverOut = "$outPath\Test-Output"    
     	$coverOutPath = "`"$coverOut\projectCoverageReport.xml`""
     	$coverReportOut = "`"$coverOut\cover`""
-
-		if (!(Test-Path $coverOut)) {
-            md $coverOut 
-    	}
+		CreateFolderIfNotExists $coverOut
+		
 $targetargs="  test $($csTestAssemblies)"
 		Write-Host "OpenCover targetargs - $csTestAssemblies"
 # it is case-sensitive `"-[xunit.assert]*`" `"-[xunit.core]*`"
@@ -140,12 +138,12 @@ $targetargs="  test $($csTestAssemblies)"
     }
 
 Restore $SolutionRoot #$ProjectJsonDir
-
+DeleteIfExistsAndCreateEmptyFolder $outPath
 Build $SolutionRoot
 Write-Host "CodeCoverage : $env:runDevCoverage"
 
 if($env:runDevCoverage -eq 'true') {
-RestoreFullNetPackages "$solutionDir\AdminPortal.sln"
+RestoreFullNetPackages "$SolutionRoot\AdminPortal.sln"
 CodeCoverage
 }
 else {

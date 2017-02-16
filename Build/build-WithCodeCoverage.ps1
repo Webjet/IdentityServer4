@@ -44,6 +44,15 @@ dotnet restore $projectjsondir #\project.json
 Write-host "Finish Restoring dependencies"
 
 }
+function RestoreFullNetPackages ($solutionFile)
+{
+     $nugetExe = "$PSScriptRoot\Tools\Nuget\Nuget.exe"
+    
+    Write-Host "Restoring packages for Full.Net..."
+	.$nugetExe restore $solutionFile
+	ValidateExitCode(0)
+	Write-Host "Packages for Full.Net restored"
+}
 
 function Build ($solutionDir)
 {
@@ -78,7 +87,7 @@ if(Test-Path $zipFiles) {
 }
 Invoke-Expression "$psscriptroot\Tools\7za.exe a -tzip $zipfilepath\$ZipFileName $psscriptroot\..\Source\src\AdminPortal\bin\release\net461\win7-x64\publish\*"
 
-DeleteIfExistsAndCreateEmptyFolder $outPath
+
 
 write-host "Copying Items to OUTPUT FOLDER "
 Copy-Item $zipfilepath\AdminPortal-$BuildVersion.zip -Destination $outPath -recurse -force
@@ -103,10 +112,8 @@ dotnet test
 		$coverOut = "$outPath\Test-Output"    
     	$coverOutPath = "`"$coverOut\projectCoverageReport.xml`""
     	$coverReportOut = "`"$coverOut\cover`""
-
-		if (!(Test-Path $coverOut)) {
-            md $coverOut 
-    	}
+        CreateFolderIfNotExists $coverOut
+		
 $targetargs="  test $($csTestAssemblies)"
 		Write-Host "OpenCover targetargs - $csTestAssemblies"
 # it is case-sensitive `"-[xunit.assert]*`" `"-[xunit.core]*`"
@@ -135,11 +142,12 @@ $targetargs="  test $($csTestAssemblies)"
     }
 
 Restore $SolutionRoot #$ProjectJsonDir
-
+DeleteIfExistsAndCreateEmptyFolder $outPath
 Build $SolutionRoot
 Write-Host "CodeCoverage : $env:runDevCoverage"
 
 if($env:runDevCoverage -eq 'true') {
+RestoreFullNetPackages "$SolutionRoot\AdminPortal.sln"
 CodeCoverage
 }
 else {

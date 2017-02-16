@@ -32,7 +32,11 @@ function Run-DODO
 	Write-Host "         /`)))/`)))"
 	
 	Write-Host "Executing Run-DODO $($PsCmdlet.ParameterSetName)"
-	 
+	Write-Host " ConfigurationJSONPath: $ConfigurationJSONPath "
+	Write-Host " ContainerName: $ContainerName "
+	Write-Host " Command : $Command "
+	Write-Host " Arguments $Arguments"
+	Write-Host " ParametersJSONPath : $ParametersJSONPath "
     switch ($PsCmdlet.ParameterSetName) 
 	{ 	
 		"File"  
