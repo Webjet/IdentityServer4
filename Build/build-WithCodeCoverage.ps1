@@ -36,6 +36,7 @@ $packagesRoot= "$SolutionRoot\packages"
 	$openCoverageReport=($env:openCoverageReport, 'true' -ne $null)[0]
 #    $runIntegrationUnitTests =  ($env:runIntegrationUnitTests, 'false' -ne $null)[0] #false default
 
+
 function Restore ($projectjsondir)
 {
 Write-host "Restoring dependencies"
@@ -95,6 +96,9 @@ dotnet test
  function CodeCoverage()
  {
     	Write-Host 'Starting Tests!'
+  WriteDebug-Dir-IfExists $packagesRoot
+  WriteDebug-Dir-IfExists "$packagesRoot\OpenCover.4.6.519\"
+  WriteDebug-Dir-IfExists "$packagesRoot\OpenCover.4.6.519\tools\"
 
 		$coverOut = "$outPath\Test-Output"    
     	$coverOutPath = "`"$coverOut\projectCoverageReport.xml`""

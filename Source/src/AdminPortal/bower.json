@@ -8,8 +8,8 @@
     "jquery-validation-unobtrusive": "3.2.6",
     "jquery-ui": "1.11.4",
     "Font-Awesome": "4.6.3"
-  } //,http://stackoverflow.com/questions/28469163/econflict-unable-to-find-suitable-version-for-jquery-foundation
-  //"resolutions": {
-  //  "jquery-validation": "~1.16"
-  //}
+  } ,
+  "resolutions": {
+    "jquery-validation": "~1.16"
+  }
 }
