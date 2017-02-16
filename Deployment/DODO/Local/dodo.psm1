@@ -278,15 +278,16 @@ function Set-InternalDODOVariables
 		$ConfigurationJSONObject = Set-InternalDODOParameters -ConfigurationJSONObject $ConfigurationJSONObject -ParametersJSONObject $ParametersJSONObject
 		
 		$jsonString = ($ConfigurationJSONObject | ConvertTo-Json -Depth 100).Replace("\u0027","'")
+		Write-Debug "Use `$DebugPreference = `"Continue`" only if you really need to debug. Write-Debug  can save SENSITIVE information to the logs."
 		Write-Debug "jsonString: $jsonString"
 		$variables = Get-Member -InputObject $($ConfigurationJSONObject.Variables) -MemberType NoteProperty
 		Write-Debug "variables: $variables"
 		foreach($variable in $variables)
 		{
-		    Write-Host "Getting value for variable $($variable.Name)..."
+		    Write-Host "Getting value to inject -Variable $($variable.Name)..."
 			$propValue= $($ConfigurationJSONObject.Variables) | Select-Object -ExpandProperty $variable.Name
 			$propValue = $propValue.Replace("\","\\")
-			Write-Host "Injecting -Variable $($variable.Name)..."
+			Write-Debug "Injecting -Variable $($variable.Name)..."
 			
 			$jsonString = $jsonString.Replace("[variables('$($variable.Name)')]", $propValue)
 		}

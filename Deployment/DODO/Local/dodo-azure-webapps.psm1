@@ -161,10 +161,12 @@ function Publish-DODOAzureWebAppConfiguration
         
         $connectionStringNames = $webAppContainers.Attributes.ConnectionStringNames;
         $appSettingNames = $webAppContainers.Attributes.AppSettingNames;
-
+   		Write-Debug "Use `$DebugPreference = `"Continue`" only if you really need to debug. Write-Debug  can save SENSITIVE information to the logs."
+		 Write-Debug "`$Appsettings = $Appsettings "
         $AppsettingHash = @{}
 		foreach($Appsetting in $Appsettings)
 		{
+			Write-Debug "AppsettingHash Add $Appsetting.Key, $Appsetting.Value"
 			$AppsettingHash.Add($Appsetting.Key, $Appsetting.Value);
 		}
         

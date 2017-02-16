@@ -150,6 +150,5 @@ CodeCoverage
 else {
 UnitTest
 }
-
 Publish $ProjectJsonDir
 ArchiveAndCopy $ZipFilePath #what was published
