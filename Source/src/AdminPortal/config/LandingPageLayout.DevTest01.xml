@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- RegionIndicator field is mapped with RegionIndicator.xml 'ShortDescription' attribute value-->
+<UiLinks>
+  <LandingPageTab Key ="WebjetAU" Text ="Webjet AU">
+    <Section Key ="ServiceCenterSectionAU" Text="Service Center Activities " >
+      <!--public enum AdminMenuItineraryEditViewMode C:\GitRepos\TSA\main\TSA\Common\TSAType.cs-->
+      <MenuItem Text="Pending"           Key ="PendingItems"  Link="https://devtest01api.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
+      <MenuItem Text="Search Booking"    Key ="SearchBooking" Link="https://devtest01api.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
+      <MenuItem Text="Administration"    Key ="SearchBooking" Link="https://devtest01api.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
+      <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://devciapi.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
+      <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
+      <MenuItem Text="Google Big Query Itinerary" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
+    </Section>
+
+    <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
+      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://devtest01api.webjet.com.au/WebjetTSA/secure.aspx?PageID=SaleFareCampaignManager"  />
+      <MenuItem Text="Virtual Fare Camapign Management"  Key ="CampaignManager" Link="https://devtest01api.webjet.com.au/WebjetTSA/secure.aspx?PageID=CampaignManager"  />
+      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://devtest01api.webjet.com.au/WebjetTSA/secure.aspx?PageID=CouponCampaignManager"  />
+      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://devtest01api.webjet.com.au/WebjetTSA/secure.aspx?PageID=VelocityBonusCampaignManager"  />
+      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://devtest01api.webjet.com.au/WebjetTSA/secure.aspx?PageID=FlightFiltersManager"  />
+    </Section>
+
+    <Section Key ="FinanceTeamSectionAU" Text="Finance Team Activities " >
+    </Section>
+    <Section Key ="Marketing"
+            Text="Marketing Team Activities " >
+      <MenuItem Text="Generate Random Number"  Key ="GenerateRandomNumber" Link="ViewHtml/GenerateRandomNumber" RegionIndicator="ALL"  />
+    </Section>
+  </LandingPageTab>
+
+  <LandingPageTab Key ="WebjetNZ" Text ="Webjet NZ">
+    <Section Key ="ServiceCenterSectionNZ"
+             Text="ServiceCenter Activities " >
+      <MenuItem Key ="ReviewPendingBookings_WebjetNZ"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem >
+      <MenuItem Key ="GoogleBigQueryItinerary"
+               Text="Google Big Query Itinerary"
+               Link="GoogleBigQueryItinerary/Index"
+                >
+      </MenuItem >
+
+    </Section>
+
+    <Section Key ="ProductTeamSectionNZ"
+           Text="Product Team Activities " >
+      <MenuItem Key ="ReviewPendingBookings_WebjetNZ"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem>
+      <MenuItem Key ="CreditCardTransactionsToCheck_WebjetNZ"
+            Text="Credit Card Transaction Check"
+            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem>
+    </Section>
+
+    <Section Key ="FinanceTeamSectionNZ"
+          Text="Finance Team Activities " >
+      <MenuItem Key ="FareEscalationJournal_WebjetNZ"
+             Text="Fare Escalation Journal"
+             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem>
+    </Section>
+
+  </LandingPageTab>
+
+  <LandingPageTab Key ="ZujiAU" Text ="Zuji AU">
+    <Section Key ="ServiceCenterSectionAU"
+             Text="ServiceCenter Activities " >
+      <MenuItem Key ="ReviewPendingBookings_ZujiAU"
+                Text="Pending Bookings"
+                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                >
+      </MenuItem >
+
+    </Section>
+
+
+  </LandingPageTab>
+
+</UiLinks>
+
