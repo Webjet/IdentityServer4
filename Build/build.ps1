@@ -150,6 +150,6 @@ CodeCoverage
 else {
 UnitTest
 }
-ArchiveAndCopy $ZipFilePath
-# do we need publish if we use Zip ?
+
 Publish $ProjectJsonDir
+ArchiveAndCopy $ZipFilePath #what was published
