@@ -1,3 +1,4 @@
+#Temporary copy of Build.ps1 to investigate why code-coverage doesn't work
 cls
 $ErrorActionPreference = "Stop" 
 $baseParent = "$((Get-Item  $psscriptroot).Parent.FullName)"
@@ -18,16 +19,10 @@ $DebugPreference="Continue"
 . "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
 
-$env:path +=";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External;"
 #for bower http://stackoverflow.com/questions/20666989/bower-enogit-git-is-not-installed-or-not-in-the-path
-$env:path +=";C:\Program Files\Git\bin;C:\Program Files\Git\cmd;"
-#http://stackoverflow.com/questions/5026165/how-to-get-get-item-cmdlets-output-to-variable-as-string
-  $dir= get-childitem "C:\Program Files\Git\bin" |  select name,length,lastwritetime |   format-table | out-string
-  Write-Debug $dir
-$dir=get-childitem "C:\Program Files\Git\cmd" |  select name,length,lastwritetime |   format-table | out-string 
-  Write-Debug $dir
-Get-ChildItem -Path "C:\Program Files\Git\bin"
-Get-ChildItem -Path "C:\Program Files\Git\cmd"
+$env:path +=";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External\git;"
+
+
 
 #test/coverage configurations
 #	$csTestRunner = "`"$baseParent\Source\packages\xunit.runner.console.2.1.0\tools\xunit.console.exe`""
