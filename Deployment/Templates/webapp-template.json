@@ -103,37 +103,37 @@
 				  "Use32Bit" : "false",
 				  "Location": "[variables('AppServicePlanLocation')]"
 				},
-				"AppSettings": [
-					{
-						"Key": "BuildVersion",
-						"Value": "[variables('BuildVersion')]"
-					},
-					//{
-					//	"Key": "NewRelic.AppName",
-					//	"Value": "[variables('NewRelic.AppName')]"
-					//},
-					//{
-					//	"Key": "NEWRELIC_LICENSEKEY",
-					//	"Value": "[variables('NEWRELIC_LICENSEKEY')]"
-					//},
-					//{
-					//	"Key": "NEWRELIC_HOME",
-					//	"Value": "[variables('NEWRELIC_HOME')]"
-						 
-					//},
-					//{
-					//	"Key": "COR_PROFILER_PATH",
-					//	"Value": "[variables('COR_PROFILER_PATH')]"
-					//},
-					//{
-					//	"Key": "COR_PROFILER",
-					//	"Value": "[variables('COR_PROFILER')]"
-					//},
-					//{
-					//	"Key": "COR_ENABLE_PROFILING",
-					//	"Value": "[variables('COR_ENABLE_PROFILING')]"
-					//},
-	       {
+        "AppSettings": [
+          {
+            "Key": "BuildVersion",
+            "Value": "[variables('BuildVersion')]"
+          },
+          //{
+          //	"Key": "NewRelic.AppName",
+          //	"Value": "[variables('NewRelic.AppName')]"
+          //},
+          //{
+          //	"Key": "NEWRELIC_LICENSEKEY",
+          //	"Value": "[variables('NEWRELIC_LICENSEKEY')]"
+          //},
+          //{
+          //	"Key": "NEWRELIC_HOME",
+          //	"Value": "[variables('NEWRELIC_HOME')]"
+
+          //},
+          //{
+          //	"Key": "COR_PROFILER_PATH",
+          //	"Value": "[variables('COR_PROFILER_PATH')]"
+          //},
+          //{
+          //	"Key": "COR_PROFILER",
+          //	"Value": "[variables('COR_PROFILER')]"
+          //},
+          //{
+          //	"Key": "COR_ENABLE_PROFILING",
+          //	"Value": "[variables('COR_ENABLE_PROFILING')]"
+          //},
+          {
             "Key": "RootConfigurationBlobConnectionString",
             "Value": "[variables('RootConfigurationBlobConnectionString')]"
           },
@@ -144,16 +144,44 @@
           {
             "Key": "logging.application_name",
             "Value": "[variables('logging.application_name')]"
+          },
+          {
+            "Key": "GoogleBigQueryHostUrl",
+            "Value": "[variables('GoogleBigQueryHostUrl')]"
+          },
+          {
+            "Key": "ida:ClientId",
+            "Value": "[variables('ida:ClientId')]"
+          },
+          {
+            "Key": "ida:AADInstance",
+            "Value": "[variables('ida:AADInstance')]"
+          },
+          {
+            "Key": "ida:ClientSecret",
+            "Value": "[variables('ida:ClientSecret')]"
+          },
+          {
+            "Key": "ida:Domain",
+            "Value": "[variables('ida:Domain')]"
+          },
+          {
+            "Key": "ida:TenantId",
+            "Value": "[variables('ida:TenantId')]"
+          },
+          {
+            "Key": "ida:TenantId",
+            "Value": "[variables('ida:TenantId')]"
+          },
+          {
+            "Key": "LandingPageLayoutRelativePath",
+            "Value": "[variables('LandingPageLayoutRelativePath')]"
+          },
+          {
+            "Key": "ResourceToRolesMapRelativePath",
+            "Value": "[variables('ResourceToRolesMapRelativePath')]"
           }
-          ,{ "Key": "GoogleBigQueryHostUrl", "Value": "[variables('GoogleBigQueryHostUrl')]" }
-          ,{ "Key": "ida:ClientId", "Value": "[variables('ida:ClientId')]" }
-          ,{ "Key": "ida:AADInstance", "Value": "[variables('ida:AADInstance')]" }
-          ,{ "Key": "ida:ClientSecret", "Value": "[variables('ida:ClientSecret')]" }
-          ,{ "Key": "ida:Domain", "Value": "[variables('ida:Domain')]" }
-          ,{ "Key": "ida:TenantId", "Value": "[variables('ida:TenantId')]" }
-          //,{ "Key": "ida:PostLogoutRedirectUri", "Value": "[variables('ida:PostLogoutRedirectUri')]" }
- 				],
-		//		"AppSettingNames" : [ "routehappy.api_key" , "routehappy.base_url" ],
+        ],
 				"ResourceGroup":{
 					"Name" : "[variables('ResourceGroupName')]",
 					"Location" : "[variables('ResourceGroupLocation')]"
