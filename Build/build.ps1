@@ -4,7 +4,7 @@ $baseParent = "$((Get-Item  $psscriptroot).Parent.FullName)"
 $SolutionRoot =$baseParent + "\Source" 
 $ProjectJsonDir =  "$SolutionRoot\src\AdminPortal\"  
 $ZipFilePath = $SolutionRoot + "\src\AdminPortal\bin\release\net461"
-$env:runDevCoverage='false'
+$env:runDevCoverage='true'
 $outPath="$psscriptroot\..\OUTPUT"
 $packagesRoot ="$SolutionRoot\packages"
 #$BuildVersion = $env:Build
@@ -86,8 +86,6 @@ if(Test-Path $zipFiles) {
 }
 Invoke-Expression "$psscriptroot\Tools\7za.exe a -tzip $zipfilepath\$ZipFileName $psscriptroot\..\Source\src\AdminPortal\bin\release\net461\win7-x64\publish\*"
 
-DeleteIfExistsAndCreateEmptyFolder $outPath
-
 write-host "Copying Items to OUTPUT FOLDER "
 Copy-Item $zipfilepath\$ZipFileName -Destination $outPath -recurse -force
 Copy-Item $psscriptroot\..\Deployment\ -Destination $outPath -recurse -force   
@@ -104,6 +102,9 @@ dotnet test
  function CodeCoverage()
  {
     	Write-Host 'Starting Tests!'
+  WriteDebug-Dir-IfExists $packagesRoot
+  WriteDebug-Dir-IfExists "$packagesRoot\OpenCover.4.6.519\"
+  WriteDebug-Dir-IfExists "$packagesRoot\OpenCover.4.6.519\tools\"
 
 		$coverOut = "$outPath\Test-Output"    
     	$coverOutPath = "`"$coverOut\projectCoverageReport.xml`""
@@ -150,5 +151,5 @@ else {
 UnitTest
 }
 ArchiveAndCopy $ZipFilePath
-
+# do we need publish if we use Zip ?
 Publish $ProjectJsonDir
