@@ -9,10 +9,9 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace WebFormsOpenIdConnectAzureAD.Models
 {
-    //TODO: change to Naive Cache Temporary
+    //From where?
     public class ADALTokenCache : TokenCache
     {
-        private bool _useEncryption;
         private ApplicationDbContext db = new ApplicationDbContext();
         private string _uniqueKey;
         private UserTokenCache Cache;
@@ -27,7 +26,7 @@ namespace WebFormsOpenIdConnectAzureAD.Models
             // look up the entry in the database
             Cache = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == _uniqueKey);
             // place the entry in memory
-            this.Deserialize(GetState());
+            this.Deserialize((Cache == null) ? null : MachineKey.Unprotect(Cache.cacheBits,"ADALCache"));
         }
 
         private static string UserIdUniqueKey(string signedInUserId)
@@ -71,18 +70,7 @@ namespace WebFormsOpenIdConnectAzureAD.Models
                     Cache = db.UserTokenCacheList.FirstOrDefault(c => c.webUserUniqueId == _uniqueKey);
                 }
             }
-            this.Deserialize(GetState());
-        }
-
-        private byte[] GetState()
-        {
-            if (Cache == null) return null;
-            var bytes = Cache.cacheBits;
-            if (_useEncryption)
-            {
-                bytes = MachineKey.Unprotect(bytes, "ADALCache");
-            }
-            return  bytes;
+            this.Deserialize((Cache == null) ? null : MachineKey.Unprotect(Cache.cacheBits, "ADALCache"));
         }
 
         // Notification raised after ADAL accessed the cache.
@@ -92,11 +80,10 @@ namespace WebFormsOpenIdConnectAzureAD.Models
             // if state changed
             if (this.HasStateChanged)
             {
-                var userData = this.Serialize();
                 Cache = new UserTokenCache
                 {
                     webUserUniqueId = _uniqueKey,
-                    cacheBits = SetState(userData),
+                    cacheBits = MachineKey.Protect(this.Serialize(), "ADALCache"),
                     LastWrite = DateTime.Now
                 };
                 // update the DB and the lastwrite 
@@ -104,15 +91,6 @@ namespace WebFormsOpenIdConnectAzureAD.Models
                 db.SaveChanges();
                 this.HasStateChanged = false;
             }
-        }
-
-        private byte[] SetState(byte[] userData)
-        {
-
-            if (_useEncryption)
-                return MachineKey.Protect(userData, "ADALCache");
-            else
-                return userData;
         }
 
         void BeforeWriteNotification(TokenCacheNotificationArgs args)

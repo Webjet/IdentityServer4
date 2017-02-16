@@ -1,0 +1,142 @@
+{
+  "appId": "fdfa2546-127c-44f5-bf4f-b4065a35325e",
+  "appRoles": [
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Any user, who needs access to TSA Admin",
+      "displayName": "TSA Admin",
+      "id": "56CED3FC-C646-4D9D-8F3D-5AC6874ECB66",
+      "isEnabled": true,
+      "value": "Admin"
+    }, 
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Analytics team will have access for anlaytics reporting - BIG Query data, WTI",
+      "displayName": "Analytics",
+      "id": "8c7d7e09-5f2b-4f8b-87b9-3cd8d3235c7c",
+      "isEnabled": true,
+      "value": "Analytics"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Finance team which will have access for FaresManager, FareEscalationPaymentTypeReport etc.",
+      "displayName": "Finance",
+      "id": "6d78b9c3-f41b-421d-899f-172d2ce447ce",
+      "isEnabled": true,
+      "value": "Finance"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Dev Support - API support team L1/L2 team members.",
+      "displayName": "Dev Support",
+      "id": "27bd1d78-2c66-4a78-971b-46fd95a245e3",
+      "isEnabled": true,
+      "value": "DevSupport"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Service Center manager acts as approver/administrator for Service Center.",
+      "displayName": "Service Center Manager",
+      "id": "1579eed6-fcb5-4448-b8ec-e62cb4d46f59",
+      "isEnabled": true,
+      "value": "ServiceCenterManager"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Service Center has the ability to work with Pending Bookings and related work.",
+      "displayName": "Service Center",
+      "id": "aab62896-ef7a-4208-9ba6-c7c8598bbd8b",
+      "isEnabled": true,
+      "value": "ServiceCenter"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Writer has the ability to create tasks",
+      "displayName": "ProductTeam",
+      "id": "d48816af-72c6-49d9-89da-9afdf6870b71",
+      "isEnabled": true,
+      "value": "ProductTeam"
+    }
+  ],
+  "availableToOtherTenants": false,
+  "displayName": "WebFormsOpenIdConnectAzureAD",
+  "errorUrl": null,
+  "groupMembershipClaims": null,
+  "homepage": "https://localhost:44379/",
+  "identifierUris": [
+    "https://mfreidgeimwebjetcom.onmicrosoft.com/WebFormsOpenIdConnectAzureAD"
+  ],
+  "keyCredentials": [],
+  "knownClientApplications": [],
+  "logoutUrl": null,
+  "oauth2AllowImplicitFlow": false,
+  "oauth2AllowUrlPathMatching": false,
+  "oauth2Permissions": [
+    {
+      "adminConsentDescription": "Allow the application to access WebFormsOpenIdConnectAzureAD on behalf of the signed-in user.",
+      "adminConsentDisplayName": "Access WebFormsOpenIdConnectAzureAD",
+      "id": "6ac4c784-0f40-407f-866f-55428779cedb",
+      "isEnabled": true,
+      "type": "User",
+      "userConsentDescription": "Allow the application to access WebFormsOpenIdConnectAzureAD on your behalf.",
+      "userConsentDisplayName": "Access WebFormsOpenIdConnectAzureAD",
+      "value": "user_impersonation"
+    }
+  ],
+  "oauth2RequirePostResponse": false,
+  "passwordCredentials": [
+    {
+      "customKeyIdentifier": null,
+      "endDate": "2017-12-30T05:21:50.5325797Z",
+      "keyId": "985e2861-4b40-4001-be9a-6aa4ca3edc69",
+      "startDate": "2016-12-30T05:21:50.5325797Z",
+      "value": null
+    }
+  ],
+  "publicClient": false,
+  "replyUrls": [
+    "https://localhost:44379/"
+  ],
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "00000002-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "311a71cc-e848-46a1-bdf8-97ff7156d8e6",
+          "type": "Scope"
+        },
+        {
+          "id": "5778995a-e1bf-45b8-affa-663a9f3f4d04",
+          "type": "Scope"
+        }
+      ]
+    }
+  ],
+  "samlMetadataUrl": null,
+  "extensionProperties": [],
+  "objectType": "Application",
+  "objectId": "6119e2e3-a3ec-424b-a2cb-205017123f38",
+  "deletionTimestamp": null,
+  "createdOnBehalfOf": null,
+  "createdObjects": [],
+  "manager": null,
+  "directReports": [],
+  "members": [],
+  "memberOf": [],
+  "owners": [],
+  "ownedObjects": []
+}
