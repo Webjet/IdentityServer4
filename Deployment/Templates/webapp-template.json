@@ -170,10 +170,6 @@
             "Value": "[variables('ida:TenantId')]"
           },
           {
-            "Key": "ida:TenantId",
-            "Value": "[variables('ida:TenantId')]"
-          },
-          {
             "Key": "LandingPageLayoutRelativePath",
             "Value": "[variables('LandingPageLayoutRelativePath')]"
           },
