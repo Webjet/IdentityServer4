@@ -20,7 +20,14 @@ $DebugPreference="Continue"
 
 $env:path +=";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External;"
 #for bower http://stackoverflow.com/questions/20666989/bower-enogit-git-is-not-installed-or-not-in-the-path
-$env:path +=";%PROGRAMFILES(x86)%\Git\bin;%PROGRAMFILES(x86)%\Git\cmd;"
+$env:path +=";C:\Program Files\Git\bin;C:\Program Files\Git\cmd;"
+#http://stackoverflow.com/questions/5026165/how-to-get-get-item-cmdlets-output-to-variable-as-string
+  $dir= get-childitem "C:\Program Files\Git\bin" |  select name,length,lastwritetime |   format-table | out-string
+  Write-Debug $dir
+$dir=get-childitem "C:\Program Files\Git\cmd" |  select name,length,lastwritetime |   format-table | out-string 
+  Write-Debug $dir
+Get-ChildItem -Path "C:\Program Files\Git\bin"
+Get-ChildItem -Path "C:\Program Files\Git\cmd"
 
 #test/coverage configurations
 #	$csTestRunner = "`"$baseParent\Source\packages\xunit.runner.console.2.1.0\tools\xunit.console.exe`""
@@ -56,6 +63,8 @@ write-host "Finished Building the project"
 function Publish($projectjsondir)
 {
 write-host "PUBLISHING"
+write-debug "Path= $env:Path"
+
 dotnet --verbose publish $projectjsondir\project.json --configuration release 
 write-host "Finished Publishing"
 
