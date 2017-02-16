@@ -277,9 +277,10 @@ function Set-InternalDODOVariables
 	{
 		$ConfigurationJSONObject = Set-InternalDODOParameters -ConfigurationJSONObject $ConfigurationJSONObject -ParametersJSONObject $ParametersJSONObject
 		
-		$jsonString = ($ConfigurationJSONObject | ConvertTo-Json -Depth 9999999).Replace("\u0027","'")
-		
+		$jsonString = ($ConfigurationJSONObject | ConvertTo-Json -Depth 100).Replace("\u0027","'")
+		Write-Debug "jsonString: $jsonString"
 		$variables = Get-Member -InputObject $($ConfigurationJSONObject.Variables) -MemberType NoteProperty
+		Write-Debug "variables: $variables"
 		foreach($variable in $variables)
 		{
 		    Write-Host "Getting value for variable $($variable.Name)..."

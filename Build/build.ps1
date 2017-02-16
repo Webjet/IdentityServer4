@@ -7,8 +7,8 @@ $ZipFilePath = $SolutionRoot + "\src\AdminPortal\bin\release\net461"
 $env:runDevCoverage='false'
 $outPath="$psscriptroot\..\OUTPUT"
 $packagesRoot ="$SolutionRoot\packages"
-$BuildVersion = $env:Build
-$ZipFileName = "AdminPortal-$BuildVersion.zip"
+#$BuildVersion = $env:Build
+$ZipFileName = "AdminPortal.zip" # -$BuildVersion
 	$slackDetails = @{channel =  "#adminportal";
 					username = "@mfreidgeim";#adminportal
 					#icon_url = "http://besticons.net/sites/default/files/departing-flight-icon-3634.png"
@@ -89,7 +89,7 @@ Invoke-Expression "$psscriptroot\Tools\7za.exe a -tzip $zipfilepath\$ZipFileName
 DeleteIfExistsAndCreateEmptyFolder $outPath
 
 write-host "Copying Items to OUTPUT FOLDER "
-Copy-Item $zipfilepath\AdminPortal-$BuildVersion.zip -Destination $outPath -recurse -force
+Copy-Item $zipfilepath\$ZipFileName -Destination $outPath -recurse -force
 Copy-Item $psscriptroot\..\Deployment\ -Destination $outPath -recurse -force   
 Copy-Item $psscriptroot\..\Configuration\ -Destination $outPath -recurse -force   
 }

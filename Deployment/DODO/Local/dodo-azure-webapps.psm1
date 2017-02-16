@@ -98,8 +98,7 @@ function Publish-DODOAzureWebAppConfiguration
      )
 
 	Write-Host "Executing Publish-DODOAzureWebAppConfiguration"
-
-
+	
     #region Read Json 
 	switch ($PsCmdlet.ParameterSetName) 
     { 
@@ -129,7 +128,6 @@ function Publish-DODOAzureWebAppConfiguration
 		throw "AzureWebApp container not found in json " + $ContainerName
 	}
     #endregion
-
 
 
 	foreach($webAppContainers in $webappJson)
@@ -209,8 +207,6 @@ function Publish-DODOAzureWebAppConfiguration
             $connectionStringNames = @()
         }
 
-
-
         #Update slot config names
         Write-Host "Updating slot appsetting names ..."
         $slotConfigObj = @{
@@ -220,9 +216,8 @@ function Publish-DODOAzureWebAppConfiguration
         
         Set-AzureRmResource -PropertyObject $slotConfigObj -ResourceGroupName $resourceGroupName -ResourceType Microsoft.Web/sites/config -ResourceName $("$AzureWebAppName/slotConfigNames") -ApiVersion 2015-08-01 -Force
         Write-Host "Slot config names updated!"
-		
 
-		#Connection strings update
+        #Connection strings update
         #
         if($connectionStrings -ne "" -and $connectionStrings -ne $NULL)
         {
