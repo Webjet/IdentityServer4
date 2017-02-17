@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AdminPortal.BusinessServices;
+using AdminPortal.BusinessServices.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,9 +43,9 @@ namespace AdminPortal
          
             Configuration = builder.Build();
 
-    
+            AssemblyInformation.SetMainAssembly(Assembly.GetExecutingAssembly());
 
-           
+
             //Configuration for Serilog Sink, setting in c sharp syntax for EventLog
             // Log.Logger =new LoggerConfiguration().WriteTo.EventLog("WebjetAdminPortal", manageEventSource: true).CreateLogger();
 
