@@ -20,7 +20,7 @@ namespace AdminPortal.UnitTests.Common
         public TestContext TestContext { get; set; }
 
         [TestMethod()]
-        public void WriteClaimsTest()
+        public void CompileDateTest()
         {
             TestContext.WriteLine(AssemblyInformation.ExecutingAssembly.ToString());
             var filetime = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location);

@@ -22,8 +22,7 @@ using Serilog;
 
 namespace AdminPortal.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+     public class HomeController : Controller
     {
         private static ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper;
         private static RegionIndicatorList _regionIndicatorList;// to load once
@@ -35,23 +34,16 @@ namespace AdminPortal.Controllers
         {
             _landingPageLayoutLoader = landingPageLayoutLoader;
             _resourceToApplicationRolesMapper = resourceToApplicationRolesMapper;
-
-            _logger.Debug( (User as ClaimsPrincipal).WriteClaims());
-
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Index()
         {
             _logger.Debug((User as ClaimsPrincipal).WriteClaims());
-            
-                var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
-
-                return View(landingPageModel);
-           
-
+             var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
+             return View(landingPageModel);
         }
-
 
         private LandingPageModel GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
         {
