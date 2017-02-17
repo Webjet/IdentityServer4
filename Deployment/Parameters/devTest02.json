@@ -17,7 +17,7 @@
     "ida:ClientSecret": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=", //key from Classic Portal
     "ida:Domain": "mfreidgeimwebjetcom.onmicrosoft.com",
     "ida:TenantId": "0f79d43c-098d-49b1-b8bc-4c9107c64dd4",
-    "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.DevTest01.xml",
+    "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.DevTest02.xml",
     "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
 
 
