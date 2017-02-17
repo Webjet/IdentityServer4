@@ -38,19 +38,19 @@ namespace AdminPortal
             }
             builder.AddEnvironmentVariables();
 
-
+         
             Configuration = builder.Build();
 
+    
 
-
-
+           
             //Configuration for Serilog Sink, setting in c sharp syntax for EventLog
             // Log.Logger =new LoggerConfiguration().WriteTo.EventLog("WebjetAdminPortal", manageEventSource: true).CreateLogger();
 
         }
-
+        
         public IConfigurationRoot Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -65,7 +65,7 @@ namespace AdminPortal
             services.AddAuthentication(
             SharedOptions => SharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
 
-
+         
             // Add framework services.
             services.AddMvc();
         }
@@ -74,10 +74,10 @@ namespace AdminPortal
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //TODO: Will remove AddConsole, its is added by default.
-            //Log.Logger = new LoggerConfiguration().ReadFrom.AppSettings().CreateLogger();
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
+			//Log.Logger = new LoggerConfiguration().ReadFrom.AppSettings().CreateLogger();
+           loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+           loggerFactory.AddDebug();
+            
             try
             {
                 //Adding Serilog log provider to logging pipeline for logging with configuration/settings from appsettings.json file, specially from the 'Serilog' configuartion section
@@ -99,24 +99,24 @@ namespace AdminPortal
             {
                 // Handle unhandled errors i.e. HTTP 500
                 app.UseExceptionHandler("/Error");
-
+                
             }
 
-            // app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            // Display friendly error pages for any non-success case
+            // This will handle any situation where a status code is >= 400
+            // and < 600, so long as no response body has already been generated
+           
+            //Unauthorised/access denied i.e. 401 are not handle by StatusCodePages middleware, for that we have used UseCookieAuthentication-AccessDeniedPath
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseStaticFiles();
-
-
-            //Unauthorise request are handle by UseCookieAuthentication middleware by giving 'AccessDeniedPath' with explicit Http status code as 401
-            //app.UseCookieAuthentication(new CookieAuthenticationOptions()
-            //{
-            //    AccessDeniedPath = new PathString("/Error/401")    // By Adding StatusCodePagesWithReExecute at bottom to pipeline, able to get 401- AccessDenied error code.
-            //});
-
+            
             //This tells the application that we want to store our session tokens in cookies 'UseCookieAuthentication'
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
-
-         
+            //Unauthorise request are handle by UseCookieAuthentication middleware by giving 'AccessDeniedPath' with explicit Http status code as 401
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AccessDeniedPath = new PathString("/Error/401")
+            });
 
             //Authentication instructions.
             //https://stormpath.com/blog/openid-connect-user-authentication-in-asp-net-core
@@ -127,7 +127,7 @@ namespace AdminPortal
                 Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
                 CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"],
                 //ResponseType = OpenIdConnectResponseType.IdToken,
-
+               
             });
 
             //JwtBearerAuthentication is used to access WebAPI from client app
@@ -140,19 +140,13 @@ namespace AdminPortal
                 Audience = Configuration["Authentication:AzureAd:Audience"]
             });
 
-            // Display friendly error pages for any non-success case
-            // This will handle any situation where a status code is >= 400
-            // and < 600, so long as no response body has already been generated
-            //TODO: For UnAuthenticated user-HttpStatus code is returned as 401
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            
         }
     }
 }
