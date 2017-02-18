@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using AdminPortal.BusinessServices;
 using AdminPortal.BusinessServices.Common;
+using AdminPortal.BusinessServices.Logging;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Owin;
 using Serilog;
@@ -65,7 +67,7 @@ namespace AdminPortal
             services.TryAddSingleton<ResourceToApplicationRolesMapper>();
 
             services.AddAuthentication(
-            SharedOptions => SharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+            sharedOptions => sharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
 
          
             // Add framework services.
@@ -104,23 +106,21 @@ namespace AdminPortal
                 
             }
 
-            // Display friendly error pages for any non-success case
-            // This will handle any situation where a status code is >= 400
-            // and < 600, so long as no response body has already been generated
-           
-            //Unauthorised/access denied i.e. 401 are not handle by StatusCodePages middleware, for that we have used UseCookieAuthentication-AccessDeniedPath
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseStaticFiles();
-            
-            //This tells the application that we want to store our session tokens in cookies 'UseCookieAuthentication'
-            //Unauthorise request are handle by UseCookieAuthentication middleware by giving 'AccessDeniedPath' with explicit Http status code as 401
-            app.UseCookieAuthentication(new CookieAuthenticationOptions()
-            {
-                AccessDeniedPath = new PathString("/Error/401")
-            });
 
-            //Authentication instructions.
+
+
+
+            //This tells the application that we want to store our session tokens in cookies 'UseCookieAuthentication'
+            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            //Unauthorise request are handle by UseCookieAuthentication middleware by giving 'AccessDeniedPath' with explicit Http status code as 401
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            //{
+            //    AccessDeniedPath = new PathString("/Error/401")    // By Adding StatusCodePagesWithReExecute at bottom to pipeline, able to get 401- AccessDenied error code.
+            //});
+
+             //Authentication instructions.
             //https://stormpath.com/blog/openid-connect-user-authentication-in-asp-net-core
             //https://joonasw.net/view/asp-net-core-1-azure-ad-authentication
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
@@ -129,18 +129,29 @@ namespace AdminPortal
                 Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
                 CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"],
                 //ResponseType = OpenIdConnectResponseType.IdToken,
-               
+                AutomaticAuthenticate = false,
             });
-
-            //JwtBearerAuthentication is used to access WebAPI from client app
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            bool includeJwtBearerAuthentication = true;
+            if (includeJwtBearerAuthentication)
             {
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
+                //JwtBearerAuthentication is used to access WebAPI from client app
+                app.UseJwtBearerAuthentication(new JwtBearerOptions
+                {
+                    AutomaticAuthenticate = false,
+                    AutomaticChallenge = true,
 
-                Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
-                Audience = Configuration["Authentication:AzureAd:Audience"]
-            });
+                    Authority =Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
+                    Audience = Configuration["Authentication:AzureAd:Audience"]
+                });
+            }
+            //https://www.schaeflein.net/adal-v3-diagnostic-logging/
+            LoggerCallbackHandler.Callback = new AdalLoggerCallback(loggerFactory.CreateLogger("AdalLoggerCallback"));
+
+            // Display friendly error pages for any non-success case
+            // This will handle any situation where a status code is >= 400
+            // and < 600, so long as no response body has already been generated
+            //TODO: For UnAuthenticated user-HttpStatus code is returned as 401
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseMvc(routes =>
             {
