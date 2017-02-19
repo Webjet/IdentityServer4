@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.ServiceModel.Dispatcher;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Diagnostics;
@@ -27,15 +28,19 @@ namespace AdminPortal.Controllers
         public IActionResult Index(int statusCode)
         {
             var httpResponseStatusCode = HttpContext.Response.StatusCode;
-           // if (httpResponseStatusCode != 200)
-           // {
-                var statusCodePageFeature = HttpContext.Features.Get<IStatusCodePagesFeature>();
-                var feature = HttpContext.Features.Get<IHttpRequestFeature>();
-                var error = HttpContext.Features.Get<IErrorHandler>();
-                return View(viewName: statusCode.ToString());
-           // }
+            var statusCodePagesFeature = HttpContext.Features.Get<IStatusCodePagesFeature>();
 
-           // return RedirectToAction("Index", "Home");
+            if (!User.Identity.IsAuthenticated)
+            {
+                if (statusCodePagesFeature != null && httpResponseStatusCode.Equals((int) HttpStatusCode.Unauthorized))
+                {
+                    statusCodePagesFeature.Enabled = false;
+                    return RedirectToAction("SignIn", "Account");
+                }
+            }
+           
+                return View(viewName: statusCode.ToString());
+           
         }
     }
 }
