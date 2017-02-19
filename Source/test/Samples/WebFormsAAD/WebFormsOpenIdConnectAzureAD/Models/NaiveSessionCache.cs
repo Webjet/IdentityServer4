@@ -17,10 +17,11 @@ namespace WebFormsOpenIdConnectAzureAD
         string CacheId = string.Empty;
         private HttpContext _httpContext = null;
 
-        public NaiveSessionCache(HttpContext httpContext, string userId)
+        public NaiveSessionCache(HttpContext httpContext, string userId,bool useSession)
         {
             UserObjectId = userId;
             _httpContext = httpContext;
+            _useSession = useSession;
             CacheId = UserObjectId + "_TokenCache";
             if (_useSession)
             {

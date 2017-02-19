@@ -16,6 +16,7 @@ using Owin;
 using WebFormsOpenIdConnectAzureAD.Models;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.Owin.Security.Notifications;
+using TSA.Applications.WebjetTsa.Admin.AAD;
 using WebFormsOpenIdConnectAzureAD.AAD;
 
 namespace WebFormsOpenIdConnectAzureAD
@@ -106,13 +107,13 @@ namespace WebFormsOpenIdConnectAzureAD
 
             ClientCredential credential = new ClientCredential(clientId, _clientSecret);//aka appKey;
             string userObjectId = context.AuthenticationTicket.Identity.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-            AuthenticationContext authContext = NewAuthenticationContext(userObjectId, HttpContext.Current);
+            var authContext =new AuthenticationService().NewAuthenticationContext(userObjectId, HttpContext.Current);
 
             // If you create the redirectUri this way, it will contain a trailing slash.  
             // Make sure you've registered the same exact Uri in the Azure Portal (including the slash).
             Uri uri = new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path));
 
-            AuthenticationResult result = await authContext.AcquireTokenByAuthorizationCodeAsync(code, uri, credential, graphResourceId);
+            var result = await authContext.AcquireTokenByAuthorizationCodeAsync(code, uri, credential, graphResourceId);
         }
         /// <summary>
         /// See other alternatives in http://www.cloudidentity.com/blog/2014/07/09/the-new-token-cache-in-adal-v2/
@@ -126,7 +127,7 @@ namespace WebFormsOpenIdConnectAzureAD
             AuthenticationContext authContext = null;
             if (httpContext != null)
             {
-                authContext = new AuthenticationContext(_authority, new NaiveSessionCache(httpContext, signedInUserId));
+                authContext = new AuthenticationContext(_authority, new NaiveSessionCache(httpContext, signedInUserId,false));
             }
             else
             {

@@ -113,7 +113,11 @@ namespace AdminPortal
 
 
             //This tells the application that we want to store our session tokens in cookies 'UseCookieAuthentication'
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = false,
+            });
             //Unauthorise request are handle by UseCookieAuthentication middleware by giving 'AccessDeniedPath' with explicit Http status code as 401
             //app.UseCookieAuthentication(new CookieAuthenticationOptions()
             //{
@@ -130,6 +134,7 @@ namespace AdminPortal
                 CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"],
                 //ResponseType = OpenIdConnectResponseType.IdToken,
                 AutomaticAuthenticate = false,
+                AutomaticChallenge = true,
             });
             bool includeJwtBearerAuthentication = true;
             if (includeJwtBearerAuthentication)
@@ -138,7 +143,7 @@ namespace AdminPortal
                 app.UseJwtBearerAuthentication(new JwtBearerOptions
                 {
                     AutomaticAuthenticate = false,
-                    AutomaticChallenge = true,
+                    AutomaticChallenge = false,
 
                     Authority =Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
                     Audience = Configuration["Authentication:AzureAd:Audience"]

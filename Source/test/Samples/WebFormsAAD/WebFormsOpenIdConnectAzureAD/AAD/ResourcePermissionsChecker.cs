@@ -16,6 +16,7 @@ using System.Web;
 using System.Web.UI;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
+using TSA.Applications.WebjetTsa.Admin.AAD;
 using WebFormsOpenIdConnectAzureAD.AAD.Common;
 
 namespace WebFormsOpenIdConnectAzureAD.AAD
@@ -70,8 +71,10 @@ namespace WebFormsOpenIdConnectAzureAD.AAD
                     }
                 }
             }
+
             //No session, call for each resource individually
-            AuthorizeIsResourceAllowed(securityKey);
+            // AuthorizeIsResourceAllowed(securityKey);
+            ThrowException(securityKey);
         }
         private async Task<List<string>> GetResourcesForUser(HttpContext httpContext)
         {
@@ -101,12 +104,12 @@ namespace WebFormsOpenIdConnectAzureAD.AAD
                 string userObjectID =
                     ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
 
-                AuthenticationContext authContext = Startup.NewAuthenticationContext(userObjectID, httpContext);
+                var authContext = new AuthenticationService().NewAuthenticationContext(userObjectID, httpContext);
                 //new AuthenticationContext(Startup.Authority, new ADALTokenCache(userObjectID));
                 Debug.Assert(authContext.TokenCache.Count > 0);
                 ClientCredential credential = new ClientCredential(clientId, _clientSecret);
 
-                AuthenticationResult result =
+                var result =
                     await authContext.AcquireTokenSilentAsync(adminPortalApiResourceId, credential,
                         new UserIdentifier(userObjectID, UserIdentifierType.UniqueId)).ConfigureAwait(false);
 

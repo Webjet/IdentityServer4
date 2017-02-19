@@ -6,7 +6,8 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
 -->
 <ResourceToApplicationRolesMap>
   <!-- All Roles should be created in AAD and saved in git C:\GitRepos\AdminPortal\Configuration\AADManifest_mfreidgeim.WebjetAdminPortalDev.json
-  ServiceCenter,ServiceCenterManager, AnalyticsTeam, ITOPs, FinanceTeam,ProductTeam
+  ServiceCenter,ServiceCenterManager, AnalyticsTeam, ITOPs, FinanceTeam,ProductTeam,
+  CustomerAccounting
 
   -->
   <!--Test Resources -to review and delete if not applicable-->
@@ -23,13 +24,14 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,ITOPs" />
   <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs" />
 
-  <ResourceToRoles ResourceId="AddNewItineraryItem" Roles="ServiceCenter,ITOPs" />
   <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs" /><!-- used for drilldown-->
   
-   <ResourceToRoles ResourceId="RefundAccess" Roles="?" />
- 
+   <ResourceToRoles ResourceId="RefundAccess" Roles="CustomerAccounting" />
+
   <!--ServiceCenterManager-->
   <ResourceToRoles ResourceId="FareEscalationAuthorisation" Roles="ServiceCenterManager" />
+  <ResourceToRoles ResourceId="AddNewItineraryItem" Roles="ServiceCenter,ITOPs" />
+ 
 
   <!--May be not used-->
   <ResourceToRoles ResourceId="PendingBookingsCount" Roles="ServiceCenter,ITOPs" />

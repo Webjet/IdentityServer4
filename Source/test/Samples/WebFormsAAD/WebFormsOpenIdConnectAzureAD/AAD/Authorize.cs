@@ -23,6 +23,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
+using TSA.Applications.WebjetTsa.Admin.AAD;
+
 //using TSA.Applications.WebjetTsa;
 //using TSA.BusinessEntities;
 
@@ -66,11 +68,11 @@ namespace WebFormsOpenIdConnectAzureAD
             {
                 string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
 
-            AuthenticationContext authContext = Startup.NewAuthenticationContext(userObjectID, httpContext); //new AuthenticationContext(Startup.Authority, new ADALTokenCache(userObjectID));
+            var authContext =new AuthenticationService().NewAuthenticationContext(userObjectID, httpContext); //new AuthenticationContext(Startup.Authority, new ADALTokenCache(userObjectID));
             Debug.Assert(authContext.TokenCache.Count > 0);
             ClientCredential credential = new ClientCredential(clientId, _clientSecret);
 
-                AuthenticationResult result = await authContext.AcquireTokenSilentAsync(adminPortalApiResourceId, credential, new UserIdentifier(userObjectID, UserIdentifierType.UniqueId)).ConfigureAwait(false);
+                var result = await authContext.AcquireTokenSilentAsync(adminPortalApiResourceId, credential, new UserIdentifier(userObjectID, UserIdentifierType.UniqueId)).ConfigureAwait(false);
 
                 accessToken = result.AccessToken;
             }
@@ -80,7 +82,7 @@ namespace WebFormsOpenIdConnectAzureAD
                 //https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie
                 //try to get token as in start 
 
-                //   Debug.WriteLine(ex.ToString());
+                 Debug.WriteLine(ex.ToString());
                 throw;
             }
 

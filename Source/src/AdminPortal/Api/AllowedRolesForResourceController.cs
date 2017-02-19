@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using AdminPortal.BusinessServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
 namespace AdminPortal.Api
 {
-    [Authorize]
+    [Authorize(ActiveAuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class AllowedRolesForResourceController : Controller
     {
