@@ -47,7 +47,7 @@
       <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=FlightFiltersManager"  />
     </Section>
     <Section Key ="DevTest" Text="Dev Tests " >
-      <MenuItem Text="Web form client"  Key ="Contact" Link="https://localhost:44379/"  />
+      <MenuItem Text="Web form client -Contact"  Key ="Contact" Link="https://localhost:44379/Contact"  />
     </Section>
     <Section Key ="FinanceTeamSectionAU" Text="Finance Team Activities " >
     </Section>
