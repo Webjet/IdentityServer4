@@ -78,22 +78,12 @@ namespace AdminPortal
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //TODO: Will remove AddConsole, its is added by default.
-			//Log.Logger = new LoggerConfiguration().ReadFrom.AppSettings().CreateLogger();
-           loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-           loggerFactory.AddDebug();
+            //Log.Logger = new LoggerConfiguration().ReadFrom.AppSettings().CreateLogger();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+            ConfigureSerilogSinksToSumologic(loggerFactory);
             
-            try
-            {
-                //Adding Serilog log provider to logging pipeline for logging with configuration/settings from appsettings.json file, specially from the 'Serilog' configuartion section
-                loggerFactory.AddSerilog();
-                //TODO: Serilog for SumoLogic, For test/development environment logging is done in EventViewer 
-                //Reading Configuration for Serilog Sink from appsettings.json. Install Nuget package 'Serilog.Settings.Configuration'.
-                Log.Logger = new LoggerConfiguration().ReadFrom.ConfigurationSection(Configuration.GetSection("Serilog")).CreateLogger();
-            }
-            catch (Exception ex)
-            {
-                Debug.Assert(false, ex.ToString());
-            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -164,7 +154,44 @@ namespace AdminPortal
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+
         }
+
+        private void ConfigureSerilogSinksToSumologic(ILoggerFactory loggerFactory)
+        {
+            try
+            {
+                //Adding Serilog log provider to logging pipeline for logging with configuration/settings from appsettings.json file, specially from the 'Serilog' configuartion section
+                loggerFactory.AddSerilog();
+
+                //Reading Configuration for Serilog Sink from appsettings.json. Install Nuget package 'Serilog.Settings.Configuration'.
+                Log.Logger = new LoggerConfiguration().ReadFrom.ConfigurationSection(Configuration.GetSection("Serilog")).CreateLogger();
+
+                // Log.Logger = new LoggerConfiguration().WriteTo.SumoLogic(new Uri(collectorUrl)).CreateLogger();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.Assert(false, ex.ToString());
+            }
+        }
+
+        private void ConfigureSerilogSinksToEventViewer(ILoggerFactory loggerFactory)
+        {
+            try
+            {
+                //Adding Serilog log provider to logging pipeline for logging with configuration/settings from appsettings.json file, specially from the 'Serilog' configuartion section
+                loggerFactory.AddSerilog();
+
+                //Reading Configuration for Serilog Sink from appsettings.json. Install Nuget package 'Serilog.Settings.Configuration'.
+                Log.Logger = new LoggerConfiguration().ReadFrom.ConfigurationSection(Configuration.GetSection("Serilog")).CreateLogger();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.Assert(false, ex.ToString());
+            }
+        }
+
     }
 }

@@ -13,11 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 using Serilog;
-
-
-
-
-
+using Serilog.Events;
 
 
 namespace AdminPortal.Controllers
@@ -41,7 +37,12 @@ namespace AdminPortal.Controllers
         public ActionResult Index()
         {
             _logger.Debug((User as ClaimsPrincipal).WriteClaims());
-             var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
+
+            _logger.Write(LogEventLevel.Verbose, "Testing Sumologic");
+
+            _logger.Information("AdminPortal -> Home Controller");
+
+            var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
              return View(landingPageModel);
         }
 
