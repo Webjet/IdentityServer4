@@ -7,7 +7,7 @@
     "NETStandard.Library": "1.6.1",
     "NLog": "4.4.1",
     "System.Xml.XmlSerializer": "4.0.10",
-    "Webjet.Common": "1.0.6255.24379"
+    "Webjet.Common": "1.0.6261.17758"
   },
   "frameworks": {
     "net461": {
