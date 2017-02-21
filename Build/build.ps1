@@ -17,7 +17,7 @@ $DebugPreference="Continue"
 #import-module "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
-. "$PSScriptRoot\..\Deployment\DODO\dodo-general.psm1" #consider to copy to build scripts
+import-module "$PSScriptRoot\..\Deployment\DODO\dodo-general.psm1" #consider to copy to build scripts
 $CoverageThresholdTolerance = Coalesce $env:CoverageThresholdTolerance 0.
 
 
