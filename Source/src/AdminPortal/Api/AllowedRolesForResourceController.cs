@@ -15,9 +15,9 @@ namespace AdminPortal.Api
 
         private readonly ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper;
 
-        public AllowedRolesForResourceController()
+        public AllowedRolesForResourceController(ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = null)
         {
-            _resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
+            _resourceToApplicationRolesMapper = resourceToApplicationRolesMapper ?? new ResourceToApplicationRolesMapper();
         }
 
         // GET: api/AllowedRolesForResource
@@ -26,6 +26,7 @@ namespace AdminPortal.Api
         {
             return _resourceToApplicationRolesMapper.ResourceItemsWithRoles;
         }
+
         [HttpGet("GetResourcesForUser")]
         public List<string> GetResourcesForUser()
         {
@@ -34,6 +35,7 @@ namespace AdminPortal.Api
 
             return resources;
         }
+
         [HttpGet("{resourceKey}")]
         public bool Get(string resourceKey)
         {

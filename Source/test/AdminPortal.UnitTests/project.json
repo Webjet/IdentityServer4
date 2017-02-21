@@ -15,7 +15,7 @@
     "MSTest.TestFramework": "1.0.8-rc2",
     "NSubstitute": "1.10.0",
     "Serilog.Sinks.Console": "2.1.0",
-    "Webjet.Common": "1.0.6255.24379"
+    "Webjet.Common": "1.0.6261.17758"
   },
 
   "frameworks": {
