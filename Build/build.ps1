@@ -17,6 +17,9 @@ $DebugPreference="Continue"
 #import-module "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
+. "$PSScriptRoot\..\Deployment\DODO\dodo-general.psm1" #consider to copy to build scripts
+$CoverageThresholdTolerance = Coalesce $env:CoverageThresholdTolerance 0.
+
 
 #for bower http://stackoverflow.com/questions/20666989/bower-enogit-git-is-not-installed-or-not-in-the-path
 $env:path +=";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External\git;"
@@ -134,7 +137,7 @@ $targetargs="  test $($csTestAssemblies)"
 					#icon_url = "http://besticons.net/sites/default/files/departing-flight-icon-3634.png"
                    }
 		CoveragePercentUpdate $reportGeneratorOutputFile "$baseParent\Build\coveragethreshold.txt" "$coverOut\CoveragePercent.txt" $slackDetails
-		                        [System.Convert]::ToBoolean($openCoverageReport)
+		                        [System.Convert]::ToBoolean($openCoverageReport),[System.Convert]::ToDecimal($CoverageThresholdTolerance)
 
     }
 
