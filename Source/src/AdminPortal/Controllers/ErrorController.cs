@@ -32,15 +32,15 @@ namespace AdminPortal.Controllers
 
             if (!User.Identity.IsAuthenticated)
             {
-                if (statusCodePagesFeature != null && httpResponseStatusCode.Equals((int) HttpStatusCode.Unauthorized))
+                if (statusCodePagesFeature != null && httpResponseStatusCode == ((int)HttpStatusCode.Unauthorized))
                 {
                     statusCodePagesFeature.Enabled = false;
                     return RedirectToAction("SignIn", "Account");
                 }
             }
-           
-                return View(viewName: statusCode.ToString());
-           
+
+            return View(viewName: statusCode.ToString());
+
         }
     }
 }
