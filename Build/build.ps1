@@ -4,7 +4,7 @@ $baseParent = "$((Get-Item  $psscriptroot).Parent.FullName)"
 $SolutionRoot =$baseParent + "\Source" 
 $ProjectJsonDir =  "$SolutionRoot\src\AdminPortal\"  
 $ZipFilePath = $SolutionRoot + "\src\AdminPortal\bin\release\net461"
-$env:runDevCoverage='true'
+$env:runDevCoverage=Coalesce $env:runDevCoverage 'true'
 $outPath="$psscriptroot\..\OUTPUT"
 $packagesRoot ="$SolutionRoot\packages"
 #$BuildVersion = $env:Build
@@ -123,7 +123,10 @@ $targetargs="  test $($csTestAssemblies)"
    		 " -[DbUpWrapper]*  -[FluentAssertions*]* -[MSTestHacks]* -[Microsoft.*]* -[Flurl.*]*  "  
 			#-noshadow for XUnit
 #.$openCover -register:user -mergebyhash -skipautoprops -target:$csTestRunner -targetargs:"$($csTestAssemblies) " -returntargetcode -output:$coverOutPath -filter:$filters
-		$arguments="-register:user -mergebyhash -skipautoprops -target:`"$csTestRunner`" -targetargs:`"$targetargs`" -skipautoprops -returntargetcode -output:$coverOutPath -filter:`"$filters`" "
+		#-log:,#Default :Info  [Off|Fatal|Error|Warn|Info|Debug|Verbose|All]
+		$arguments="-register:user -mergebyhash -skipautoprops -target:`"$csTestRunner`" -targetargs:`"$targetargs`" -skipautoprops -returntargetcode -output:$coverOutPath -filter:`"$filters`" -log:Verbose "
+ 
+
 		RunProcess -processPath $openCover -arguments $arguments
 		.$reportGen -reports:$coverOutPath -targetdir:$coverReportOut
 		
