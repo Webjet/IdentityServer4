@@ -43,7 +43,7 @@ namespace AdminPortal.Controllers.Tests
 
             //Assert
           
-            result.ViewData["ErrorMessage"].ShouldBeEquivalentTo(errorMessage);
+            result.ViewData["ErrorMessage"].ShouldBeEquivalentTo("No error message found for unhandled exception");
 
 
         }
