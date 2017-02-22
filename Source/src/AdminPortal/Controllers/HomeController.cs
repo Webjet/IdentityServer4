@@ -36,11 +36,11 @@ namespace AdminPortal.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            _logger.Debug((User as ClaimsPrincipal).WriteClaims());
+            _logger.Debug((User as ClaimsPrincipal).WriteClaims()); // Debug output window
 
-            _logger.Write(LogEventLevel.Verbose, "Testing Sumologic");
+            _logger.Write(LogEventLevel.Verbose, "Testing logger");
 
-            _logger.Information("AdminPortal -> Home Controller");
+            _logger.Information("AdminPortal -> information log " + DateTime.Now.ToLongDateString()); // Event Viewer and Sumologic
 
             var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
              return View(landingPageModel);

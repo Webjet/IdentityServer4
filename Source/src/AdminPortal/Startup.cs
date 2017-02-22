@@ -82,7 +82,7 @@ namespace AdminPortal
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            ConfigureSerilogSinksToSumologic(loggerFactory);
+            ConfigureSerilogSinks(loggerFactory);
             
             if (env.IsDevelopment())
             {
@@ -96,12 +96,8 @@ namespace AdminPortal
                 
             }
 
-
             app.UseStaticFiles();
-
-
-
-
+            
             //This tells the application that we want to store our session tokens in cookies 'UseCookieAuthentication'
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
@@ -157,7 +153,7 @@ namespace AdminPortal
 
         }
 
-        private void ConfigureSerilogSinksToSumologic(ILoggerFactory loggerFactory)
+        private void ConfigureSerilogSinks(ILoggerFactory loggerFactory)
         {
             try
             {

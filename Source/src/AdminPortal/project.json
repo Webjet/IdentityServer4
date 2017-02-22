@@ -70,7 +70,8 @@
       "Areas/**/Views",
       "appsettings.json",
       "web.config",
-      "config"
+      "config",
+      "logs"
       
     ]
   },
