@@ -24,7 +24,7 @@ namespace AdminPortal.Controllers.Tests
         public void ShowErrorTest()
         {
             //Arrange
-            string errorMessage = "You do not have sufficient priviliges to view this page.";
+            string errorMessage = "No error message found for unhandled exception";
             var controller = ControllerAssertions.ArrangeController<ErrorController>(null);
 
             ////Act
@@ -43,7 +43,7 @@ namespace AdminPortal.Controllers.Tests
 
             //Assert
           
-            result.ViewData["ErrorMessage"].ShouldBeEquivalentTo("No error message found for unhandled exception");
+            result.ViewData["ErrorMessage"].ShouldBeEquivalentTo(errorMessage);
 
 
         }
