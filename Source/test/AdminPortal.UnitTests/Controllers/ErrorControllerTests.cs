@@ -39,10 +39,10 @@ namespace AdminPortal.Controllers.Tests
             //        }
             //};
 
-            var result = controller.ShowError(errorMessage, null) as ViewResult;
+            var result = controller.ShowError() as ViewResult;
 
             //Assert
-            result.ViewData["SignIn"].ShouldBeEquivalentTo(null);
+          
             result.ViewData["ErrorMessage"].ShouldBeEquivalentTo(errorMessage);
 
 
