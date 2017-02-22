@@ -17,8 +17,7 @@
     "ida:ClientSecret":"0ObUWAQDydoKRGoQud7sqqj6YkRM7heM+Ws9BwnkWMs=" ,
     "ida:Domain":"mfreidgeimwebjetcom.onmicrosoft.com" ,
     "ida:TenantId":"0f79d43c-098d-49b1-b8bc-4c9107c64dd4" ,
-    "ida:PostLogoutRedirectUri":"https://localhost/WebjetAdminPortal" ,
-
+  
     //    "NewRelic.AppName": "WJ-Dev-AdminPortal",
     //    "NEWRELIC_LICENSEKEY": "dac6eb61fde6242216562aa4fc2de1c1092c3519",
     //    "NEWRELIC_HOME": "D:\\Home\\site\\wwwroot\\newrelic",
@@ -39,6 +38,9 @@
 */
 		"LogStorageName": "wjdevstglogsau",
 		"LogStorageContainer": "wjdevstglogscnau",
-		"LogResourceGroupName": "WJ-Dev-LogsRG"
+		"LogResourceGroupName": "WJ-Dev-LogsRG",
+		"LandingPageLayoutRelativePath": "Config\\LandingPageLayout.DevTest02.xml",
+        "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
+        "ASPNETCORE_ENVIRONMENT": "Development",
 	}
 }
