@@ -39,7 +39,7 @@
 		"LogStorageName": "wjdevstglogsau",
 		"LogStorageContainer": "wjdevstglogscnau",
 		"LogResourceGroupName": "WJ-Dev-LogsRG",
-		"LandingPageLayoutRelativePath": "Config\\LandingPageLayout.DevTest02.xml",
+		"LandingPageLayoutRelativePath": "Config\\LandingPageLayout.Local.xml",
         "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
         "ASPNETCORE_ENVIRONMENT": "Development"
 	}
