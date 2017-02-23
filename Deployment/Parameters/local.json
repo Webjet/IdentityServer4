@@ -41,6 +41,6 @@
 		"LogResourceGroupName": "WJ-Dev-LogsRG",
 		"LandingPageLayoutRelativePath": "Config\\LandingPageLayout.DevTest02.xml",
         "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
-        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_ENVIRONMENT": "Development"
 	}
 }
