@@ -16,7 +16,8 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetNZ" Roles="ServiceCenter,DevSupport,ProductTeam" />
   <!--GenerateRandomNumber TODO  leave only marketing team-->
   <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="ServiceCenter,DevSupport,ProductTeam,MarketingTeam" />
-
+  <ResourceToRoles ResourceId="ReviewPendingBookings_ZujiAU" Roles="ServiceCenter" />
+  
   <!--ServiceCenter-->
   <ResourceToRoles ResourceId="LogonAsCustomer" Roles="" /> <!--Not required to support -->
   <ResourceToRoles ResourceId="SearchBooking" Roles="ServiceCenter,ITOPs" />
