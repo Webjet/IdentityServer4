@@ -51,6 +51,7 @@ namespace AdminPortal.Controllers
             return View();
         }
         
+
         [ResourceAuthorize("GenerateRandomNumber")]
         [HttpGet]
         public ActionResult GenerateRandomNumber()
@@ -78,6 +79,32 @@ namespace AdminPortal.Controllers
             //var key = "GenerateRandomNumber";//TODO use reflection or Fody to generate
             //ViewData["PageName"] =key+".html";
             //return View("Index");
+        }
+
+        // GET: AnalyticsScripts
+        [ResourceAuthorize("GoogleBigQueryItinerary")]
+        [HttpGet]
+        public ActionResult GoogleBigQueryItineraryCiaran()
+        {
+            string htmlPath;
+            string googleBigQueryHostUrl;
+            htmlPath = _config?["GoogleBigQueryItineraryDirectoryPath"];
+
+            if (htmlPath.IsNullOrBlank())
+            {
+                htmlPath = Directory.GetCurrentDirectory() + @"\Views\ViewHtml\GoogleBigQueryItinerary\index.html";
+            }
+
+            googleBigQueryHostUrl = _config["GoogleBigQueryHostUrl_Ciaran"];
+            string htmlContent = System.IO.File.ReadAllText(htmlPath);
+            ViewData["HtmlContent"] = htmlContent;
+            ViewData["GoogleBigQueryHostUrl"] = googleBigQueryHostUrl;
+
+
+            //ViewData["GoogleBigQueryHostUrl"] = _config.GetValue<string>("AppSettings:GoogleBigQueryHostUrl"); 
+            //ConfigurationManager.AppSettings["GoogleBigQueryHostUrl"];
+
+            return View(viewName: "GoogleBigQueryItinerary");
         }
 
     }
