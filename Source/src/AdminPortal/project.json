@@ -73,8 +73,10 @@
       "appsettings.json",
       "web.config",
       "config",
-      "logs"
-      
+      "logs",
+      "project.json",
+      "project.*.json"
+
     ]
   },
 
