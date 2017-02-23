@@ -4,7 +4,6 @@ $baseParent = "$((Get-Item  $psscriptroot).Parent.FullName)"
 $SolutionRoot =$baseParent + "\Source" 
 $ProjectJsonDir =  "$SolutionRoot\src\AdminPortal\"  
 $ZipFilePath = $SolutionRoot + "\src\AdminPortal\bin\release\net461"
-$env:runDevCoverage=Coalesce $env:runDevCoverage 'true'
 $outPath="$psscriptroot\..\OUTPUT"
 $packagesRoot ="$SolutionRoot\packages"
 #$BuildVersion = $env:Build
@@ -17,8 +16,9 @@ $DebugPreference="Continue"
 #import-module "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
-import-module "$PSScriptRoot\..\Deployment\DODO\dodo-general.psm1" #consider to copy to build scripts
+import-module "$PSScriptRoot\..\Deployment\DODO\dodo-general.psm1" #consider to copy to build scripts. Includes Coalesce
 $CoverageThresholdTolerance = Coalesce $env:CoverageThresholdTolerance 0.
+$env:runDevCoverage=Coalesce $env:runDevCoverage 'true'
 
 
 #for bower http://stackoverflow.com/questions/20666989/bower-enogit-git-is-not-installed-or-not-in-the-path
