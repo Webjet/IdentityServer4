@@ -31,10 +31,10 @@
   <LandingPageTab Key ="WebjetAU_Local" Text ="Local Webjet AU">
     <Section Key ="ServiceCenterSectionAU" Text="Service Center Activities " >
       <!--public enum AdminMenuItineraryEditViewMode C:\GitRepos\TSA\main\TSA\Common\TSAType.cs-->
-      <MenuItem Text="Pending L"           Key ="PendingItems"  Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
-      <MenuItem Text="Search Booking L"    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
-      <MenuItem Text="Administration L"    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
-      <MenuItem Text="Customer Information L" Key ="CustomerDrilldown" Link="https://local.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
+      <MenuItem Text="Pending  "           Key ="PendingItems"  Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
+      <MenuItem Text="Search Booking  "    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
+      <MenuItem Text="Administration  "    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
+      <MenuItem Text="Customer Information  " Key ="CustomerDrilldown" Link="https://local.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
       <MenuItem Text="Google Big Query Itinerary" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>

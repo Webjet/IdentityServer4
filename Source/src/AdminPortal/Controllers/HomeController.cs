@@ -122,10 +122,7 @@ namespace AdminPortal.Controllers
             return null;
 
         }
-        public IActionResult About()
-        {
-            return View();
-        }
+      
         //private static readonly ResourceToApplicationRolesMapper ResourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
         //private static RegionIndicatorList _regionIndicatorList;
         //private LandingPageLayoutLoader _landingPageLayoutLoader;

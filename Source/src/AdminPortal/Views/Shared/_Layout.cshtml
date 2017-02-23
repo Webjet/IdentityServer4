@@ -51,10 +51,6 @@
                     <li class="important">
                         @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "home" })
                     </li>
-                    @* added at bottom of page PBI - 32118
-                        <li class="important">
-                        @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "About" })
-                    </li>*@
                 </ul>
             </nav>
             <div id="service-panel">
@@ -70,7 +66,9 @@
                     @RenderBody()
                 </div>
             </div>
-            <footer><p>Version @AssemblyInformation.ExecutingAssemblyVersion created at @AssemblyInformation.CompileDate</p></footer>
+            <footer>
+                <p>Version @AssemblyInformation.ExecutingAssemblyVersion Build Date @AssemblyInformation.CompileDate</p>
+            </footer>
         </div>
     </div>
 

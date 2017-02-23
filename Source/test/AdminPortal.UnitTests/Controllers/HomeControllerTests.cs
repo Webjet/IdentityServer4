@@ -115,19 +115,6 @@ namespace AdminPortal.Controllers.Tests
             //};
             return controller;
         }
-        [TestMethod()]
-        public void AboutTest()
-        {
-            //Arrange
-              var controller = InitHomeController(null);
-            //Act
-
-            var result = controller.About() as ViewResult;
-
-            //Assert
-            result.Should().NotBeNull();
-        //doesn't assigned in test    result.ViewName.Should().Be("About");
-
-        }
+    
     }
 }

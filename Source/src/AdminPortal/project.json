@@ -3,11 +3,13 @@
   "userSecretsId": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=", //<-- Webjet Admin Portal Dev
   "dependencies": {
     "AdminPortal.BusinessServices": "1.0.0-*",
+    "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
     "Microsoft.AspNetCore.Authentication.OpenIdConnect": "1.0.0",
     "Microsoft.AspNetCore.Authorization": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Diagnostics.Elm": "0.2.0",
     "Microsoft.AspNetCore.Http": "1.1.0",
     "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
     "Microsoft.AspNetCore.Identity": "1.1.0",
