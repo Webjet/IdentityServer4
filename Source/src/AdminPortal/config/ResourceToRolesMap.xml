@@ -14,8 +14,7 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam" />
   <ResourceToRoles ResourceId="FareEscalationJournal_WebjetNZ" Roles="FinanceTeam,ProductTeam" />
   <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetNZ" Roles="ServiceCenter,DevSupport,ProductTeam" />
-  <!--GenerateRandomNumber TODO  leave only marketing team-->
-  <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="ServiceCenter,DevSupport,ProductTeam,MarketingTeam" />
+
 
   <!--ServiceCenter-->
   <ResourceToRoles ResourceId="LogonAsCustomer" Roles="" /> <!--Not required to support -->
@@ -42,8 +41,9 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs" />
   <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="ProductTeam,ITOPs" />
   <ResourceToRoles ResourceId="FlightFiltersManager" Roles="ProductTeam,ITOPs" />
-
-
+  <!--MarketingTeam-->
+  <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="MarketingTeam,ITOPs" />
+  
   <!--Test pages for Web Forms Client-->
   <ResourceToRoles ResourceId="Contact" Roles="ServiceCenter" />
   <ResourceToRoles ResourceId="About" Roles="ServiceCenter" />
