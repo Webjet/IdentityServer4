@@ -184,11 +184,8 @@
 		  {
             "Key": "GoogleBigQueryHostUrl_Ciaran",
             "Value": "[variables('GoogleBigQueryHostUrl_Ciaran')]"
-          },
-		  {
-            "Key": "GoogleBigQueryHostUrl",
-            "Value": "[variables('GoogleBigQueryHostUrl')]"
           }
+		 
 		  
         ],
 				"ResourceGroup":{
