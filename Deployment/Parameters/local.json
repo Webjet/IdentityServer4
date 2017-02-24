@@ -25,7 +25,7 @@
 		//"COR_PROFILER": "{71DA0A04-7777-4EC6-9643-7D28B46A8A41}",
 		//"COR_ENABLE_PROFILING": "1",
 	  "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
-    "logging.application_name": "WJZU-Dev-API-FlightMerchandising-AU001",
+    "logging.application_name": "WJ-Dev-AdminPortal",
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "BuildVersion": "{Teamcity-Parameter-BuildVersion}",
     "DiagnosticStorageAccountName": "wjdevstglogsau",
@@ -41,6 +41,8 @@
 		"LogResourceGroupName": "WJ-Dev-LogsRG",
 		"LandingPageLayoutRelativePath": "Config\\LandingPageLayout.Local.xml",
         "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+		"GoogleBigQueryHostUrl_Ciaran"="http://172.28.118.2/api/v1.0/query",
+		"GoogleBigQueryHostUrl"="http://127.0.0.1:5000/api/v1.0/query"
 	}
 }

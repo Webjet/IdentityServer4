@@ -168,7 +168,8 @@ namespace AdminPortal
             }
             catch (Exception ex)
             {
-                Debug.Assert(false, ex.ToString());
+                throw;
+                //Debug.Assert(false, ex.ToString());
             }
         }
 
