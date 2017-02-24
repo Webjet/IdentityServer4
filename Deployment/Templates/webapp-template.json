@@ -180,7 +180,13 @@
           {
             "Key": "ResourceToRolesMapRelativePath",
             "Value": "[variables('ResourceToRolesMapRelativePath')]"
+          },
+		  {
+            "Key": "GoogleBigQueryHostUrl_Ciaran",
+            "Value": "[variables('GoogleBigQueryHostUrl_Ciaran')]"
           }
+		 
+		  
         ],
 				"ResourceGroup":{
 					"Name" : "[variables('ResourceGroupName')]",

@@ -10,6 +10,7 @@
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://devtest02api.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
       <MenuItem Text="Google Big Query Itinerary" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
+      <MenuItem Text="Google Big Query Itinerary Ciaran" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItineraryCiaran" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
@@ -28,26 +29,27 @@
       <MenuItem Text="Generate Random Number"  Key ="GenerateRandomNumber" Link="ViewHtml/GenerateRandomNumber" RegionIndicator="ALL"  />
     </Section>
   </LandingPageTab>
+  
   <LandingPageTab Key ="WebjetAU_Local" Text ="Local Webjet AU">
     <Section Key ="ServiceCenterSectionAU" Text="Service Center Activities " >
-      <!--public enum AdminMenuItineraryEditViewMode C:\GitRepos\TSA\main\TSA\Common\TSAType.cs-->
-      <MenuItem Text="Pending  "           Key ="PendingItems"  Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
-      <MenuItem Text="Search Booking  "    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
-      <MenuItem Text="Administration  "    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
-      <MenuItem Text="Customer Information  " Key ="CustomerDrilldown" Link="https://local.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
+      public enum AdminMenuItineraryEditViewMode C:\GitRepos\TSA\main\TSA\Common\TSAType.cs
+      <MenuItem Text="Pending  "           Key ="PendingItems"  Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" RegionIndicator="WNZ"/>
+      <MenuItem Text="Search Booking  "    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" RegionIndicator="WNZ"/>
+      <MenuItem Text="Administration  "    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" RegionIndicator="WNZ"/>
+      <MenuItem Text="Customer Information  " Key ="CustomerDrilldown" Link="https://local.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" RegionIndicator="WNZ"/>
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
       <MenuItem Text="Google Big Query Itinerary" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
-      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=SaleFareCampaignManager"  />
-      <MenuItem Text="Virtual Fare Camapign Management"  Key ="CampaignManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=CampaignManager"  />
-      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=CouponCampaignManager"  />
-      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=VelocityBonusCampaignManager"  />
-      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=FlightFiltersManager"  />
+      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=SaleFareCampaignManager"  RegionIndicator="WNZ"/>
+      <MenuItem Text="Virtual Fare Camapign Management"  Key ="CampaignManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=CampaignManager"  RegionIndicator="WNZ"/>
+      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=CouponCampaignManager"  RegionIndicator="WNZ"/>
+      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=VelocityBonusCampaignManager" RegionIndicator="WNZ" />
+      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=FlightFiltersManager"  RegionIndicator="WNZ"/>
     </Section>
     <Section Key ="DevTest" Text="Dev Tests " >
-      <MenuItem Text="Web form client -Contact"  Key ="Contact" Link="https://localhost:44379/Contact"  />
+      <MenuItem Text="Web form client -Contact"  Key ="Contact" Link="https://localhost:44379/Contact"  RegionIndicator="WNZ"/>
     </Section>
     <Section Key ="FinanceTeamSectionAU" Text="Finance Team Activities " >
     </Section>
@@ -57,17 +59,17 @@
     </Section>
   </LandingPageTab>
 
-  <LandingPageTab Key ="WebjetNZ" Text ="Webjet NZ">
+  <LandingPageTab Key ="WebjetNZ" Text ="Dummy Webjet NZ">
     <Section Key ="ServiceCenterSectionNZ"
-             Text="ServiceCenter Activities " >
-      <MenuItem Key ="ReviewPendingBookings_WebjetNZ"
-                Text="Pending Bookings"
-                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+             Text="Service Center Activities " >
+      <MenuItem Key ="PendingItems"
+                Text="Pending"
+               Link="https://devtest02api.webjet.co.nz/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" 
                 >
       </MenuItem >
       <MenuItem Key ="GoogleBigQueryItinerary"
                Text="Google Big Query Itinerary"
-               Link="GoogleBigQueryItinerary/Index"
+               Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL"
                 >
       </MenuItem >
 
@@ -75,14 +77,10 @@
 
     <Section Key ="ProductTeamSectionNZ"
            Text="Product Team Activities " >
-      <MenuItem Key ="ReviewPendingBookings_WebjetNZ"
-                Text="Pending Bookings"
-                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
-                >
-      </MenuItem>
+  
       <MenuItem Key ="CreditCardTransactionsToCheck_WebjetNZ"
             Text="Credit Card Transaction Check"
-            Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+            Link="https://devtest02api.webjet.co.nz/WebjetTSA/secure.aspx"
                 >
       </MenuItem>
     </Section>
@@ -91,22 +89,22 @@
           Text="Finance Team Activities " >
       <MenuItem Key ="FareEscalationJournal_WebjetNZ"
              Text="Fare Escalation Journal"
-             Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+             Link="https://devtest02api.webjet.co.nz/WebjetTSA/secure.aspx"
                 >
       </MenuItem>
     </Section>
 
   </LandingPageTab>
 
-  <LandingPageTab Key ="ZujiAU" Text ="Zuji AU">
+  <LandingPageTab Key ="ZujiAU" Text ="Dummy Zuji AU">
     <Section Key ="ServiceCenterSectionAU"
-             Text="ServiceCenter Activities " >
+             Text="Service Center Activities " >
       <MenuItem Key ="ReviewPendingBookings_ZujiAU"
-                Text="Pending Bookings"
-                Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx"
+                Text="Pending"
+                Link="https://devciapi.zuji.com.au/ZujiTSA/secure.aspx"
                 >
       </MenuItem >
-
+      <MenuItem Text="Google Big Query Itinerary" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
 
