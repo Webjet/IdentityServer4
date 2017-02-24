@@ -166,7 +166,7 @@ namespace AdminPortal
                 // Log.Logger = new LoggerConfiguration().WriteTo.SumoLogic(new Uri(collectorUrl)).CreateLogger();
 
             }
-            catch (Exception ex)
+            catch 
             {
                 throw;
                 //Debug.Assert(false, ex.ToString());
