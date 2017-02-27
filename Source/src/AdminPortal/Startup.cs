@@ -104,7 +104,7 @@ namespace AdminPortal
             {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = false,
-                CookieSecure =CookieSecurePolicy.Always //https://github.com/aspnet/Security/issues/219
+               // CookieSecure =CookieSecurePolicy.Always //https://github.com/aspnet/Security/issues/219
             });
             //Unauthorise request are handle by UseCookieAuthentication middleware by giving 'AccessDeniedPath' with explicit Http status code as 401
             //app.UseCookieAuthentication(new CookieAuthenticationOptions()
