@@ -43,3 +43,7 @@ http://stackoverflow.com/questions/40912473/can-system-web-be-used-with-asp-net-
 
  //Serilog
  https://github.com/serilog/serilog-settings-configuration/blob/dev/sample/Sample/appsettings.json
+
+ //Infinite loop for Redirect to AAD
+  https://github.com/aspnet/Security/issues/219
+  https://msftplayground.com/2015/12/https-only-for-azure-websites/ 
