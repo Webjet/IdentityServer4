@@ -36,7 +36,6 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <ResourceToRoles ResourceId="PendingBookingsCount" Roles="ServiceCenter,ITOPs" />
 
   <!--ProductTeam-->
-  <ResourceToRoles ResourceId="CampaignManager" Roles="ProductTeam,ITOPs" /> <!--AKA Virtual Fare- -most likely not working in WCS-->
   <ResourceToRoles ResourceId="CouponCampaignManager" Roles="ProductTeam,ITOPs" />
   <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs" />
   <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="ProductTeam,ITOPs" />

@@ -14,7 +14,6 @@
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
       <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://devtest02api.webjet.com.au/WebjetTSA/secure.aspx?PageID=SaleFareCampaignManager"  />
-      <MenuItem Text="Virtual Fare Camapign Management"  Key ="CampaignManager" Link="https://devtest02api.webjet.com.au/WebjetTSA/secure.aspx?PageID=CampaignManager"  />
       <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://devtest02api.webjet.com.au/WebjetTSA/secure.aspx?PageID=CouponCampaignManager"  />
       <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://devtest02api.webjet.com.au/WebjetTSA/secure.aspx?PageID=VelocityBonusCampaignManager"  />
       <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://devtest02api.webjet.com.au/WebjetTSA/secure.aspx?PageID=FlightFiltersManager"  />
@@ -83,25 +82,19 @@
       </MenuItem>
     </Section>
 
-    <Section Key ="FinanceTeamSectionNZ"
-          Text="Finance Team Activities " >
-      <MenuItem Key ="FareEscalationJournal_WebjetNZ"
+    <Section Key ="FinanceTeamSectionNZ" Text="Finance Team Activities " >
+      <!--<MenuItem Key ="FareEscalationJournal_WebjetNZ"
              Text="Fare Escalation Journal"
              Link="https://devtest02api.webjet.co.nz/WebjetTSA/secure.aspx"
                 >
-      </MenuItem>
+      </MenuItem>-->
     </Section>
 
   </LandingPageTab>
 
   <LandingPageTab Key ="ZujiAU" Text ="Dummy Zuji AU">
-    <Section Key ="ServiceCenterSectionAU"
-             Text="Service Center Activities " >
-      <MenuItem Key ="ReviewPendingBookings_ZujiAU"
-                Text="Pending"
-                Link="https://devciapi.zuji.com.au/ZujiTSA/secure.aspx"
-                >
-      </MenuItem >
+    <Section Key ="ServiceCenterSectionAU" Text="Service Center Activities " >
+      <MenuItem Key ="ReviewPendingBookings_ZujiAU" Text="Pending" Link="https://devciapi.zuji.com.au/ZujiTSA/secure.aspx"> </MenuItem >
       <MenuItem Text="Google Big Query Itinerary" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
