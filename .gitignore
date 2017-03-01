@@ -8,6 +8,7 @@ setup
 [Pp]ackages
 **/*.psproj
 **/*.bak
+**/*.log
 **/.merge_file_*
 # do not ignore gitignore http://stackoverflow.com/questions/767147/ignore-the-gitignore-file-itself/767213#767213
 #.gitignore
@@ -44,3 +45,5 @@ node_modules/
 # Dodo.exe extracts the files
 Deployment/DODO
 !Deployment/DODO/Local
+
+/Documentation/~*.xlsx
