@@ -1,3 +1,5 @@
+//The file is a backup only, the master settings are in AAD
+//However it's important to save the Manifest here after each change in AAD portal
 {
   "appId": "43c42f66-e21c-4d89-a5ca-8a8ebc2be260",
   "appRoles": [
