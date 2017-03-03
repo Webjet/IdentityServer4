@@ -16,7 +16,7 @@ $ZipFileName = "AdminPortal.zip" # -$BuildVersion
 #import-module "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
-import-module "$PSScriptRoot\..\Deployment\DODO\dodo-general.psm1" #consider to copy to build scripts. Includes Coalesce
+#import-module "$PSScriptRoot\..\Deployment\DODO\dodo-general.psm1" #consider to copy to build scripts. Includes Coalesce
 $CoverageThresholdTolerance = Coalesce $env:CoverageThresholdTolerance 0.
 $env:runDevCoverage=Coalesce $env:runDevCoverage 'true'
 

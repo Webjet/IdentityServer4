@@ -7,7 +7,8 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
 <ResourceToApplicationRolesMap>
   <!-- All Roles should be created in AAD and saved in git C:\GitRepos\AdminPortal\Configuration\AADManifest_mfreidgeim.WebjetAdminPortalDev.json
   ServiceCenter,ServiceCenterManager, AnalyticsTeam, ITOPs, FinanceTeam,ProductTeam,
-  CustomerAccounting
+  CustomerAccounting,
+  MarketingTeam
 
   -->
   <!--Test Resources -to review and delete if not applicable-->
@@ -19,6 +20,7 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <!--ServiceCenter-->
   <ResourceToRoles ResourceId="LogonAsCustomer" Roles="" /> <!--Not required to support -->
   <ResourceToRoles ResourceId="SearchBooking" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="FareEscalationManualBookings" Roles="ServiceCenter,ITOPs" /> <!--Allow to add are escalation to confirmed bookings-->
   <ResourceToRoles ResourceId="PendingItems" Roles="ServiceCenter,ITOPs" />
   <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,ITOPs" />
   <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs" />
@@ -38,7 +40,7 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <!--ProductTeam-->
   <ResourceToRoles ResourceId="CouponCampaignManager" Roles="ProductTeam,ITOPs" />
   <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs" />
-  <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="ProductTeam,ITOPs" />
+  <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="MarketingTeam,ProductTeam,ITOPs," />
   <ResourceToRoles ResourceId="FlightFiltersManager" Roles="ProductTeam,ITOPs" />
   <!--MarketingTeam-->
   <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="MarketingTeam,ITOPs" />
