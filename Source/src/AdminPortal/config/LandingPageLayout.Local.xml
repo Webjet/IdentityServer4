@@ -34,7 +34,7 @@
       <MenuItem Text="Customer Information  " Key ="CustomerDrilldown" Link="https://local.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
       <MenuItem Text="Google Big Query Itinerary (in Macquarie)" Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
-      <MenuItem Text="Google Big Query Itinerary (in Azure -Required CORS-Not implemented) " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItineraryCiaran" RegionIndicator="ALL" />
+      <MenuItem Text="Google Big Query Itinerary (in Azure -Required CORS-Not implemented) " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
