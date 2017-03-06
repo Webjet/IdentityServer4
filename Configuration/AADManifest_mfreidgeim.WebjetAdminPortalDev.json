@@ -7,81 +7,101 @@
       "allowedMemberTypes": [
         "User"
       ],
-      "description": "Product Team",
-      "displayName": "Product Team",
-      "id": "d48816af-72c6-49d9-89da-9afdf6870b71",
+      "displayName": "Customer Accounting",
+      "id": "0579eed6-fcb5-4448-b8ec-e62cb4d46f90",
       "isEnabled": true,
-      "value": "ProductTeam"
+      "description": "Customer Accounting team has the ability for refund access and other customer related work",
+      "value": "CustomerAccounting"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
-      "description": "Service Center has the ability to work with Pending Bookings and related work.",
-      "displayName": "Service Center",
-      "id": "aab62896-ef7a-4208-9ba6-c7c8598bbd8b",
+      "displayName": "MarketingTeam",
+      "id": "1579eed6-fcb5-4448-b8ec-e62cb4d46f03",
       "isEnabled": true,
-      "value": "ServiceCenter"
+      "description": "Marketing team has the ability to work with random number generation and other marketing related work",
+      "value": "MarketingTeam"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
-      "description": "Service Center manager acts as approver/administrator for Service Center.",
-      "displayName": "Service Center Manager",
-      "id": "1579eed6-fcb5-4448-b8ec-e62cb4d46f59",
+      "displayName": "ITOPs",
+      "id": "07608fcb-99ce-40ce-9da2-2693101b6ca5",
       "isEnabled": true,
-      "value": "ServiceCenterManager"
+      "description": "IT Admin, having access to all functionality",
+      "value": "ITOPs"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
-      "description": "Dev Support.",
-      "displayName": "Dev Support",
-      "id": "27bd1d78-2c66-4a78-971b-46fd95a245e3",
+      "displayName": "TSA Admin",
+      "id": "56ced3fc-c646-4d9d-8f3d-5ac6874ecb66",
       "isEnabled": true,
-      "value": "DevSupport"
+      "description": "Any user, who needs access to TSA Admin-old way,will be obsolete",
+      "value": "Admin"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
-      "description": "Finance team which will have access for FaresManager, FareEscalationPaymentTypeReport etc.",
-      "displayName": "Finance",
-      "id": "6d78b9c3-f41b-421d-899f-172d2ce447ce",
-      "isEnabled": true,
-      "value": "FinanceTeam"
-    },
-    {
-      "allowedMemberTypes": [
-        "User"
-      ],
-      "description": "Analytics team will have access for anlaytics reporting - BIG Query data, WTI",
       "displayName": "Analytics",
       "id": "8c7d7e09-5f2b-4f8b-87b9-3cd8d3235c7c",
       "isEnabled": true,
+      "description": "Analytics team will have access for anlaytics reporting - BIG Query data, WTI",
       "value": "AnalyticsTeam"
     },
     {
       "allowedMemberTypes": [
         "User"
       ],
-      "description": "IT Admin, having access to all functionality",
-      "displayName": "ITOPs",
-      "id": "07608FCB-99CE-40CE-9DA2-2693101B6CA5",
+      "displayName": "Finance",
+      "id": "6d78b9c3-f41b-421d-899f-172d2ce447ce",
       "isEnabled": true,
-      "value": "ITOPs"
+      "description": "Finance team which will have access for FaresManager, FareEscalationPaymentTypeReport etc.",
+      "value": "FinanceTeam"
     },
-	{
+    {
       "allowedMemberTypes": [
         "User"
       ],
-      "description": "Any user, who needs access to TSA Admin-old way,will be obsolete",
-      "displayName": "TSA Admin",
-      "id": "56ced3fc-c646-4d9d-8f3d-5ac6874ecb66",
+      "displayName": "Dev Support",
+      "id": "27bd1d78-2c66-4a78-971b-46fd95a245e3",
       "isEnabled": true,
-      "value": "Admin"
+      "description": "Dev Support.",
+      "value": "DevSupport"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "displayName": "Product Team",
+      "id": "d48816af-72c6-49d9-89da-9afdf6870b71",
+      "isEnabled": true,
+      "description": "Product Team",
+      "value": "ProductTeam"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "displayName": "Service Center",
+      "id": "aab62896-ef7a-4208-9ba6-c7c8598bbd8b",
+      "isEnabled": true,
+      "description": "Service Center has the ability to work with Pending Bookings and related work.",
+      "value": "ServiceCenter"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "displayName": "Service Center Manager",
+      "id": "1579eed6-fcb5-4448-b8ec-e62cb4d46f59",
+      "isEnabled": true,
+      "description": "Service Center manager acts as approver/administrator for Service Center.",
+      "value": "ServiceCenterManager"
     }
   ],
   "availableToOtherTenants": false,
@@ -109,7 +129,8 @@
       "value": "user_impersonation"
     }
   ],
-  "oauth2RequirePostResponse": false,
+  "oauth2RequiredPostResponse": false,
+  "objectId": "fdee95da-a08d-49b8-ab55-0dfc235cb612",
   "passwordCredentials": [
     {
       "customKeyIdentifier": "VwBlAGIARgBvAHIAbQBzAA==",
@@ -134,13 +155,17 @@
     }
   ],
   "publicClient": false,
+  "supportsConvergence": false,
   "replyUrls": [
+    "https://localhost:44396/signin-oidc",
+    "https://wj-dev-adminportal.azurewebsites.net/signin-oidc",
+    "http://wj-dev-adminportal.azurewebsites.net/signin-oidc",
+    "http://localhost:50903/signin-oidc",
     "https://localhost:44379/",
     "https://local.webjet.com.au/WebjetTsa/",
     "https://localhost:44311",
     "https://wj-dev-adminportal-staging.azurewebsites.net/",
     "http://wj-dev-adminportal-staging.azurewebsites.net/",
-    "https://wj-dev-adminportal.azurewebsites.net/",
     "http://localhost/WebjetAdminPortal",
     "https://local.Webjet.com.au/WebjetAdminPortal",
     "https://localhost/WebjetAdminPortal"
@@ -178,17 +203,5 @@
       ]
     }
   ],
-  "samlMetadataUrl": null,
-  "extensionProperties": [],
-  "objectType": "Application",
-  "objectId": "fdee95da-a08d-49b8-ab55-0dfc235cb612",
-  "deletionTimestamp": null,
-  "createdOnBehalfOf": null,
-  "createdObjects": [],
-  "manager": null,
-  "directReports": [],
-  "members": [],
-  "memberOf": [],
-  "owners": [],
-  "ownedObjects": []
+  "samlMetadataUrl": null
 }
