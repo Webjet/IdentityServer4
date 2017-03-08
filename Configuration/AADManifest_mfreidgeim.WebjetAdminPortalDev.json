@@ -33,17 +33,7 @@
       "description": "IT Admin, having access to all functionality",
       "value": "ITOPs"
     },
-    {
-      "allowedMemberTypes": [
-        "User"
-      ],
-      "displayName": "TSA Admin",
-      "id": "56ced3fc-c646-4d9d-8f3d-5ac6874ecb66",
-      "isEnabled": true,
-      "description": "Any user, who needs access to TSA Admin-old way,will be obsolete",
-      "value": "Admin"
-    },
-    {
+     {
       "allowedMemberTypes": [
         "User"
       ],
