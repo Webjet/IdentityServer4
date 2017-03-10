@@ -42,7 +42,6 @@
 		"LandingPageLayoutRelativePath": "Config\\LandingPageLayout.Local.xml",
         "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
         "ASPNETCORE_ENVIRONMENT": "Development",
-		"GoogleBigQueryHostUrl_Ciaran":"http://172.28.118.2/api/v1.0/query",
 		"GoogleBigQueryHostUrl":"http://127.0.0.1:5000/api/v1.0/query"
 	}
 }
