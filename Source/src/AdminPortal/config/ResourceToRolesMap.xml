@@ -42,6 +42,8 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs" />
   <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="MarketingTeam,ProductTeam,ITOPs," />
   <ResourceToRoles ResourceId="FlightFiltersManager" Roles="ProductTeam,ITOPs" />
+  <!--FinanceTeam-->
+  <ResourceToRoles ResourceId="RevenueAnalysis" Roles="FinanceTeam,ITOPs" />
   <!--MarketingTeam-->
   <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="MarketingTeam,ITOPs" />
   
