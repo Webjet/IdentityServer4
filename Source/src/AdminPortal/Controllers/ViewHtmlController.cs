@@ -32,6 +32,7 @@ namespace AdminPortal.Controllers
         {
             string htmlPath;
             string googleBigQueryHostUrl;
+            //Path assign from Unit Test Project
             htmlPath = _config?["GoogleBigQueryItineraryDirectoryPath"];
 
             if(htmlPath.IsNullOrBlank())
@@ -57,6 +58,8 @@ namespace AdminPortal.Controllers
         public ActionResult GenerateRandomNumber()
         {
             string htmlPath;
+
+            //Path assign from Unit Test Project
             htmlPath = _config?["GenerateRandomNumberDirectoryPath"];
             
             if (htmlPath.IsNullOrBlank())
