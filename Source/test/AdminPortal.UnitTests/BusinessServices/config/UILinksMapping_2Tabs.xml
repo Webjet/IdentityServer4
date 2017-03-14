@@ -10,7 +10,7 @@
                 >
       </MenuItem>
       <MenuItem Key ="GoogleBigQueryItinerary"
-               Text="Google Big Query Itinerary"
+               Text="Google Analytics Customer Journey"
                Link="GoogleBigQueryItinerary/Index"
                 RegionIndicator="ALL">
       </MenuItem >
@@ -47,7 +47,7 @@
                 >
       </MenuItem >
       <MenuItem Key ="GoogleBigQueryItinerary"
-               Text="Google Big Query Itinerary"
+               Text="Google Analytics Customer Journey"
                Link="GoogleBigQueryItinerary/Index"
                 >
       </MenuItem >

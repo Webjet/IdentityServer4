@@ -9,7 +9,7 @@
                 Link="https://admin.webjet.com.au/WebjetTSA/secure.aspx" >
       </MenuItem>
       <MenuItem Key ="GoogleBigQueryItinerary"
-               Text="Google Big Query Itinerary"
+               Text="Google Analytics Customer Journey"
                Link="GoogleBigQueryItinerary/Index" >
       </MenuItem >
     </Section>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Google Big Query Itinerary Details</title>
+  <title>Google Analytics Customer Journey Details</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -9,7 +9,7 @@
 </head>
 <body>
   <main>
-    <h1>Google Big Query Itinerary Details</h1>
+    <h1>Google Analytics Customer Journey Details</h1>
     <form id="booking">
       Booking Reference/GA Cookie ID/<abbr title="Session ID from Custom Dimension 19">Session ID</abbr>: <input id="booking_reference" type="text" data-bind="value:TransactionID, valueUpdate:'keyup'"> <!-- ko if:!ValidationTransactionID() --><span style="color: red; font-weight:bold">!</span><!-- /ko --><br>
       Date: <input id="date" type="date" data-bind="value:Date, attr: {max: MaxDate}"> <!-- ko if:!ValidationDate() --><span style="color: red; font-weight:bold">!</span><!-- /ko --><br>
@@ -110,7 +110,7 @@
               console.log("Error occurred with", json);
               json.time = new Date().toTimeString();
               json.data = JSON.parse(data)
-              $("#error").html(new Date().toTimeString() + ": There was an error processing your query. Please try again, and if there still is issues feel free to contact <a href='mailto:analytics@webjet.com.au?subject=Google Big Query Itinerary Details Issues&body=Dear Analytics, there was an issue with the Python Web API and this is some information available:%0D%0A%0D%0A" + JSON.stringify(json) + "%0D%0A%0D%0AIf you have any other information you would like to include, please feel free to include it!%0D%0A%0D%0AThank you!'>analytics@webjet.com.au</a>")
+              $("#error").html(new Date().toTimeString() + ": There was an error processing your query. Please try again, and if there still is issues feel free to contact <a href='mailto:analytics@webjet.com.au?subject=Google Analytics Customer Journey Details Issues&body=Dear Analytics, there was an issue with the Python Web API and this is some information available:%0D%0A%0D%0A" + JSON.stringify(json) + "%0D%0A%0D%0AIf you have any other information you would like to include, please feel free to include it!%0D%0A%0D%0AThank you!'>analytics@webjet.com.au</a>")
             }
 
             $("#loading-ring").hide();

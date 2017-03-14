@@ -9,7 +9,7 @@
       <MenuItem Text="Administration" Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://local.webjet.com.au/WebjetTSA/secure.aspx?PageID=CustomerDrilldown" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Big Query Itinerary" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey" Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
@@ -38,7 +38,7 @@
                 >
       </MenuItem >
       <MenuItem Key ="GoogleBigQueryItinerary"
-               Text="Google Big Query Itinerary"
+               Text="Google Analytics Customer Journey"
                Link="GoogleBigQueryItinerary/Index"
                 >
       </MenuItem >
