@@ -3843,6 +3843,9 @@ ul.multilevel-accordion ul li > a {
 #admin #site-list .multilevel-accordion li {
   position: relative;
 }
+#admin #site-list .multilevel-accordion li a:hover {
+  background: #F5F5F5;
+}
 #admin #site-list .multilevel-accordion li .label {
   font-size: 80%;
   padding: 3px 6px;
