@@ -8,26 +8,27 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <!-- All Roles should be created in AAD and saved in git C:\GitRepos\AdminPortal\Configuration\AADManifest_mfreidgeim.WebjetAdminPortalDev.json
   ServiceCenter,ServiceCenterManager, AnalyticsTeam, ITOPs, FinanceTeam,ProductTeam,
   CustomerAccounting,
-  MarketingTeam
+  MarketingTeam,
+  BookingsViewer
 
   -->
   <!--Test Resources -to review and delete if not applicable-->
-  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam" />
+  
   <ResourceToRoles ResourceId="FareEscalationJournal_WebjetNZ" Roles="FinanceTeam,ProductTeam" />
   <ResourceToRoles ResourceId="CreditCardTransactionsToCheck_WebjetNZ" Roles="ServiceCenter,DevSupport,ProductTeam" />
 
-
   <!--ServiceCenter-->
   <ResourceToRoles ResourceId="LogonAsCustomer" Roles="" /> <!--Not required to support -->
-  <ResourceToRoles ResourceId="SearchBooking" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="SearchBooking" Roles="ServiceCenter,BookingsViewer,ITOPs" />
   <ResourceToRoles ResourceId="FareEscalationManualBookings" Roles="ServiceCenter,ITOPs" /> <!--Allow to add are escalation to confirmed bookings-->
   <ResourceToRoles ResourceId="PendingItems" Roles="ServiceCenter,ITOPs" />
-  <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,ITOPs" />
-  <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,BookingsViewer,ITOPs" />
+  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs,BookingsViewer" /> <!-- used for drilldown-->
 
-  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs" /><!-- used for drilldown-->
+  <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam,BookingsViewer" />
   
-   <ResourceToRoles ResourceId="RefundAccess" Roles="CustomerAccounting" />
+    <ResourceToRoles ResourceId="RefundAccess" Roles="CustomerAccounting" />
 
   <!--ServiceCenterManager-->
   <ResourceToRoles ResourceId="FareEscalationAuthorisation" Roles="ServiceCenterManager" />
