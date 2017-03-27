@@ -1,23 +1,39 @@
-Main location \\wjltd.net\DATA\public\Admin Portal  AKA N:\Admin Portal 
+Main location \\wjltd.net\DATA\public\Admin Portal\TestUsersWithRoles.txt   AKA N:\Admin Portal\TestUsersWithRoles.txt 
 
 Backup location in git AdminPortal\Documentation
 
 mfreidgeimwebjetcom AD
 
 
-GlobalAdmin@mfreidgeimwebjetcom.onmicrosoft.com  Pugo4215
+GlobalAdmin@mfreidgeimwebjetcom.onmicrosoft.com  
+Password - AdminTest1
 
-NoRoles@mfreidgeimwebjetcom.onmicrosoft.com Huho0423
+NoRoles@mfreidgeimwebjetcom.onmicrosoft.com
+Password - AdminTest1
 
 Service Center user
 test_sc1@mfreidgeimwebjetcom.onmicrosoft.com
-Password - KajalBhatia09!!
+Password - AdminTest1
+
+Service Center Manager
+SC.Manager@mfreidgeimwebjetcom.onmicrosoft.com
+Password - AdminTest1
 
 Product Team user
 test_pt1@mfreidgeimwebjetcom.onmicrosoft.com
-Password - KajalBhatia09!
+Password - AdminTest1
 
-Analytics.Tester@mfreidgeimwebjetcom.onmicrosoft.com Tazo4924
-Finance.Tester@mfreidgeimwebjetcom.onmicrosoft.com Vado2715
-ITOPs.Tester@mfreidgeimwebjetcom.onmicrosoft.com Bupu4031
+Analytics.Tester@mfreidgeimwebjetcom.onmicrosoft.com 
+Password - AdminTest1
 
+Finance.Tester@mfreidgeimwebjetcom.onmicrosoft.com 
+Password - AdminTest1
+
+ITOPs.Tester@mfreidgeimwebjetcom.onmicrosoft.com 
+Password - AdminTest1
+
+Marketing.Tester@mfreidgeimwebjetcom.onmicrosoft.com
+Password - AdminTest1
+
+CustomerAccounting.Tester@mfreidgeimwebjetcom.onmicrosoft.com 
+Password - AdminTest1  
