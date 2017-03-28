@@ -24,9 +24,14 @@
     <span data-bind="text: JSON.stringify(Data(), null, '\t')"></span>
   </main>
   <script>
-    // CONFIGURATIONS //
-    QUERY_URL = "https://172.28.118.2/api/v1.0/query"
-    // CONFIGURATIONS //
+      // CONFIGURATIONS //
+      QUERY_URL = "https://172.28.118.2/api/v1.0/query"
+      if (document.getElementById('targetUrl') != null) {
+          QUERY_URL = document.getElementById('targetUrl').value;
+      }
+
+      //alert(QUERY_URL);
+      // CONFIGURATIONS //
 
     function ViewModel() {
       var self = this;
