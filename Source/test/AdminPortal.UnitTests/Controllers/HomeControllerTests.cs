@@ -20,6 +20,7 @@ using AdminPortal.UnitTests.TestUtilities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using NSubstitute;
 
 namespace AdminPortal.Controllers.Tests
@@ -105,7 +106,8 @@ namespace AdminPortal.Controllers.Tests
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.User = PrincipalStubBuilder.GetUserWithServiceCenterAnalyticsAndFinanceRoles();
             var resourceToRolesMap = _filepath + "ResourceToRolesMapSample.xml";
-            object[] args = new object[] { null, landingPageLayout, new ResourceToApplicationRolesMapper(null, resourceToRolesMap) };
+            var cache = Substitute.For<IDistributedCache>(); 
+            object[] args = new object[] { null, landingPageLayout, new ResourceToApplicationRolesMapper(null, resourceToRolesMap), cache };
            // var controller = new HomeController(landingPageLayout, new ResourceToApplicationRolesMapper(resourceToRolesMap));
             var controller = ControllerAssertions.ArrangeController<HomeController>(args);
             //controller.ControllerContext = new ControllerContext()

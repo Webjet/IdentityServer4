@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AdminPortal.BusinessServices;
@@ -9,25 +12,28 @@ using AdminPortal.BusinessServices.LandingPage;
 using AdminPortal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Serilog;
 using Serilog.Events;
-
+using Webjet.Common.Strings;
 
 namespace AdminPortal.Controllers
 {
-     public class HomeController : Controller
+    public class HomeController : Controller
     {
         private static ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper;
         private static RegionIndicatorList _regionIndicatorList;// to load once
         private LandingPageLayoutLoader _landingPageLayoutLoader;
-        static Serilog.ILogger _logger = Log.ForContext<HomeController>();
+        static ILogger _logger = Log.ForContext<HomeController>();
+        private static string AdminPortalAccessTokenKey = Guid.NewGuid().ToString();
+        private AccessTokenCache _accessTokenCache;
 
-
-        public HomeController(IConfigurationRoot config, LandingPageLayoutLoader landingPageLayoutLoader, ResourceToApplicationRolesMapper resourceToApplicationRolesMapper)
+        public HomeController(IConfigurationRoot config, LandingPageLayoutLoader landingPageLayoutLoader, ResourceToApplicationRolesMapper resourceToApplicationRolesMapper, IDistributedCache redisCache)
         {
+            _accessTokenCache = new AccessTokenCache(redisCache);
             _landingPageLayoutLoader = landingPageLayoutLoader;
             _resourceToApplicationRolesMapper = resourceToApplicationRolesMapper;
         }
@@ -36,6 +42,12 @@ namespace AdminPortal.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            //TODO: Working on it.
+            //if (!IsAdminPortalAccessTokenExistsInCache())
+            //{
+            //    StoreAdminPortalAccessToken();
+            //}
+            
             _logger.Debug((User as ClaimsPrincipal).WriteClaims()); // Debug output window
 
             _logger.Write(LogEventLevel.Verbose, "Testing logger");
@@ -43,8 +55,67 @@ namespace AdminPortal.Controllers
             _logger.Information("AdminPortal -> information log " + DateTime.Now.ToLongDateString()); // Event Viewer and Sumologic
 
             var landingPageModel = GetLandingPageTabs(_landingPageLayoutLoader);
-             return View(landingPageModel);
+            return View(landingPageModel);
         }
+
+        private void RedisCacheSample()
+        {
+            string value = _accessTokenCache.Get<string>("CacheTime");
+            if (value == null)
+            {
+                value = DateTime.Now.ToString();
+
+                _accessTokenCache.Store("CacheTime", value);
+            }
+
+            string redisServerTime = _accessTokenCache.Get<string>("CacheTime");
+            string applicationTime = DateTime.Now.ToString(CultureInfo.CurrentCulture);
+
+        }
+
+        private bool IsAdminPortalAccessTokenExistsInCache()
+        {
+            bool isExists = true;
+            var value = _accessTokenCache.Get<AccessTokenDetails>(AdminPortalAccessTokenKey);
+            if (value == null)
+            {
+                isExists= false;
+            }
+            return isExists;
+        }
+        private void StoreAdminPortalAccessToken()
+        {
+            string emailAddress = User.FindFirst(ClaimTypes.Email)?.Value ?? User.FindFirst(ClaimTypes.Name)?.Value;
+            emailAddress = emailAddress.TrimStart("live.com#"); // For some accounts AAD inserts "live.com#"
+
+            AccessTokenDetails accessTokenDetails = new AccessTokenDetails()
+                {
+                    UserName = User.FindFirst(ClaimTypes.GivenName)?.Value,
+                    UserEmailAddress = emailAddress,
+                    AllowedResources = _resourceToApplicationRolesMapper.GetAllowedForUserResources(User),
+                    AdminPortalAccessToken = AdminPortalAccessTokenKey
+                };
+
+                _accessTokenCache.Store(AdminPortalAccessTokenKey, accessTokenDetails);
+            
+            //AccessTokenDetails fromCache = _accessTokenCache.Get<AccessTokenDetails>(AccessTokenCache.AccessTokenKey);
+        }
+        private void AADTokenCacheService()
+        {
+            var value = _accessTokenCache.Get<AccessTokenDetails>(AccessTokenCache.AccessTokenKey);
+            if (value == null)
+            {
+                AccessTokenDetails accessTokenDetails = new AccessTokenDetails();
+                accessTokenDetails.UserName = User.Identity.Name;
+                accessTokenDetails.UserEmailAddress = User.Identity.Name;
+                accessTokenDetails.AllowedResources = _resourceToApplicationRolesMapper.GetAllowedForUserResources(User);
+                accessTokenDetails.AdminPortalAccessToken = Guid.NewGuid().ToString();
+                _accessTokenCache.Store(AccessTokenCache.AccessTokenKey, accessTokenDetails);
+            }
+
+            AccessTokenDetails fromCache = _accessTokenCache.Get<AccessTokenDetails>(AccessTokenCache.AccessTokenKey);
+        }
+
 
         private LandingPageModel GetLandingPageTabs(LandingPageLayoutLoader landingPageLayoutLoader)
         {
@@ -94,17 +165,17 @@ namespace AdminPortal.Controllers
             List<UiLinksLandingPageTabSectionMenuItem> landingPageSectionMenuItems = new List<UiLinksLandingPageTabSectionMenuItem>();
             if (configSection.MenuItem != null)
             {
-            foreach (UiLinksLandingPageTabSectionMenuItem configMenuItem in configSection.MenuItem)
-            {
-                if (_resourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
+                foreach (UiLinksLandingPageTabSectionMenuItem configMenuItem in configSection.MenuItem)
                 {
-                    if (string.IsNullOrEmpty(configMenuItem.RegionIndicator))
+                    if (_resourceToApplicationRolesMapper.IsUserRoleAllowedForResource(configMenuItem.Key, User))
                     {
-                        configMenuItem.RegionIndicator = GetShortDescriptionForRegionId(configTabKey);
+                        if (String.IsNullOrEmpty(configMenuItem.RegionIndicator))
+                        {
+                            configMenuItem.RegionIndicator = GetShortDescriptionForRegionId(configTabKey);
+                        }
+                        landingPageSectionMenuItems.Add(configMenuItem);
                     }
-                    landingPageSectionMenuItems.Add(configMenuItem);
                 }
-            }
             }
             return landingPageSectionMenuItems;
         }
@@ -122,7 +193,7 @@ namespace AdminPortal.Controllers
             return null;
 
         }
-      
+
         //private static readonly ResourceToApplicationRolesMapper ResourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper();
         //private static RegionIndicatorList _regionIndicatorList;
         //private LandingPageLayoutLoader _landingPageLayoutLoader;
@@ -264,6 +335,5 @@ namespace AdminPortal.Controllers
         ////{
         ////    return View();
         ////}
-
     }
 }

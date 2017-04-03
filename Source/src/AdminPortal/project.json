@@ -22,6 +22,7 @@
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
     "Microsoft.DotNet.InternalAbstractions": "1.0.0",
+    "Microsoft.Extensions.Caching.Redis.Core": "1.0.3",
     "Microsoft.Extensions.Configuration": "1.1.0",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.1.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
@@ -40,7 +41,9 @@
     "Serilog.Settings.Configuration": "2.2.0",
     "Serilog.Sinks.EventLog": "3.0.36",
     "Serilog.Sinks.SumoLogic": "1.0.1",
-    "Webjet.Common": "1.0.6261.17758"
+    "StackExchange.Redis": "1.2.1",
+    "StackExchange.Redis.Extensions.Core": "2.1.0",
+    "Webjet.Common": "1.0.6298.23805"
   },
 
   "tools": {

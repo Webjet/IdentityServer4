@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -22,6 +23,7 @@ using Owin;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Core;
+using Microsoft.Extensions.Caching.Redis;
 
 namespace AdminPortal
 {
@@ -43,7 +45,7 @@ namespace AdminPortal
             }
             builder.AddEnvironmentVariables();
 
-         
+
             Configuration = builder.Build();
 
             AssemblyInformation.SetMainAssembly(Assembly.GetExecutingAssembly());
@@ -53,12 +55,14 @@ namespace AdminPortal
             // Log.Logger =new LoggerConfiguration().WriteTo.EventLog("WebjetAdminPortal", manageEventSource: true).CreateLogger();
 
         }
-        
+
         public IConfigurationRoot Configuration { get; }
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             //http://stackoverflow.com/questions/30263681/asp-net-5-vnext-getting-a-configuration-setting
             services.AddSingleton<IConfigurationRoot>(sp => { return Configuration; });
 
@@ -67,10 +71,29 @@ namespace AdminPortal
             services.TryAddSingleton<LandingPageLayoutLoader>();
             services.TryAddSingleton<ResourceToApplicationRolesMapper>();
 
+            //  https://www.jeffogata.com/asp-net-core-caching/
+            //services.AddSingleton<IDistributedCache>(
+            //        serviceProvider => new RedisCache(new RedisCacheOptions
+            //        {
+            //            Configuration = Configuration.GetConnectionString("RedisConnection"),
+            //            InstanceName = "AccessTokenCache"
+            //        })
+            //    );
+
+            //https://blogs.msdn.microsoft.com/luisdem/2016/09/06/azure-redis-cache-on-asp-net-core/
+            //Configure to access Redis Cache service. It is done by AddDistributedRedisCache method, by DI in every part of the code that expects an instance object 
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = Configuration.GetConnectionString("RedisConnection");
+                option.InstanceName = "AccessTokenCache";
+            });
+            
+
             services.AddAuthentication(
             sharedOptions => sharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
 
-         
+
+
             // Add framework services.
             services.AddMvc();
         }
@@ -81,9 +104,9 @@ namespace AdminPortal
             //TODO: Will remove AddConsole, its is added by default.
             //Log.Logger = new LoggerConfiguration().ReadFrom.AppSettings().CreateLogger();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-     
+
             ConfigureSerilogSinks(loggerFactory);
-            
+
             if (env.IsDevelopment())
             {
                 loggerFactory.AddDebug();
@@ -94,17 +117,17 @@ namespace AdminPortal
             {
                 // Handle unhandled errors i.e. HTTP 500
                 app.UseExceptionHandler("/Error");
-                
+
             }
 
             app.UseStaticFiles();
-            
+
             //This tells the application that we want to store our session tokens in cookies 'UseCookieAuthentication'
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = false
-             });
+            });
 
             //Unauthorise request are handle by UseCookieAuthentication middleware by giving 'AccessDeniedPath' with explicit Http status code as 401
             //app.UseCookieAuthentication(new CookieAuthenticationOptions()
@@ -112,7 +135,7 @@ namespace AdminPortal
             //    AccessDeniedPath = new PathString("/Error/401")    // By Adding StatusCodePagesWithReExecute at bottom to pipeline, able to get 401- AccessDenied error code.
             //});
 
-             //Authentication instructions.
+            //Authentication instructions.
             //https://stormpath.com/blog/openid-connect-user-authentication-in-asp-net-core
             //https://joonasw.net/view/asp-net-core-1-azure-ad-authentication
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
@@ -133,7 +156,7 @@ namespace AdminPortal
                     AutomaticAuthenticate = false,
                     AutomaticChallenge = false,
 
-                    Authority =Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
+                    Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
                     Audience = Configuration["Authentication:AzureAd:Audience"]
                 });
             }
@@ -166,12 +189,12 @@ namespace AdminPortal
                 //Reading Configuration for Serilog Sink from appsettings.json. Install Nuget package 'Serilog.Settings.Configuration'.
                 Log.Logger = new LoggerConfiguration().ReadFrom.ConfigurationSection(Configuration.GetSection("Serilog")).CreateLogger();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Serilog.Debugging.SelfLog.WriteLine(ex.ToString());
-               // Serilog.Debugging.SelfLog.Out.Flush();
+                // Serilog.Debugging.SelfLog.Out.Flush();
                 Debug.Assert(false, ex.ToString());
-             }
+            }
         }
     }
 }

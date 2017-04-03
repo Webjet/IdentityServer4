@@ -49,6 +49,7 @@
     <None Include="Parameters\devTest02.json" />
     <None Include="Parameters\local.json" />
     <None Include="Parameters\prod.json" />
+    <None Include="Parameters\uat.json" />
     <None Include="ReadMe.MD" />
     <None Include="Templates\webapp-template.json" />
   </ItemGroup>
