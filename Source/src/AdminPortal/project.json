@@ -40,7 +40,7 @@
     "Serilog.Settings.Configuration": "2.2.0",
     "Serilog.Sinks.EventLog": "3.0.36",
     "Serilog.Sinks.SumoLogic": "1.0.1",
-    "Webjet.Common": "1.0.6261.17758"
+    "Webjet.Common": "1.0.6298.23805"
   },
 
   "tools": {
