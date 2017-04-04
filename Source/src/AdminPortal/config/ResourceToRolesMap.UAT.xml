@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceToApplicationRolesMap>
+  <!-- All Roles should be created in AAD and saved in git C:\GitRepos\AdminPortal\Configuration\WebjetAADManifest_WebjetAdminPortal_UAT.json
+  CustomerAccounting,MarketingTeam,ITOPs,AnalyticsTeam,FinanceTeam,DevSupport,ProductTeam,ServiceCenter,ServiceCenterManager
+  BookingsViewer,UATAdmin
+  -->
+ 
+  <!--ServiceCenter-->
+  <ResourceToRoles ResourceId="SearchBooking" Roles="ServiceCenter,BookingsViewer,ITOPs,UATAdmin" />
+  <ResourceToRoles ResourceId="FareEscalationManualBookings" Roles="ServiceCenter,ITOPs,UATAdmin" /> <!--Allow to add are escalation to confirmed bookings-->
+  <ResourceToRoles ResourceId="PendingItems" Roles="ServiceCenter,ITOPs,UATAdmin" />
+  <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,BookingsViewer,ITOPs,UATAdmin" />
+  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs,BookingsViewer,UATAdmin" /> <!-- used for drilldown-->
+  <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs,UATAdmin" />
+  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam,BookingsViewer,UATAdmin" />
+  <ResourceToRoles ResourceId="RefundAccess" Roles="CustomerAccounting,UATAdmin" />
+
+  <!--ServiceCenterManager-->
+  <ResourceToRoles ResourceId="FareEscalationAuthorisation" Roles="ServiceCenterManager,UATAdmin" />
+  <ResourceToRoles ResourceId="AddNewItineraryItem" Roles="ServiceCenter,ITOPs,UATAdmin" />
+ 
+  <!--ProductTeam-->
+  <ResourceToRoles ResourceId="CouponCampaignManager" Roles="ProductTeam,ITOPs,UATAdmin" />
+  <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs,UATAdmin" />
+  <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="MarketingTeam,ProductTeam,ITOPs,UATAdmin" />
+  <ResourceToRoles ResourceId="FlightFiltersManager" Roles="ProductTeam,ITOPs,UATAdmin" />
+  
+  <!--FinanceTeam-->
+  <ResourceToRoles ResourceId="RevenueAnalysis" Roles="FinanceTeam,ITOPs,UATAdmin" />
+  
+  <!--MarketingTeam-->
+  <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="MarketingTeam,ITOPs,UATAdmin" />
+
+</ResourceToApplicationRolesMap>
+
+

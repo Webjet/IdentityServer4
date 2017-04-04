@@ -1,47 +1,47 @@
 //See usage of values in ..\Templates\webapp-template.json
 {
-	"Parameters": {
-		"Subscription": "Webjet - Development",
-        "SubscriptionID": "9e1abf4b-916f-4fcf-91ef-2ddd4052b24d", 
-        "TenantID": "5de0e68c-0afd-4a67-b089-31f168aa4ca0", 
-        "ResourceGroupName": "AdminPortalDev",
-        "ResourceGroupNameLog": "WJ-Dev-LogsRG",
-        "ResourceGroupLocation": "Australia East",
-		"AppServicePlan": "Dev-AdminPortal",
-        "WebAppName": "WJ-Dev-AdminPortal",
-		"AppServicePlanLocation": "Australia East",		
-		"AzureUsername" : "{Teamcity-Parameter-UserName}",
+  "Parameters": {
+    "Subscription": "Webjet - Development",
+    "SubscriptionID": "9e1abf4b-916f-4fcf-91ef-2ddd4052b24d",
+    "TenantID": "5de0e68c-0afd-4a67-b089-31f168aa4ca0",
+    "ResourceGroupName": "AdminPortalDev",
+    "ResourceGroupNameLog": "WJ-Dev-LogsRG",
+    "ResourceGroupLocation": "Australia East",
+    "AppServicePlan": "Dev-AdminPortal",
+    "WebAppName": "WJ-Dev-AdminPortal",
+    "AppServicePlanLocation": "Australia East",
+    "AzureUsername": "{Teamcity-Parameter-UserName}",
     "AzurePassword": "{Teamcity-Parameter-Password}",
-        "ida:ClientId":"7601235d-4350-443d-b094-28da93f0846f" ,
-    "ida:AADInstance":"https://login.microsoftonline.com/" ,
-    "ida:ClientSecret":"0ObUWAQDydoKRGoQud7sqqj6YkRM7heM+Ws9BwnkWMs=" ,
-    "ida:Domain":"mfreidgeimwebjetcom.onmicrosoft.com" ,
-    "ida:TenantId":"0f79d43c-098d-49b1-b8bc-4c9107c64dd4" ,
-  
+    "AzureAd:ClientId": "43c42f66-e21c-4d89-a5ca-8a8ebc2be260",
+    "AzureAd:AADInstance": "https://login.microsoftonline.com/",
+    "AzureAd:ClientSecret": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=", //key from Classic Portal
+    "AzureAd:Domain": "mfreidgeimwebjetcom.onmicrosoft.com", // Azure Active Directory
+    "AzureAd:TenantId": "0f79d43c-098d-49b1-b8bc-4c9107c64dd4", // Azure Active Directory
+
     //    "NewRelic.AppName": "WJ-Dev-AdminPortal",
     //    "NEWRELIC_LICENSEKEY": "dac6eb61fde6242216562aa4fc2de1c1092c3519",
     //    "NEWRELIC_HOME": "D:\\Home\\site\\wwwroot\\newrelic",
-		//"COR_PROFILER_PATH": " D:\\Home\\site\\wwwroot\\newrelic\\NewRelic.Profiler.dll ",
-		//"COR_PROFILER": "{71DA0A04-7777-4EC6-9643-7D28B46A8A41}",
-		//"COR_ENABLE_PROFILING": "1",
-	  "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
+    //"COR_PROFILER_PATH": " D:\\Home\\site\\wwwroot\\newrelic\\NewRelic.Profiler.dll ",
+    //"COR_PROFILER": "{71DA0A04-7777-4EC6-9643-7D28B46A8A41}",
+    //"COR_ENABLE_PROFILING": "1",
+    "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "logging.application_name": "WJ-Dev-AdminPortal",
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "BuildVersion": "{Teamcity-Parameter-BuildVersion}",
     "DiagnosticStorageAccountName": "wjdevstglogsau",
-    "DiagnosticStorageContainerName": "wj-dev-adminportal",//lower case letter, number or dash with no consecutive dashes and is 3 through 63 characters long.
+    "DiagnosticStorageContainerName": "wj-dev-adminportal", //lower case letter, number or dash with no consecutive dashes and is 3 through 63 characters long.
 
 
- /*   "TrafficManagerName":"WJZU-Dev-FlightMerchandisingTM",
+    /*   "TrafficManagerName":"WJZU-Dev-FlightMerchandisingTM",
 		"TrafficManagerEndpointName1" : "WJZU-Dev-API-FlightMerchandising-AU001",
 		"TrafficManagerEndpointName2" : "WJZU-Dev-API-FlightMerchandising-SG001",
 */
-		"LogStorageName": "wjdevstglogsau",
-		"LogStorageContainer": "wjdevstglogscnau",
-		"LogResourceGroupName": "WJ-Dev-LogsRG",
-		"LandingPageLayoutRelativePath": "Config\\LandingPageLayout.Local.xml",
-        "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
-        "ASPNETCORE_ENVIRONMENT": "Development",
-		"GoogleBigQueryHostUrl":"http://127.0.0.1:5000/api/v1.0/query"
-	}
+    "LogStorageName": "wjdevstglogsau",
+    "LogStorageContainer": "wjdevstglogscnau",
+    "LogResourceGroupName": "WJ-Dev-LogsRG",
+    "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.Local.xml",
+    "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
+    "ASPNETCORE_ENVIRONMENT": "Development",
+    "GoogleBigQueryHostUrl": "http://127.0.0.1:5000/api/v1.0/query"
+  }
 }

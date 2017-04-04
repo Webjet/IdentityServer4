@@ -12,9 +12,6 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   BookingsViewer
 
   -->
-  <!--Test Resources -to review and delete if not applicable-->
-  
-  <ResourceToRoles ResourceId="FareEscalationJournal_WebjetNZ" Roles="FinanceTeam,ProductTeam" />
   
   <!--ServiceCenter-->
   <ResourceToRoles ResourceId="LogonAsCustomer" Roles="" /> <!--Not required to support -->
