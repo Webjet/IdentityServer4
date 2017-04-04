@@ -11,6 +11,7 @@ using AdminPortal.BusinessServices.Common.Debugging;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TSA.TestsCommon.TestUtilities;
+using Webjobs.ImportSurveys.Common;
 
 namespace AdminPortal.UnitTests.Common
 {
@@ -22,12 +23,12 @@ namespace AdminPortal.UnitTests.Common
         [TestMethod()]
         public void CompileDateTest()
         {
-            TestContext.WriteLine(AssemblyInformation.ExecutingAssembly.ToString());
+            TestContext.WriteString(AssemblyInformation.ExecutingAssembly.ToString());
             var filetime = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location);
-            TestContext.WriteLine("filetime " + filetime);
+            TestContext.WriteString("filetime " + filetime);
             var compileDate = AssemblyInformation.CompileDate;
-            TestContext.WriteLine("compileDate =" +compileDate.ToString());
-            filetime.Should().BeCloseTo(compileDate, 60000);//within a minute
+            TestContext.WriteString("compileDate =" +compileDate);
+            filetime.Should().BeOnOrAfter(compileDate);
         }
     }
 }

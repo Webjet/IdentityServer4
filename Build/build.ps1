@@ -1,4 +1,6 @@
 cls
+function Main
+{
 $ErrorActionPreference = "Stop" 
 $baseParent = "$((Get-Item  $psscriptroot).Parent.FullName)"
 $SolutionRoot =$baseParent + "\Source" 
@@ -39,6 +41,22 @@ $packagesRoot= "$SolutionRoot\packages"
 	$openCoverageReport=($env:openCoverageReport, 'true' -ne $null)[0]
 #    $runIntegrationUnitTests =  ($env:runIntegrationUnitTests, 'false' -ne $null)[0] #false default
 
+	Restore $SolutionRoot #$ProjectJsonDir
+	DeleteIfExistsAndCreateEmptyFolder $outPath
+	Build $SolutionRoot
+
+	Write-Host "CodeCoverage : $env:runDevCoverage"
+	if($env:runDevCoverage -eq 'true') {
+	RestoreFullNetPackages "$SolutionRoot\AdminPortal.sln"
+	CodeCoverage
+	}
+	else {
+	UnitTest
+	}
+	Publish $ProjectJsonDir
+	ArchiveAndCopy $ZipFilePath #what was published
+}
+
 function Restore ($projectjsondir)
 {
 Write-host "Restoring dependencies"
@@ -51,7 +69,7 @@ function RestoreFullNetPackages ($solutionFile)
      $nugetExe = "$PSScriptRoot\Tools\Nuget\Nuget.exe"
     
     Write-Host "Restoring packages for Full.Net..."
-	.$nugetExe restore $solutionFile
+	.$nugetExe restore $solutionFile  Verbosity detailed
 	ValidateExitCode(0)
 	Write-Host "Packages for Full.Net restored"
 }
@@ -114,14 +132,15 @@ dotnet test
     	$coverReportOut = "`"$coverOut\cover`""
 		CreateFolderIfNotExists $coverOut
 		
-$targetargs="  test $($csTestAssemblies)"
-		Write-Host "OpenCover targetargs - $csTestAssemblies"
+$targetargs=" test $($csTestAssemblies) " # folder, not DLL
+		Write-Host "OpenCover targetargs - $($csTestAssemblies)"
 # it is case-sensitive `"-[xunit.assert]*`" `"-[xunit.core]*`"
 # https://github.com/opencover/opencover/wiki/Usage
 #`"-[Serilog.Sinks.SumoLogic]*`" `"-[Serilog.Enrichers.NancyContext]*`" -[KellermanSoftware.CompareNetObjects]*
 		$filters = "`"+[*]*`" `"-[*.*Tests]*`"    `"-[Build]*`" `"-[Microsoft.WindowsAzure.Storage]*`"   " +
    		 " -[DbUpWrapper]*  -[FluentAssertions*]* -[MSTestHacks]* -[Microsoft.*]* -[Flurl.*]*  "  
 			#-noshadow for XUnit
+#example from http://stackoverflow.com/questions/38425936/how-to-measure-code-coverage-in-asp-net-core-projects-in-visual-studio			
 #.$openCover -register:user -mergebyhash -skipautoprops -target:$csTestRunner -targetargs:"$($csTestAssemblies) " -returntargetcode -output:$coverOutPath -filter:$filters
 		#-log:,#Default :Info  [Off|Fatal|Error|Warn|Info|Debug|Verbose|All]
 		$arguments="-register:user -mergebyhash -skipautoprops -target:`"$csTestRunner`" -targetargs:`"$targetargs`" -skipautoprops -returntargetcode -output:$coverOutPath -filter:`"$filters`" -log:Verbose "
@@ -144,17 +163,5 @@ $targetargs="  test $($csTestAssemblies)"
 
     }
 
-Restore $SolutionRoot #$ProjectJsonDir
-DeleteIfExistsAndCreateEmptyFolder $outPath
-Build $SolutionRoot
-Write-Host "CodeCoverage : $env:runDevCoverage"
+  Main
 
-if($env:runDevCoverage -eq 'true') {
-RestoreFullNetPackages "$SolutionRoot\AdminPortal.sln"
-CodeCoverage
-}
-else {
-UnitTest
-}
-Publish $ProjectJsonDir
-ArchiveAndCopy $ZipFilePath #what was published
