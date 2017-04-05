@@ -12,11 +12,11 @@
     "AppServicePlanLocation": "Australia East",
     "AzureUsername": "{Teamcity-Parameter-UserName}",
     "AzurePassword": "{Teamcity-Parameter-Password}",
-    "AzureAd:ClientId": "43c42f66-e21c-4d89-a5ca-8a8ebc2be260",
-    "AzureAd:AADInstance": "https://login.microsoftonline.com/",
-    "AzureAd:ClientSecret": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=", //key from Classic Portal
-    "AzureAd:Domain": "mfreidgeimwebjetcom.onmicrosoft.com", // Azure Active Directory
-    "AzureAd:TenantId": "0f79d43c-098d-49b1-b8bc-4c9107c64dd4", // Azure Active Directory
+    "Authentication:AzureAd:ClientId": "43c42f66-e21c-4d89-a5ca-8a8ebc2be260",
+    "Authentication:AzureAd:AADInstance": "https://login.microsoftonline.com/",
+    "Authentication:AzureAd:ClientSecret": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=", //key from Classic Portal
+    "Authentication:AzureAd:Domain": "mfreidgeimwebjetcom.onmicrosoft.com", // Azure Active Directory
+    "Authentication:AzureAd:TenantId": "0f79d43c-098d-49b1-b8bc-4c9107c64dd4", // Azure Active Directory
 
     //    "NewRelic.AppName": "WJ-Dev-AdminPortal",
     //    "NEWRELIC_LICENSEKEY": "dac6eb61fde6242216562aa4fc2de1c1092c3519",
