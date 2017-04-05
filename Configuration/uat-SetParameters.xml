@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="WJ-UAT-AdminPortal__staging" />  
+  <setParameter name="appSettings_NewRelic_AppName" value="UAT AdminPortal" />
+</parameters>

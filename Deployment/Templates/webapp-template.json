@@ -150,24 +150,24 @@
             "Value": "[variables('GoogleBigQueryHostUrl')]"
           },
           {
-            "Key": "ida:ClientId",
-            "Value": "[variables('ida:ClientId')]"
+            "Key": "Authentication:AzureAd:ClientId",
+            "Value": "[variables('Authentication:AzureAd:ClientId')]"
           },
           {
-            "Key": "ida:AADInstance",
-            "Value": "[variables('ida:AADInstance')]"
+            "Key": "Authentication:AzureAd:AADInstance",
+            "Value": "[variables('Authentication:AzureAd:AADInstance')]"
           },
           {
-            "Key": "ida:ClientSecret",
-            "Value": "[variables('ida:ClientSecret')]"
+            "Key": "Authentication:AzureAd:ClientSecret",
+            "Value": "[variables('Authentication:AzureAd:ClientSecret')]"
           },
           {
-            "Key": "ida:Domain",
-            "Value": "[variables('ida:Domain')]"
+            "Key": "Authentication:AzureAd:Domain",
+            "Value": "[variables('Authentication:AzureAd:Domain')]"
           },
           {
-            "Key": "ida:TenantId",
-            "Value": "[variables('ida:TenantId')]"
+            "Key": "Authentication:AzureAd:TenantId",
+            "Value": "[variables('Authentication:AzureAd:TenantId')]"
           },
           {
             "Key": "LandingPageLayoutRelativePath",
