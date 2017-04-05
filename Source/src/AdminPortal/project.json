@@ -41,9 +41,9 @@
     "Serilog.Settings.Configuration": "2.2.0",
     "Serilog.Sinks.EventLog": "3.0.36",
     "Serilog.Sinks.SumoLogic": "1.0.1",
-    "Webjet.Common": "1.0.6298.23805"
+    "Webjet.Common": "1.0.6298.23805",
  "StackExchange.Redis": "1.2.1",
-    "StackExchange.Redis.Extensions.Core": "2.1.0",  },
+    "StackExchange.Redis.Extensions.Core": "2.1.0" },
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",
