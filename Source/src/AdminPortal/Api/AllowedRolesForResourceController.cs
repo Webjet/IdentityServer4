@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using AdminPortal.BusinessServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,7 +50,14 @@ namespace AdminPortal.Api
         [Microsoft.AspNetCore.Mvc.HttpGet("GenerateInternalServerError")]
         public void GenerateInternalServerError()
         {
-            throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            string customeMessage = "TEST EXCEPTION for troubleshooting ";
+            HttpResponseMessage message = new HttpResponseMessage();
+            message.StatusCode = HttpStatusCode.InternalServerError;
+            message.ReasonPhrase = customeMessage;
+            //throw new HttpResponseException(message);
+
+            throw new Exception(customeMessage);
+            //throw new HttpResponseException(HttpStatusCode.InternalServerError);
         }
 
 #if INCLUDE_NOT_COVERED_BY_TESTS
