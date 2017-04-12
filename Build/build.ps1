@@ -1,4 +1,5 @@
 cls
+
 function Main
 {
 $ErrorActionPreference = "Stop" 
@@ -10,14 +11,19 @@ $outPath="$psscriptroot\..\OUTPUT"
 $packagesRoot ="$SolutionRoot\packages"
 #$BuildVersion = $env:Build
 $ZipFileName = "AdminPortal.zip" # -$BuildVersion
-	$slackDetails = @{channel =  "#adminportal";
-					username = "@mfreidgeim";#adminportal
-					#icon_url = "http://besticons.net/sites/default/files/departing-flight-icon-3634.png"
+$messageWebHook = @{channel =  "https://outlook.office.com/webhook/fadfcdd3-e335-4e0a-a252-24c97e1e657f@5de0e68c-0afd-4a67-b089-31f168aa4ca0/IncomingWebhook/764f6d4712d944a19234e7ceab5fa884/3da5ab1d-c512-481f-99d5-32019ac16809";
+					
                    }
 #$DebugPreference="Continue"				   
 #import-module "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\psake_ext.ps1"
 . "$PSScriptRoot\BuildScripts\CoveragePercentUpdate.ps1" #Including Slack
+import-module "$PSScriptRoot\BuildScripts\Send-message.psm1"
+
+#Tested to broadcast message to MSTeams, its working
+#$msg="Test message to msteams from build.ps1"
+#NotifyMsTeams -MSTeamsChannelhook $messageWebHook -notifytext $msg
+
 #import-module "$PSScriptRoot\..\Deployment\DODO\dodo-general.psm1" #consider to copy to build scripts. Includes Coalesce
 $CoverageThresholdTolerance = Coalesce $env:CoverageThresholdTolerance 0.
 $env:runDevCoverage=Coalesce $env:runDevCoverage 'true'
@@ -35,7 +41,8 @@ $env:path +=";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Web\External;C
 #    $csTestRunner = "C:\Program Files (x86)\Microsoft Visual Studio " + $visualStudioVersion +"\Common7\IDE\CommonExtensions\Microsoft\TestWindow\VSTest.Console.exe" 
 $packagesRoot= "$SolutionRoot\packages"
     $csTestRunner = "C:\Program Files\dotnet\dotnet.exe" 
-	$csTestAssemblies =  "`"$SolutionRoot\test\AdminPortal.UnitTests`" " # `"$binariesDir\AdminPortal.IntegrationTests.dll`" "  
+	$csTestAssemblies = "$SolutionRoot\test\AdminPortal.UnitTests\bin\Debug\net461" #"`"$SolutionRoot\test\AdminPortal.UnitTests`" " # `"$binariesDir\AdminPortal.IntegrationTests.dll`" "  
+	$env:TestAdapterPath=$csTestAssemblies
 	$openCover = "$packagesRoot\OpenCover.4.6.519\tools\OpenCover.Console.exe"
 	$reportGen = "$packagesRoot\ReportGenerator.2.5.1\tools\ReportGenerator.exe"
 	$openCoverageReport=($env:openCoverageReport, 'true' -ne $null)[0]
@@ -83,7 +90,10 @@ cd $solutionDir
 dotnet build "*\**\project.json"
 
 write-host "Finished Building the project"
+
 }
+
+
 
 function Publish($projectjsondir)
 {
@@ -95,7 +105,7 @@ write-host "Finished Publishing"
 
 if ($lastexitcode -eq 1)
 {
-SendSlack "AdminPortal Build" "Publishing AdminPortal  project failed" $slackDetails
+SendSlack "AdminPortal Build" "Publishing AdminPortal  project failed" $messageWebHook
 }
 
 }
@@ -131,8 +141,8 @@ dotnet test
     	$coverOutPath = "`"$coverOut\projectCoverageReport.xml`""
     	$coverReportOut = "`"$coverOut\cover`""
 		CreateFolderIfNotExists $coverOut
-		
-$targetargs=" test $($csTestAssemblies) " # folder, not DLL
+cd $csTestAssemblies		
+$targetargs="test" # $($csTestAssemblies)" # folder, not DLL
 		Write-Host "OpenCover targetargs - $($csTestAssemblies)"
 # it is case-sensitive `"-[xunit.assert]*`" `"-[xunit.core]*`"
 # https://github.com/opencover/opencover/wiki/Usage
@@ -143,7 +153,7 @@ $targetargs=" test $($csTestAssemblies) " # folder, not DLL
 #example from http://stackoverflow.com/questions/38425936/how-to-measure-code-coverage-in-asp-net-core-projects-in-visual-studio			
 #.$openCover -register:user -mergebyhash -skipautoprops -target:$csTestRunner -targetargs:"$($csTestAssemblies) " -returntargetcode -output:$coverOutPath -filter:$filters
 		#-log:,#Default :Info  [Off|Fatal|Error|Warn|Info|Debug|Verbose|All]
-		$arguments="-register:user -mergebyhash -skipautoprops -target:`"$csTestRunner`" -targetargs:`"$targetargs`" -skipautoprops -returntargetcode -output:$coverOutPath -filter:`"$filters`" -log:Verbose "
+		$arguments="-register:user -mergebyhash -skipautoprops -target:`"$csTestRunner`" -targetargs:`"$targetargs`" -skipautoprops -returntargetcode -log:Verbose" #-output:$coverOutPath -filter:`"$filters`" -log:Verbose
  
 
 		RunProcess -processPath $openCover -arguments $arguments
@@ -153,12 +163,10 @@ $targetargs=" test $($csTestAssemblies) " # folder, not DLL
 
 
 		#Extract coverage percentage
+		
 		$reportGeneratorOutputFile = "$coverOut\cover\index.htm"
-		$slackDetails = @{channel =  "#adminportal";
-					username = "@mfreidgeim";#adminportal
-					#icon_url = "http://besticons.net/sites/default/files/departing-flight-icon-3634.png"
-                   }
-		CoveragePercentUpdate $reportGeneratorOutputFile "$baseParent\Build\coveragethreshold.txt" "$coverOut\CoveragePercent.txt" $slackDetails
+		
+		CoveragePercentUpdate $reportGeneratorOutputFile "$baseParent\Build\coveragethreshold.txt" "$coverOut\CoveragePercent.txt" $messageWebHook
 		                        [System.Convert]::ToBoolean($openCoverageReport),[System.Convert]::ToDecimal($CoverageThresholdTolerance)
 
     }
