@@ -12,7 +12,7 @@
   <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,BookingsViewer,ITOPs,UATAdmin" />
   <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs,BookingsViewer,FinanceTeam,UATAdmin" /> <!-- used for drilldown and RevenueAnalysis-->
   <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs,UATAdmin" />
-  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam,BookingsViewer,UATAdmin" />
+  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam,BookingsViewer,ITOPs,UATAdmin" />
   <ResourceToRoles ResourceId="RefundAccess" Roles="CustomerAccounting,UATAdmin" />
 
   <!--ServiceCenterManager-->
