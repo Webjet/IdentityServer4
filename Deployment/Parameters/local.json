@@ -1,4 +1,5 @@
 //See usage of values in ..\Templates\webapp-template.json
+//Currently used for local/Devtest01/devtest01/devCI
 {
   "Parameters": {
     "Subscription": "Webjet - Development",

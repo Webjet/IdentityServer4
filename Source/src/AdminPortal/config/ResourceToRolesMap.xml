@@ -19,10 +19,10 @@ ToDo: PBI 31842 Share common config data between AdminPortal and WebApi
   <ResourceToRoles ResourceId="FareEscalationManualBookings" Roles="ServiceCenter,ITOPs" /> <!--Allow to add are escalation to confirmed bookings-->
   <ResourceToRoles ResourceId="PendingItems" Roles="ServiceCenter,ITOPs" />
   <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,BookingsViewer,ITOPs" />
-  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs,BookingsViewer" /> <!-- used for drilldown-->
+  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs,BookingsViewer,FinanceTeam" /> <!-- used for drilldown and RevenueAnalysis-->
 
   <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs" />
-  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam,BookingsViewer" />
+  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam,BookingsViewer,ITOPs" />
   
     <ResourceToRoles ResourceId="RefundAccess" Roles="CustomerAccounting" />
 

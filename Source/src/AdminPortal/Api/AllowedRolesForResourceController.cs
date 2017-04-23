@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using AdminPortal.BusinessServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -7,8 +11,8 @@ using Serilog;
 
 namespace AdminPortal.Api
 {
-    [Authorize(ActiveAuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api/[controller]")]
+    [Microsoft.AspNetCore.Authorization.Authorize(ActiveAuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     public class AllowedRolesForResourceController : Controller
     {
         static Serilog.ILogger _logger = Log.ForContext<AllowedRolesForResourceController>();
@@ -21,13 +25,13 @@ namespace AdminPortal.Api
         }
 
         // GET: api/AllowedRolesForResource
-        [HttpGet]
+        [Microsoft.AspNetCore.Mvc.HttpGet]
         public Dictionary<string, string[]> Get()
         {
             return _resourceToApplicationRolesMapper.ResourceItemsWithRoles;
         }
 
-        [HttpGet("GetResourcesForUser")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("GetResourcesForUser")]
         public List<string> GetResourcesForUser()
         {
             var resources = _resourceToApplicationRolesMapper.GetAllowedForUserResources(User);
@@ -36,14 +40,25 @@ namespace AdminPortal.Api
             return resources;
         }
 
-        [HttpGet("{resourceKey}")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("{resourceKey}")]
         public bool Get(string resourceKey)
         {
             bool result = _resourceToApplicationRolesMapper.IsUserRoleAllowedForResource(resourceKey, User);
 
             return result;
         }
+        [Microsoft.AspNetCore.Mvc.HttpGet("GenerateInternalServerError")]
+        public void GenerateInternalServerError()
+        {
+            string customeMessage = "TEST EXCEPTION for troubleshooting ";
+            HttpResponseMessage message = new HttpResponseMessage();
+            message.StatusCode = HttpStatusCode.InternalServerError;
+            message.ReasonPhrase = customeMessage;
+            //throw new HttpResponseException(message);
 
+            throw new Exception(customeMessage);
+            //throw new HttpResponseException(HttpStatusCode.InternalServerError);
+        }
 
 #if INCLUDE_NOT_COVERED_BY_TESTS
 
