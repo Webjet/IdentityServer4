@@ -146,6 +146,8 @@ namespace AdminPortal
             //TODO: For UnAuthenticated user-HttpStatus code is returned as 401
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
+            ResourceAuthorizeAttribute.ConfigurationRoot = this.Configuration;
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

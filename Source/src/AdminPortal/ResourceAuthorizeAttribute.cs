@@ -7,12 +7,17 @@ using System.Web.Routing;
 using System.Web.Security;
 using AdminPortal.BusinessServices;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 
 namespace AdminPortal
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class ResourceAuthorizeAttribute : AuthorizeAttribute
     {
+        public static IConfigurationRoot ConfigurationRoot
+        {
+            private get;set;
+        }
         public ResourceAuthorizeAttribute(string resourceKey)
         {
             base.Roles = GetAllowedRolesForResource(resourceKey);
@@ -24,7 +29,7 @@ namespace AdminPortal
             string allowedRoles;
             if (!string.IsNullOrEmpty(resourceKey))
             {
-                allowedRoles = string.Join(",", new ResourceToApplicationRolesMapper().GetAllowedRolesForResource(resourceKey));
+                 allowedRoles = string.Join(",", new ResourceToApplicationRolesMapper(ConfigurationRoot).GetAllowedRolesForResource(resourceKey));
                 return allowedRoles;
                 
             }

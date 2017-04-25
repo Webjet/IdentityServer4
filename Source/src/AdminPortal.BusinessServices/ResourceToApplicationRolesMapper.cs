@@ -23,35 +23,40 @@ namespace AdminPortal.BusinessServices
     {
         private IConfigurationRoot _config;
 
-        private string DefaultConfigFilePath
+        private string AppConfigFilePath
         {
-           
+
             get
             {
                 //DebugEnvironmentSettings.DebugApplicationFolderPath();
 
                 //DI configuration
-                 //var relPath = _config["ResourceToRolesMapRelativePath"] ?? @"config\ResourceToRolesMap.xml";
-                string relPath = string.Empty;
-                relPath = _config?["ResourceToRolesMapRelativePath"];
-                if (relPath.IsNullOrBlank()) //Call from "AdminPortal\ResourceAuthorizeAttribute"
-                {
-                    relPath = @"config\ResourceToRolesMap.xml";
-                }
+                //var relPath = _config["ResourceToRolesMapRelativePath"] ?? @"config\ResourceToRolesMap.xml";
 
+                string relPath = _config?["ResourceToRolesMapRelativePath"];
+                //if (relPath.IsNullOrBlank()) //Call from "AdminPortal\ResourceAuthorizeAttribute"
+                //{
+                //    relPath = @"config\ResourceToRolesMap.xml";
+                //}
+
+                //relPath is NullOrBlank -> ArgumentNullException will be thrown? Need to discuss with MF
                 return Path.Combine(WebApplicationHelper.WebApplicationRootDirectory(), relPath);
 
             }
         }
 
-        private readonly string _filepath;
+        private readonly string _filepath = null;
 
         public Dictionary<string, string[]> ResourceItemsWithRoles { get; set; }
 
-        public ResourceToApplicationRolesMapper(IConfigurationRoot config = null, string filepath = null)
+        public ResourceToApplicationRolesMapper(IConfigurationRoot appConfig = null, string filepath = null)
         {
-            _config = config;
-            _filepath = !string.IsNullOrEmpty(filepath) ? filepath : DefaultConfigFilePath;
+            //_config = config;
+            //_filepath = !string.IsNullOrEmpty(filepath) ? filepath : DefaultConfigFilePath;
+
+            _config = appConfig;
+            _filepath = appConfig != null ? AppConfigFilePath : filepath;
+
             ParseXmlToObject();
         }
 
