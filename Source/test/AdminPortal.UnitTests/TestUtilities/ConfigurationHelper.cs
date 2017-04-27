@@ -29,6 +29,13 @@ namespace AdminPortal.UnitTests.TestUtilities
 
             return config;
         }
+        public static IConfigurationRoot GetConfigurationSubsitituteForResourceAuthorizeAttribute()
+        {
+            var config = Substitute.For<IConfigurationRoot>();
+            string resourceToRolesMapRelativePath = "Config\\ResourceToRolesMap.xml";
+            config["ResourceToRolesMapRelativePath"].Returns(resourceToRolesMapRelativePath);
+            return config;
+        }
 
     }
 }

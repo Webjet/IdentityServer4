@@ -20,12 +20,8 @@ namespace AdminPortal.UnitTests.BusinessServices
         //TODO: Embedded Resource and read xml and pass XML doc to LandingPageLayoutLoader().
         //const string ConfigFolder = "\\BusinessServices\\config\\";
         //private readonly string _filepath = AssemblyHelper.GetExecutingAssemblyDirectoryPath() + ConfigFolder;
-
-        const string ConfigFolder = @"BusinessServices\config\";
-        //TODO: unable to get the current directory path. Travelling 4 folders up from the executing assembly folder.
-        private static readonly string _rootFolder = AssemblyHelper.GetExecutingAssemblyRootPath(); 
-        private readonly string _filepath = _rootFolder + ConfigFolder;
-
+        
+        private readonly string _filepath = FilePathHelper.GetConfigFileFolderPath();
         [TestMethod()]
         public void ResourceToApplicationRolesMapper_ResourceItemsWithRolesDictionary_NotNull()
         {

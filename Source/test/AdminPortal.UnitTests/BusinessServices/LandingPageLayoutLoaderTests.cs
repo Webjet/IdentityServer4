@@ -29,11 +29,8 @@ namespace AdminPortal.UnitTests.BusinessServices
     [TestClass()]
     public class LandingPageLayoutLoaderTests
     {
-        const string ConfigFolder = @"BusinessServices\config\";
-        //TODO: unable to get the current directory path. Travelling 4 folders up from the executing assembly folder.
-        private static readonly string _rootFolder = AssemblyHelper.GetExecutingAssemblyRootPath();
-        private readonly string _filepath = _rootFolder + ConfigFolder;
-        //private readonly string _filepath = AssemblyHelper.GetExecutingAssemblyDirectoryPath() + ConfigFolder;
+        private readonly string _filepath = FilePathHelper.GetConfigFileFolderPath();
+        
         private readonly NLog.ILogger _logger = Substitute.For<NLog.ILogger>();
 
         [TestMethod()]

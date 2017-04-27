@@ -16,22 +16,32 @@ namespace AdminPortal
     {
         public static IConfigurationRoot ConfigurationRoot
         {
-            private get;set;
-        }
-        public ResourceAuthorizeAttribute(string resourceKey)
-        {
-            base.Roles = GetAllowedRolesForResource(resourceKey);
-            
+            private get; set;
         }
 
-        private string GetAllowedRolesForResource(string resourceKey)
+        public ResourceAuthorizeAttribute(string resourceKey) : this(resourceKey, null)
+        {
+
+        }
+        public ResourceAuthorizeAttribute(string resourceKey, ResourceToApplicationRolesMapper resourceToApplicationRolesMapper)
+        {
+            if (resourceToApplicationRolesMapper == null)
+            {
+                resourceToApplicationRolesMapper = new ResourceToApplicationRolesMapper(ConfigurationRoot);
+            }
+
+            base.Roles = GetAllowedRolesForResource(resourceKey, resourceToApplicationRolesMapper);
+
+        }
+
+        private string GetAllowedRolesForResource(string resourceKey, ResourceToApplicationRolesMapper resourceToApplicationRolesMapper)
         {
             string allowedRoles;
             if (!string.IsNullOrEmpty(resourceKey))
             {
-                 allowedRoles = string.Join(",", new ResourceToApplicationRolesMapper(ConfigurationRoot).GetAllowedRolesForResource(resourceKey));
+                allowedRoles = string.Join(",", resourceToApplicationRolesMapper.GetAllowedRolesForResource(resourceKey));
                 return allowedRoles;
-                
+
             }
             return null;
         }
