@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+  <title>Google Analytics Customer Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js" integrity="sha256-PX9zWVaICUCeklczWaS9DLBb9uGN7pCkCT0Kyz1elRo=" crossorigin="anonymous"></script>
+
+  <script src="static/js/stickyheaders.min.js" crossorigin="anonymous"></script><!--<script src="https://raw.githubusercontent.com/jmosbech/StickyTableHeaders/master/js/jquery.stickytableheaders.min.js"></script>-->
+  <script src="static/js/csvtotable.min.js" crossorigin="anonymous"></script><!--<script src="http://derekeder.github.io/csv-to-html-table/js/csv_to_html_table.js"></script>-->
+  <script src="static/js/jquery.csv.min.js" crossorigin="anonymous"></script><!--<script src="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/src/jquery.csv.min.js"></script>-->
+
+  <link rel="stylesheet" type="text/css" href="static/css/default.css">
+</head>
+<body>
+  <main>
+    <h1>Google Analytics Customer Journey</h1>
+    <form id="booking" style="max-width: 600px">
+      <fieldset>
+        <legend>Form</legend>
+        Booking Reference/GA Cookie ID/<abbr title="Session ID from Custom Dimension 19">Session ID</abbr>: <input id="booking_reference" type="text" data-bind="value:ID, valueUpdate:'keyup'"> <!-- ko if:!ValidationID() --><span style="color: red; font-weight:bold">!</span><!-- /ko --><br>
+        Date: <input id="date" type="date" data-bind="value:Date, attr: {max: MaxDate}"><!-- ko if:!ValidationDate() --><span style="color: red; font-weight:bold">!</span><!-- /ko --><br>
+        Brand: <select id="brand" data-bind="value:Brand"><option>Webjet AU</option><option>Webjet NZ</option><option>Zuji AU</option></select><br>
+        <hr>
+        <button id="submit" type="button" value="Submit" data-bind="enable: isValid">Submit</button>
+        <span data-bind="visible: isValid">Fields are <span style="color: green">valid!</span></span><span data-bind="visible: !isValid()">Fields are <span style="color: red">invalid!</span></span>
+        <!-- ko if:DownloadID() --><button id="download" type="button" value="Download" data-bind="click: DownloadFile, text: 'Download ' + DownloadID()">Download</button><!-- /ko -->
+      </fieldset>
+      <fieldset>
+        <legend>Messages</legend>
+        <!-- ko if:Message() --><span id="message" data-bind="html: Message"></span><br><!-- /ko -->
+        <!-- ko if:Error() --><span id="error" data-bind="html: Error" style="color:red"></span><!-- /ko -->
+      </fieldset>
+      <img id="loading-ring" src="static/img/ring-loading.gif" hidden><br>
+      <br>
+      <div id="table-output"></div>
+    </form>
+  </main>
+  <script>
+    // CONFIGURATIONS //
+      QUERY_URL = "https://172.28.118.2/api/v2.0/session"
+      //QUERY_URL = "https://localhost:5000/api/v2.0/session"
+      if (document.getElementById('targetUrl') != null) {
+        QUERY_URL = document.getElementById('targetUrl').value;
+      }
+    // CONFIGURATIONS //
+    function ViewModel() {
+      var self = this;
+      var today = new Date().toISOString().slice(0,10);
+
+      self.ID = ko.observable("");
+      self.Date = ko.observable(today);
+      self.MaxDate = ko.observable(today);
+      self.Brand = ko.observable("Webjet AU");
+
+      self.Message = ko.observable();
+      self.Error = ko.observable();
+      self.isOutput = ko.pureComputed(function() {
+        return (self.Message() || self.Error())
+      });
+
+      self.ValidationID = ko.pureComputed(function() {
+        var check = self.ID();
+        return (check != "" && check != undefined)
+      });
+
+      self.ValidationDate = ko.pureComputed(function() {
+        var check = self.Date();
+        return (check != "" && check != undefined && check <= self.MaxDate())
+      });
+
+      self.isValid = ko.pureComputed(function() {
+        return (self.ValidationID() && self.ValidationDate());
+      });
+
+      self.Data = ko.pureComputed(function() {
+        return {
+          'id': self.ID().trim(),
+          'date': self.Date().replace(/-/g, ''),
+          'brand': self.Brand()
+        }
+      });
+
+      self.DownloadID = ko.observable();
+      self.DownloadFile = function() {
+        window.location.href = QUERY_URL + "?id=" + self.DownloadID() + "&download=true"
+      }
+    }
+
+    var VM = new ViewModel();
+    ko.applyBindings(VM);
+
+    function CreateEmailLink(data) {
+      var message = "<a href='mailto:analytics@webjet.com.au?subject=Google Analytics Customer Journey Issues&body=Dear Analytics, there was an issue with the Python Web API and this is some information available:" + "%0D%0A%0D%0A";
+      data.forEach(function(v,i,a) {
+        message += v + "%0D%0A";
+      })
+      message += "%0D%0AIf you have any other information you would like to include, please feel free to include it!" + "%0D%0A" + "Thank you!'>analytics@webjet.com.au</a>";
+      return message;
+    }
+
+    $(document).ready(function() {
+      $("button#submit").click(function(e) {
+        var data = VM.Data();
+        console.log("POSTing with", data);
+        data = JSON.stringify(data);
+
+        $.ajax({
+          beforeSend: function(xhrObj){
+            xhrObj.setRequestHeader("Content-Type","application/json");
+            xhrObj.setRequestHeader("Accept","application/json");
+            xhrObj.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            $("button#submit").prop('disabled', true);
+            $("#loading-ring").show();
+            VM.Message("");
+            VM.Error("");
+          },
+          type: "POST",
+          url: QUERY_URL,
+          data: data,
+          dataType: "json",
+          timeout: 60000, // 60 seconds timeout
+          statusCode: {
+            200: function(res){
+              console.log("SUCCESS",res);
+              VM.DownloadID(res.id);
+
+              CsvToHtmlTable.init({
+                csv_path: QUERY_URL + '?id=' + res.id,
+                element: 'table-output',
+                allow_download: false,
+                csv_options: {separator: ',', delimiter: '"'},
+                datatables_options: {"paging": false},
+                callback: function() {
+                  $('table tr').on('click', function(){
+                    $(this).toggleClass("highlight");
+                  });
+                  $('table').stickyTableHeaders();
+                }
+              });
+            },
+            202: function(res) {
+              VM.Message(res.responseText);
+            },
+            400: function(res){
+              console.error(res.responseText);
+              VM.Error(res.responseText);
+            },
+          },
+          complete: function() {
+            $("#loading-ring").hide();
+            $("button#submit").prop('disabled', false);
+          }
+        });
+
+        e.preventDefault();
+        return false
+      });
+    });
+  </script>
+</body>
+</html>

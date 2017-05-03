@@ -24,12 +24,18 @@
       //  "AdminPortal.BusinessServices": {
       //    "target": "project"
       //  }
-        //"Webjet.DotNet.Common": {
-        //  "target": "project"
-        //}
-        // "imports": "dnxcore50"
+      //"Webjet.DotNet.Common": {
+      //  "target": "project"
+      //}
+      // "imports": "dnxcore50"
       //}
     }
+  },
+
+  "buildOptions": {
+    "copyToOutput": [
+      "../../src/AdminPortal/Views/ViewHtml/GoogleAnalyticsCustomerJourney/Templates/index.html"
+    ]
   }
 }
 

@@ -16,7 +16,7 @@ namespace AdminPortal.UnitTests.TestUtilities
             var config = Substitute.For<IConfigurationRoot>();
 
             string directoryPath = AssemblyHelper.GetExecutingAssemblyRootPath();
-            string googleBigQueryItineraryDirectoryPath = directoryPath + @"Controllers\Content\GoogleBigQueryItinerary.html";
+            string googleBigQueryItineraryDirectoryPath = AssemblyHelper.GetExecutingAssemblyDirectoryPath() + @"\src\AdminPortal\Views\ViewHtml\GoogleAnalyticsCustomerJourney\Templates\index.html";
             string generateRandomNumberDirectoryPath = directoryPath + @"Controllers\Content\GenerateRandomNumber.html";
             string googleBigQueryHostUrl = "http://127.0.0.1:5000/api/v1.0/query";
             

@@ -12,6 +12,7 @@ using Microsoft.DotNet.InternalAbstractions;
 using Microsoft.Extensions.Configuration;
 using Webjet.Common;
 using Webjet.Common.Strings;
+using System.Text;
 
 namespace AdminPortal.Controllers
 {
@@ -34,15 +35,11 @@ namespace AdminPortal.Controllers
             string googleBigQueryHostUrl;
             //Path assign from Unit Test Project
             htmlPath = _config?["GoogleBigQueryItineraryDirectoryPath"];
-
-            if(htmlPath.IsNullOrBlank())
-            {
-                htmlPath = Directory.GetCurrentDirectory() + @"\Views\ViewHtml\GoogleBigQueryItinerary\index.html";
-            }
+            htmlPath = Path.Combine(Directory.GetCurrentDirectory(), htmlPath);
            
             googleBigQueryHostUrl = _config["GoogleBigQueryHostUrl"];
             string htmlContent = System.IO.File.ReadAllText(htmlPath);
-            ViewData["HtmlContent"] = htmlContent;
+            ViewData["HtmlContent"] = this.ReplaceGoogleAnalyticsCustomerJourneyStaticUrls(htmlContent);
             ViewData["GoogleBigQueryHostUrl"] = googleBigQueryHostUrl;
 
 
@@ -52,6 +49,17 @@ namespace AdminPortal.Controllers
             return View();
         }
         
+        private string ReplaceGoogleAnalyticsCustomerJourneyStaticUrls(string htmlContent)
+        {
+            var baseUrl = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value+ 
+                "/GoogleAnalyticsCustomerJourney/Static/";
+
+            StringBuilder sb = new StringBuilder(htmlContent);
+            sb.Replace("src=\"static/", "src=\"" + baseUrl);
+            sb.Replace("href=\"static/", "href=\"" + baseUrl);
+                        
+            return sb.ToString();
+        }
 
         [ResourceAuthorize("GenerateRandomNumber")]
         [HttpGet]
