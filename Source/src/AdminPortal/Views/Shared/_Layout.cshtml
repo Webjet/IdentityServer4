@@ -2,6 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PHK985L');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="utf-8" />
     <title>@ViewBag.Title - Admin Portal 1.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +34,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
             asp-fallback-src="~/libs/jquery/dist/jquery.min.js">
     </script>
-        
+
     <script type='text/javascript'>
         var appInsights = window.appInsights || function (config) {
             function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } }
@@ -74,11 +82,11 @@
                 <p>Version @AssemblyInformation.ExecutingAssemblyVersion Build Date @AssemblyInformation.CompileDate</p>
             </footer>
         </div>
-    </div>    
+    </div>
 
 
-@* src="~/libs/jquery-ui/jquery-ui.min.js" conflict with bootstrap.min.js due to common toolTip method. 
-    solution, we have to refer bootstrap tooltip method, add bootstrap reference after jquery-ui to overcome error*@
+    @* src="~/libs/jquery-ui/jquery-ui.min.js" conflict with bootstrap.min.js due to common toolTip method.
+        solution, we have to refer bootstrap tooltip method, add bootstrap reference after jquery-ui to overcome error*@
 
     <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js"
             asp-fallback-src="~/libs/jquery-ui/jquery-ui.min.js">
