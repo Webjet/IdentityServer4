@@ -23,6 +23,10 @@
         <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
     </environment>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+            asp-fallback-src="~/libs/jquery/dist/jquery.min.js">
+    </script>
+        
     <script type='text/javascript'>
         var appInsights = window.appInsights || function (config) {
             function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } }
@@ -70,17 +74,13 @@
                 <p>Version @AssemblyInformation.ExecutingAssemblyVersion Build Date @AssemblyInformation.CompileDate</p>
             </footer>
         </div>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
-            asp-fallback-src="~/libs/jquery/dist/jquery.min.js">
-    </script>
+    </div>    
 
 
 @* src="~/libs/jquery-ui/jquery-ui.min.js" conflict with bootstrap.min.js due to common toolTip method. 
     solution, we have to refer bootstrap tooltip method, add bootstrap reference after jquery-ui to overcome error*@
 
-    <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.js"
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js"
             asp-fallback-src="~/libs/jquery-ui/jquery-ui.min.js">
     </script>
 

@@ -4,19 +4,20 @@
   <title>Google Analytics Customer Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js" integrity="sha256-PX9zWVaICUCeklczWaS9DLBb9uGN7pCkCT0Kyz1elRo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js" type="text/javascript" integrity="sha256-PX9zWVaICUCeklczWaS9DLBb9uGN7pCkCT0Kyz1elRo=" crossorigin="anonymous"></script>
 
-  <script src="static/js/stickyheaders.min.js" crossorigin="anonymous"></script><!--<script src="https://raw.githubusercontent.com/jmosbech/StickyTableHeaders/master/js/jquery.stickytableheaders.min.js"></script>-->
-  <script src="static/js/csvtotable.min.js" crossorigin="anonymous"></script><!--<script src="http://derekeder.github.io/csv-to-html-table/js/csv_to_html_table.js"></script>-->
-  <script src="static/js/jquery.csv.min.js" crossorigin="anonymous"></script><!--<script src="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/src/jquery.csv.min.js"></script>-->
+  <script src="static/js/stickyheaders.min.js" type="text/javascript" crossorigin="anonymous"></script><!--<script src="https://raw.githubusercontent.com/jmosbech/StickyTableHeaders/master/js/jquery.stickytableheaders.min.js"></script>-->
+  <script src="static/js/csvtotable.min.js" type="text/javascript" crossorigin="anonymous"></script><!--<script src="http://derekeder.github.io/csv-to-html-table/js/csv_to_html_table.js"></script>-->
+  <script src="static/js/jquery.csv.min.js" type="text/javascript" crossorigin="anonymous"></script><!--<script src="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/src/jquery.csv.min.js"></script>-->
+  <script src="static/js/dragscroll.js" type="text/javascript" crossorigin="anonymous"></script><!--<script src="https://raw.githubusercontent.com/asvd/dragscroll/master/dragscroll.js"></script>-->
 
   <link rel="stylesheet" type="text/css" href="static/css/default.css">
 </head>
 <body>
   <main>
     <h1>Google Analytics Customer Journey</h1>
-    <form id="booking" style="max-width: 600px">
+    <form id="booking">
       <fieldset>
         <legend>Form</legend>
         Booking Reference/GA Cookie ID/<abbr title="Session ID from Custom Dimension 19">Session ID</abbr>: <input id="booking_reference" type="text" data-bind="value:ID, valueUpdate:'keyup'"> <!-- ko if:!ValidationID() --><span style="color: red; font-weight:bold">!</span><!-- /ko --><br>
@@ -34,17 +35,14 @@
       </fieldset>
       <img id="loading-ring" src="static/img/ring-loading.gif" hidden><br>
       <br>
-      <div id="table-output"></div>
+      <div id="table-output" class="dragscroll" style="overflow-x: scroll; width: 100%"></div>
     </form>
   </main>
   <script>
     // CONFIGURATIONS //
-      QUERY_URL = "https://172.28.118.2/api/v2.0/session"
-      //QUERY_URL = "https://localhost:5000/api/v2.0/session"
-      if (document.getElementById('targetUrl') != null) {
-        QUERY_URL = document.getElementById('targetUrl').value;
-      }
+    QUERY_URL = "https://172.28.118.2/api/v2.0/session"
     // CONFIGURATIONS //
+
     function ViewModel() {
       var self = this;
       var today = new Date().toISOString().slice(0,10);
@@ -76,7 +74,7 @@
 
       self.Data = ko.pureComputed(function() {
         return {
-          'id': self.ID().trim(),
+          'id': self.ID().trim().replace(/#/g, '%23'),
           'date': self.Date().replace(/-/g, ''),
           'brand': self.Brand()
         }
@@ -84,7 +82,7 @@
 
       self.DownloadID = ko.observable();
       self.DownloadFile = function() {
-        window.location.href = QUERY_URL + "?id=" + self.DownloadID() + "&download=true"
+        window.location.href = QUERY_URL + "?id=" + self.DownloadID().replace(/#/g,"%23") + "&download=true"
       }
     }
 
@@ -125,7 +123,7 @@
           statusCode: {
             200: function(res){
               console.log("SUCCESS",res);
-              VM.DownloadID(res.id);
+              VM.DownloadID(res.id.replace(/%23/g, '#'));
 
               CsvToHtmlTable.init({
                 csv_path: QUERY_URL + '?id=' + res.id,
