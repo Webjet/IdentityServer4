@@ -170,10 +170,14 @@
             "Value": "[variables('Authentication:AzureAd:TenantId')]"
           },
           {
+            "Key": "Authentication:AzureAd:Audience",
+            "Value": "[variables('Authentication:AzureAd:Audience')]"
+          },
+          {
             "Key": "LandingPageLayoutRelativePath",
             "Value": "[variables('LandingPageLayoutRelativePath')]"
           },
-	 {
+          {
             "Key": "ASPNETCORE_ENVIRONMENT",
             "Value": "[variables('ASPNETCORE_ENVIRONMENT')]"
           },
@@ -181,9 +185,9 @@
             "Key": "ResourceToRolesMapRelativePath",
             "Value": "[variables('ResourceToRolesMapRelativePath')]"
           }
-		
-		 
-		  
+
+
+
         ],
 				"ResourceGroup":{
 					"Name" : "[variables('ResourceGroupName')]",
