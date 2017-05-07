@@ -18,6 +18,7 @@
     "Authentication:AzureAd:Domain": "webjet.group",
     "Authentication:AzureAd:TenantId": "5de0e68c-0afd-4a67-b089-31f168aa4ca0", //Webjet AAD
     "Authentication:AzureAd:Audience": "https://webjet.group/eb694f3a-292d-4c13-93f6-140c90f59766", // Admin Portal (Application URI)
+    "Authentication:AzureAd:userSecretsId": "2vxuvA+JqZ8RltoiLXuwssAvPdlAOyoAO3NxQww+xLY=",
     "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
     "logging.application_name": "WJ-UAT-AdminPortal",
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
