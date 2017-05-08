@@ -1,6 +1,7 @@
 {
   //... "userSecretsId": AdminPortal--> "aspnet-AdminPortal-6ba11ad3-8d38-467b-b0c2-3656a9731ceb"
   "userSecretsId": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=", //<-- Webjet Admin Portal Dev
+  //"userSecretsId": "2vxuvA+JqZ8RltoiLXuwssAvPdlAOyoAO3NxQww+xLY=", //<-- Webjet Admin Portal UAT
   "dependencies": {
     "AdminPortal.BusinessServices": "1.0.0-*",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
