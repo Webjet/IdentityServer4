@@ -229,6 +229,35 @@
       <MenuItem Text="Generate Random Number"  Key ="GenerateRandomNumber" Link="ViewHtml/GenerateRandomNumber" RegionIndicator="ALL"  />
     </Section>
   </LandingPageTab>
- 
+
+  <LandingPageTab Key ="WebjetAU_Local" Text ="Local Webjet AU">
+    <Section Key ="ServiceCentreSectionAU" Text="Service Centre Activities " >
+      <MenuItem Text="ItineraryDetails  "           Key ="ItineraryDetails"  Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=ItineraryDetails&amp;ItineraryId=107711" />
+      <MenuItem Text="Pending  "           Key ="PendingItems"  Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
+      <MenuItem Text="Search Booking  "    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
+      <MenuItem Text="Administration  "    Key ="FareEscalationManualBookings" Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
+      <MenuItem Text="Customer Information  " Key ="CustomerDrilldown" Link="https://local.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
+      <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
+      <MenuItem Text="Google Analytics Customer Journey (in Macquarie)" Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey (in Azure -Required CORS-Not implemented) " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
+    </Section>
+
+    <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
+      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=SaleFareCampaignManager"  />
+      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=CouponCampaignManager"  />
+      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=VelocityBonusCampaignManager"  />
+      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=FlightFiltersManager"  />
+    </Section>
+    <Section Key ="FinanceTeamSectionAU" Text="Finance Team Activities " >
+      <MenuItem Text="Revenue Analysis" Key ="RevenueAnalysis" Link="https://local.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/RevenueAnalysis.aspx" />
+    </Section>
+    <Section Key ="Marketing" Text="Marketing Team Activities " >
+      <MenuItem Text="Generate Random Number"  Key ="GenerateRandomNumber" Link="ViewHtml/GenerateRandomNumber" RegionIndicator="ALL"  />
+    </Section>
+    <Section Key ="DevTest" Text="Dev Tests " >
+      <MenuItem Text="Web form client -Contact"  Key ="Contact" Link="https://localhost:44379/Contact"  />
+    </Section>
+
+  </LandingPageTab>
 </UiLinks>
 
