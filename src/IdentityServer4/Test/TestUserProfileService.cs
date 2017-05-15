@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using System.Collections.Generic;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging.Internal;
 
 namespace IdentityServer4.Test
 {
@@ -45,11 +47,12 @@ namespace IdentityServer4.Test
         /// <returns></returns>
         public virtual Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            Logger.LogDebug("Get profile called for subject {subject} from client {client} with claim types {claimTypes} via {caller}",
+            var logValues = new FormattedLogValues("Get profile called for subject {subject} from client {client} with claim types {claimTypes} via {caller}",
                 context.Subject.GetSubjectId(),
                 context.Client.ClientName ?? context.Client.ClientId,
                 context.RequestedClaimTypes,
                 context.Caller);
+            Logger.LogDebug(logValues.ToString());
 
             if (context.RequestedClaimTypes.Any())
             {
@@ -58,6 +61,10 @@ namespace IdentityServer4.Test
                 {
                     context.AddFilteredClaims(user.Claims);
                 }
+				else
+                { Logger.LogWarning("Users.FindBySubjectId returned null when "+ logValues.ToString());
+				}
+ 
             }
 
             return Task.FromResult(0);
