@@ -26,7 +26,7 @@
         <hr>
         <button id="submit" type="button" value="Submit" data-bind="enable: isValid">Submit</button>
         <span data-bind="visible: isValid">Fields are <span style="color: green">valid!</span></span><span data-bind="visible: !isValid()">Fields are <span style="color: red">invalid!</span></span>
-        <!-- ko if:DownloadID() --><button id="download" type="button" value="Download" data-bind="click: DownloadFile, text: 'Download ' + DownloadID()">Download</button><!-- /ko -->
+        <!-- ko if:DownloadID() --><a id="download" value="Download" target="_blank" data-bind="text: 'Download ' + DownloadID(), attr:{ href: QUERY_URL_DOWNLOAD + '&id=' + VM.DownloadID().replace(/#/g,'%23') + '&download=true' }"></a><!-- /ko -->
       </fieldset>
       <fieldset>
         <legend>Messages</legend>
@@ -41,14 +41,17 @@
   <script>
     // CONFIGURATIONS //
     QUERY_URL = "https://172.28.118.2/api/v2.0/session"
+    QUERY_URL_GET = "https://customerjourney.azurewebsites.net/api/GetCSV?code=CaCIOl2h4ewSFqTv8kA75R1A0e6Z11iGUnVaFLz6L1Q5rxtB8qBopw=="
+    QUERY_URL_DOWNLOAD = "https://customerjourney.azurewebsites.net/api/GetCSVDownload?code=M51199PAzYMP00HosyFTAyz2hKC2mISERveaymRq2eyMDUVCjhYNyQ=="
     // CONFIGURATIONS //
 
     function ViewModel() {
       var self = this;
       var today = new Date().toISOString().slice(0,10);
+      var yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,10); // This might be unoptimized
 
       self.ID = ko.observable("");
-      self.Date = ko.observable(today);
+      self.Date = ko.observable(yesterday);
       self.MaxDate = ko.observable(today);
       self.Brand = ko.observable("Webjet AU");
 
@@ -65,7 +68,7 @@
 
       self.ValidationDate = ko.pureComputed(function() {
         var check = self.Date();
-        return (check != "" && check != undefined && check <= self.MaxDate())
+        return (check != "" && check != undefined && check < self.MaxDate())
       });
 
       self.isValid = ko.pureComputed(function() {
@@ -81,9 +84,6 @@
       });
 
       self.DownloadID = ko.observable();
-      self.DownloadFile = function() {
-        window.location.href = QUERY_URL + "?id=" + self.DownloadID().replace(/#/g,"%23") + "&download=true"
-      }
     }
 
     var VM = new ViewModel();
@@ -116,17 +116,18 @@
             VM.Error("");
           },
           type: "POST",
-          url: QUERY_URL,
+          url: QUERY_URL_GET,
           data: data,
           dataType: "json",
           timeout: 60000, // 60 seconds timeout
           statusCode: {
             200: function(res){
               console.log("SUCCESS",res);
+              res = JSON.parse(res);
               VM.DownloadID(res.id.replace(/%23/g, '#'));
 
               CsvToHtmlTable.init({
-                csv_path: QUERY_URL + '?id=' + res.id,
+                csv_path: QUERY_URL_DOWNLOAD + '&id=' + res.id,
                 element: 'table-output',
                 allow_download: false,
                 csv_options: {separator: ',', delimiter: '"'},
