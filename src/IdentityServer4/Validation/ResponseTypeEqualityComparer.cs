@@ -34,7 +34,8 @@ namespace IdentityServer4.Validation
             if (x == null || y == null) return false;
 
             if (x.Length != y.Length) return false;
-
+            x = x.Trim();
+            y = y.Trim();
             var xValues = x.Split(' ');
             var yValues = y.Split(' ');
 
