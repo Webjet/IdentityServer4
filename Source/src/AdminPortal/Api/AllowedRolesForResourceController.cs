@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using System.Security.Claims;
-using System.Linq;
 
 namespace AdminPortal.Api
 {
@@ -20,15 +18,10 @@ namespace AdminPortal.Api
         static Serilog.ILogger _logger = Log.ForContext<AllowedRolesForResourceController>();
 
         private readonly ResourceToApplicationRolesMapper _resourceToApplicationRolesMapper;
-        private readonly GroupToTeamNameMapper groupToTeamNameMapper;
-        public const string ScopeClaim = "Scope";
-        public const string TeamNameClaim = "TeamName";
 
-        public AllowedRolesForResourceController(ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = null,
-            GroupToTeamNameMapper groupToTeamNameMapper = null)
+        public AllowedRolesForResourceController(ResourceToApplicationRolesMapper resourceToApplicationRolesMapper = null)
         {
             _resourceToApplicationRolesMapper = resourceToApplicationRolesMapper ?? new ResourceToApplicationRolesMapper();
-            this.groupToTeamNameMapper = groupToTeamNameMapper ?? new GroupToTeamNameMapper();
         }
 
         // GET: api/AllowedRolesForResource
@@ -40,22 +33,11 @@ namespace AdminPortal.Api
 
         [Microsoft.AspNetCore.Mvc.HttpGet("GetResourcesForUser")]
         public List<string> GetResourcesForUser()
-        {  
+        {
             var resources = _resourceToApplicationRolesMapper.GetAllowedForUserResources(User);
-            _logger.Debug(resources.ToString());                       
+            _logger.Debug(resources.ToString());
 
             return resources;
-        }
-               
-        [Microsoft.AspNetCore.Mvc.HttpGet("GetTeamNameForUser")]
-        public string GetTeamNameForUser()
-        {
-            var usrClaims = ((ClaimsIdentity)User?.Identity)?.Claims;
-
-            var groupId = usrClaims
-                ?.FirstOrDefault(c => c.Type == "groups")?.Value;
-
-            return this.groupToTeamNameMapper.GetTeamName(groupId);   
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet("{resourceKey}")]

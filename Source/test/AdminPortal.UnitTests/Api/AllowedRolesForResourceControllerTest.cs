@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System.Security.Claims;
 
 namespace AdminPortal.UnitTests.Api
 {
@@ -51,19 +50,6 @@ namespace AdminPortal.UnitTests.Api
         }
 
         [TestMethod()]
-        public void GetTeamNameForUser_ServiceCentre_ReturnTeamName()
-        {
-            // Arrange
-            var controller = InitAllowedRolesForGetTeamNameForUser();
-
-            // Act
-            var teamName = controller.GetTeamNameForUser();
-
-            // Assert
-            Assert.AreEqual("MEL", teamName);
-        }
-
-        [TestMethod()]
         public void Get_IsUserRoleAllowedForReviewPendingBookingsWebjetAU_True()
         {
             //Arrange
@@ -97,10 +83,8 @@ namespace AdminPortal.UnitTests.Api
         {
 
             var file = _filepath + "ResourceToRolesMapSample.xml";
-            var teamNameFile = _filepath + "GroupToTeamNameMap.xml";
             ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(null, file);
-            GroupToTeamNameMapper teamNameMapper = new GroupToTeamNameMapper(teamNameFile);
-            var controller = new AllowedRolesForResourceController(mapper, teamNameMapper);
+            var controller = new AllowedRolesForResourceController(mapper);
             //InitAllowedRolesForResourceController();
 
             controller.ControllerContext = new ControllerContext()
@@ -109,36 +93,6 @@ namespace AdminPortal.UnitTests.Api
                 {
                     User =
                         PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterAnalyticsAndFinanceRoles()
-                }
-            };
-            return controller;
-        }   
-        
-        private AllowedRolesForResourceController InitAllowedRolesForGetTeamNameForUser()
-        {
-            var file = _filepath + "ResourceToRolesMapSample.xml";
-            var teamNameFile = _filepath + "GroupToTeamNameMap.xml";
-            ResourceToApplicationRolesMapper mapper = new ResourceToApplicationRolesMapper(null, file);
-            GroupToTeamNameMapper teamNameMapper = new GroupToTeamNameMapper(teamNameFile);
-            var controller = new AllowedRolesForResourceController(mapper, teamNameMapper);
-            //InitAllowedRolesForResourceController();
-
-            var claim = new List<Claim>()
-            {
-                new Claim("groups", "413687dc-ee0c-4326-9ae1-b2a87ebd28a1")
-            };
-
-            var claimsIdentity = Substitute.For<ClaimsIdentity>();
-            claimsIdentity.Claims.Returns(claim);
-
-            var user = Substitute.For<ClaimsPrincipal>();
-            user.Identity.Returns(claimsIdentity);
-
-            controller.ControllerContext = new ControllerContext()
-            {
-                HttpContext = new DefaultHttpContext()
-                {
-                    User = user
                 }
             };
             return controller;

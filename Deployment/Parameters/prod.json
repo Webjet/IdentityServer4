@@ -28,7 +28,6 @@
     "LogResourceGroupName": "WJ-Prod-LogsRG", //Shared
     "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.UAT.xml",
     "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.UAT.xml",
-    "GroupToTeamNameMapRelativePath": "Config\\GroupToTeamNameMap.UAT.xml",
     "ASPNETCORE_ENVIRONMENT": "Staging",
     "GoogleBigQueryHostUrl": "http://127.0.0.1:5000/api/v1.0/query"
 
