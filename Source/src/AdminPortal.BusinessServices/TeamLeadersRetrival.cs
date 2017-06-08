@@ -19,7 +19,7 @@ namespace AdminPortal.BusinessServices
     {
         //TODO: temp public for testing
         public ActiveDirectoryClient _graphClient;
-        private IConfigurationRoot _config;
+    
 
         public static IConfigurationRoot ConfigurationRoot
         {
