@@ -2,9 +2,12 @@
   "dependencies": {
     "Microsoft.AspNetCore.Hosting": "1.1.0",
     "Microsoft.AspNetCore.Mvc": "1.1.1",
+    "Microsoft.Azure.ActiveDirectory.GraphClient": "2.1.1",
     "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
     "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.13.8",
+    "Microsoft.Net.Http": "2.2.29",
     "NETStandard.Library": "1.6.1",
+    "Newtonsoft.Json": "10.0.2",
     "NLog": "4.4.1",
     "System.Xml.XmlSerializer": "4.0.10",
     "Webjet.Common": "1.0.6298.23805"

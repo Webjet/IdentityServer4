@@ -4,24 +4,32 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Contexts;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AdminPortal.BusinessServices;
 using AdminPortal.BusinessServices.Common;
 using AdminPortal.BusinessServices.Logging;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Azure.ActiveDirectory.GraphClient;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Owin;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Core;
+using Serilog.Events;
 
 namespace AdminPortal
 {
@@ -66,45 +74,45 @@ namespace AdminPortal
             //http://www.dotnetcurry.com/aspnet-mvc/1250/dependency-injection-aspnet-mvc-core
             services.TryAddSingleton<LandingPageLayoutLoader>();
             services.TryAddSingleton<ResourceToApplicationRolesMapper>();
-
+           
             services.AddAuthentication(
             sharedOptions => sharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
-
-         
+            
             // Add framework services.
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,IDistributedCache distributedCache)
         {
             //TODO: Will remove AddConsole, its is added by default.
             //Log.Logger = new LoggerConfiguration().ReadFrom.AppSettings().CreateLogger();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-     
+
             ConfigureSerilogSinks(loggerFactory);
-            
+
             if (env.IsDevelopment())
             {
+                // app.UseExceptionHandler("/Error");
                 loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                 app.UseBrowserLink();
             }
             else
             {
                 // Handle unhandled errors i.e. HTTP 500
                 app.UseExceptionHandler("/Error");
-                
+
             }
 
             app.UseStaticFiles();
-            
+
             //This tells the application that we want to store our session tokens in cookies 'UseCookieAuthentication'
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = false
-             });
+            });
 
             //Unauthorise request are handle by UseCookieAuthentication middleware by giving 'AccessDeniedPath' with explicit Http status code as 401
             //app.UseCookieAuthentication(new CookieAuthenticationOptions()
@@ -112,7 +120,7 @@ namespace AdminPortal
             //    AccessDeniedPath = new PathString("/Error/401")    // By Adding StatusCodePagesWithReExecute at bottom to pipeline, able to get 401- AccessDenied error code.
             //});
 
-             //Authentication instructions.
+            //Authentication instructions.
             //https://stormpath.com/blog/openid-connect-user-authentication-in-asp-net-core
             //https://joonasw.net/view/asp-net-core-1-azure-ad-authentication
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
@@ -124,6 +132,7 @@ namespace AdminPortal
                 AutomaticAuthenticate = false,
                 AutomaticChallenge = true,
             });
+            
             bool includeJwtBearerAuthentication = true;
             if (includeJwtBearerAuthentication)
             {
@@ -133,7 +142,7 @@ namespace AdminPortal
                     AutomaticAuthenticate = false,
                     AutomaticChallenge = false,
 
-                    Authority =Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
+                    Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
                     Audience = Configuration["Authentication:AzureAd:Audience"]
                 });
             }
@@ -148,7 +157,9 @@ namespace AdminPortal
 
             ResourceAuthorizeAttribute.ConfigurationRoot = this.Configuration;
             GroupToTeamNameMapper.ConfigurationRoot = this.Configuration;
+            TeamLeadersRetrival.ConfigurationRoot = this.Configuration;
 
+           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -169,12 +180,12 @@ namespace AdminPortal
                 //Reading Configuration for Serilog Sink from appsettings.json. Install Nuget package 'Serilog.Settings.Configuration'.
                 Log.Logger = new LoggerConfiguration().ReadFrom.ConfigurationSection(Configuration.GetSection("Serilog")).CreateLogger();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Serilog.Debugging.SelfLog.WriteLine(ex.ToString());
-               // Serilog.Debugging.SelfLog.Out.Flush();
+                // Serilog.Debugging.SelfLog.Out.Flush();
                 Debug.Assert(false, ex.ToString());
-             }
+            }
         }
     }
 }
