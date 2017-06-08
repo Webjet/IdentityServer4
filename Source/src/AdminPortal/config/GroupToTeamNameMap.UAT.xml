@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<GroupToTeamNameMap>
+
+  <!--ServiceCenter-->
+  <GroupToTeamName GroupId="477e0a8d-cb72-4487-b336-6cb93a1c2bb1" GroupName="CORPWJ_AZ_ServiceCentre" TeamName="MEL" />
+  <GroupToTeamName GroupId="a58ab964-f98a-460b-9616-7d9ed759bb34" GroupName="CORPWJ_AZ_IGTManila" TeamName="MNL" />
+  <GroupToTeamName GroupId="c2cac26b-b730-4db3-a129-f9d5844c1462" GroupName="CORPWJ_AZ_IGTIndia" TeamName="IND" />
+
+  <!--ServiceCenterManager-->
+
+  <!--ProductTeam-->
+
+  <!--FinanceTeam-->
+  <!--MarketingTeam-->
+
+</GroupToTeamNameMap>

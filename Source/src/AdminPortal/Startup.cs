@@ -147,6 +147,7 @@ namespace AdminPortal
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             ResourceAuthorizeAttribute.ConfigurationRoot = this.Configuration;
+            GroupToTeamNameMapper.ConfigurationRoot = this.Configuration;
 
             app.UseMvc(routes =>
             {
