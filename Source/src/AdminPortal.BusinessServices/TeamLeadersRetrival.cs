@@ -30,6 +30,7 @@ namespace AdminPortal.BusinessServices
 
         public TeamLeadersRetrival(IConfigurationRoot appConfig = null)
         {
+            appConfig = appConfig ?? ConfigurationRoot;
             _graphClient = new ActiveDirectoryGraphHelper(appConfig).GetActiveDirectoryGraphClient();
         }
         public async Task<List<string>> GetServiceCenterTeamLeaderEmaiListAsync(ClaimsPrincipal loggedUser)
