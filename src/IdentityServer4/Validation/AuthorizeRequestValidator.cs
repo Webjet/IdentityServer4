@@ -12,6 +12,7 @@ using IdentityServer4.Stores;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -112,12 +113,10 @@ namespace IdentityServer4.Validation
             var clientId = request.Raw.Get(OidcConstants.AuthorizeRequest.ClientId);
             if (clientId.IsMissingOrTooLong(_options.InputLengthRestrictions.ClientId))
             {
-                LogError("client_id is missing or too long", request);
-                return Invalid(request);
+                return CreateInvalidValidationResult("client_id is missing or too long", request);
             }
 
             request.ClientId = clientId;
-
 
             //////////////////////////////////////////////////////////
             // redirect_uri must be present, and a valid uri
@@ -126,18 +125,15 @@ namespace IdentityServer4.Validation
 
             if (redirectUri.IsMissingOrTooLong(_options.InputLengthRestrictions.RedirectUri))
             {
-                LogError("redirect_uri is missing or too long", request);
-                return Invalid(request);
+                return CreateInvalidValidationResult("redirect_uri is missing or too long", request);
             }
 
             if (!Uri.TryCreate(redirectUri, UriKind.Absolute, out var uri))
             {
-                LogError("malformed redirect_uri: " + redirectUri, request);
-                return Invalid(request);
+                return CreateInvalidValidationResult("malformed redirect_uri: " + redirectUri, request);
             }
 
             request.RedirectUri = redirectUri;
-
 
             //////////////////////////////////////////////////////////
             // check for valid client
@@ -145,8 +141,8 @@ namespace IdentityServer4.Validation
             var client = await _clients.FindEnabledClientByIdAsync(request.ClientId);
             if (client == null)
             {
-                LogError("Unknown client or not enabled: " + request.ClientId, request);
-                return Invalid(request, OidcConstants.AuthorizeErrors.UnauthorizedClient);
+                var message = "Unknown client or not enabled: " + request.ClientId;
+                return CreateInvalidValidationResult(message, request, OidcConstants.AuthorizeErrors.UnauthorizedClient);
             }
 
             request.SetClient(client);
@@ -156,8 +152,8 @@ namespace IdentityServer4.Validation
             //////////////////////////////////////////////////////////
             if (request.Client.ProtocolType != IdentityServerConstants.ProtocolTypes.OpenIdConnect)
             {
-                LogError($"Invalid protocol type for OIDC authorize endpoint: {request.Client.ProtocolType}", request);
-                return Invalid(request, OidcConstants.AuthorizeErrors.UnauthorizedClient);
+                var message = $"Invalid protocol type for OIDC authorize endpoint: {request.Client.ProtocolType}";
+                return CreateInvalidValidationResult(message, request, OidcConstants.AuthorizeErrors.UnauthorizedClient);
             }
 
             //////////////////////////////////////////////////////////
@@ -165,11 +161,17 @@ namespace IdentityServer4.Validation
             //////////////////////////////////////////////////////////
             if (await _uriValidator.IsRedirectUriValidAsync(request.RedirectUri, request.Client) == false)
             {
-                LogError("Invalid redirect_uri: " + request.RedirectUri, request);
-                return Invalid(request, OidcConstants.AuthorizeErrors.UnauthorizedClient);
+                var message = "Invalid redirect_uri: " + request.RedirectUri;
+                return CreateInvalidValidationResult(message, request, OidcConstants.AuthorizeErrors.UnauthorizedClient);
             }
 
             return Valid(request);
+        }
+
+        private AuthorizeRequestValidationResult CreateInvalidValidationResult( string errorDescription,ValidatedAuthorizeRequest request, string error = OidcConstants.AuthorizeErrors.InvalidRequest)
+        {
+            LogError(errorDescription, request);
+            return Invalid(request, error, errorDescription);
         }
 
         private AuthorizeRequestValidationResult ValidateCoreParameters(ValidatedAuthorizeRequest request)
@@ -603,12 +605,13 @@ namespace IdentityServer4.Validation
             return Valid(request);
         }
 
-        private AuthorizeRequestValidationResult Invalid(ValidatedAuthorizeRequest request, string error = OidcConstants.AuthorizeErrors.InvalidRequest)
+        private AuthorizeRequestValidationResult Invalid(ValidatedAuthorizeRequest request, string error = OidcConstants.AuthorizeErrors.InvalidRequest,string description="" )
         {
             var result = new AuthorizeRequestValidationResult
             {
                 IsError = true,
                 Error = error,
+                ErrorDescription=description,
                 ValidatedRequest = request
             };
 
