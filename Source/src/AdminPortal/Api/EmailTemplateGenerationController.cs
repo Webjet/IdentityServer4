@@ -6,7 +6,7 @@ using AdminPortal.BusinessServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using System.Security .Claims ;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,7 +16,7 @@ namespace AdminPortal.Api
     [Route("api/[controller]")]
     public class EmailTemplateGenerationController : Controller
     {
-        static Serilog.ILogger _logger = Log.ForContext<AllowedRolesForResourceController>();
+        static Serilog.ILogger _logger = Log.ForContext<EmailTemplateGenerationController>();
 
         private readonly TeamLeadersRetrival _teamLeadersRetrival;
 
@@ -29,10 +29,17 @@ namespace AdminPortal.Api
         [HttpGet]
         public async Task<IEnumerable<string>> GetServiceCenterTeamLeadersEmailList()
         {
-            var userClaims = ((ClaimsIdentity)User.Identity).Claims;
+            List<string> emaiList = await _teamLeadersRetrival.GetServiceCenterTeamLeaderEmaiListAsync(User);
 
-           List<string> emaiList = await _teamLeadersRetrival.GetServiceCenterTeamLeaderEmaiListAsync(User);
-            return new string[] { "value1", "value2" };
+            if (emaiList != null)
+            {
+                _logger.Debug(emaiList.ToString());
+            }
+            else
+            {
+                _logger.Debug("Null ServiceCenterTeamLeadersEmailList");
+            }
+            return emaiList;
         }
 
 #if INCLUDE_NOT_COVERED_BY_TESTS

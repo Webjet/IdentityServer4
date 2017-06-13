@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -19,23 +20,31 @@ namespace AdminPortal.BusinessServices
     {
         //TODO: temp public for testing
         public ActiveDirectoryClient _graphClient;
-    
+
 
         public static IConfigurationRoot ConfigurationRoot
         {
             private get; set;
         }
 
-      
-
         public TeamLeadersRetrival(IConfigurationRoot appConfig = null)
         {
             appConfig = appConfig ?? ConfigurationRoot;
-            _graphClient = new ActiveDirectoryGraphHelper(appConfig).GetActiveDirectoryGraphClient();
+            try
+            {
+
+                _graphClient = new ActiveDirectoryGraphHelper(appConfig).GetActiveDirectoryGraphClient();
+              
+
+            }
+            catch (Exception ex)
+            {
+                throw new AuthenticationException(HttpStatusCode.BadGateway, "Unable to get Active Directory Graph API client." + ex.Message);
+            }
         }
         public async Task<List<string>> GetServiceCenterTeamLeaderEmaiListAsync(ClaimsPrincipal loggedUser)
         {
-            List<string> serviceCenterTeamLeads = new List<string>();
+            List<string> serviceCenterTeamLeads = null;
             string groupId = GetLoggedUserGroupId(loggedUser);
             string applicationId = GetLoggedUserApplicationId(loggedUser);
             Guid serviceCenterManagerRoleId = await GetRoleIdForServiceCenterManagerRoleAsync(applicationId);
@@ -48,6 +57,7 @@ namespace AdminPortal.BusinessServices
             var groupMembers = await GetServiceCenterGroupMembersAsync(groupId);
             if (groupMembers != null)
             {
+                serviceCenterTeamLeads = new List<string>();
                 do
                 {
                     var users = groupMembers.CurrentPage.ToList();
@@ -55,9 +65,9 @@ namespace AdminPortal.BusinessServices
                     {
                         if (member is User)
                         {
-                            IUser user = (IUser) member;
+                            IUser user = (IUser)member;
                             string memberEmailAddress = GetMemberEmailAddress(user);
-                            IUserFetcher userFetcher = (IUserFetcher) user;
+                            IUserFetcher userFetcher = (IUserFetcher)user;
                             var userAppRoleAssignment = userFetcher.AppRoleAssignments.ExecuteAsync().Result;
                             if (userAppRoleAssignment != null)
                             {
@@ -103,7 +113,7 @@ namespace AdminPortal.BusinessServices
             {
                 memberEmailAddress = member.Mail;
             }
-            else if(member.OtherMails!=null && member.OtherMails.Count>0)
+            else if (member.OtherMails != null && member.OtherMails.Count > 0)
             {
                 memberEmailAddress = member.OtherMails.FirstOrDefault();
             }
@@ -163,7 +173,7 @@ namespace AdminPortal.BusinessServices
         }
 
         //TODO: get GroupName constant 'Service Centre' after Alvin Check In
-        public async Task<IPagedCollection<IDirectoryObject>> GetServiceCenterGroupMembersAsync(string groupId)
+        private async Task<IPagedCollection<IDirectoryObject>> GetServiceCenterGroupMembersAsync(string groupId)
         {
             IPagedCollection<IDirectoryObject> groupMembers = null;
             IGroup group = await _graphClient.Groups[groupId].ExecuteAsync();
