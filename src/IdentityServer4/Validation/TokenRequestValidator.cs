@@ -174,8 +174,7 @@ namespace IdentityServer4.Validation
             if (!_validatedRequest.Client.AllowedGrantTypes.ToList().Contains(GrantType.AuthorizationCode) &&
                 !_validatedRequest.Client.AllowedGrantTypes.ToList().Contains(GrantType.Hybrid))
             {
-                LogError("Client not authorized for code flow");
-                return Invalid(OidcConstants.TokenErrors.UnauthorizedClient);
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.UnauthorizedClient, "Client not authorized for code flow");
             }
 
             /////////////////////////////////////////////
@@ -184,14 +183,12 @@ namespace IdentityServer4.Validation
             var code = parameters.Get(OidcConstants.TokenRequest.Code);
             if (code.IsMissing())
             {
-                LogError("Authorization code is missing");
-                return Invalid(OidcConstants.TokenErrors.InvalidGrant);
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.InvalidGrant, "Authorization code is missing");
             }
 
             if (code.Length > _options.InputLengthRestrictions.AuthorizationCode)
             {
-                LogError("Authorization code is too long");
-                return Invalid(OidcConstants.TokenErrors.InvalidGrant);
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.InvalidGrant, "Authorization code is too long");
             }
 
             _validatedRequest.AuthorizationCodeHandle = code;
@@ -199,8 +196,8 @@ namespace IdentityServer4.Validation
             var authZcode = await _authorizationCodeStore.GetAuthorizationCodeAsync(code);
             if (authZcode == null)
             {
-                LogError("Invalid authorization code: {code}", code);
-                return Invalid(OidcConstants.TokenErrors.InvalidGrant);
+                var message=$"Invalid authorization code: {code}";
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.InvalidGrant, message);
             }
 
             await _authorizationCodeStore.RemoveAuthorizationCodeAsync(code);
@@ -218,8 +215,8 @@ namespace IdentityServer4.Validation
             /////////////////////////////////////////////
             if (authZcode.ClientId != _validatedRequest.Client.ClientId)
             {
-                LogError("Client {0} is trying to use a code from client {1}", _validatedRequest.Client.ClientId, authZcode.ClientId);
-                return Invalid(OidcConstants.TokenErrors.InvalidGrant);
+                var message= $"Client {_validatedRequest.Client.ClientId} is trying to use a code from client {authZcode.ClientId}";
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.InvalidGrant, message);
             }
 
             /////////////////////////////////////////////
@@ -227,8 +224,7 @@ namespace IdentityServer4.Validation
             /////////////////////////////////////////////
             if (authZcode.CreationTime.HasExceeded(_validatedRequest.Client.AuthorizationCodeLifetime))
             {
-                LogError("Authorization code is expired");
-                return Invalid(OidcConstants.TokenErrors.InvalidGrant);
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.InvalidGrant, "Authorization code is expired");
             }
 
             _validatedRequest.AuthorizationCode = authZcode;
@@ -239,14 +235,13 @@ namespace IdentityServer4.Validation
             var redirectUri = parameters.Get(OidcConstants.TokenRequest.RedirectUri);
             if (redirectUri.IsMissing())
             {
-                LogError("Redirect URI is missing");
-                return Invalid(OidcConstants.TokenErrors.UnauthorizedClient);
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.UnauthorizedClient, "Redirect URI is missing");
             }
 
-            if (redirectUri.Equals(_validatedRequest.AuthorizationCode.RedirectUri, StringComparison.Ordinal) == false)
+            if (redirectUri.Equals(_validatedRequest.AuthorizationCode.RedirectUri, StringComparison.OrdinalIgnoreCase) == false)
             {
-                LogError("Invalid redirect_uri: {redirectUri}", redirectUri);
-                return Invalid(OidcConstants.TokenErrors.UnauthorizedClient);
+                var message=$"Invalid redirect_uri: {redirectUri}, Expected AuthorizationCode.RedirectUri: {_validatedRequest.AuthorizationCode.RedirectUri}";
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.UnauthorizedClient, message);
             }
 
             /////////////////////////////////////////////
@@ -255,8 +250,7 @@ namespace IdentityServer4.Validation
             if (_validatedRequest.AuthorizationCode.RequestedScopes == null ||
                 !_validatedRequest.AuthorizationCode.RequestedScopes.Any())
             {
-                LogError("Authorization code has no associated scopes");
-                return Invalid(OidcConstants.TokenErrors.InvalidRequest);
+                    return CreateInvalidValidationResult(OidcConstants.TokenErrors.InvalidRequest, "Authorization code has no associated scopes");
             }
 
             /////////////////////////////////////////////
@@ -279,8 +273,8 @@ namespace IdentityServer4.Validation
             {
                 if (codeVerifier.IsPresent())
                 {
-                    LogError("Unexpected code_verifier: {codeVerifier}. This happens when the client is trying to use PKCE, but it is not enabled. Set RequirePkce to true.", codeVerifier);
-                    return Invalid(OidcConstants.TokenErrors.InvalidGrant);
+                    var message= $"Unexpected code_verifier: {codeVerifier}. This happens when the client is trying to use PKCE, but it is not enabled. Set RequirePkce to true.";
+                    return CreateInvalidValidationResult(OidcConstants.TokenErrors.InvalidGrant, message);
                 }
             }
         
@@ -292,15 +286,19 @@ namespace IdentityServer4.Validation
 
             if (isActiveCtx.IsActive == false)
             {
-                LogError("User has been disabled: {subjectId}", _validatedRequest.AuthorizationCode.Subject.GetSubjectId());
-                return Invalid(OidcConstants.TokenErrors.InvalidGrant);
+                var message= $"User has been disabled: {_validatedRequest.AuthorizationCode.Subject.GetSubjectId()}";
+                return CreateInvalidValidationResult(OidcConstants.TokenErrors.InvalidGrant, message);
             }
 
             _logger.LogDebug("Validation of authorization code token request success");
 
             return Valid();
         }
-
+        private TokenRequestValidationResult CreateInvalidValidationResult(string error,string errorDescription)
+        {
+            LogError(errorDescription) ;
+            return Invalid( error, errorDescription);
+        }
         private async Task<TokenRequestValidationResult> ValidateClientCredentialsRequestAsync(NameValueCollection parameters)
         {
             _logger.LogDebug("Start client credentials token request validation");
