@@ -52,7 +52,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public async Task TeamLeadersRetrival_GraphAPINull_ThrowsException()
+        public void TeamLeadersRetrival_GraphAPINull_ThrowsException()
         {
             //Arrange
             var config = Substitute.For<IConfigurationRoot>();
@@ -70,7 +70,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public async Task TeamLeadersRetrival_GraphAPINotNull_ThrowsException()
+        public  void TeamLeadersRetrival_GraphAPINotNull_ThrowsException()
         {
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
