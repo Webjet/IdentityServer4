@@ -42,5 +42,7 @@ namespace AdminPortal.BusinessServices
         {
             return map.GroupToTeamName.FirstOrDefault(c => c.GroupId == groupId)?.TeamName;
         }
+
+        //TODO: Add another method to return GroupToTeamNameMapGroupToTeamName object based on list of GroupIds
     }
 }

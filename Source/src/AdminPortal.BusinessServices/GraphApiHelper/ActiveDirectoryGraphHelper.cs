@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 
 
-namespace AdminPortal.BusinessServices.Helper
+namespace AdminPortal.BusinessServices.GraphApiHelper
 {
     public class ActiveDirectoryGraphHelper
     {
@@ -39,6 +39,8 @@ namespace AdminPortal.BusinessServices.Helper
             _tokenEndpoint = config["Authentication:AzureAd:TokenEndpoint"];
         }
 
+        //https://github.com/Azure-Samples/active-directory-dotnet-graphapi-web
+        //active-directory-dotnet-graphapi-web
         public ActiveDirectoryClient GetActiveDirectoryGraphClient()
         {
             Uri baseServiceUri = new Uri(_azureGraphAPI);
@@ -48,6 +50,9 @@ namespace AdminPortal.BusinessServices.Helper
             return activeDirectoryClient;
         }
 
+        //https://github.com/microsoftgraph/msgraph-sdk-dotnet
+        //Is used to acquire password grant token- refer test class in code: tests\Microsoft.Graph.Test\Requests\Functional\GraphTestBase.cs
+        
         public static async Task<string> AcquireTokenUsingPasswordGrantAsync()
         {
             JObject jResult = null;

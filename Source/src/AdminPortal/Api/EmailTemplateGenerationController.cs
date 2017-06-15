@@ -18,28 +18,30 @@ namespace AdminPortal.Api
     {
         static Serilog.ILogger _logger = Log.ForContext<EmailTemplateGenerationController>();
 
-        private readonly TeamLeadersRetrival _teamLeadersRetrival;
+        private readonly TeamLeadersRetrieval _teamLeadersRetrieval;
 
-        public EmailTemplateGenerationController(TeamLeadersRetrival teamLeadersRetrival)
+        public EmailTemplateGenerationController(TeamLeadersRetrieval teamLeadersRetrieval=null)
         {
-            _teamLeadersRetrival = teamLeadersRetrival ?? new TeamLeadersRetrival();
+            //TODO: Verify auto DI once deployment is done
+            _teamLeadersRetrieval = teamLeadersRetrieval; // ?? new TeamLeadersRetrieval();
         }
 
         // GET: api/values
         [HttpGet]
         public async Task<IEnumerable<string>> GetServiceCenterTeamLeadersEmailList()
         {
-            List<string> emaiList = await _teamLeadersRetrival.GetServiceCenterTeamLeaderEmaiListAsync(User);
-
-            if (emaiList != null)
-            {
-                _logger.Debug(emaiList.ToString());
-            }
-            else
-            {
-                _logger.Debug("Null ServiceCenterTeamLeadersEmailList");
-            }
-            return emaiList;
+           
+                List<string> emaiList = await _teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(User);
+                if (emaiList != null)
+                {
+                    _logger.Debug(emaiList.ToString());
+                }
+                else
+                {
+                    _logger.Debug("Null ServiceCenterTeamLeadersEmailList");
+                }
+                return emaiList;
+           
         }
 
 #if INCLUDE_NOT_COVERED_BY_TESTS

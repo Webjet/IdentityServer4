@@ -8,58 +8,60 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using AdminPortal.BusinessServices.Common;
-using AdminPortal.BusinessServices.Helper;
+using AdminPortal.BusinessServices.GraphApiHelper;
 using Microsoft.Azure.ActiveDirectory.GraphClient;
 using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
 using Microsoft.Extensions.Configuration;
+using NLog;
 
 
 namespace AdminPortal.BusinessServices
 {
-    public class TeamLeadersRetrival
+    public class TeamLeadersRetrieval
     {
         //TODO: temp public for testing
         public ActiveDirectoryClient _graphClient;
-
+        private static readonly NLog.ILogger _logger = LogManager.GetCurrentClassLogger();
 
         public static IConfigurationRoot ConfigurationRoot
         {
             private get; set;
         }
 
-        public TeamLeadersRetrival(IConfigurationRoot appConfig = null)
+        public TeamLeadersRetrieval(IConfigurationRoot appConfig = null)
         {
             appConfig = appConfig ?? ConfigurationRoot;
             try
             {
-
                 _graphClient = new ActiveDirectoryGraphHelper(appConfig).GetActiveDirectoryGraphClient();
-              
-
+          
             }
             catch (Exception ex)
             {
                 throw new AuthenticationException(HttpStatusCode.BadGateway, "Unable to get Active Directory Graph API client." + ex.Message);
             }
         }
-        public async Task<List<string>> GetServiceCenterTeamLeaderEmaiListAsync(ClaimsPrincipal loggedUser)
+        public async Task<List<string>> GetServiceCenterTeamLeaderEmailListAsync(ClaimsPrincipal loggedUser)
         {
             List<string> serviceCenterTeamLeads = null;
-            string groupId = GetLoggedUserGroupId(loggedUser);
+           
             string applicationId = GetLoggedUserApplicationId(loggedUser);
             Guid serviceCenterManagerRoleId = await GetRoleIdForServiceCenterManagerRoleAsync(applicationId);
 
             if (serviceCenterManagerRoleId.Equals(Guid.Empty))
             {
-                return null;
+                return null; //TODO: log warning
             }
 
+            string groupId = GetLoggedUserGroupId(loggedUser);
             var groupMembers = await GetServiceCenterGroupMembersAsync(groupId);
             if (groupMembers != null)
             {
                 serviceCenterTeamLeads = new List<string>();
+                var moreGroupMembersAvailable = false;
                 do
                 {
+                    moreGroupMembersAvailable = groupMembers.MorePagesAvailable;
                     var users = groupMembers.CurrentPage.ToList();
                     foreach (var member in users)
                     {
@@ -68,44 +70,49 @@ namespace AdminPortal.BusinessServices
                             IUser user = (IUser)member;
                             string memberEmailAddress = GetMemberEmailAddress(user);
                             IUserFetcher userFetcher = (IUserFetcher)user;
-                            var userAppRoleAssignment = userFetcher.AppRoleAssignments.ExecuteAsync().Result;
-                            if (userAppRoleAssignment != null)
+                            var userAppRoleAssignments = userFetcher.AppRoleAssignments.ExecuteAsync().Result;
+                            if (userAppRoleAssignments != null)
                             {
+                                var moreUserRolesAvailable =false;
                                 do
                                 {
-                                    IList<IAppRoleAssignment> assignments = userAppRoleAssignment.CurrentPage.ToList();
+                                    moreUserRolesAvailable = userAppRoleAssignments.MorePagesAvailable;
+                                    IList<IAppRoleAssignment> assignments = userAppRoleAssignments.CurrentPage.ToList();
                                     IAppRoleAssignment scmAppRoleAssignment = null;
-                                    scmAppRoleAssignment =
-                                        assignments.FirstOrDefault(ara => ara.Id.Equals(serviceCenterManagerRoleId));
-
+                                    scmAppRoleAssignment = assignments.FirstOrDefault(ara => ara.Id.Equals(serviceCenterManagerRoleId));
+                                    
                                     if (scmAppRoleAssignment != null)
                                     {
                                         serviceCenterTeamLeads.Add(memberEmailAddress);
-
+                                        break;
                                     }
-                                    else if (userAppRoleAssignment.MorePagesAvailable)
+                                    if (moreUserRolesAvailable)
                                     {
-                                        userAppRoleAssignment = await userAppRoleAssignment.GetNextPageAsync();
+                                        userAppRoleAssignments = await userAppRoleAssignments.GetNextPageAsync();
                                     }
-                                } while (userAppRoleAssignment.MorePagesAvailable);
-
+                                } while (moreUserRolesAvailable);
                             }
                         }
 
                     }
 
-                    if (groupMembers.MorePagesAvailable)
+                    if (moreGroupMembersAvailable)
                     {
                         groupMembers = await groupMembers.GetNextPageAsync();
                     }
-                } while (groupMembers.MorePagesAvailable); //(groupMembers != null);
+                } while (moreGroupMembersAvailable); 
 
+            }
+            else
+            {
+                _logger.Log(LogLevel.Error, "No member found for azure groupId: " + groupId);
+              
             }
 
             return serviceCenterTeamLeads;
         }
 
-        //Todo:  not getting Mail , retrieving from OtherMails property- need to check from AAD where to enter email address for user
+       
         private string GetMemberEmailAddress(IUser member)
         {
             string memberEmailAddress;
@@ -119,6 +126,8 @@ namespace AdminPortal.BusinessServices
             }
             else
             {
+             
+                _logger.Log(LogLevel.Warn, "Email address is not found for member: " + member.DisplayName);
                 memberEmailAddress = member.MailNickname;
             }
             return memberEmailAddress;
@@ -130,7 +139,7 @@ namespace AdminPortal.BusinessServices
             return applicationId;
         }
 
-        //TODO: Will fetch GroupId after Alvin check in
+        //TODO: Call Alvin's method once fixed with GroupIDs in GetTeamNameForUser() by him
         private string GetLoggedUserGroupId(ClaimsPrincipal loggedUser)
         {
             var userClaims = ((ClaimsIdentity)loggedUser.Identity).Claims;
@@ -142,20 +151,22 @@ namespace AdminPortal.BusinessServices
         {
             Guid roleId = Guid.Empty;
             IPagedCollection<IApplication> appCollection = await _graphClient.Applications.ExecuteAsync();
-
+            var morePagesAvailable = false;
             do
             {
+                 morePagesAvailable = appCollection.MorePagesAvailable;
                 List<IApplication> applications = appCollection.CurrentPage.ToList();
                 IApplication adminPortalApplication = applications.FirstOrDefault(ap => ap.AppId == applicationId);
                 if (adminPortalApplication != null)
                 {
                     roleId = GetServiceCenterManagerRoleId(adminPortalApplication, roleId);
+                    break;
                 }
-                else if (appCollection.MorePagesAvailable)
+                if (morePagesAvailable)
                 {
                     appCollection = await appCollection.GetNextPageAsync();
                 }
-            } while (appCollection.MorePagesAvailable);
+            } while (morePagesAvailable);
 
             return roleId;
         }

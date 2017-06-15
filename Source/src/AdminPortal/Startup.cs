@@ -74,7 +74,7 @@ namespace AdminPortal
             //http://www.dotnetcurry.com/aspnet-mvc/1250/dependency-injection-aspnet-mvc-core
             services.TryAddSingleton<LandingPageLayoutLoader>();
             services.TryAddSingleton<ResourceToApplicationRolesMapper>();
-           
+            services.TryAddSingleton<TeamLeadersRetrieval>();
             services.AddAuthentication(
             sharedOptions => sharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
             
@@ -157,7 +157,7 @@ namespace AdminPortal
 
             ResourceAuthorizeAttribute.ConfigurationRoot = this.Configuration;
             GroupToTeamNameMapper.ConfigurationRoot = this.Configuration;
-            TeamLeadersRetrival.ConfigurationRoot = this.Configuration;
+            TeamLeadersRetrieval.ConfigurationRoot = this.Configuration;
 
            
             app.UseMvc(routes =>

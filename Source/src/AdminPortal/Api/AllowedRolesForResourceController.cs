@@ -52,6 +52,7 @@ namespace AdminPortal.Api
         {
             var usrClaims = ((ClaimsIdentity)User?.Identity)?.Claims;
 
+            //TODO: Need to check with Alvin? User can belong to multiple Groups
             var groupId = usrClaims
                 ?.FirstOrDefault(c => c.Type == "groups")?.Value;
 

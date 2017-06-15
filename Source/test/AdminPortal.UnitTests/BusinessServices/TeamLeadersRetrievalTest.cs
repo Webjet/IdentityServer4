@@ -13,21 +13,21 @@ using NSubstitute;
 namespace AdminPortal.UnitTests.BusinessServices
 {
     [TestClass()]
-    public class TeamLeadersRetrivalTest
+    public class TeamLeadersRetrievalTest
     {
         [TestMethod()]
-        public async Task TeamLeadersRetrival_ServiceCenterRole_ReturnsEmailList()
+        public async Task TeamLeadersRetrieval_ServiceCenterRole_ReturnsEmailList()
         {
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
             var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterRole();
-            TeamLeadersRetrival teamLeadersRetrival = new TeamLeadersRetrival(config);
+            TeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(config);
 
             //Act
-            IEnumerable<string> emailList = await teamLeadersRetrival.GetServiceCenterTeamLeaderEmaiListAsync(loggedInUser);
+            IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
 
             //Assert
-            teamLeadersRetrival.Should().NotBeNull();
+            teamLeadersRetrieval.Should().NotBeNull();
             emailList.Should().NotBeNullOrEmpty();
             emailList.Count().Should().Be(2);
 
@@ -35,24 +35,24 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public async Task TeamLeadersRetrival_MarketingTeamRole_ReturnsNullEmailList()
+        public async Task TeamLeadersRetrieval_MarketingTeamRole_ReturnsNullEmailList()
         {
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
             var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithMarketingRole();
-            TeamLeadersRetrival teamLeadersRetrival = new TeamLeadersRetrival(config);
+            TeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(config);
 
             //Act
-            IEnumerable<string> emailList = await teamLeadersRetrival.GetServiceCenterTeamLeaderEmaiListAsync(loggedInUser);
+            IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
 
             //Assert
-            teamLeadersRetrival.Should().NotBeNull();
+            teamLeadersRetrieval.Should().NotBeNull();
             emailList.Should().BeNullOrEmpty();
         
         }
 
         [TestMethod()]
-        public void TeamLeadersRetrival_GraphAPINull_ThrowsException()
+        public void TeamLeadersRetrieval_GraphAPINull_ThrowsException()
         {
             //Arrange
             var config = Substitute.For<IConfigurationRoot>();
@@ -60,7 +60,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Act
             Action act = () =>
             {
-                var leadersRetrival = new TeamLeadersRetrival(config);
+                var leadersRetrieval = new TeamLeadersRetrieval(config);
                 
             };
      
@@ -70,21 +70,21 @@ namespace AdminPortal.UnitTests.BusinessServices
         }
 
         [TestMethod()]
-        public  void TeamLeadersRetrival_GraphAPINotNull_ThrowsException()
+        public  void TeamLeadersRetrieval_GraphAPINotNull_ThrowsException()
         {
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
-            TeamLeadersRetrival leadersRetrival = null;
+            TeamLeadersRetrieval leadersRetrieval = null;
             //Act
             Action act = () =>
             {
-                leadersRetrival = new TeamLeadersRetrival(config);
+                leadersRetrieval = new TeamLeadersRetrieval(config);
 
             };
 
             //Assert
             act.ShouldNotThrow<AuthenticationException>();
-            leadersRetrival.Should().NotBeNull();
+            leadersRetrieval.Should().NotBeNull();
 
         }
     }
