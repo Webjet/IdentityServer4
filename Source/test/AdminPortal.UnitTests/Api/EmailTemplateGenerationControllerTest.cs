@@ -65,7 +65,7 @@ namespace AdminPortal.UnitTests.Api
         {
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
-            TeamLeadersRetrival teamLeaderRetrieval = new TeamLeadersRetrival(config);
+            TeamLeadersRetrieval teamLeaderRetrieval = new TeamLeadersRetrieval(config);
 
             //Act
             var controller = new EmailTemplateGenerationController(teamLeaderRetrieval);
