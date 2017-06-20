@@ -1,5 +1,7 @@
 ﻿using AdminPortal.BusinessServices.Common;
 using Microsoft.Extensions.Configuration;
+using Serilog;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Webjet.Common.Common;
@@ -9,6 +11,7 @@ namespace AdminPortal.BusinessServices
     public class GroupToTeamNameMapper
     {
         private IConfigurationRoot _config;
+        static ILogger _logger = Log.ForContext<GroupToTeamNameMapper>();
 
         public static IConfigurationRoot ConfigurationRoot
         {
@@ -26,7 +29,7 @@ namespace AdminPortal.BusinessServices
 
         private readonly string _filepath = null;
 
-        private readonly GroupToTeamNameMap map;
+        private readonly GroupToTeamNameMap _map;
 
         public GroupToTeamNameMapper(string filepath = null)
         {            
@@ -34,15 +37,32 @@ namespace AdminPortal.BusinessServices
             _filepath = ConfigurationRoot != null ? AppConfigFilePath : filepath;
 
             string xml = StreamHelper.FileToString(_filepath);
-            this.map = xml.ParseXml<GroupToTeamNameMap>();
+            _map = xml.ParseXml<GroupToTeamNameMap>();
             
         }
        
-        public string GetTeamName(string groupId)
+        public GroupToTeamNameMapGroupToTeamName GetTeamGroup(IEnumerable<string> groupIds)
         {
-            return map.GroupToTeamName.FirstOrDefault(c => c.GroupId == groupId)?.TeamName;
-        }
+            int count = 0;
+            GroupToTeamNameMapGroupToTeamName foundGroup = null;
 
-        //TODO: Add another method to return GroupToTeamNameMapGroupToTeamName object based on list of GroupIds
+            foreach (var groupId in groupIds)
+            {
+                var group = _map.GroupToTeamName?.FirstOrDefault(c => c.GroupId == groupId);                         
+
+                if (group != null)
+                {
+                    count++;
+                    foundGroup = group;                   
+                }                                
+            }
+
+            if (count > 1)
+            {
+                _logger.Warning("User belongs to more than one team group");
+            }
+
+            return foundGroup;          
+        }
     }
 }

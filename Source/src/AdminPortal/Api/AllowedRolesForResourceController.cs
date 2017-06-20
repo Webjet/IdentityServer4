@@ -53,10 +53,10 @@ namespace AdminPortal.Api
             var usrClaims = ((ClaimsIdentity)User?.Identity)?.Claims;
 
             //TODO: Need to check with Alvin? User can belong to multiple Groups
-            var groupId = usrClaims
-                ?.FirstOrDefault(c => c.Type == "groups")?.Value;
+            var groupIds = usrClaims
+                ?.Where(c => c.Type == "groups")?.Select(c => c.Value);
 
-            return this.groupToTeamNameMapper.GetTeamName(groupId);   
+            return this.groupToTeamNameMapper.GetTeamGroup(groupIds)?.TeamName;   
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet("{resourceKey}")]
