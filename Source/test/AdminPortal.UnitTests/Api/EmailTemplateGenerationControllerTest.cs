@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AdminPortal.Api;
 using AdminPortal.BusinessServices;
+using AdminPortal.UnitTests.Common;
 using AdminPortal.UnitTests.TestUtilities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -65,7 +66,9 @@ namespace AdminPortal.UnitTests.Api
         {
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
-            TeamLeadersRetrieval teamLeaderRetrieval = new TeamLeadersRetrieval(config);
+            var groupToTeamNameMapper= BusinessServiceHelper.GetGroupToTeamNameMapper();
+         
+            TeamLeadersRetrieval teamLeaderRetrieval = new TeamLeadersRetrieval(config, groupToTeamNameMapper);
 
             //Act
             var controller = new EmailTemplateGenerationController(teamLeaderRetrieval);

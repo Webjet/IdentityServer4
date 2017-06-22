@@ -12,18 +12,24 @@ using System.Security.Claims;
 
 namespace AdminPortal.Api
 {
-    [Microsoft.AspNetCore.Authorization.Authorize(ActiveAuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+   // [Microsoft.AspNetCore.Authorization.Authorize(ActiveAuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class EmailTemplateGenerationController : Controller
     {
         static Serilog.ILogger _logger = Log.ForContext<EmailTemplateGenerationController>();
 
         private readonly TeamLeadersRetrieval _teamLeadersRetrieval;
+       
 
         public EmailTemplateGenerationController(TeamLeadersRetrieval teamLeadersRetrieval=null)
         {
-            //TODO: Verify auto DI once deployment is done
-            _teamLeadersRetrieval = teamLeadersRetrieval; // ?? new TeamLeadersRetrieval();
+            if (teamLeadersRetrieval == null)
+            {
+                _logger.Debug("Null TeamLeadersRetrieval. Check DI?");
+            }
+         
+            _teamLeadersRetrieval = teamLeadersRetrieval; 
+          
         }
 
         // GET: api/values

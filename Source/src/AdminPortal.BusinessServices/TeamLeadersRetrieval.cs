@@ -22,39 +22,50 @@ namespace AdminPortal.BusinessServices
         //TODO: temp public for testing
         public ActiveDirectoryClient _graphClient;
         private static readonly NLog.ILogger _logger = LogManager.GetCurrentClassLogger();
+        private readonly GroupToTeamNameMapper _groupToTeamNameMapper;
+        private const string ServiceCenterManagerRole = "ServiceCenterManager"; //TODO: consider to move generic Constant class e.g "Roles"
 
         public static IConfigurationRoot ConfigurationRoot
         {
             private get; set;
         }
 
-        public TeamLeadersRetrieval(IConfigurationRoot appConfig = null)
+        public TeamLeadersRetrieval(IConfigurationRoot appConfig, GroupToTeamNameMapper groupToTeamNameMapper)
         {
             appConfig = appConfig ?? ConfigurationRoot;
             try
             {
                 _graphClient = new ActiveDirectoryGraphHelper(appConfig).GetActiveDirectoryGraphClient();
-          
+                _groupToTeamNameMapper = groupToTeamNameMapper;
             }
             catch (Exception ex)
             {
                 throw new AuthenticationException(HttpStatusCode.BadGateway, "Unable to get Active Directory Graph API client." + ex.Message);
             }
         }
+        
+
         public async Task<List<string>> GetServiceCenterTeamLeaderEmailListAsync(ClaimsPrincipal loggedUser)
         {
             List<string> serviceCenterTeamLeads = null;
-           
             string applicationId = GetLoggedUserApplicationId(loggedUser);
             Guid serviceCenterManagerRoleId = await GetRoleIdForServiceCenterManagerRoleAsync(applicationId);
 
-            if (serviceCenterManagerRoleId.Equals(Guid.Empty))
+            if (serviceCenterManagerRoleId == Guid.Empty)
             {
-                return null; //TODO: log warning
+                _logger.Log(LogLevel.Warn, "There is no role with 'Service Center Manager' in Azure application: " + applicationId);
+                return null;
             }
 
-            string groupId = GetLoggedUserGroupId(loggedUser);
-            var groupMembers = await GetServiceCenterGroupMembersAsync(groupId);
+            GroupToTeamNameMapGroupToTeamName serviceCenterGroup = GetLoggedUserTeamGroup(loggedUser);
+            if (serviceCenterGroup == null)
+            {
+                _logger.Log(LogLevel.Info, "Logged-in user does not belong to 'Service Center Team Group': " + loggedUser.Identity.Name);
+                return null;
+            }
+        
+
+            var groupMembers = await GetServiceCenterGroupMembersAsync(serviceCenterGroup.GroupId); //(groupId);
             if (groupMembers != null)
             {
                 serviceCenterTeamLeads = new List<string>();
@@ -73,14 +84,14 @@ namespace AdminPortal.BusinessServices
                             var userAppRoleAssignments = userFetcher.AppRoleAssignments.ExecuteAsync().Result;
                             if (userAppRoleAssignments != null)
                             {
-                                var moreUserRolesAvailable =false;
+                                var moreUserRolesAvailable = false;
                                 do
                                 {
                                     moreUserRolesAvailable = userAppRoleAssignments.MorePagesAvailable;
                                     IList<IAppRoleAssignment> assignments = userAppRoleAssignments.CurrentPage.ToList();
                                     IAppRoleAssignment scmAppRoleAssignment = null;
                                     scmAppRoleAssignment = assignments.FirstOrDefault(ara => ara.Id.Equals(serviceCenterManagerRoleId));
-                                    
+
                                     if (scmAppRoleAssignment != null)
                                     {
                                         serviceCenterTeamLeads.Add(memberEmailAddress);
@@ -100,19 +111,19 @@ namespace AdminPortal.BusinessServices
                     {
                         groupMembers = await groupMembers.GetNextPageAsync();
                     }
-                } while (moreGroupMembersAvailable); 
+                } while (moreGroupMembersAvailable);
 
             }
             else
             {
-                _logger.Log(LogLevel.Error, "No member found for azure groupId: " + groupId);
-              
+                _logger.Log(LogLevel.Error, "No member found for azure groupId: " + serviceCenterGroup.GroupId);
+
             }
 
             return serviceCenterTeamLeads;
         }
 
-       
+
         private string GetMemberEmailAddress(IUser member)
         {
             string memberEmailAddress;
@@ -126,7 +137,7 @@ namespace AdminPortal.BusinessServices
             }
             else
             {
-             
+
                 _logger.Log(LogLevel.Warn, "Email address is not found for member: " + member.DisplayName);
                 memberEmailAddress = member.MailNickname;
             }
@@ -139,12 +150,16 @@ namespace AdminPortal.BusinessServices
             return applicationId;
         }
 
-        //TODO: Call Alvin's method once fixed with GroupIDs in GetTeamNameForUser() by him
-        private string GetLoggedUserGroupId(ClaimsPrincipal loggedUser)
+     
+        private GroupToTeamNameMapGroupToTeamName GetLoggedUserTeamGroup(ClaimsPrincipal loggedUser)
         {
             var userClaims = ((ClaimsIdentity)loggedUser.Identity).Claims;
-            var groupId = userClaims.FirstOrDefault(c => c.Type == "groups")?.Value;
-            return groupId;
+
+            var groupIds = userClaims
+               ?.Where(c => c.Type == "groups")?.Select(c => c.Value);
+
+            return _groupToTeamNameMapper.GetTeamGroup(groupIds);
+
         }
 
         private async Task<Guid> GetRoleIdForServiceCenterManagerRoleAsync(string applicationId)
@@ -154,7 +169,7 @@ namespace AdminPortal.BusinessServices
             var morePagesAvailable = false;
             do
             {
-                 morePagesAvailable = appCollection.MorePagesAvailable;
+                morePagesAvailable = appCollection.MorePagesAvailable;
                 List<IApplication> applications = appCollection.CurrentPage.ToList();
                 IApplication adminPortalApplication = applications.FirstOrDefault(ap => ap.AppId == applicationId);
                 if (adminPortalApplication != null)
@@ -171,11 +186,11 @@ namespace AdminPortal.BusinessServices
             return roleId;
         }
 
-        //TODO: get RoleName constant 'ServiceCenterManager' after Alvin Check In
+       
         private static Guid GetServiceCenterManagerRoleId(IApplication adminPortalApplication, Guid serviceCenterManagerRoleId)
         {
             IList<AppRole> appRoles = adminPortalApplication.AppRoles;
-            AppRole serviceCenterManagerRole = appRoles.FirstOrDefault(roles => roles.Value == "ServiceCenterManager");
+            AppRole serviceCenterManagerRole = appRoles.FirstOrDefault(roles => roles.Value == ServiceCenterManagerRole);
             if (serviceCenterManagerRole != null)
             {
                 serviceCenterManagerRoleId = serviceCenterManagerRole.Id;
@@ -183,17 +198,15 @@ namespace AdminPortal.BusinessServices
             return serviceCenterManagerRoleId;
         }
 
-        //TODO: get GroupName constant 'Service Centre' after Alvin Check In
+
         private async Task<IPagedCollection<IDirectoryObject>> GetServiceCenterGroupMembersAsync(string groupId)
         {
             IPagedCollection<IDirectoryObject> groupMembers = null;
             IGroup group = await _graphClient.Groups[groupId].ExecuteAsync();
             if (group != null)
             {
-                if (group.DisplayName.Equals("Service Centre", StringComparison.OrdinalIgnoreCase))
-                {
-                    groupMembers = await GetGroupMembersAsync((IGroupFetcher)group);
-                }
+                   groupMembers = await GetGroupMembersAsync((IGroupFetcher)group);
+             
             }
             return groupMembers;
         }

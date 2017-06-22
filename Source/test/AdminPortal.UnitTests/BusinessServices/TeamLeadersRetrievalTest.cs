@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdminPortal.BusinessServices;
+using AdminPortal.UnitTests.Common;
 using AdminPortal.UnitTests.TestUtilities;
 using FluentAssertions;
 using Microsoft.Azure.ActiveDirectory.GraphClient;
@@ -21,7 +22,9 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
             var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterRole();
-            TeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(config);
+            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
+
+            TeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(config, groupToTeamNameMapper);
 
             //Act
             IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
@@ -40,7 +43,8 @@ namespace AdminPortal.UnitTests.BusinessServices
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
             var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithMarketingRole();
-            TeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(config);
+            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
+            TeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(config, groupToTeamNameMapper);
 
             //Act
             IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
@@ -56,11 +60,11 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             var config = Substitute.For<IConfigurationRoot>();
-          
+            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
             //Act
             Action act = () =>
             {
-                var leadersRetrieval = new TeamLeadersRetrieval(config);
+                var leadersRetrieval = new TeamLeadersRetrieval(config, groupToTeamNameMapper);
                 
             };
      
@@ -74,11 +78,12 @@ namespace AdminPortal.UnitTests.BusinessServices
         {
             //Arrange
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
+            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
             TeamLeadersRetrieval leadersRetrieval = null;
             //Act
             Action act = () =>
             {
-                leadersRetrieval = new TeamLeadersRetrieval(config);
+                leadersRetrieval = new TeamLeadersRetrieval(config, groupToTeamNameMapper);
 
             };
 

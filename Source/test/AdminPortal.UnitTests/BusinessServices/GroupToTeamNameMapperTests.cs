@@ -6,6 +6,7 @@ using FluentAssertions;
 using NSubstitute;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AdminPortal.BusinessServices;
+using AdminPortal.UnitTests.Common;
 using AdminPortal.UnitTests.TestUtilities;
 
 namespace AdminPortal.UnitTests.BusinessServices
@@ -13,9 +14,6 @@ namespace AdminPortal.UnitTests.BusinessServices
     [TestClass()]
     public class GroupToTeamNameMapperTests
     {
-        const string ConfigFolder = @"BusinessServices\config\";
-        private static readonly string _rootFolder = AssemblyHelper.GetExecutingAssemblyRootPath();
-        private readonly string _filepath = _rootFolder + ConfigFolder;
      
         [TestMethod()]
         public void GetTeamGroup_TwoGroupIdsNotMatched_NotFound()
@@ -67,8 +65,7 @@ namespace AdminPortal.UnitTests.BusinessServices
 
         private GroupToTeamNameMapper GetGroupToTeamNameMapper()
         {
-            var teamNameFile = _filepath + "GroupToTeamNameMap.xml";
-            return new GroupToTeamNameMapper(teamNameFile);
+            return BusinessServiceHelper.GetGroupToTeamNameMapper();
         }
     }
 }

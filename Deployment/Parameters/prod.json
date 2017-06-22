@@ -4,21 +4,23 @@
     "Subscription": "Webjet - Production",
     "SubscriptionID": "01dd4c02-5670-4ed3-818e-39509fd82de3",
     "TenantID": "5de0e68c-0afd-4a67-b089-31f168aa4ca0",
-    "ResourceGroupName": "WJ-UAT-AdminPortalRG",
+    "ResourceGroupName": "WJ-UAT-AdminPortalRG", //Do we use Shared?
     "ResourceGroupNameLog": "WJ-Prod-LogsRG", //Shared
     "ResourceGroupLocation": "Australia East",
-    "AppServicePlan": "UAT-AdminPortal",
-    "WebAppName": "WJ-UAT-AdminPortal",
+    "AppServicePlan": "UAT-AdminPortal", //Do we use Shared?
+    "WebAppName": "WJ-PROD-AdminPortal",
     "AppServicePlanLocation": "Australia East",
     "AzureUsername": "{Teamcity-Parameter-UserName}",
     "AzurePassword": "{Teamcity-Parameter-Password}",
-    "Authentication:AzureAd:ClientId": "81da4cca-6a95-4bae-a02c-fcda657c0e33", //aka registered Application ID on AAD i.e. application name: Webjet Admin Portal (AAD: Webjet Limited)
+    "Authentication:AzureAd:ClientId": "7c7cd01c-f8ef-41f3-8f52-6dc7cc9698a2", //aka registered Application ID on AAD i.e. application name: Admin Portal (AAD: Webjet Limited)
     "Authentication:AzureAd:AADInstance": "https://login.microsoftonline.com/",
-    "Authentication:AzureAd:ClientSecret": "hhpo+AEU1DRq4wPlsnFp1+IHQ38ZbWF3UpjcqF4Nkfw=", // key from Webjet Azure Classic Portal. key description:ClientSecret, Expires:12/31/2299
-    "Authentication:AzureAd:Domain": "Webjet Limited",
+    "Authentication:AzureAd:ClientSecret": "2vxuvA+JqZ8RltoiLXuwssAvPdlAOyoAO3NxQww+xLY=", // key from Webjet Azure Classic Portal. key description:ClientSecret, Expires:12/31/2299
+    "Authentication:AzureAd:Domain": "webjet.group",
     "Authentication:AzureAd:TenantId": "5de0e68c-0afd-4a67-b089-31f168aa4ca0", //Webjet AAD
+    "Authentication:AzureAd:Audience": "https://webjet.group/eb694f3a-292d-4c13-93f6-140c90f59766", // Admin Portal (Application URI)
+    "Authentication:AzureAd:userSecretsId": "2vxuvA+JqZ8RltoiLXuwssAvPdlAOyoAO3NxQww+xLY=",
     "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
-    "logging.application_name": "WJ-UAT-AdminPortal",
+    "logging.application_name": "WJ-UAT-AdminPortal", //Do we use Shared?
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
     "BuildVersion": "{Teamcity-Parameter-BuildVersion}",
     "DiagnosticStorageAccountName": "wjprodstglogsau", //Shared
@@ -26,12 +28,10 @@
     "LogStorageName": "wjprodstglogsau", //Shared
     "LogStorageContainer": "wjprodstglogscnau", //Shared
     "LogResourceGroupName": "WJ-Prod-LogsRG", //Shared
-    "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.UAT.xml",
+    "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.PROD.xml",
     "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.UAT.xml",
     "GroupToTeamNameMapRelativePath": "Config\\GroupToTeamNameMap.UAT.xml",
-    "ASPNETCORE_ENVIRONMENT": "Staging",
+    "ASPNETCORE_ENVIRONMENT": "Production",
     "GoogleBigQueryHostUrl": "http://127.0.0.1:5000/api/v1.0/query"
-
-    //"https": //wj-uat-adminportal.azurewebsites.net
   }
 }
