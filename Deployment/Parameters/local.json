@@ -29,17 +29,17 @@
     "logging.application_name": "WJ-Dev-AdminPortal",
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "BuildVersion": "{Teamcity-Parameter-BuildVersion}",
-    "DiagnosticStorageAccountName": "wjdevstglogsau",
-    "DiagnosticStorageContainerName": "wj-dev-adminportal", //lower case letter, number or dash with no consecutive dashes and is 3 through 63 characters long.
+    //"DiagnosticStorageAccountName": "wjdevstglogsau",
+    //"DiagnosticStorageContainerName": "wj-dev-adminportal", //lower case letter, number or dash with no consecutive dashes and is 3 through 63 characters long.
 
 
     /*   "TrafficManagerName":"WJZU-Dev-FlightMerchandisingTM",
 		"TrafficManagerEndpointName1" : "WJZU-Dev-API-FlightMerchandising-AU001",
 		"TrafficManagerEndpointName2" : "WJZU-Dev-API-FlightMerchandising-SG001",
 */
-    "LogStorageName": "wjdevstglogsau",
-    "LogStorageContainer": "wjdevstglogscnau",
-    "LogResourceGroupName": "WJ-Dev-LogsRG",
+    //"LogStorageName": "wjdevstglogsau",
+    //"LogStorageContainer": "wjdevstglogscnau",
+    //"LogResourceGroupName": "WJ-Dev-LogsRG",
     "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.Local.xml",
     "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
     "GroupToTeamNameMapRelativePath": "Config\\GroupToTeamNameMap.xml",

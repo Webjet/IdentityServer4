@@ -199,33 +199,33 @@
 					"Name" : "[variables('AppServicePlan')]",
 					"Location": "[variables('AppServicePlanLocation')]",
 					"Tier" : "Standard"
-				},
-				"Diagnostics" : {
-					"FailedRequestTracing" : "true",
-					"DetailedErrorMessages" : "true",
-					 "ApplicationLoggingBlob" : {
-						"Enabled" : "true",
-						"Level" : "Error",
-						"StorageAccount" : {
-							"Name": "[variables('DiagnosticStorageAccountName')]",
-							"ContainerName" : "[variables('DiagnosticStorageContainerName')]",
-							"ResourceGroupName" : "[variables('ResourceGroupNameLog')]"
-						}
-					},
-					 "HTTPLoggingBlob" : {
-						"Mode" : "Storage",
-						"StorageAccount" : {
-							"Name": "[variables('DiagnosticStorageAccountName')]",
-							"ContainerName" : "[variables('DiagnosticStorageContainerName')]",
-							"ResourceGroupName" : "[variables('ResourceGroupNameLog')]"
-						}
-					},
-					"ApplicationLoggingTable" : {
-						"Enabled" : "false",
-						"TableSasUrl" : "",
-						"Level" : "Verbose"
-					}
 				}
+				//"Diagnostics" : {
+				//	"FailedRequestTracing" : "true",
+				//	"DetailedErrorMessages" : "true",
+				//	 "ApplicationLoggingBlob" : {
+				//		"Enabled" : "true",
+				//		"Level" : "Error",
+				//		"StorageAccount" : {
+				//			"Name": "[variables('DiagnosticStorageAccountName')]",
+				//			"ContainerName" : "[variables('DiagnosticStorageContainerName')]",
+				//			"ResourceGroupName" : "[variables('ResourceGroupNameLog')]"
+				//		}
+				//	},
+				//	 "HTTPLoggingBlob" : {
+				//		"Mode" : "Storage",
+				//		"StorageAccount" : {
+				//			"Name": "[variables('DiagnosticStorageAccountName')]",
+				//			"ContainerName" : "[variables('DiagnosticStorageContainerName')]",
+				//			"ResourceGroupName" : "[variables('ResourceGroupNameLog')]"
+				//		}
+				//	},
+				//	"ApplicationLoggingTable" : {
+				//		"Enabled" : "false",
+				//		"TableSasUrl" : "",
+				//		"Level" : "Verbose"
+				//	}
+				//}
 			}
 		}
    ]
