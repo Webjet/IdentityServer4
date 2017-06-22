@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace AdminPortal.Api
 {
-   // [Microsoft.AspNetCore.Authorization.Authorize(ActiveAuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+   [Microsoft.AspNetCore.Authorization.Authorize(ActiveAuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class EmailTemplateGenerationController : Controller
     {
