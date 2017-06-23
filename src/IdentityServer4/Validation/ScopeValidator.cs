@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using System;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Extensions;
 
 namespace IdentityServer4.Validation
 {
@@ -216,7 +218,7 @@ namespace IdentityServer4.Validation
                 {
                     if (!client.AllowedScopes.Contains(scope))
                     {
-                        _logger.LogError("Requested scope not allowed: {scope}", scope);
+                        LogRequestedScopeNotAllowed(scope, client.AllowedScopes);
                         return false;
                     }
                 }
@@ -225,13 +227,18 @@ namespace IdentityServer4.Validation
                     var api = resources.FindApiScope(scope);
                     if (api == null || !client.AllowedScopes.Contains(scope))
                     {
-                        _logger.LogError("Requested scope not allowed: {scope}", scope);
+                        LogRequestedScopeNotAllowed(scope, client.AllowedScopes);
                         return false;
                     }
                 }
             }
 
             return true;
+        }
+
+        private void LogRequestedScopeNotAllowed(string scope,ICollection<string> allowedScopes)
+        {
+            _logger.LogError("Requested scope not allowed: {scope} ; Client AllowedScopes: {allowedScopes} (Note that scopes are case sensitive)", scope, allowedScopes.ToSpaceSeparatedString());
         }
 
         /// <summary>
