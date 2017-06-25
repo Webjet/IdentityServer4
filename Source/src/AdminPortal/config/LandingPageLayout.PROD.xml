@@ -5,23 +5,23 @@
   <LandingPageTab Key ="WebjetAU" Text ="PROD Webjet AU">
     <Section Key ="ServiceCentreSectionAU" Text="Service Centre Activities " >
       <!--public enum AdminMenuItineraryEditViewMode C:\GitRepos\TSA\main\TSA\Common\TSAType.cs-->
-      <MenuItem Text="Pending"           Key ="PendingItems"  Link="https://webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
-      <MenuItem Text="Search Booking"    Key ="SearchBooking" Link="https://webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
-      <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
-      <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
+      <MenuItem Text="Pending"           Key ="PendingItems"  Link="https://admin.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
+      <MenuItem Text="Search Booking"    Key ="SearchBooking" Link="https://admin.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
+      <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://admin.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
+      <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://admin.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
       <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
-      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://webjet.com.au/WebjetTSA/NewSession.aspx?PageID=SaleFareCampaignManager"  />
-      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://webjet.com.au/WebjetTSA/NewSession.aspx?PageID=CouponCampaignManager"  />
-      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://webjet.com.au/WebjetTSA/NewSession.aspx?PageID=VelocityBonusCampaignManager"  />
-      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://webjet.com.au/WebjetTSA/NewSession.aspx?PageID=FlightFiltersManager"  />
+      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://admin.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=SaleFareCampaignManager"  />
+      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://admin.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=CouponCampaignManager"  />
+      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://admin.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=VelocityBonusCampaignManager"  />
+      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://admin.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=FlightFiltersManager"  />
     </Section>
  
     <Section Key ="FinanceTeamSectionAU" Text="Finance Team Activities " >
-      <MenuItem Text="Revenue Analysis" Key ="RevenueAnalysis" Link="https://webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/RevenueAnalysis.aspx" />
+      <MenuItem Text="Revenue Analysis" Key ="RevenueAnalysis" Link="https://admin.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/RevenueAnalysis.aspx" />
     </Section>
     <Section Key ="Marketing"  Text="Marketing Team Activities " >
       <MenuItem Text="Generate Random Number"  Key ="GenerateRandomNumber" Link="ViewHtml/GenerateRandomNumber" RegionIndicator="ALL"  />
@@ -31,23 +31,23 @@
   <LandingPageTab Key ="WebjetNZ" Text ="PROD Webjet NZ">
     <Section Key ="ServiceCentreSection" Text="Service Centre Activities " >
       <!--public enum AdminMenuItineraryEditViewMode C:\GitRepos\TSA\main\TSA\Common\TSAType.cs-->
-      <MenuItem Text="Pending"           Key ="PendingItems"  Link="https://webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
-      <MenuItem Text="Search Booking"    Key ="SearchBooking" Link="https://webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
-      <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
-      <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://webjet.co.NZ/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
+      <MenuItem Text="Pending"           Key ="PendingItems"  Link="https://admin.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
+      <MenuItem Text="Search Booking"    Key ="SearchBooking" Link="https://admin.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
+      <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://admin.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
+      <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://admin.webjet.co.NZ/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
       <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSection" Text="Campaigns " >
-      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=SaleFareCampaignManager"  />
-      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=CouponCampaignManager"  />
-      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=VelocityBonusCampaignManager"  />
-      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=FlightFiltersManager"  />
+      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://admin.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=SaleFareCampaignManager"  />
+      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://admin.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=CouponCampaignManager"  />
+      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://admin.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=VelocityBonusCampaignManager"  />
+      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://admin.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=FlightFiltersManager"  />
     </Section>
 
     <Section Key ="FinanceTeamSection" Text="Finance Team Activities " >
-      <MenuItem Text="Revenue Analysis" Key ="RevenueAnalysis" Link="https://webjet.co.NZ/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/RevenueAnalysis.aspx" />
+      <MenuItem Text="Revenue Analysis" Key ="RevenueAnalysis" Link="https://admin.webjet.co.NZ/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/RevenueAnalysis.aspx" />
     </Section>
     <Section Key ="Marketing"  Text="Marketing Team Activities " >
       <MenuItem Text="Generate Random Number"  Key ="GenerateRandomNumber" Link="ViewHtml/GenerateRandomNumber" RegionIndicator="ALL"  />
@@ -57,23 +57,23 @@
   <LandingPageTab Key ="ZujiAU" Text ="PROD Zuji AU">
     <Section Key ="ServiceCentreSection" Text="Service Centre Activities " >
       <!--public enum AdminMenuItineraryEditViewMode C:\GitRepos\TSA\main\TSA\Common\TSAType.cs-->
-      <MenuItem Text="Pending"           Key ="PendingItems"  Link="https://Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
-      <MenuItem Text="Search Booking"    Key ="SearchBooking" Link="https://Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
-      <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
-      <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://Zuji.com.au/ZujiTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
+      <MenuItem Text="Pending"           Key ="PendingItems"  Link="https://admin.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
+      <MenuItem Text="Search Booking"    Key ="SearchBooking" Link="https://admin.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
+      <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://admin.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
+      <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://admin.Zuji.com.au/ZujiTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
       <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSection" Text="Campaigns " >
-      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=SaleFareCampaignManager"  />
-      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=CouponCampaignManager"  />
-      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=VelocityBonusCampaignManager"  />
-      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=FlightFiltersManager"  />
+      <MenuItem Text="Sale Fare Campaign Management"  Key ="SaleFareCampaignManager" Link="https://admin.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=SaleFareCampaignManager"  />
+      <MenuItem Text="Coupon Campaign Management"  Key ="CouponCampaignManager" Link="https://admin.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=CouponCampaignManager"  />
+      <MenuItem Text="Velocity Bonus Campaign Management"  Key ="VelocityBonusCampaignManager" Link="https://admin.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=VelocityBonusCampaignManager"  />
+      <MenuItem Text="Flight/Fare Filters Management"  Key ="FlightFiltersManager" Link="https://admin.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=FlightFiltersManager"  />
     </Section>
 
     <Section Key ="FinanceTeamSection" Text="Finance Team Activities " >
-      <MenuItem Text="Revenue Analysis" Key ="RevenueAnalysis" Link="https://Zuji.com.au/ZujiTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/RevenueAnalysis.aspx" />
+      <MenuItem Text="Revenue Analysis" Key ="RevenueAnalysis" Link="https://admin.Zuji.com.au/ZujiTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/RevenueAnalysis.aspx" />
     </Section>
     <Section Key ="Marketing"  Text="Marketing Team Activities " >
       <MenuItem Text="Generate Random Number"  Key ="GenerateRandomNumber" Link="ViewHtml/GenerateRandomNumber" RegionIndicator="ALL"  />
