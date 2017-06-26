@@ -18,6 +18,8 @@
     "Authentication:AzureAd:ClientSecret": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=", //key from Classic Portal
     "Authentication:AzureAd:Domain": "mfreidgeimwebjetcom.onmicrosoft.com", // Azure Active Directory
     "Authentication:AzureAd:TenantId": "0f79d43c-098d-49b1-b8bc-4c9107c64dd4", // Azure Active Directory
+    "Authentication:AzureAd:Audience": "https://mfreidgeimwebjetcom.onmicrosoft.com/e0a25761-8ee6-4ddf-9bd6-2aefc7e3134d",
+    "Authentication:AzureAd:userSecretsId": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=",
 
     //    "NewRelic.AppName": "WJ-Dev-AdminPortal",
     //    "NEWRELIC_LICENSEKEY": "dac6eb61fde6242216562aa4fc2de1c1092c3519",
