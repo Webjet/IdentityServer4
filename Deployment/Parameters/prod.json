@@ -8,7 +8,7 @@
 
     "ResourceGroupLocation": "Australia East",
     "AppServicePlan": "UAT-AdminPortal", //Shared with UAT
-    "WebAppName": "WJ-PROD-AdminPortal",
+    "WebAppName": "WJ-AdminPortal",
     "AppServicePlanLocation": "Australia East",
     "AzureUsername": "{Teamcity-Parameter-UserName}",
     "AzurePassword": "{Teamcity-Parameter-Password}",
