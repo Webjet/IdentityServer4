@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceToApplicationRolesMap>
+  <!-- All Roles should be created in AAD and saved in git C:\GitRepos\AdminPortal\Configuration\WebjetAADManifest_WebjetAdminPortal_UAT.json
+  CustomerAccounting,MarketingTeam,ITOPs,AnalyticsTeam,FinanceTeam,DevSupport,ProductTeam,ServiceCenter,ServiceCenterManager
+  BookingsViewer,UATAdmin
+  -->
+ 
+  <!--ServiceCenter-->
+  <ResourceToRoles ResourceId="SearchBooking" Roles="ServiceCenter,BookingsViewer,ITOPs" />
+  <ResourceToRoles ResourceId="FareEscalationManualBookings" Roles="ServiceCenter,ITOPs" /> <!--Allow to add are escalation to confirmed bookings-->
+  <ResourceToRoles ResourceId="PendingItems" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="CustomerDrilldown" Roles="ServiceCenter,BookingsViewer,ITOPs" />
+  <ResourceToRoles ResourceId="ReportFrame" Roles="ServiceCenter,ITOPs,BookingsViewer,FinanceTeam" /> <!-- used for drilldown and RevenueAnalysis-->
+  <ResourceToRoles ResourceId="iKnow" Roles="ServiceCenter,ITOPs" />
+  <ResourceToRoles ResourceId="GoogleBigQueryItinerary" Roles="ServiceCenter,AnalyticsTeam,BookingsViewer,ITOPs" />
+  <ResourceToRoles ResourceId="RefundAccess" Roles="CustomerAccounting" />
+
+  <!--ServiceCenterManager-->
+  <ResourceToRoles ResourceId="FareEscalationAuthorisation" Roles="ServiceCenterManager" />
+  <ResourceToRoles ResourceId="AddNewItineraryItem" Roles="ServiceCenter,ITOPs" />
+ 
+  <!--ProductTeam-->
+  <ResourceToRoles ResourceId="CouponCampaignManager" Roles="ProductTeam,ITOPs" />
+  <ResourceToRoles ResourceId="SaleFareCampaignManager" Roles="ProductTeam,ITOPs" />
+  <ResourceToRoles ResourceId="VelocityBonusCampaignManager" Roles="MarketingTeam,ProductTeam,ITOPs" />
+  <ResourceToRoles ResourceId="FlightFiltersManager" Roles="ProductTeam,ITOPs" />
+  
+  <!--FinanceTeam-->
+  <ResourceToRoles ResourceId="RevenueAnalysis" Roles="FinanceTeam,ITOPs" />
+  
+  <!--MarketingTeam-->
+  <ResourceToRoles ResourceId="GenerateRandomNumber" Roles="MarketingTeam,ITOPs" />
+
+</ResourceToApplicationRolesMap>
+
+

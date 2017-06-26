@@ -4,10 +4,10 @@
     "Subscription": "Webjet - Production",
     "SubscriptionID": "01dd4c02-5670-4ed3-818e-39509fd82de3",
     "TenantID": "5de0e68c-0afd-4a67-b089-31f168aa4ca0",
-    "ResourceGroupName": "WJ-UAT-AdminPortalRG", //Do we use Shared?
+    "ResourceGroupName": "WJ-UAT-AdminPortalRG", //Shared with UAT
 
     "ResourceGroupLocation": "Australia East",
-    "AppServicePlan": "UAT-AdminPortal", //Do we use Shared?
+    "AppServicePlan": "UAT-AdminPortal", //Shared with UAT
     "WebAppName": "WJ-PROD-AdminPortal",
     "AppServicePlanLocation": "Australia East",
     "AzureUsername": "{Teamcity-Parameter-UserName}",
@@ -20,14 +20,14 @@
     "Authentication:AzureAd:Audience": "https://webjet.group/eb694f3a-292d-4c13-93f6-140c90f59766", // Admin Portal (Application URI)
     "Authentication:AzureAd:userSecretsId": "2vxuvA+JqZ8RltoiLXuwssAvPdlAOyoAO3NxQww+xLY=",
     "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
-    "logging.application_name": "WJ-UAT-AdminPortal", //Do we use Shared?
+    "logging.application_name": "WJ-UAT-AdminPortal", //Shared with UAT
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
     "BuildVersion": "{Teamcity-Parameter-BuildVersion}",
 
     "DiagnosticStorageContainerName": "wj-uat-adminportal", //lower case letter, number or dash with no consecutive dashes and is 3 through 63 characters long.
 
     "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.PROD.xml",
-    "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.UAT.xml",
+    "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.PROD.xml",
     "GroupToTeamNameMapRelativePath": "Config\\GroupToTeamNameMap.UAT.xml",
     "ASPNETCORE_ENVIRONMENT": "Production",
     "GoogleBigQueryHostUrl": "http://127.0.0.1:5000/api/v1.0/query"
