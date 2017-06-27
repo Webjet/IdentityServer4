@@ -189,9 +189,29 @@
             "Key": "ResourceToRolesMapRelativePath",
             "Value": "[variables('ResourceToRolesMapRelativePath')]"
           },
-           {
+          {
             "Key": "GroupToTeamNameMapRelativePath",
             "Value": "[variables('GroupToTeamNameMapRelativePath')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:ResourceId",
+            "Value": "[variables('Authentication:AzureAd:ResourceId')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:TokenEndpoint",
+            "Value": "[variables('Authentication:AzureAd:TokenEndpoint')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:GrantType",
+            "Value": "[variables('Authentication:AzureAd:GrantType')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:Password",
+            "Value": "[variables('Authentication:AzureAd:Password')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:UserName",
+            "Value": "[variables('Authentication:AzureAd:UserName')]"
           }
         ],
 				"ResourceGroup":{

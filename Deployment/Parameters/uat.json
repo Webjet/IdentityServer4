@@ -18,6 +18,11 @@
     "Authentication:AzureAd:TenantId": "5de0e68c-0afd-4a67-b089-31f168aa4ca0", //Webjet AAD
     "Authentication:AzureAd:Audience": "https://webjet.group/eb694f3a-292d-4c13-93f6-140c90f59766", // Admin Portal (Application URI)
     "Authentication:AzureAd:userSecretsId": "2vxuvA+JqZ8RltoiLXuwssAvPdlAOyoAO3NxQww+xLY=",
+    "Authentication:AzureAd:ResourceId": "https://graph.windows.net",
+    "Authentication:AzureAd:TokenEndpoint": "https://login.windows.net/5de0e68c-0afd-4a67-b089-31f168aa4ca0/oauth2/token",
+    "Authentication:AzureAd:GrantType": "password",
+    "Authentication:AzureAd:Password": "ADMTest1", // TODO:: Need to use generic application password, find different way how to to do
+    "Authentication:AzureAd:UserName": "KajalBhatia@webjet.com.au", //TODO: Need to find way
     "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
     "logging.application_name": "WJ-UAT-AdminPortal",
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
@@ -30,7 +35,7 @@
     "GoogleBigQueryHostUrl": "http://127.0.0.1:5000/api/v1.0/query"
 
     //Commenting 5 below Shared setting - Getting below error during auto deployment from TeamCity-
- //*************************************************************************************************************************
+    //*************************************************************************************************************************
     // Get-AzureRmStorageAccountKey : The client 'Michael.Freidgeim@webjet.com.au' with object id
     //'138f5eca-9407-47eb-a882-313df10d870f' does not have authorization to perform action
     // 'Microsoft.Storage/storageAccounts/listKeys/action' over scope '/subscriptions/01dd4c02-5670-4ed3-818e-39509fd82de3/resourceGroups/WJ-Prod-LogsRG/providers/Microsoft.Storage/storageAccounts/wjprodstglogsau'.
@@ -39,8 +44,8 @@
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //   CategoryInfo          : CloseError: (:) [Get-AzureRmStorageAccountKey], CloudException
     //  FullyQualifiedErrorId : Microsoft.Azure.Commands.Management.Storage.GetAzureStorageAccountKeyCommand
-//*************************************************************************************************************************
-    
+    //*************************************************************************************************************************
+
     //"ResourceGroupNameLog": "WJ-Prod-LogsRG", //Shared
     //"DiagnosticStorageAccountName": "wjprodstglogsau", //Shared
     //"LogStorageName": "wjprodstglogsau", //Shared
