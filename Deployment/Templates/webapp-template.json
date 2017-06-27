@@ -188,8 +188,11 @@
           {
             "Key": "ResourceToRolesMapRelativePath",
             "Value": "[variables('ResourceToRolesMapRelativePath')]"
+          },
+           {
+            "Key": "GroupToTeamNameMapRelativePath",
+            "Value": "[variables('GroupToTeamNameMapRelativePath')]"
           }
-          
         ],
 				"ResourceGroup":{
 					"Name" : "[variables('ResourceGroupName')]",
