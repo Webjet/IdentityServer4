@@ -21,22 +21,18 @@ namespace AdminPortal.BusinessServices
     public class TeamLeadersRetrieval
     {
         //TODO: temp public for testing
-        public ActiveDirectoryClient _graphClient;
+        public IActiveDirectoryClient _graphClient;
         private static readonly NLog.ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly GroupToTeamNameMapper _groupToTeamNameMapper;
         private const string ServiceCenterManagerRole = "ServiceCenterManager"; //TODO: consider to move generic Constant class e.g "Roles"
 
-        public static IConfigurationRoot ConfigurationRoot
+        
+        public TeamLeadersRetrieval(GroupToTeamNameMapper groupToTeamNameMapper, ActiveDirectoryGraphHelper graphHelper)
         {
-            private get; set;
-        }
-
-        public TeamLeadersRetrieval(IConfigurationRoot appConfig, GroupToTeamNameMapper groupToTeamNameMapper)
-        {
-            appConfig = appConfig ?? ConfigurationRoot;
+           
             try
             {
-                _graphClient = new ActiveDirectoryGraphHelper(appConfig).GetActiveDirectoryGraphClient();
+                _graphClient = graphHelper.ActiveDirectoryClient;
                 _groupToTeamNameMapper = groupToTeamNameMapper;
             }
             catch (Exception ex)
@@ -44,7 +40,6 @@ namespace AdminPortal.BusinessServices
                 throw new AuthenticationException(HttpStatusCode.BadGateway, "Unable to get Active Directory Graph API client." + ex.Message);
             }
         }
-        
 
         public async Task<List<string>> GetServiceCenterTeamLeaderEmailListAsync(ClaimsPrincipal loggedUser)
         {

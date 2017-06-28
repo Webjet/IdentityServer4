@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AdminPortal.BusinessServices;
 using AdminPortal.BusinessServices.Common;
+using AdminPortal.BusinessServices.GraphApiHelper;
 using AdminPortal.BusinessServices.Logging;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -75,6 +76,7 @@ namespace AdminPortal
             services.TryAddSingleton<LandingPageLayoutLoader>();
             services.TryAddSingleton<ResourceToApplicationRolesMapper>();
             services.TryAddSingleton<GroupToTeamNameMapper>();
+            services.TryAddSingleton<ActiveDirectoryGraphHelper>();
             services.TryAddSingleton<TeamLeadersRetrieval>();
             services.AddAuthentication(
             sharedOptions => sharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
@@ -158,9 +160,9 @@ namespace AdminPortal
 
             ResourceAuthorizeAttribute.ConfigurationRoot = this.Configuration;
             GroupToTeamNameMapper.ConfigurationRoot = this.Configuration;
-            TeamLeadersRetrieval.ConfigurationRoot = this.Configuration;
+            ActiveDirectoryGraphHelper.ConfigurationRoot = this.Configuration;
 
-           
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

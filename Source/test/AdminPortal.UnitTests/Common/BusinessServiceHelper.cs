@@ -11,11 +11,11 @@ namespace AdminPortal.UnitTests.Common
     {
         const string ConfigFolder = @"BusinessServices\config\";
         private static readonly string _rootFolder = AssemblyHelper.GetExecutingAssemblyRootPath();
-        private static readonly string _filepath = _rootFolder + ConfigFolder;
+        public static readonly string BusinessServicesConfigPath = _rootFolder + ConfigFolder;
 
         public static GroupToTeamNameMapper GetGroupToTeamNameMapper()
         {
-            var teamNameFile = _filepath + "GroupToTeamNameMap.xml";
+            var teamNameFile = BusinessServicesConfigPath + "GroupToTeamNameMap.xml";
             return new GroupToTeamNameMapper(teamNameFile);
         }
     }

@@ -41,14 +41,14 @@ namespace AdminPortal.UnitTests.TestUtilities
         {
             var config = Substitute.For<IConfigurationRoot>();
             string azureGraphAPI = "https://graph.windows.net";
-            string tenantId = "0f79d43c-098d-49b1-b8bc-4c9107c64dd4";
-            string clientId = "43c42f66-e21c-4d89-a5ca-8a8ebc2be260";
-            string clientSecret = "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=";
+            string tenantId = "0f79d43c";
+            string clientId = "43c42f66";
+            string clientSecret = "5arVK/5i4dNjgWp8JniOV";
             string aadInstance = "https://login.microsoftonline.com/";
-             string userName = "Kajal.Bhatia@mfreidgeimwebjetcom.onmicrosoft.com";
-            string password = "ADMTest1";
+            string userName = "Kajal.Bhatia@mfreidgeimwebjetcom.onmicrosoft.com";
+            string password = "password";
             string grantType = "password";
-            string tokenEndpoint = "https://login.windows.net/0f79d43c-098d-49b1-b8bc-4c9107c64dd4/oauth2/token";
+            string tokenEndpoint = "https://login.windows.net/up8779dc-34ea-tee3-34gfg-34453/oauth2/token";
 
             config["Authentication:AzureAd:ResourceId"].Returns(azureGraphAPI);
             config["Authentication:AzureAd:TenantId"].Returns(tenantId);
@@ -63,5 +63,16 @@ namespace AdminPortal.UnitTests.TestUtilities
 
             return config;
         }
+
+        //string azureGraphAPI = "https://graph.windows.net";
+        //string tenantId = "0f79d43c-098d-49b1-b8bc-4c9107c64dd4";
+        //string clientId = "43c42f66-e21c-4d89-a5ca-8a8ebc2be260";
+        //string clientSecret = "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=";
+        //string aadInstance = "https://login.microsoftonline.com/";
+        //string userName = "Kajal.Bhatia@mfreidgeimwebjetcom.onmicrosoft.com";
+        //string password = "ADMTest1";
+        //string grantType = "password";
+        //string tokenEndpoint = "https://login.windows.net/0f79d43c-098d-49b1-b8bc-4c9107c64dd4/oauth2/token";
+
     }
 }
