@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -146,7 +147,11 @@ namespace AdminPortal.BusinessServices
         private string GetLoggedUserApplicationId(ClaimsPrincipal loggedUser)
         {
             var userClaims = ((ClaimsIdentity)loggedUser.Identity).Claims;
-            var applicationId = userClaims.FirstOrDefault(c => c.Type == "aud")?.Value;
+            //In past we were getting appid from 'aud' but now we are getting it from proper property 'appid'
+           // var applicationId = userClaims.FirstOrDefault(c => c.Type == "aud")?.Value;
+            var applicationId = userClaims.FirstOrDefault(c => c.Type == "appid")?.Value;
+            _logger.Log(LogLevel.Info, "ApplicationId: " + applicationId);
+           
             return applicationId;
         }
 

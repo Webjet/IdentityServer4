@@ -33,8 +33,8 @@ namespace AdminPortal.Api
         }
 
         // GET: api/values
-        [HttpGet]
-        public async Task<IEnumerable<string>> GetServiceCenterTeamLeadersEmailList()
+        [HttpGet("GetServiceCenterTeamLeadersEmailList")]
+        public async Task<List<string>> GetServiceCenterTeamLeadersEmailList()
         {
            
                 List<string> emaiList = await _teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(User);
