@@ -48,7 +48,7 @@ namespace AdminPortal.UnitTests.TestUtilities
             ClaimsIdentity  userIdentity = new ClaimsIdentity();
             userIdentity.AddClaim(new Claim("groups", "413687dc-ee0c-4326-9ae1-b2a87ebd28a1"));  //Service Center GroupId
             userIdentity.AddClaim(new Claim("aud", "43c42f66-e21c-4d89-a5ca-8a8ebc2be260"));
-
+            userIdentity.AddClaim(new Claim("appid", "43c42f66-e21c-4d89-a5ca-8a8ebc2be260"));
             ClaimsPrincipal loggedInUser = new GenericPrincipal(userIdentity, loggedInUserRole);
               var userClaims = ((ClaimsIdentity)loggedInUser.Identity).Claims;
               var groupId = userClaims.FirstOrDefault(c => c.Type == "groups")?.Value;
