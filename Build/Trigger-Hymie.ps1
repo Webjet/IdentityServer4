@@ -104,7 +104,7 @@ Try{
     # Get Current Jobs in View
     $jobs = Invoke-RestMethod -Method Get -Uri $hymieUrl
 
-    $maxReRuns = 2
+    $maxReRuns = 1
     $jobStatus = @{}
     $jobs.jobs |? {$_.name -match "($brand)" -and $_.name -notmatch "MM_[S]?CC$"} | foreach { $jobStatus[$_.url] = $null }
 
