@@ -18,10 +18,10 @@ namespace AdminPortal.Api
     {
         static Serilog.ILogger _logger = Log.ForContext<EmailTemplateGenerationController>();
 
-        private readonly TeamLeadersRetrieval _teamLeadersRetrieval;
+        private readonly ITeamLeadersRetrieval _teamLeadersRetrieval;
        
 
-        public EmailTemplateGenerationController(TeamLeadersRetrieval teamLeadersRetrieval=null)
+        public EmailTemplateGenerationController(ITeamLeadersRetrieval teamLeadersRetrieval)
         {
             if (teamLeadersRetrieval == null)
             {

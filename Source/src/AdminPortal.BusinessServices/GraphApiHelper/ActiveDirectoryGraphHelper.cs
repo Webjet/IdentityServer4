@@ -8,7 +8,13 @@ using Newtonsoft.Json.Linq;
 
 namespace AdminPortal.BusinessServices.GraphApiHelper
 {
-    public class ActiveDirectoryGraphHelper
+    public interface IActiveDirectoryGraphHelper
+    {
+        IActiveDirectoryClient ActiveDirectoryClient { get; set; }
+
+    }
+
+    public class ActiveDirectoryGraphHelper: IActiveDirectoryGraphHelper
     {
         public static string token;
         public static string _azureGraphAPI;
@@ -25,37 +31,30 @@ namespace AdminPortal.BusinessServices.GraphApiHelper
         private static string _accessToken = null;
         private static string _tokenForUser = null;
         private static System.DateTimeOffset _expiration;
-        public static IConfigurationRoot ConfigurationRoot
-        {
-            private get; set;
-        }
+      
 
         public IActiveDirectoryClient ActiveDirectoryClient { get; set; }
 
-        public ActiveDirectoryGraphHelper() : this(null, null)
+
+        public ActiveDirectoryGraphHelper(IConfigurationRoot config)
         {
+           
+            _azureGraphAPI = config["Authentication:AzureAd:ResourceId"];
+            _tenantId = config["Authentication:AzureAd:TenantId"];
+            _clientId = config["Authentication:AzureAd:ClientId"];
+            _clientSecret = config["Authentication:AzureAd:ClientSecret"];
+            _authority = config["Authentication:AzureAd:AADInstance"] + config["Authentication:AzureAd:TenantId"];
+            _userName = config["Authentication:AzureAd:UserName"];
+            _password = config["Authentication:AzureAd:Password"];
+            _grantType = config["Authentication:AzureAd:GrantType"];
+            _tokenEndpoint = config["Authentication:AzureAd:TokenEndpoint"];
 
-        }
-
-        public ActiveDirectoryGraphHelper(IConfigurationRoot config, IActiveDirectoryClient client)
-        {
-            ConfigurationRoot = config ?? ConfigurationRoot;
-            _azureGraphAPI = ConfigurationRoot["Authentication:AzureAd:ResourceId"];
-            _tenantId = ConfigurationRoot["Authentication:AzureAd:TenantId"];
-            _clientId = ConfigurationRoot["Authentication:AzureAd:ClientId"];
-            _clientSecret = ConfigurationRoot["Authentication:AzureAd:ClientSecret"];
-            _authority = ConfigurationRoot["Authentication:AzureAd:AADInstance"] + ConfigurationRoot["Authentication:AzureAd:TenantId"];
-            _userName = ConfigurationRoot["Authentication:AzureAd:UserName"];
-            _password = ConfigurationRoot["Authentication:AzureAd:Password"];
-            _grantType = ConfigurationRoot["Authentication:AzureAd:GrantType"];
-            _tokenEndpoint = ConfigurationRoot["Authentication:AzureAd:TokenEndpoint"];
-
-            ActiveDirectoryClient = client ?? GetActiveDirectoryGraphClient();
+            ActiveDirectoryClient = GetActiveDirectoryGraphClient();
         }
 
         //https://github.com/Azure-Samples/active-directory-dotnet-graphapi-web
         //active-directory-dotnet-graphapi-web
-        public IActiveDirectoryClient GetActiveDirectoryGraphClient()
+        private IActiveDirectoryClient GetActiveDirectoryGraphClient()
         {
             Uri baseServiceUri = new Uri(_azureGraphAPI);
             IActiveDirectoryClient activeDirectoryClient =

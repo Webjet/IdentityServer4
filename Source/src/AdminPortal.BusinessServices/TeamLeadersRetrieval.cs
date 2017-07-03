@@ -18,7 +18,11 @@ using NLog;
 
 namespace AdminPortal.BusinessServices
 {
-    public class TeamLeadersRetrieval
+    public interface ITeamLeadersRetrieval
+    {
+        Task<List<string>> GetServiceCenterTeamLeaderEmailListAsync(ClaimsPrincipal loggedUser);
+    }
+    public class TeamLeadersRetrieval : ITeamLeadersRetrieval
     {
         //TODO: temp public for testing
         public IActiveDirectoryClient _graphClient;
@@ -26,10 +30,10 @@ namespace AdminPortal.BusinessServices
         private readonly GroupToTeamNameMapper _groupToTeamNameMapper;
         private const string ServiceCenterManagerRole = "ServiceCenterManager"; //TODO: consider to move generic Constant class e.g "Roles"
 
-        
-        public TeamLeadersRetrieval(GroupToTeamNameMapper groupToTeamNameMapper, ActiveDirectoryGraphHelper graphHelper)
+
+        public TeamLeadersRetrieval(GroupToTeamNameMapper groupToTeamNameMapper, IActiveDirectoryGraphHelper graphHelper)
         {
-           
+
             try
             {
                 _graphClient = graphHelper.ActiveDirectoryClient;
@@ -59,7 +63,7 @@ namespace AdminPortal.BusinessServices
                 _logger.Log(LogLevel.Info, "Logged-in user does not belong to 'Service Center Team Group': " + loggedUser.Identity.Name);
                 return null;
             }
-        
+
 
             var groupMembers = await GetServiceCenterGroupMembersAsync(serviceCenterGroup.GroupId); //(groupId);
             if (groupMembers != null)
@@ -143,14 +147,14 @@ namespace AdminPortal.BusinessServices
         {
             var userClaims = ((ClaimsIdentity)loggedUser.Identity).Claims;
             //In past we were getting appid from 'aud' but now we are getting it from proper property 'appid'
-           // var applicationId = userClaims.FirstOrDefault(c => c.Type == "aud")?.Value;
+            // var applicationId = userClaims.FirstOrDefault(c => c.Type == "aud")?.Value;
             var applicationId = userClaims.FirstOrDefault(c => c.Type == "appid")?.Value;
             _logger.Log(LogLevel.Info, "ApplicationId: " + applicationId);
-           
+
             return applicationId;
         }
 
-     
+
         private GroupToTeamNameMapGroupToTeamName GetLoggedUserTeamGroup(ClaimsPrincipal loggedUser)
         {
             var userClaims = ((ClaimsIdentity)loggedUser.Identity).Claims;
@@ -165,7 +169,8 @@ namespace AdminPortal.BusinessServices
         private async Task<Guid> GetRoleIdForServiceCenterManagerRoleAsync(string applicationId)
         {
             Guid roleId = Guid.Empty;
-            IPagedCollection<IApplication> appCollection = await _graphClient.Applications.ExecuteAsync();
+            var graphClientApplications = _graphClient.Applications;
+            var appCollection = await graphClientApplications.ExecuteAsync();
             var morePagesAvailable = false;
             do
             {
@@ -186,7 +191,7 @@ namespace AdminPortal.BusinessServices
             return roleId;
         }
 
-       
+
         private static Guid GetServiceCenterManagerRoleId(IApplication adminPortalApplication, Guid serviceCenterManagerRoleId)
         {
             IList<AppRole> appRoles = adminPortalApplication.AppRoles;
@@ -203,10 +208,12 @@ namespace AdminPortal.BusinessServices
         {
             IPagedCollection<IDirectoryObject> groupMembers = null;
             IGroup group = await _graphClient.Groups[groupId].ExecuteAsync();
+
             if (group != null)
             {
-                   groupMembers = await GetGroupMembersAsync((IGroupFetcher)group);
-             
+                var groupFetcher = (IGroupFetcher)group;
+                groupMembers = await GetGroupMembersAsync(groupFetcher);
+
             }
             return groupMembers;
         }

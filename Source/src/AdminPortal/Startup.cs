@@ -160,9 +160,7 @@ namespace AdminPortal
 
             ResourceAuthorizeAttribute.ConfigurationRoot = this.Configuration;
             GroupToTeamNameMapper.ConfigurationRoot = this.Configuration;
-            ActiveDirectoryGraphHelper.ConfigurationRoot = this.Configuration;
-
-
+          
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
