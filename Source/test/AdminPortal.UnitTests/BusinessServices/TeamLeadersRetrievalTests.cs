@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AdminPortal.BusinessServices;
 using AdminPortal.BusinessServices.GraphApiHelper;
 using AdminPortal.UnitTests.Common;
-using AdminPortal.UnitTests.Common.TestUtils;
 using AdminPortal.UnitTests.TestUtilities;
 using FluentAssertions;
 using Microsoft.Azure.ActiveDirectory.GraphClient;
@@ -18,7 +17,7 @@ using Webjet.Common.Collections;
 namespace AdminPortal.UnitTests.BusinessServices
 {
     [TestClass]
-    public class TeamLeadersRetrievalTest
+    public class TeamLeadersRetrievalTests
     {
        
         [TestMethod, Ignore] //TODO: Working
