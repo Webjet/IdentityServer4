@@ -1,7 +1,5 @@
 ﻿$hymieUrl = If($env:hymie_jobs_url -eq $null) { "http://jenkins.webjet.com.au/view/Admin_Portal/api/json" } Else { $env:hymie_jobs_url }
 $username = $env:username
-#$username = "mafaz.udayar"
-#$apiToken = "36cc9ef8d324270f46f273e4e354686d"
 $apiToken = $env:apiToken
 $brand = If($env:brand -eq $null) { "WAU" } Else { $env:brand }
 
