@@ -26,7 +26,11 @@ namespace AdminPortal.BusinessServices.GraphApiHelper
         private  string _tenantId;
         private IActiveDirectoryClient _activeDirectoryClient;
 
-        public static string Token;
+        public static string Token
+        {
+            get;
+            set;
+        }
 
         public IActiveDirectoryClient ActiveDirectoryClient
         {

@@ -24,7 +24,7 @@ namespace AdminPortal.Api
         private readonly ITeamLeadersRetrieval _teamLeadersRetrieval;
        
 
-        public EmailTemplateGenerationController(ITeamLeadersRetrieval teamLeadersRetrieval)
+        public EmailTemplateGenerationController(TeamLeadersRetrieval teamLeadersRetrieval)
         {
             if (teamLeadersRetrieval == null)
             {

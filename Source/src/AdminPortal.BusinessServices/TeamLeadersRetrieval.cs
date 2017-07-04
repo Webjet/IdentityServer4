@@ -157,12 +157,14 @@ namespace AdminPortal.BusinessServices
             }
             return memberEmailAddress;
         }
+
+        //https://stackoverflow.com/questions/42213979/aad-token-why-aud-sometimes-shows-app-id-sometimes-its-the-app-url
         private string GetLoggedUserApplicationId(ClaimsPrincipal loggedUser)
         {
             var userClaims = ((ClaimsIdentity)loggedUser.Identity).Claims;
             //In past we were getting appid from 'aud' but now we are getting it from proper property 'appid'
-            var applicationId = userClaims.FirstOrDefault(c => c.Type == "aud")?.Value;
-            // var applicationId = userClaims.FirstOrDefault(c => c.Type == "appid")?.Value;
+           // var applicationId = userClaims.FirstOrDefault(c => c.Type == "aud")?.Value;
+             var applicationId = userClaims.FirstOrDefault(c => c.Type == "appid")?.Value;
             _logger.Log(LogLevel.Info, "ApplicationId: " + applicationId);
 
             return applicationId;

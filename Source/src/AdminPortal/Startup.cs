@@ -66,6 +66,7 @@ namespace AdminPortal
         
         public IConfigurationRoot Configuration { get; }
         
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -74,11 +75,14 @@ namespace AdminPortal
 
             //https://blogs.msdn.microsoft.com/webdev/2014/06/17/dependency-injection-in-asp-net-vnext/
             //http://www.dotnetcurry.com/aspnet-mvc/1250/dependency-injection-aspnet-mvc-core
+            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection
             services.TryAddSingleton<LandingPageLayoutLoader>();
             services.TryAddSingleton<ResourceToApplicationRolesMapper>();
             services.TryAddSingleton<GroupToTeamNameMapper>();
-            services.TryAddSingleton<ActiveDirectoryGraphHelper>();
+            services.AddSingleton<IActiveDirectoryGraphHelper, ActiveDirectoryGraphHelper>();
+           
             services.TryAddSingleton<TeamLeadersRetrieval>();
+            //services.AddScoped<ITeamLeadersRetrieval,TeamLeadersRetrieval>();
             services.AddAuthentication(
             sharedOptions => sharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
             
