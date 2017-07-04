@@ -48,13 +48,13 @@ namespace AdminPortal.BusinessServices.GraphApiHelper
         }
 
         //active-directory-dotnet-graphapi-web
-        public static async Task<string> AcquireTokenAsync()
+        public static Task<string> AcquireTokenAsync()
         {
             if (Token == null || Token.IsEmptyOrWhiteSpace())
             {
                 throw new AuthorizationException(HttpStatusCode.InternalServerError, "Authorization Required.");
             }
-            return Token;
+            return Task.FromResult(Token);
         }
 
       
