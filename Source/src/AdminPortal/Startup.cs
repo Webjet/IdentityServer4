@@ -26,6 +26,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
 using Serilog;
 using Serilog.Configuration;
@@ -131,11 +132,17 @@ namespace AdminPortal
                 ClientId = Configuration["Authentication:AzureAd:ClientId"],
                 Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
                 CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"],
-                //ResponseType = OpenIdConnectResponseType.IdToken,
+                ResponseType = OpenIdConnectResponseType.CodeIdToken,//IdToken,
                 AutomaticAuthenticate = false,
                 AutomaticChallenge = true,
+               
+                Events =new OpenIdConnectEvents()
+                {
+                    OnAuthorizationCodeReceived = AuthorizationCodeReceived
+                  
+                }
             });
-            
+           
             bool includeJwtBearerAuthentication = true;
             if (includeJwtBearerAuthentication)
             {
@@ -170,6 +177,52 @@ namespace AdminPortal
 
         }
 
+        private Task MessageReceived(MessageReceivedContext arg)
+        {
+            Log.Logger.Debug("MessageReceived");
+            return Task.FromResult(0);
+           
+        }
+
+        private Task AuthenticationFailed(AuthenticationFailedContext arg)
+        {
+            Log.Logger.Debug("AuthenticationFailed");
+            return Task.FromResult(0);
+        }
+
+        private Task TokenResponseReceived(TokenResponseReceivedContext arg)
+        {
+            Log.Logger.Debug("TokenResponseReceived");
+            return Task.FromResult(0);
+        }
+
+        private Task TokenValidated(TokenValidatedContext arg)
+        {
+            Log.Logger.Debug("TokenValidated");
+            return Task.FromResult(0);
+        }
+
+        //https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/
+        //https://github.com/Azure-Samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/blob/master/WebApp-WebAPI-OpenIdConnect-DotNet/Startup.cs
+        private async Task AuthorizationCodeReceived(AuthorizationCodeReceivedContext context)
+        {
+            var code = context.TokenEndpointRequest.Code;
+            var clientId = Configuration["Authentication:AzureAd:ClientId"];
+            var appKey = Configuration["Authentication:AzureAd:ClientSecret"];
+            var graphResourceId = Configuration["Authentication:AzureAd:ResourceId"];
+            var authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"];
+            ClientCredential credential = new ClientCredential(clientId, appKey);
+
+            //string userObjectID = context.Ticket.Principal.FindFirst(
+               // "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+
+            AuthenticationContext authContext = new AuthenticationContext(authority);  //(authority, new NaiveSessionCache(userObjectID)); // If Token Refersh is required. We might consider to use NaiveSessionCache 
+            AuthenticationResult result = await authContext.AcquireTokenByAuthorizationCodeAsync(code, new Uri(context.TokenEndpointRequest.RedirectUri, UriKind.RelativeOrAbsolute), credential, graphResourceId);
+            ActiveDirectoryGraphHelper.Token = result.AccessToken;
+            context.HandleCodeRedemption();
+         
+        }
+        
         private void ConfigureSerilogSinks(ILoggerFactory loggerFactory)
         {
             try
