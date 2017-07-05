@@ -75,14 +75,11 @@ namespace AdminPortal
 
             //https://blogs.msdn.microsoft.com/webdev/2014/06/17/dependency-injection-in-asp-net-vnext/
             //http://www.dotnetcurry.com/aspnet-mvc/1250/dependency-injection-aspnet-mvc-core
-            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection
             services.TryAddSingleton<LandingPageLayoutLoader>();
             services.TryAddSingleton<ResourceToApplicationRolesMapper>();
             services.TryAddSingleton<GroupToTeamNameMapper>();
-            services.AddSingleton<IActiveDirectoryGraphHelper, ActiveDirectoryGraphHelper>();
-           
-            services.TryAddSingleton<TeamLeadersRetrieval>();
-            //services.AddScoped<ITeamLeadersRetrieval,TeamLeadersRetrieval>();
+            services.AddSingleton<IActiveDirectoryGraphHelper, ActiveDirectoryGraphHelper>();   //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection
+            services.AddSingleton<ITeamLeadersRetrieval, TeamLeadersRetrieval>();
             services.AddAuthentication(
             sharedOptions => sharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
             

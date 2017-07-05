@@ -23,7 +23,7 @@ namespace AdminPortal.UnitTests.Api
     public class EmailTemplateGenerationControllerTest
     {
       
-        [TestMethod(),Ignore] //working
+        [TestMethod()] 
         public async Task GetServiceCenterTeamLeadersEmailList_LoggedInWithServiceCenter_EmailList()
         {
             //Arrange
@@ -41,7 +41,7 @@ namespace AdminPortal.UnitTests.Api
 
         }
 
-        [TestMethod(), Ignore] //working
+        [TestMethod()] 
         public async Task GetServiceCenterTeamLeadersEmailList_LoggedInWithMarketingRole_NullEmailList()
         {
             //Arrange
@@ -57,16 +57,9 @@ namespace AdminPortal.UnitTests.Api
 
         }
 
-        private EmailTemplateGenerationController InitEmailTemplateGenerationController(ClaimsPrincipal userClaimsPrincipal, TeamLeadersRetrieval teamLeaderRetrieval)
+        private EmailTemplateGenerationController InitEmailTemplateGenerationController(ClaimsPrincipal userClaimsPrincipal, ITeamLeadersRetrieval teamLeaderRetrieval)
         {
-            //Arrange
-            string configPath = BusinessServiceHelper.BusinessServicesConfigPath + "GroupToTeamNameMap.xml";
-            var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
-            var groupToTeamNameMapper = Substitute.For<GroupToTeamNameMapper>(configPath);
-            var graphClient = Substitute.For<IActiveDirectoryClient>();
-            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
-
-          
+       
             //Act
             var controller = new EmailTemplateGenerationController(teamLeaderRetrieval);
 
@@ -82,16 +75,11 @@ namespace AdminPortal.UnitTests.Api
             return controller;
         }
 
-        private static TeamLeadersRetrieval GetTeamLeadersRetrievalForServiceCenter(ClaimsPrincipal userClaimsPrincipal)
+        private static ITeamLeadersRetrieval GetTeamLeadersRetrievalForServiceCenter(ClaimsPrincipal userClaimsPrincipal)
         {
-            string configPath = BusinessServiceHelper.BusinessServicesConfigPath + "GroupToTeamNameMap.xml";
-            var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
-            var groupToTeamNameMapper = Substitute.For<GroupToTeamNameMapper>(configPath);
-            var graphClient = Substitute.For<IActiveDirectoryClient>();
-            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
 
-            var teamLeaderRetrieval = Substitute.For<TeamLeadersRetrieval>(groupToTeamNameMapper, activeGraphClientHelper);
-                //(groupToTeamNameMapper, activeGraphClientHelper);
+            var teamLeaderRetrieval = Substitute.For<ITeamLeadersRetrieval>();
+              
 
             List<string> emailList = new List<string>() {"test@webjet.com.au"};
             teamLeaderRetrieval.GetServiceCenterTeamLeaderEmailListAsync(userClaimsPrincipal).Returns(emailList);
@@ -99,16 +87,11 @@ namespace AdminPortal.UnitTests.Api
         }
 
 
-        private static TeamLeadersRetrieval GetTeamLeadersRetrievalForMarketing(ClaimsPrincipal userClaimsPrincipal)
+        private static ITeamLeadersRetrieval GetTeamLeadersRetrievalForMarketing(ClaimsPrincipal userClaimsPrincipal)
         {
-            string configPath = BusinessServiceHelper.BusinessServicesConfigPath + "GroupToTeamNameMap.xml";
-            var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
-            var groupToTeamNameMapper = Substitute.For<GroupToTeamNameMapper>(configPath);
-            var graphClient = Substitute.For<IActiveDirectoryClient>();
-            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
-
-            var teamLeaderRetrieval = Substitute.For<TeamLeadersRetrieval>(groupToTeamNameMapper, activeGraphClientHelper);
-           // var teamLeaderRetrieval = Substitute.For<TeamLeadersRetrieval>();
+          
+            var teamLeaderRetrieval = Substitute.For<ITeamLeadersRetrieval>();
+          
             List<string> emailList = null;
             teamLeaderRetrieval.GetServiceCenterTeamLeaderEmailListAsync(userClaimsPrincipal).Returns(emailList);
             return teamLeaderRetrieval;
