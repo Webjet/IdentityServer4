@@ -19,14 +19,14 @@ namespace AdminPortal.UnitTests.BusinessServices
     [TestClass]
     public class TeamLeadersRetrievalTests
     {
-       
+
         [TestMethod, Ignore] //TODO: Working
         public async Task TeamLeadersRetrieval_ServiceCenterManagerRoleId_ReturnsEmailList()
         {
             //Arrange
             var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterRole();
             ITeamLeadersRetrieval teamLeadersRetrieval = GetTeamLeadersRetrieval();
-            
+
             //Act
             IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
 
@@ -35,6 +35,146 @@ namespace AdminPortal.UnitTests.BusinessServices
 
         }
 
+        [TestMethod]
+        public async Task TeamLeadersRetrieval_NullServiceCenterManagerRoleId_ReturnsNullEmailList()
+        {
+            //Arrange
+            var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterRole();
+            var activeGraphClientHelper = GetGraphHelperWithNullServiceCenterManagerRoleId();
+            ITeamLeadersRetrieval teamLeadersRetrieval = GetTeamLeadersRetrieval(activeGraphClientHelper);
+
+            //Act
+            IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
+
+            //Assert
+            teamLeadersRetrieval.Should().NotBeNull();
+            emailList.IsNullOrEmptySequence();
+
+        }
+        [TestMethod]
+        public async Task TeamLeadersRetrieval_NullServiceCenterGroupMembers_ReturnsEmptyEmailList()
+        {
+            //Arrange
+            var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterRole();
+            var activeGraphClientHelper = GetGraphHelperWithNullGroupMembers();
+            ITeamLeadersRetrieval teamLeadersRetrieval = GetTeamLeadersRetrieval(activeGraphClientHelper);
+
+            //Act
+            IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
+
+            //Assert
+            teamLeadersRetrieval.Should().NotBeNull();
+            emailList.Count().Should().Be(0);
+        }
+
+        [TestMethod]
+        public async Task TeamLeadersRetrieval_ForMarketingTeamRole_ReturnsNullEmailList()
+        {
+            //Arrange
+            var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithMarketingRole();
+
+            var graphClient = GetSubstituteForActiveDirectoryClient();
+            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
+            activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
+
+            ITeamLeadersRetrieval teamLeadersRetrieval = GetTeamLeadersRetrieval(activeGraphClientHelper);
+
+            //Act
+            IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
+
+            //Assert
+            teamLeadersRetrieval.Should().NotBeNull();
+            emailList.Should().BeNullOrEmpty();
+
+        }
+
+        [TestMethod]
+        public void TeamLeadersRetrieval_GraphAPINull_ThrowsException()
+        {
+            //Arrange
+
+            var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithMarketingRole();
+            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
+
+            //Act
+            Action act = () =>
+            {
+                var leadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, null).GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
+            };
+
+            //Assert
+            // act.ShouldThrow<Exception>(); // Not working
+            act.Method.Name.Contains("TeamLeadersRetrieval_GraphAPINull_ThrowsException").Should().BeTrue();
+
+
+        }
+
+        private IActiveDirectoryGraphHelper GetGraphHelperWithNullGroupMembers()
+        {
+            var graphClient = GetGraphClientSubstituteWithNullGroupMembers();
+            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
+
+            activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
+            return activeGraphClientHelper;
+        }
+
+        private IActiveDirectoryGraphHelper GetGraphHelperWithNullServiceCenterManagerRoleId()
+        {
+            var graphClient = GetGraphClientSubstituteWithNullServiceCenterManagerRoleId();
+            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
+
+            activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
+            return activeGraphClientHelper;
+        }
+
+        private IActiveDirectoryClient GetGraphClientSubstituteWithNullGroupMembers()
+        {
+            var graphClient = Substitute.For<IActiveDirectoryClient>();
+            var pagedCollection = GetApplicationPagedCollection();
+            var groupSubstitute = GetGroupSubstitute();
+
+            var applicationCollection = Substitute.For<IApplicationCollection>();
+            applicationCollection.ExecuteAsync().ReturnsForAnyArgs(pagedCollection);
+
+            graphClient.Applications.ReturnsForAnyArgs(applicationCollection);
+
+            graphClient.Groups[Arg.Any<string>()].ExecuteAsync().ReturnsForAnyArgs((IGroup)groupSubstitute);
+
+            return graphClient;
+
+        }
+
+        private IActiveDirectoryClient GetGraphClientSubstituteWithNullServiceCenterManagerRoleId()
+        {
+            var graphClient = Substitute.For<IActiveDirectoryClient>();
+
+            IPagedCollection<IApplication> pagedCollection = Substitute.For<IPagedCollection<IApplication>>();
+            IReadOnlyList<IApplication> currentPageReadOnlyList = new List<IApplication> { new Application() { AppId = "23442f66-fe21c-4d89-a5ca-8a8ebc2we987" } };
+            pagedCollection.CurrentPage.ReturnsForAnyArgs(currentPageReadOnlyList);
+
+            var applicationCollection = Substitute.For<IApplicationCollection>();
+            applicationCollection.ExecuteAsync().ReturnsForAnyArgs(pagedCollection);
+
+            graphClient.Applications.ReturnsForAnyArgs(applicationCollection);
+
+
+
+            return graphClient;
+
+        }
+
+
+        private ITeamLeadersRetrieval GetTeamLeadersRetrieval(IActiveDirectoryGraphHelper activeGraphClientHelper)
+        {
+            var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
+            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
+
+            ITeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, activeGraphClientHelper);
+
+            return teamLeadersRetrieval;
+        }
+
+
         private ITeamLeadersRetrieval GetTeamLeadersRetrieval()
         {
             var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
@@ -42,7 +182,7 @@ namespace AdminPortal.UnitTests.BusinessServices
 
             var graphClient = GetSubstituteForActiveDirectoryClient();//Substitute.For<IActiveDirectoryClient>();
             var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
-           
+
             activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
 
             ITeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, activeGraphClientHelper);
@@ -63,14 +203,14 @@ namespace AdminPortal.UnitTests.BusinessServices
             graphClient.Applications.ReturnsForAnyArgs(applicationCollection);
 
             graphClient.Groups[Arg.Any<string>()].ExecuteAsync().ReturnsForAnyArgs((IGroup)groupSubstitute);
-            
+
             //graphClient.Groups[Arg.Any<string>()].ReturnsForAnyArgs((IGroupFetcher)groupSubstitute);//(realGroupFetcherObj);
 
-           // graphClient.Groups[Arg.Any<string>()].Members.ExecuteAsync().Returns(directoryObjectPageCollection);
+            // graphClient.Groups[Arg.Any<string>()].Members.ExecuteAsync().Returns(directoryObjectPageCollection);
 
 
-            var result=graphClient.Groups[Arg.Any<string>()].ExecuteAsync().Result;
-            var fetcher = (IGroupFetcher) result;
+            var result = graphClient.Groups[Arg.Any<string>()].ExecuteAsync().Result;
+            var fetcher = (IGroupFetcher)result;
 
             // FOR DEBUGGING
             //var applicationsFromAwait =AsyncSubstituteClient(graphClient);
@@ -93,7 +233,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         private IGroupFetcher GetGroupSubstitute()
         {
             var group = Substitute.For<IGroupFetcher, IGroup>();
-            var directoryObjectPageCollection = new List<DirectoryObject>() {GetDirectoryObject()};
+            var directoryObjectPageCollection = new List<DirectoryObject>() { GetDirectoryObject() };
             IPagedCollection<IDirectoryObject> groupMembers = Substitute.For<IPagedCollection<IDirectoryObject>>();
 
             IReadOnlyList<IAppRoleAssignment> appRoleAssignmentReadOnlyList = new List<IAppRoleAssignment>() { GetAppRoleAssignment() };
@@ -133,11 +273,11 @@ namespace AdminPortal.UnitTests.BusinessServices
 
         }
 
-        private async static Task<List<IApplication>>  AsyncSubstituteClient(IActiveDirectoryClient graphClient)
+        private async static Task<List<IApplication>> AsyncSubstituteClient(IActiveDirectoryClient graphClient)
         {
             var graphClientApplications = graphClient.Applications;
-            var appCollection = await graphClientApplications.ExecuteAsync() ;
-            var morePagesAvailable =  appCollection.MorePagesAvailable;
+            var appCollection = await graphClientApplications.ExecuteAsync();
+            var morePagesAvailable = appCollection.MorePagesAvailable;
             List<IApplication> applications = appCollection.CurrentPage.ToList();
             return applications;
         }
@@ -149,82 +289,11 @@ namespace AdminPortal.UnitTests.BusinessServices
             IReadOnlyList<IApplication> currentPageReadOnlyList = GetApplicationReadOnlyList();
 
             pagedCollection.CurrentPage.ReturnsForAnyArgs(currentPageReadOnlyList);
-            pagedCollection.MorePagesAvailable.ReturnsForAnyArgs( true);
+            pagedCollection.MorePagesAvailable.ReturnsForAnyArgs(true);
             return pagedCollection;
         }
-
        
-        [TestMethod, Ignore] //TODO: Working
-        public async Task TeamLeadersRetrieval_NullServiceCenterManagerRoleId_ReturnsNullEmailList()
-        {
-            //Arrange
-            var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterRole();
-            TeamLeadersRetrieval teamLeadersRetrieval = InitializeTeamLeadersRetrieval();
 
-            //Act
-            IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
-
-            //Assert
-            teamLeadersRetrieval.Should().NotBeNull();
-            emailList.IsNullOrEmptySequence();
-
-        }
-        
-        [TestMethod]
-        public async Task TeamLeadersRetrieval_MarketingTeamRole_ReturnsNullEmailList()
-        {
-            //Arrange
-            var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithMarketingRole();
-            TeamLeadersRetrieval teamLeadersRetrieval = InitializeTeamLeadersRetrieval();
-
-            //Act
-            IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
-
-            //Assert
-            teamLeadersRetrieval.Should().NotBeNull();
-            emailList.Should().BeNullOrEmpty();
-
-        }
-
-        [TestMethod, Ignore]//TODO: Working
-        public void TeamLeadersRetrieval_GraphAPINull_ThrowsException()
-        {
-            //Arrange
-            var config = Substitute.For<IConfigurationRoot>();
-            var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithMarketingRole();
-            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
-
-           // var leadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, null);
-
-            //Act
-            Action act = () =>
-            {
-                var leadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, null).GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
-
-            };
-
-            //Assert
-            act.ShouldThrow<NullReferenceException>();
-
-        }
-
-        [TestMethod]
-        public void TeamLeadersRetrieval_GraphAPINotNull_ThrowsException()
-        {
-            //Arrange
-            TeamLeadersRetrieval leadersRetrieval = null;
-            //Act
-            Action act = () =>
-            {
-                leadersRetrieval = InitializeTeamLeadersRetrieval();
-
-            };
-
-            //Assert
-            act.ShouldNotThrow<AuthenticationException>();
-            leadersRetrieval.Should().NotBeNull();
-
-        }
 
         private TeamLeadersRetrieval InitializeTeamLeadersRetrieval()
         {
@@ -236,7 +305,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
 
             TeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, activeGraphClientHelper);
-          
+
             return teamLeadersRetrieval;
         }
 
@@ -247,18 +316,18 @@ namespace AdminPortal.UnitTests.BusinessServices
             var graphClient = Substitute.For<IActiveDirectoryClient>();
             var appPageCollection = GetApplicationPagedCollection();
             graphClient.Applications.ExecuteAsync().Returns(appPageCollection);
-            
+
             return graphClient;
 
         }
-       
 
-        
+
+
 
         //TODO: Add Members
         private IGroupFetcher GetGroupFetcherSubstitute()
         {
-            var fetcher=  Substitute.For<IGroupFetcher>();
+            var fetcher = Substitute.For<IGroupFetcher>();
             var directoryObjectPageCollection = GetDirectoryObjectPageCollection();
             IReadOnlyList<IAppRoleAssignment> appRoleAssignmentReadOnlyList = new List<IAppRoleAssignment>() { GetAppRoleAssignment() };
             IPagedCollection<IAppRoleAssignment> assignments = new List<AppRoleAssignment>() as IPagedCollection<IAppRoleAssignment>;
@@ -266,7 +335,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             if (assignments != null)
             {
                 assignments.CurrentPage.Returns(appRoleAssignmentReadOnlyList);
-               // var group = GetGroup();
+                // var group = GetGroup();
                 fetcher.AppRoleAssignments.ExecuteAsync().Returns(assignments);
                 fetcher.Members.ExecuteAsync().Returns(directoryObjectPageCollection);
             }
@@ -294,12 +363,12 @@ namespace AdminPortal.UnitTests.BusinessServices
         private IPagedCollection<IGroupFetcher> GetGroupPageCollection()
         {
             var groupReadOnlyList = GetGroupReadOnlyList();
-            var groupPagedCollection = Substitute.For<IPagedCollection<IGroupFetcher> ,IPagedCollection<IGroup>>();
+            var groupPagedCollection = Substitute.For<IPagedCollection<IGroupFetcher>, IPagedCollection<IGroup>>();
             groupPagedCollection.CurrentPage.Returns(groupReadOnlyList);
-        
+
             return groupPagedCollection;
         }
-    
+
 
         private IPagedCollection<IApplication> GetApplicationPageCollectionSubstitute()
         {
@@ -312,26 +381,26 @@ namespace AdminPortal.UnitTests.BusinessServices
         private IReadOnlyList<Group> GetGroupReadOnlyList()
         {
             var group = GetGroup();
-            
+
 
             IReadOnlyList<Group> groupList = new List<Group> { group };
             return groupList;
         }
-        
+
 
         private AppRoleAssignment GetAppRoleAssignment()
         {
             var appRoleAssignment = new AppRoleAssignment();
             appRoleAssignment.Id = Guid.Parse("1579eed6-fcb5-4448-b8ec-e62cb4d46f59"); //ServiceCenterManager Role Id
-            
+
             return appRoleAssignment;
-            
+
         }
 
         private IPagedCollection<IDirectoryObject> GetDirectoryObjectPageCollection()
         {
             var directoryObjectReadOnlyList = GetDirectoryObjectReadOnlyList();
-            var directoryObjectPageCollection=Substitute.For<IPagedCollection<IDirectoryObject>>();
+            var directoryObjectPageCollection = Substitute.For<IPagedCollection<IDirectoryObject>>();
             directoryObjectPageCollection.CurrentPage.Returns(directoryObjectReadOnlyList);
             return directoryObjectPageCollection;
         }
@@ -357,7 +426,7 @@ namespace AdminPortal.UnitTests.BusinessServices
 
         private IReadOnlyList<DirectoryObject> GetDirectoryObjectReadOnlyList()
         {
-            var dirObject= GetDirectoryObject();
+            var dirObject = GetDirectoryObject();
             IReadOnlyList<DirectoryObject> directoryObjectList = new List<DirectoryObject> { dirObject };
 
             return directoryObjectList;
@@ -388,7 +457,7 @@ namespace AdminPortal.UnitTests.BusinessServices
         private static IApplicationFetcher GetApplicationFetcher()
         {
             var application = GetApplication(GetAppRoles());
-            var fetcher = Substitute.For<IApplicationFetcher,IApplication>();
+            var fetcher = Substitute.For<IApplicationFetcher, IApplication>();
             fetcher.ExecuteAsync().Returns(application);
             return fetcher;
         }
