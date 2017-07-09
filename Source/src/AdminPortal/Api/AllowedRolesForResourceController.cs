@@ -50,9 +50,10 @@ namespace AdminPortal.Api
         [Microsoft.AspNetCore.Mvc.HttpGet("GetTeamNameForUser")]
         public string GetTeamNameForUser()
         {
+            //https://www.simple-talk.com/cloud/security-and-compliance/azure-active-directory-part-4-group-claims/
             var usrClaims = ((ClaimsIdentity)User?.Identity)?.Claims;
 
-            //TODO: Need to check with Alvin? User can belong to multiple Groups
+         
             var groupIds = usrClaims
                 ?.Where(c => c.Type == "groups")?.Select(c => c.Value);
 
