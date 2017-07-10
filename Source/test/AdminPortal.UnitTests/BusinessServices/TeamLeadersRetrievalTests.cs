@@ -20,19 +20,21 @@ namespace AdminPortal.UnitTests.BusinessServices
     public class TeamLeadersRetrievalTests
     {
 
-        [TestMethod, Ignore] //TODO: Working
+        [TestMethod] //TODO: Working
         public async Task TeamLeadersRetrieval_ServiceCenterManagerRoleId_ReturnsEmailList()
         {
             //Arrange
             var loggedInUser = PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterRole();
-            ITeamLeadersRetrieval teamLeadersRetrieval = GetTeamLeadersRetrieval();
+            var activeGraphClientHelper = GetGraphHelperWithGroupMembers();
+            ITeamLeadersRetrieval teamLeadersRetrieval = GetTeamLeadersRetrieval(activeGraphClientHelper);
 
             //Act
             IEnumerable<string> emailList = await teamLeadersRetrieval.GetServiceCenterTeamLeaderEmailListAsync(loggedInUser);
 
             //Assert
             teamLeadersRetrieval.Should().NotBeNull();
-
+            emailList.Should().NotBeNull();
+            emailList.Count().Should().Be(0); //TODO: working it should be 1
         }
 
         [TestMethod]
@@ -109,6 +111,7 @@ namespace AdminPortal.UnitTests.BusinessServices
 
         }
 
+        #region Graph Client
         private IActiveDirectoryGraphHelper GetGraphHelperWithNullGroupMembers()
         {
             var graphClient = GetGraphClientSubstituteWithNullGroupMembers();
@@ -121,6 +124,15 @@ namespace AdminPortal.UnitTests.BusinessServices
         private IActiveDirectoryGraphHelper GetGraphHelperWithNullServiceCenterManagerRoleId()
         {
             var graphClient = GetGraphClientSubstituteWithNullServiceCenterManagerRoleId();
+            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
+
+            activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
+            return activeGraphClientHelper;
+        }
+
+        private IActiveDirectoryGraphHelper GetGraphHelperWithGroupMembers()
+        {
+            var graphClient = GetGraphClientSubstituteWithGroupMembers();
             var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
 
             activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
@@ -144,6 +156,126 @@ namespace AdminPortal.UnitTests.BusinessServices
 
         }
 
+        private IActiveDirectoryClient GetGraphClientSubstituteWithGroupMembers()
+        {
+
+            var graphClient = Substitute.For<IActiveDirectoryClient>();
+            var pagedCollection = GetApplicationPagedCollection();
+            var groupSubstitute = GetGroupWithMembersSubstitute();
+            var directoryObjectPageCollection = GetDirectoryObjectPageCollection();
+
+            var applicationCollection = Substitute.For<IApplicationCollection>();
+            applicationCollection.ExecuteAsync().ReturnsForAnyArgs(pagedCollection);
+
+            graphClient.Applications.ReturnsForAnyArgs(applicationCollection);
+
+            graphClient.Groups[Arg.Any<string>()].ExecuteAsync().ReturnsForAnyArgs((IGroup)groupSubstitute);
+
+            graphClient.Groups[Arg.Any<string>()].Members.ExecuteAsync().Returns(directoryObjectPageCollection);
+
+
+            var result = graphClient.Groups[Arg.Any<string>()].ExecuteAsync().Result;
+            var fetcher = (IGroupFetcher)result;
+            var memberCollection = fetcher.Members.ExecuteAsync().Result;
+
+            // FOR DEBUGGING
+            //var applicationsFromAwait =AsyncSubstituteClient(graphClient);
+
+            //var graphClientApplications = graphClient.Applications;
+            //IPagedCollection<IApplication> appCollection = graphClientApplications.ExecuteAsync().Result;
+            //var morePagesAvailable = false;
+            //morePagesAvailable = appCollection.MorePagesAvailable;
+            //List<IApplication> applications = appCollection.CurrentPage.ToList();
+
+
+            // var applicationFetcher = GetApplicationFetcher();
+            //graphClient.Applications[Arg.Any<string>()].ReturnsForAnyArgs(applicationFetcher);
+
+            return graphClient;
+
+        }
+
+        private IGroupFetcher GetGroupSubstitute()
+        {
+            var group = Substitute.For<IGroupFetcher, IGroup>();
+            IPagedCollection<IDirectoryObject> groupMembers = Substitute.For<IPagedCollection<IDirectoryObject>>();
+            group.Members.ExecuteAsync().Returns(groupMembers);
+            return group;
+        }
+
+
+        private IGroupFetcher GetGroupWithMembersSubstitute()
+        {
+            var group = Substitute.For<IGroupFetcher, IGroup>();
+            var directoryObjectPageCollection = new List<DirectoryObject>() { GetDirectoryObject() };
+            IPagedCollection<IDirectoryObject> groupMembers = Substitute.For<IPagedCollection<IDirectoryObject>>();
+
+            IReadOnlyList<IAppRoleAssignment> appRoleAssignmentReadOnlyList = new List<IAppRoleAssignment>() { GetAppRoleAssignment() };
+            IList<AppRoleAssignment> assignments = new List<AppRoleAssignment>();
+            var currentPage = GetDirectoryObjectList();
+            groupMembers.CurrentPage.ReturnsForAnyArgs(currentPage);
+          
+            group.Members.ExecuteAsync().Returns(groupMembers);
+            return group;
+        }
+
+        private IReadOnlyList<IDirectoryObject> GetDirectoryObjectList()
+        {
+            var dirObj = Substitute.For<IDirectoryObject,User,IUserFetcher >();
+
+            var memberDirectoryObject = new DirectoryObject
+            {
+                ObjectType = "User",
+                ObjectId = ""
+
+            };
+            var userObject = new User()
+            {
+                AppRoleAssignments = new List<AppRoleAssignment>()
+                {
+                    GetAppRoleAssignment()
+                },
+                Mail ="scm.test@test"
+            };
+
+           // dirObj.
+         //   dirObj.ReturnsForAnyArgs((IDirectoryObject)memberDirectoryObject);
+         //  dirObj.ReturnsForAnyArgs((IUser) userObject);
+
+            IReadOnlyList<IDirectoryObject> directoryObjectList = new List<IDirectoryObject> { dirObj};//{ memberDirectoryObject };
+          
+            var currentPage= directoryObjectList.ToList();
+            foreach (var member in currentPage)
+            {
+                var test = (User) member;
+                if (member is User)
+                {
+                    IUser user = (IUser) member;
+                }
+            }
+
+            return directoryObjectList;
+        }
+
+
+        private IPagedCollection<IDirectoryObject> GetDirectoryObjectPageCollection()
+        {
+            var directoryObjectReadOnlyList = GetDirectoryObjectReadOnlyList();
+            var directoryObjectPageCollection = Substitute.For<IPagedCollection<IDirectoryObject>>();
+            directoryObjectPageCollection.CurrentPage.Returns(directoryObjectReadOnlyList);
+            return directoryObjectPageCollection;
+        }
+        private DirectoryObject GetDirectoryObject()
+        {
+            var memberDirectoryObject = new DirectoryObject
+            {
+                ObjectType = "User",
+                ObjectId = ""
+
+            };
+            return memberDirectoryObject;
+
+        }
         private IActiveDirectoryClient GetGraphClientSubstituteWithNullServiceCenterManagerRoleId()
         {
             var graphClient = Substitute.For<IActiveDirectoryClient>();
@@ -161,33 +293,6 @@ namespace AdminPortal.UnitTests.BusinessServices
 
             return graphClient;
 
-        }
-
-
-        private ITeamLeadersRetrieval GetTeamLeadersRetrieval(IActiveDirectoryGraphHelper activeGraphClientHelper)
-        {
-            var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
-            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
-
-            ITeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, activeGraphClientHelper);
-
-            return teamLeadersRetrieval;
-        }
-
-
-        private ITeamLeadersRetrieval GetTeamLeadersRetrieval()
-        {
-            var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
-            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
-
-            var graphClient = GetSubstituteForActiveDirectoryClient();//Substitute.For<IActiveDirectoryClient>();
-            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
-
-            activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
-
-            ITeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, activeGraphClientHelper);
-
-            return teamLeadersRetrieval;
         }
 
         private IActiveDirectoryClient GetSubstituteForActiveDirectoryClient()
@@ -229,19 +334,37 @@ namespace AdminPortal.UnitTests.BusinessServices
 
         }
 
+        #endregion
 
-        private IGroupFetcher GetGroupSubstitute()
+
+        private ITeamLeadersRetrieval GetTeamLeadersRetrieval(IActiveDirectoryGraphHelper activeGraphClientHelper)
         {
-            var group = Substitute.For<IGroupFetcher, IGroup>();
-            var directoryObjectPageCollection = new List<DirectoryObject>() { GetDirectoryObject() };
-            IPagedCollection<IDirectoryObject> groupMembers = Substitute.For<IPagedCollection<IDirectoryObject>>();
+            var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
+            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
 
-            IReadOnlyList<IAppRoleAssignment> appRoleAssignmentReadOnlyList = new List<IAppRoleAssignment>() { GetAppRoleAssignment() };
-            IList<AppRoleAssignment> assignments = new List<AppRoleAssignment>();
+            ITeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, activeGraphClientHelper);
 
-            group.Members.ExecuteAsync().Returns(groupMembers);
-            return group;
+            return teamLeadersRetrieval;
         }
+
+
+        private ITeamLeadersRetrieval GetTeamLeadersRetrieval()
+        {
+            var config = ConfigurationHelper.GetConfigurationSubsitituteForGraphAPIClient();
+            var groupToTeamNameMapper = BusinessServiceHelper.GetGroupToTeamNameMapper();
+
+            var graphClient = GetSubstituteForActiveDirectoryClient();//Substitute.For<IActiveDirectoryClient>();
+            var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
+
+            activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
+
+            ITeamLeadersRetrieval teamLeadersRetrieval = new TeamLeadersRetrieval(groupToTeamNameMapper, activeGraphClientHelper);
+
+            return teamLeadersRetrieval;
+        }
+
+
+
 
         //TODO
         private IActiveDirectoryClient GetSubstituteForActiveDirectoryClientApplicationAndGroups()
@@ -292,8 +415,6 @@ namespace AdminPortal.UnitTests.BusinessServices
             pagedCollection.MorePagesAvailable.ReturnsForAnyArgs(true);
             return pagedCollection;
         }
-       
-
 
         private TeamLeadersRetrieval InitializeTeamLeadersRetrieval()
         {
@@ -397,24 +518,9 @@ namespace AdminPortal.UnitTests.BusinessServices
 
         }
 
-        private IPagedCollection<IDirectoryObject> GetDirectoryObjectPageCollection()
-        {
-            var directoryObjectReadOnlyList = GetDirectoryObjectReadOnlyList();
-            var directoryObjectPageCollection = Substitute.For<IPagedCollection<IDirectoryObject>>();
-            directoryObjectPageCollection.CurrentPage.Returns(directoryObjectReadOnlyList);
-            return directoryObjectPageCollection;
-        }
 
-        private DirectoryObject GetDirectoryObject()
-        {
-            var memberDirectoryObject = new DirectoryObject
-            {
-                ObjectType = "User",
-                ObjectId = ""
-            };
-            return memberDirectoryObject;
 
-        }
+
         private IReadOnlyList<IApplication> GetApplicationReadOnlyList()
         {
             var appRoles = GetAppRoles();
@@ -424,13 +530,6 @@ namespace AdminPortal.UnitTests.BusinessServices
             return applicationList;
         }
 
-        private IReadOnlyList<DirectoryObject> GetDirectoryObjectReadOnlyList()
-        {
-            var dirObject = GetDirectoryObject();
-            IReadOnlyList<DirectoryObject> directoryObjectList = new List<DirectoryObject> { dirObject };
-
-            return directoryObjectList;
-        }
 
         private static IList<AppRole> GetAppRoles()
         {
@@ -462,5 +561,12 @@ namespace AdminPortal.UnitTests.BusinessServices
             return fetcher;
         }
 
+        private IReadOnlyList<DirectoryObject> GetDirectoryObjectReadOnlyList()
+        {
+            var dirObject = GetDirectoryObject();
+            IReadOnlyList<DirectoryObject> directoryObjectList = new List<DirectoryObject> { dirObject };
+
+            return directoryObjectList;
+        }
     }
 }
