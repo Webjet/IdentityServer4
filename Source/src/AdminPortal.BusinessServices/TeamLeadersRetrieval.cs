@@ -55,7 +55,7 @@ namespace AdminPortal.BusinessServices
             List<string> serviceCenterTeamLeads = null;
             try
             {
-                string applicationId = GetLoggedUserApplicationId(loggedUser);
+                var applicationId = _activeDirectoryGraphHelper.ApplicationId;//GetLoggedUserApplicationId(loggedUser);
                 Guid serviceCenterManagerRoleId = await GetRoleIdForServiceCenterManagerRoleAsync(applicationId);
 
                 if (serviceCenterManagerRoleId == Guid.Empty)

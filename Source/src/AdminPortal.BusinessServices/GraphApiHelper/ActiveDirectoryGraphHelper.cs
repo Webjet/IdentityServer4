@@ -14,7 +14,7 @@ namespace AdminPortal.BusinessServices.GraphApiHelper
     public interface IActiveDirectoryGraphHelper
     {
         IActiveDirectoryClient ActiveDirectoryClient { get; set; }
-
+        string ApplicationId { get; set; }
     }
 
 
@@ -31,6 +31,8 @@ namespace AdminPortal.BusinessServices.GraphApiHelper
             get;
             set;
         }
+
+        public string ApplicationId { get; set; }
 
         public IActiveDirectoryClient ActiveDirectoryClient
         {
@@ -49,6 +51,7 @@ namespace AdminPortal.BusinessServices.GraphApiHelper
         {
             _azureGraphAPI = config["Authentication:AzureAd:ResourceId"];
             _tenantId = config["Authentication:AzureAd:TenantId"];
+            ApplicationId = config["Authentication:AzureAd:ClientId"];
         }
 
         //active-directory-dotnet-graphapi-web

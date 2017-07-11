@@ -120,6 +120,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
 
             activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
+            activeGraphClientHelper.ApplicationId.Returns("43c42f66-e21c-4d89-a5ca-8a8ebc2be260");
             return activeGraphClientHelper;
         }
 
@@ -129,6 +130,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
 
             activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
+            activeGraphClientHelper.ApplicationId.Returns("43c42f66-e21c-4d89-a5ca-8a8ebc2be260");
             return activeGraphClientHelper;
         }
 
@@ -138,6 +140,7 @@ namespace AdminPortal.UnitTests.BusinessServices
             var activeGraphClientHelper = Substitute.For<IActiveDirectoryGraphHelper>();
 
             activeGraphClientHelper.ActiveDirectoryClient.Returns(graphClient);
+            activeGraphClientHelper.ApplicationId.Returns("43c42f66-e21c-4d89-a5ca-8a8ebc2be260");
             return activeGraphClientHelper;
         }
 
