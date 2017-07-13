@@ -170,20 +170,49 @@
             "Value": "[variables('Authentication:AzureAd:TenantId')]"
           },
           {
+            "Key": "Authentication:AzureAd:Audience",
+            "Value": "[variables('Authentication:AzureAd:Audience')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:userSecretsId",
+            "Value": "[variables('Authentication:AzureAd:userSecretsId')]"
+          },
+          {
             "Key": "LandingPageLayoutRelativePath",
             "Value": "[variables('LandingPageLayoutRelativePath')]"
           },
-	 {
+          {
             "Key": "ASPNETCORE_ENVIRONMENT",
             "Value": "[variables('ASPNETCORE_ENVIRONMENT')]"
           },
           {
             "Key": "ResourceToRolesMapRelativePath",
             "Value": "[variables('ResourceToRolesMapRelativePath')]"
+          },
+          {
+            "Key": "GroupToTeamNameMapRelativePath",
+            "Value": "[variables('GroupToTeamNameMapRelativePath')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:ResourceId",
+            "Value": "[variables('Authentication:AzureAd:ResourceId')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:TokenEndpoint",
+            "Value": "[variables('Authentication:AzureAd:TokenEndpoint')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:GrantType",
+            "Value": "[variables('Authentication:AzureAd:GrantType')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:Password",
+            "Value": "[variables('Authentication:AzureAd:Password')]"
+          },
+          {
+            "Key": "Authentication:AzureAd:UserName",
+            "Value": "[variables('Authentication:AzureAd:UserName')]"
           }
-		
-		 
-		  
         ],
 				"ResourceGroup":{
 					"Name" : "[variables('ResourceGroupName')]",
@@ -193,33 +222,33 @@
 					"Name" : "[variables('AppServicePlan')]",
 					"Location": "[variables('AppServicePlanLocation')]",
 					"Tier" : "Standard"
-				},
-				"Diagnostics" : {
-					"FailedRequestTracing" : "true",
-					"DetailedErrorMessages" : "true",
-					 "ApplicationLoggingBlob" : {
-						"Enabled" : "true",
-						"Level" : "Error",
-						"StorageAccount" : {
-							"Name": "[variables('DiagnosticStorageAccountName')]",
-							"ContainerName" : "[variables('DiagnosticStorageContainerName')]",
-							"ResourceGroupName" : "[variables('ResourceGroupNameLog')]"
-						}
-					},
-					 "HTTPLoggingBlob" : {
-						"Mode" : "Storage",
-						"StorageAccount" : {
-							"Name": "[variables('DiagnosticStorageAccountName')]",
-							"ContainerName" : "[variables('DiagnosticStorageContainerName')]",
-							"ResourceGroupName" : "[variables('ResourceGroupNameLog')]"
-						}
-					},
-					"ApplicationLoggingTable" : {
-						"Enabled" : "false",
-						"TableSasUrl" : "",
-						"Level" : "Verbose"
-					}
 				}
+				//"Diagnostics" : {
+				//	"FailedRequestTracing" : "true",
+				//	"DetailedErrorMessages" : "true",
+				//	 "ApplicationLoggingBlob" : {
+				//		"Enabled" : "true",
+				//		"Level" : "Error",
+				//		"StorageAccount" : {
+				//			"Name": "[variables('DiagnosticStorageAccountName')]",
+				//			"ContainerName" : "[variables('DiagnosticStorageContainerName')]",
+				//			"ResourceGroupName" : "[variables('ResourceGroupNameLog')]"
+				//		}
+				//	},
+				//	 "HTTPLoggingBlob" : {
+				//		"Mode" : "Storage",
+				//		"StorageAccount" : {
+				//			"Name": "[variables('DiagnosticStorageAccountName')]",
+				//			"ContainerName" : "[variables('DiagnosticStorageContainerName')]",
+				//			"ResourceGroupName" : "[variables('ResourceGroupNameLog')]"
+				//		}
+				//	},
+				//	"ApplicationLoggingTable" : {
+				//		"Enabled" : "false",
+				//		"TableSasUrl" : "",
+				//		"Level" : "Verbose"
+				//	}
+				//}
 			}
 		}
    ]

@@ -10,7 +10,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://DevCIapi.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://DevCIapi.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
@@ -35,7 +35,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://DevCIapi.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://DevCIapi.webjet.co.NZ/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSection" Text="Campaigns " >
@@ -60,7 +60,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://DevCIapi.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://DevCIapi.Zuji.com.au/ZujiTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSection" Text="Campaigns " >
@@ -85,7 +85,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://devtest02api.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://devtest02api.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
@@ -110,7 +110,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://devtest02api.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://devtest02api.webjet.co.NZ/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSection" Text="Campaigns " >
@@ -135,7 +135,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://devtest02api.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://devtest02api.Zuji.com.au/ZujiTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSection" Text="Campaigns " >
@@ -160,7 +160,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://DevTest01api.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://DevTest01api.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >
@@ -185,7 +185,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://DevTest01api.webjet.co.NZ/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://DevTest01api.webjet.co.NZ/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSection" Text="Campaigns " >
@@ -210,7 +210,7 @@
       <MenuItem Text="Administration"    Key ="FareEscalationManualBookings" Link="https://DevTest01api.Zuji.com.au/ZujiTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information" Key ="CustomerDrilldown" Link="https://DevTest01api.Zuji.com.au/ZujiTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSection" Text="Campaigns " >
@@ -230,13 +230,14 @@
   
   <LandingPageTab Key ="WebjetAU_Local" Text ="Local Webjet AU">
     <Section Key ="ServiceCentreSectionAU" Text="Service Centre Activities " >
+      <MenuItem Text="ItineraryDetails  "           Key ="ItineraryDetails"  Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=ItineraryDetails&amp;ItineraryId=107711" />
       <MenuItem Text="Pending  "           Key ="PendingItems"  Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=ReviewPendingBookings" />
       <MenuItem Text="Search Booking  "    Key ="SearchBooking" Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=CancelConfirmedBookings" />
       <MenuItem Text="Administration  "    Key ="FareEscalationManualBookings" Link="https://local.webjet.com.au/WebjetTSA/NewSession.aspx?PageID=PendingItems&amp;EditViewMode=FareEscalationManualBookings" />
       <MenuItem Text="Customer Information  " Key ="CustomerDrilldown" Link="https://local.webjet.com.au/WebjetTSA/Admin/ReportFrame.aspx?height=220&amp;capture=../Admin/CustomerDrillDown.aspx" />
       <MenuItem Text="iKnow"                Key ="iKnow" Link="https://webjet:webjet@webjet-iknow.inbenta.com" RegionIndicator="ALL"  />
-      <MenuItem Text="Google Analytics Customer Journey (in Macquarie)" Key ="GoogleBigQueryItinerary"  Link="http://172.28.118.2/" RegionIndicator="ALL" />
-      <MenuItem Text="Google Analytics Customer Journey (in Azure -Required CORS-Not implemented) " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey (in Macquarie)" Key ="GoogleBigQueryItinerary"  Link="https://172.28.118.2/" RegionIndicator="ALL" />
+      <MenuItem Text="Google Analytics Customer Journey (in Azure) " Key ="GoogleBigQueryItinerary"  Link="ViewHtml/GoogleBigQueryItinerary" RegionIndicator="ALL" />
     </Section>
 
     <Section Key ="ProductTeamSectionAU" Text="Campaigns " >

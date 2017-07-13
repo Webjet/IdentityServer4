@@ -34,6 +34,24 @@ namespace AdminPortal.UnitTests.Controllers
             result.ViewData["GoogleBigQueryHostUrl"].Should().Be("http://127.0.0.1:5000/api/v1.0/query");
         }
 
+        [TestMethod()]
+        public void GoogleBigQueryItinerary_ReplaceGoogleAnalyticsCustomerJourneyStaticUrls_AllStaticUrlReplaced()
+        {
+            //Arrange
+            var config = ConfigurationHelper.GetConfigurationSubsitituteForViewHtmlController();
+            object[] args = new object[] { config };
+            var controller = ControllerAssertions.ArrangeController<ViewHtmlController>(args);
+            
+            //Act
+            var result = controller.GoogleBigQueryItinerary() as ViewResult;
+
+            //Assert
+            var htmlContent = result.ViewData["HtmlContent"].ToString();
+            htmlContent.Should().NotContain("src=\"static/");
+            htmlContent.Should().NotContain("href=\"static/");
+            htmlContent.Should().Contain("script src=\"http://localhost/GoogleAnalyticsCustomerJourney/Static/");
+            htmlContent.Should().Contain("href=\"http://localhost/GoogleAnalyticsCustomerJourney/Static/");
+        }
 
         [TestMethod()]
         public void GenerateRandomNumberTest()

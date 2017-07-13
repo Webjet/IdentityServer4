@@ -28,18 +28,21 @@ namespace AdminPortal.UnitTests.TestUtilities
             //config["GenerateRandomNumberDirectoryPath"].Returns(generateRandomNumberDirectoryPath);
             //config["GoogleBigQueryHostUrl"].Returns(googleBigQueryHostUrl);
 
-           
-            var controller = (T)Activator.CreateInstance(typeof(T), args); // to add args , see  http://stackoverflow.com/questions/840261/passing-arguments-to-c-sharp-generic-new-of-templated-type
-            controller.ControllerContext = new ControllerContext()
-            {
-                HttpContext =
+            var httpContext =
                     new DefaultHttpContext()
                     {
                         User =
                             PrincipalStubBuilder.GetClaimPrincipalWithServiceCenterAnalyticsAndFinanceRoles()
-                    }
-            };
+                    };
 
+            httpContext.Request.Scheme = "http";
+            httpContext.Request.Host = new HostString("localhost");
+
+            var controller = (T)Activator.CreateInstance(typeof(T), args); // to add args , see  http://stackoverflow.com/questions/840261/passing-arguments-to-c-sharp-generic-new-of-templated-type
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = httpContext
+            };            
 
             return controller;
         }

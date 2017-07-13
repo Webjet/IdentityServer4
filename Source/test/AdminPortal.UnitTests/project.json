@@ -10,6 +10,7 @@
     "Microsoft.AspNetCore.Http": "1.1.0",
     "Microsoft.AspNetCore.Identity": "1.1.0",
     "Microsoft.AspNetCore.Mvc": "1.1.1",
+    "Microsoft.Azure.ActiveDirectory.GraphClient": "2.1.1",
     "Microsoft.Extensions.Configuration": "1.1.0",
     "Microsoft.Extensions.Configuration.Binder": "1.1.0",
     "MSTest.TestFramework": "1.0.8-rc2",
@@ -24,12 +25,18 @@
       //  "AdminPortal.BusinessServices": {
       //    "target": "project"
       //  }
-        //"Webjet.DotNet.Common": {
-        //  "target": "project"
-        //}
-        // "imports": "dnxcore50"
+      //"Webjet.DotNet.Common": {
+      //  "target": "project"
+      //}
+      // "imports": "dnxcore50"
       //}
     }
+  },
+
+  "buildOptions": {
+    "copyToOutput": [
+      "../../src/AdminPortal/Views/ViewHtml/GoogleAnalyticsCustomerJourney/Templates/index.html"
+    ]
   }
 }
 
