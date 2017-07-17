@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--this file is used for both UAT and Production environment-->
 
 <GroupToTeamNameMap>
 
   <!--ServiceCenter-->
   <GroupToTeamName GroupId="477e0a8d-cb72-4487-b336-6cb93a1c2bb1" GroupName="CORPWJ_AZ_ServiceCentre" TeamName="MEL" />
-  <GroupToTeamName GroupId="a58ab964-f98a-460b-9616-7d9ed759bb34" GroupName="CORPWJ_AZ_IGTManila" TeamName="MNL" />
+  <GroupToTeamName GroupId="a58ab964-f98a-460b-9616-7d9ed759bb34" GroupName="CORPWJ_AZ_IGTManila" TeamName="IGT MANILA" />
   <GroupToTeamName GroupId="c2cac26b-b730-4db3-a129-f9d5844c1462" GroupName="CORPWJ_AZ_IGTIndia" TeamName="IND" />
+  <GroupToTeamName GroupId="b15ca8a5-5ecd-4565-a925-69d6df306bda" GroupName="CORPWJ_AZ_TeletechManila" TeamName="TELETECH" />
 
   <!--For Debugging UAT-->
   <GroupToTeamName GroupId="0d177131-d759-4ff5-ac86-d040e95b2b83" GroupName="CORPWJ_AZ_AdminTeam" TeamName="ADM" />
