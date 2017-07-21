@@ -22,34 +22,36 @@
     "Authentication:AzureAd:userSecretsId": "BuAIZdge7qO5arVK/5i4dNjgWx3OKtUWp8JniOVlr8c=",
     "Authentication:AzureAd:ResourceId": "https://graph.windows.net",
     "Authentication:AzureAd:TokenEndpoint": "https://login.windows.net/0f79d43c-098d-49b1-b8bc-4c9107c64dd4/oauth2/token",
-    "Authentication:AzureAd:GrantType": "password",
-    "Authentication:AzureAd:Password": "ADMTest1", // TODO:: Need to use generic application password, find different way how to to do
-    "Authentication:AzureAd:UserName": "Kajal.Bhatia@mfreidgeimwebjetcom.onmicrosoft.com",  //TODO: Need to find way 
-    //    "NewRelic.AppName": "WJ-Dev-AdminPortal",
-    //    "NEWRELIC_LICENSEKEY": "dac6eb61fde6242216562aa4fc2de1c1092c3519",
-    //    "NEWRELIC_HOME": "D:\\Home\\site\\wwwroot\\newrelic",
-    //"COR_PROFILER_PATH": " D:\\Home\\site\\wwwroot\\newrelic\\NewRelic.Profiler.dll ",
-    //"COR_PROFILER": "{71DA0A04-7777-4EC6-9643-7D28B46A8A41}",
-    //"COR_ENABLE_PROFILING": "1",
+    "Serilog.WriteTo.Name": "SumoLogic",
+    "Serilog.WriteTo.Args.collectorUrl": "https://collectors.au.sumologic.com/receiver/v1/http/ZaVnC4dhaV1J2pyXpEbE5-Uy06u0Nfz77oMcDfadj8XMiaokXbYDZ0tbjehOzJop0cOqJ5z0OQQwSFqxPg0D4ZRprlDYdnzDxTU8J-asH5dvBASrZ4z06Q==",
     "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "logging.application_name": "WJ-Dev-AdminPortal",
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "BuildVersion": "{Teamcity-Parameter-BuildVersion}",
+    "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.Local.xml",
+    "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.Local.xml",
+    "GroupToTeamNameMapRelativePath": "Config\\GroupToTeamNameMap.Local.xml",
+    "ASPNETCORE_ENVIRONMENT": "Development",
+    "GoogleBigQueryHostUrl": "http://127.0.0.1:5000/api/v1.0/query"
+
+
+    //"NewRelic.AppName": "WJ-Dev-AdminPortal",
+    //"NEWRELIC_LICENSEKEY": "dac6eb61fde6242216562aa4fc2de1c1092c3519",
+    //"NEWRELIC_HOME": "D:\\Home\\site\\wwwroot\\newrelic",
+    //"COR_PROFILER_PATH": " D:\\Home\\site\\wwwroot\\newrelic\\NewRelic.Profiler.dll ",
+    //"COR_PROFILER": "{71DA0A04-7777-4EC6-9643-7D28B46A8A41}",
+    //"COR_ENABLE_PROFILING": "1",
     //"DiagnosticStorageAccountName": "wjdevstglogsau",
     //"DiagnosticStorageContainerName": "wj-dev-adminportal", //lower case letter, number or dash with no consecutive dashes and is 3 through 63 characters long.
 
-
-    /*   "TrafficManagerName":"WJZU-Dev-FlightMerchandisingTM",
+    /*   
+     "TrafficManagerName":"WJZU-Dev-FlightMerchandisingTM",
 		"TrafficManagerEndpointName1" : "WJZU-Dev-API-FlightMerchandising-AU001",
 		"TrafficManagerEndpointName2" : "WJZU-Dev-API-FlightMerchandising-SG001",
 */
     //"LogStorageName": "wjdevstglogsau",
     //"LogStorageContainer": "wjdevstglogscnau",
     //"LogResourceGroupName": "WJ-Dev-LogsRG",
-    "LandingPageLayoutRelativePath": "Config\\LandingPageLayout.Local.xml",
-    "ResourceToRolesMapRelativePath": "Config\\ResourceToRolesMap.xml",
-    "GroupToTeamNameMapRelativePath": "Config\\GroupToTeamNameMap.xml",
-    "ASPNETCORE_ENVIRONMENT": "Development",
-    "GoogleBigQueryHostUrl": "http://127.0.0.1:5000/api/v1.0/query"
+
   }
 }

@@ -202,17 +202,14 @@
             "Value": "[variables('Authentication:AzureAd:TokenEndpoint')]"
           },
           {
-            "Key": "Authentication:AzureAd:GrantType",
-            "Value": "[variables('Authentication:AzureAd:GrantType')]"
+            "Key": "Serilog.WriteTo.Name",
+            "Value": "[variables('Serilog.WriteTo.Name')]"
           },
           {
-            "Key": "Authentication:AzureAd:Password",
-            "Value": "[variables('Authentication:AzureAd:Password')]"
-          },
-          {
-            "Key": "Authentication:AzureAd:UserName",
-            "Value": "[variables('Authentication:AzureAd:UserName')]"
+            "Key": "Serilog.WriteTo.Args.collectorUrl",
+            "Value": "[variables('Serilog.WriteTo.Args.collectorUrl')]"
           }
+
         ],
 				"ResourceGroup":{
 					"Name" : "[variables('ResourceGroupName')]",
