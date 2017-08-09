@@ -21,8 +21,8 @@
     "Authentication:AzureAd:userSecretsId": "2vxuvA+JqZ8RltoiLXuwssAvPdlAOyoAO3NxQww+xLY=",
     "Authentication:AzureAd:ResourceId": "https://graph.windows.net",
     "Authentication:AzureAd:TokenEndpoint": "https://login.windows.net/5de0e68c-0afd-4a67-b089-31f168aa4ca0/oauth2/token",
-    "Serilog.WriteTo.Name": "SumoLogic",
-    "Serilog.WriteTo.Args.collectorUrl": "https://collectors.au.sumologic.com/receiver/v1/http/ZaVnC4dhaV1EHrmHZhSluaiGUbvEPUaXnIVMFqQ-EOPvkckD9xySgRML5gCNSWQmro-P6FoQ_WFgyEtuxCzZbAJQ5fjce7ztjhUNwEEBEMMzMHkxOrRz7w==",
+    "Serilog:WriteTo:Name": "SumoLogic",
+    "Serilog:WriteTo:Args:collectorUrl": "https://collectors.au.sumologic.com/receiver/v1/http/ZaVnC4dhaV1EHrmHZhSluaiGUbvEPUaXnIVMFqQ-EOPvkckD9xySgRML5gCNSWQmro-P6FoQ_WFgyEtuxCzZbAJQ5fjce7ztjhUNwEEBEMMzMHkxOrRz7w==",
     "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
     "logging.application_name": "WJ-UAT-AdminPortal", //Shared with UAT
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjprodstglogsau;AccountKey=RaZuICVZ2yTmtc+OrSX8TGlKXj0SrGElAbOiU0VRXyas51x5G2t5wZKJgOOt8D7TbNFzNHRctindS0oxKaKOsg==",
