@@ -23,7 +23,7 @@
     "Authentication:AzureAd:ResourceId": "https://graph.windows.net",
     "Authentication:AzureAd:TokenEndpoint": "https://login.windows.net/0f79d43c-098d-49b1-b8bc-4c9107c64dd4/oauth2/token",
     "Serilog:WriteTo:0:Name": "SumoLogic", //https://stackoverflow.com/questions/37657320/how-to-override-an-asp-net-core-configuration-array-setting-using-environment-va
-    "Serilog:WriteTo:0:Args:collectorUrl": "https://collectors.au.sumologic.com/receiver/v1/http/ZaVnC4dhaV1EHrmHZhSluaiGUbvEPUaXnIVMFqQ-EOPvkckD9xySgRML5gCNSWQmro-P6FoQ_WFgyEtuxCzZbAJQ5fjce7ztjhUNwEEBEMMzMHkxOrRz7w==",
+    "Serilog:WriteTo:0:Args:collectorUrl": "https://collectors.au.sumologic.com/receiver/v1/http/ZaVnC4dhaV1J2pyXpEbE5-Uy06u0Nfz77oMcDfadj8XMiaokXbYDZ0tbjehOzJop0cOqJ5z0OQQwSFqxPg0D4ZRprlDYdnzDxTU8J-asH5dvBASrZ4z06Q==",
     "RootConfigurationBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
     "logging.application_name": "WJ-Dev-AdminPortal",
     "logging.ats.storage_account": "DefaultEndpointsProtocol=https;AccountName=wjdevstglogsau;AccountKey=L78NUETYCkdCfrcgCLnPjHT7Aa+cYNSj6hJ3DPFAYNzCzQQqCe5Pi3X5T26yPpCti4hlYZ9ZoDR+WKdOUrNqTg==",
