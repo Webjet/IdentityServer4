@@ -202,12 +202,12 @@
             "Value": "[variables('Authentication:AzureAd:TokenEndpoint')]"
           },
           {
-            "Key": "Serilog:WriteTo:Name",
-            "Value": "[variables('Serilog:WriteTo:Name')]"
+            "Key": "Serilog:WriteTo:0:Name",
+            "Value": "[variables('Serilog:WriteTo:0:Name')]"
           },
           {
-            "Key": "Serilog:WriteTo:Args:collectorUrl",
-            "Value": "[variables('Serilog:WriteTo:Args:collectorUrl')]"
+            "Key": "Serilog:WriteTo:0:Args:collectorUrl",
+            "Value": "[variables('Serilog:WriteTo:0:Args:collectorUrl')]"
           }
 
         ],
